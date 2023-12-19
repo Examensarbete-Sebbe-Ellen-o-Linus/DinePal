@@ -1,5 +1,5 @@
 import {IceCreamIcon} from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
+import {defineType} from 'sanity'
 
 export default defineType({
   name: 'colorTheme',
@@ -8,12 +8,12 @@ export default defineType({
   icon: IceCreamIcon,
 
   fields: [
-    // Title
-    defineField({
+    // Fyll på med textfärger, bakgrundsfärger, accentfärger, typografi osv
+    {
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
-    }),
+    },
   ],
 })
