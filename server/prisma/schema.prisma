@@ -11,7 +11,24 @@ datasource db {
 }
 
 model Post {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  body  String
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  body            String
+  rating          Float?
+  createdAt       DateTime @default(now()) // Default now is a chance, got it from copilot
+  updatedAt       DateTime @updatedAt // updatedAt is a chance, got it from copilot
+  author          User     @relation("userPostsRelation", fields: [id], references: [id])
+  UserIdFromLikes String[] @db.ObjectId // IDs of users who liked the post
+  likes           User[]   @relation("likesOnPost", fields: [UserIdFromLikes], references: [id])
+}
+
+model User {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String   @unique
+  password     String
+  admin        Boolean  @default(false)
+  posts        Post[]   @relation("userPostsRelation")
+  likedPostIDs String[] @db.ObjectId // IDs of posts this user liked
+  likedPosts   Post[]   @relation("likesOnPost", fields: [likedPostIDs], references: [id])
 }
