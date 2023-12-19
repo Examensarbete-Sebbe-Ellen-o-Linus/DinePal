@@ -1,0 +1,66 @@
+import {ImageIcon} from '@sanity/icons'
+import {defineType} from 'sanity'
+
+export default defineType({
+  name: 'galleryPage',
+  title: 'Gallery Page',
+  type: 'document',
+  icon: ImageIcon,
+  initialValue: {
+    title: 'Gallery',
+  },
+  groups: [
+    {
+      default: true,
+      name: 'gallery',
+      title: 'Gallery',
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+    },
+  ],
+
+  fields: [
+    {
+      name: 'gallery',
+      title: 'Gallery title',
+      type: 'string',
+      group: 'gallery',
+    },
+    {
+      name: 'galleryImgs',
+      title: 'Gallery Images',
+      description:
+        'Upload images of your restaurant’s ambiance and dishes. These photos will be showcased in the gallery on your page.',
+      type: 'array',
+      group: 'gallery',
+      of: [{type: 'image'}],
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'seo',
+      title: 'SEO Settings',
+      description:
+        'These settings will help improve the visibility of your gallery page in search engine results.',
+      type: 'object',
+      group: 'seo',
+      fields: [
+        {
+          name: 'metaTitle',
+          title: 'Meta Title',
+          description:
+            'This is the title that will appear in the search engine results for the gallery page. Keep it descriptive yet concise, such as "Explore Our Gallery | DinePal".',
+          type: 'string',
+        },
+        {
+          name: 'metaDescription',
+          title: 'Meta Description',
+          description:
+            'Write a summary of what visitors can expect to see in the gallery. Mention your restaurant’s name and include keywords that potential visitors might search for, like "View DinePal’s culinary delights and cozy dining atmosphere."',
+          type: 'text',
+        },
+      ],
+    },
+  ],
+})
