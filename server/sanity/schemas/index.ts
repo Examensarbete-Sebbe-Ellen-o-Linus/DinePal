@@ -1,6 +1,23 @@
-import {default as article} from './documents/article'
+import article from './documents/article'
 import colorTheme from './documents/colorTheme'
-import {default as menuItem} from './documents/menuItem'
-import {default as settings} from './documents/settings'
+import dish from './documents/dish'
+import settings from './documents/settings'
+import about from './objects/about'
+import button from './objects/button'
+import footer from './objects/footer'
+import hero from './objects/hero'
+import galleryPage from './pages/galleryPage'
+import homePage from './pages/homePage'
 
-export const schemaTypes = [article, menuItem, settings, colorTheme]
+export const schemaTypes = [
+  article,
+  dish,
+  homePage,
+  galleryPage,
+  hero,
+  about,
+  settings,
+  colorTheme,
+  footer,
+  button,
+]
