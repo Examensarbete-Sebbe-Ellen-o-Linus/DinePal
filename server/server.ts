@@ -18,7 +18,7 @@ async function main() {
 }
 
 main()
-  .catch((e) => {
+  .catch(e => {
     console.error(e.message);
   })
   .finally(async () => {

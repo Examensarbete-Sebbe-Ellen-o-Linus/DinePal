@@ -1,9 +1,9 @@
 {
+  "scripts": {
+    "formatC": "prettier --check \"{client,server}/**/*.{ts,tsx,js,jsx}\"",
+    "formatW": "prettier --write \"{client,server}/**/*.{ts,tsx,js,jsx}\""
+  },
   "dependencies": {
     "prettier": "^3.1.1"
-  },
-
-  "scripts": {
-    "format": "prettier --check \"{client,server}/**/*.{ts,tsx,js,jsx}\"",
   }
 }
