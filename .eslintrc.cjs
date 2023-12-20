@@ -14,5 +14,22 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    '@typescript-eslint/no-explicit-any': 1,
   },
+  overrides: [
+    {
+      files: ['client/**/*.{ts,tsx,css}'],
+      env: {
+        browser: true,
+        node: false,
+      },
+    },
+    {
+      files: ['server/**/*.{ts,tsx,css}'],
+      env: {
+        browser: false,
+        node: true,
+      },
+    },
+  ],
 };
