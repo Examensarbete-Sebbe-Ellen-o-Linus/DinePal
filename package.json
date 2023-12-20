@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "formatC": "prettier --check \"{client,server}/**/*.{ts,tsx,css}\"",
-    "formatW": "prettier --write \"{client,server}/**/*.{ts,tsx,css}\""
+    "formatCheck": "prettier --check \"{client,server}/**/*.{ts,tsx,css}\"",
+    "formatWrite": "prettier --write \"{client,server}/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
     "prettier": "^3.1.1"
