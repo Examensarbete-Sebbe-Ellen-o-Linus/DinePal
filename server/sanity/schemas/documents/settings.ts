@@ -34,6 +34,13 @@ export default defineType({
           name: 'logo',
           title: 'Logo',
           type: 'image',
+          fields: [
+            {
+              name: 'alt',
+              title: 'Alt',
+              type: 'string',
+            },
+          ],
           description:
             'Upload your company logo here. It will be displayed in the header across the site.',
           validation: (Rule) => Rule.required(),

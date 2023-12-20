@@ -27,6 +27,13 @@ export default defineType({
       title: 'Image',
       type: 'image',
       description: 'Upload an image that represents the dish attractively.',
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt',
+          type: 'string',
+        },
+      ],
       options: {
         hotspot: true,
       },

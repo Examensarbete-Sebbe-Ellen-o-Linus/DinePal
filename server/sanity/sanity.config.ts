@@ -13,7 +13,7 @@ const singletonTypes = new Set(['settings'])
 export default defineConfig({
   title: 'Dine Pal',
 
-  projectId: process.env.SANITY_PROJECTID!,
+  projectId: 'xjj2ak5d',
   dataset: 'production',
 
   plugins: [

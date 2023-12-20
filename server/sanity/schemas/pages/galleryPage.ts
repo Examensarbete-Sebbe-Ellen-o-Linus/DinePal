@@ -35,7 +35,19 @@ export default defineType({
         'Upload images of your restaurant’s ambiance and dishes. These photos will be showcased in the gallery on your page.',
       type: 'array',
       group: 'gallery',
-      of: [{type: 'image'}],
+
+      of: [
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'alt',
+              title: 'Alt',
+              type: 'string',
+            },
+          ],
+        },
+      ],
       validation: (Rule) => Rule.required(),
     },
     {

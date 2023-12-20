@@ -1,29 +1,36 @@
-import {defineField, defineType} from 'sanity'
+import {ClipboardImageIcon} from '@sanity/icons'
+import {defineType} from 'sanity'
 
-// schemas/article.ts
 export default defineType({
   name: 'article',
   type: 'document',
   title: 'Article',
-
+  icon: ClipboardImageIcon,
   fields: [
-    defineField({
+    {
       name: 'image',
       title: 'Image',
       type: 'image',
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt',
+          type: 'string',
+        },
+      ],
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
+    },
+    {
       name: 'title',
       title: 'Title',
       type: 'string',
-    }),
-    defineField({
+    },
+    {
       name: 'description',
       title: 'Description',
       type: 'text',
-    }),
+    },
   ],
 })
