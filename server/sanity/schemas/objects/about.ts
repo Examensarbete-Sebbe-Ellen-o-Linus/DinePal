@@ -29,7 +29,9 @@ export default defineType({
         {
           name: 'alt',
           title: 'Alt',
+          description: 'Provide an descriptive text which conveys the content of the image',
           type: 'string',
+          validation: (Rule) => Rule.required(),
         },
       ],
       options: {

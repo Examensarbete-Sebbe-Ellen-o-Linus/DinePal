@@ -4,7 +4,7 @@ import {IHomePage} from '../../client/src/interfaces'
 export const client = createClient({
   projectId: 'xjj2ak5d',
   dataset: 'production',
-  useCdn: false,
+  useCdn: true,
   apiVersion: '2023-12-20',
 })
 
@@ -45,7 +45,7 @@ const fetchDocumentByType = async (type: string, selections: string): Promise<an
 export const fetchHomePageData = async (): Promise<IHomePage> => {
   const additionalSelections = `
       title,
-      hero { ${imageSelection}, ${buttonSelection}, description },
+      hero { title, ${imageSelection}, ${buttonSelection}, description },
       selectedDishes[]-> { title, description, ${imageSelection}, tags[] },
       about { title, description, ${imageSelection}, ${buttonSelection} },
       seo { metaTitle, metaDescription }

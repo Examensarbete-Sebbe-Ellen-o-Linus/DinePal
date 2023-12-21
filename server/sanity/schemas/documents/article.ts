@@ -23,14 +23,10 @@ export default defineType({
       },
     },
     {
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-    },
-    {
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'array',
+      of: [{type: 'block'}],
     },
   ],
 })

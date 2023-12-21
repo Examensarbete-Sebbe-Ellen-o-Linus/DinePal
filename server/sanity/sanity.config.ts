@@ -45,6 +45,7 @@ export default defineConfig({
 
             // Regular document types
             S.documentTypeListItem('dish').title('Dish'),
+            S.documentTypeListItem('article').title('Article'),
             S.documentTypeListItem('colorTheme').title('Color themes'),
           ]),
     }),
