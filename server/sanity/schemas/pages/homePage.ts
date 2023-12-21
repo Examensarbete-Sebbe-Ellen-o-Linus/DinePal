@@ -67,6 +67,8 @@ export default defineType({
           name: 'metaTitle',
           title: 'Meta Title',
           type: 'string',
+          validation: (Rule) =>
+            Rule.max(60).warning('The meta title should be under 60 characters'),
           description:
             'Enter a title for SEO, ideally under 60 characters. E.g. "DinePal: Gourmet Cuisine & Casual Dining".',
         },
@@ -74,8 +76,10 @@ export default defineType({
           name: 'metaDescription',
           title: 'Meta Description',
           description:
-            'Provide a brief description of your restaurant and its offerings. Keep it under 160 characters to optimize for search engines. E.g. "Explore DinePal’s unique flavors, from classic comfort foods to adventurous new dishes."',
+            'Provide a brief description under 160 characters of your restaurant and its offerings. E.g. "Explore DinePal’s unique flavors, from classic comfort foods to adventurous new dishes."',
           type: 'text',
+          validation: (Rule) =>
+            Rule.max(160).warning('The meta desciption should be under 160 characters'),
         },
       ],
     },

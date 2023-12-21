@@ -51,6 +51,16 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'gallery',
+        maxLength: 200,
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+      },
+    },
+    {
       name: 'seo',
       title: 'SEO Settings',
       description:
@@ -61,15 +71,20 @@ export default defineType({
         {
           name: 'metaTitle',
           title: 'Meta Title',
+
           description:
-            'This is the title that will appear in the search engine results for the gallery page. Keep it descriptive yet concise, such as "Explore Our Gallery | DinePal".',
+            'Provide a title under 60 characters of the gallery page. Keep it descriptive yet concise, such as "Explore Our Gallery | DinePal".',
+          validation: (Rule) =>
+            Rule.max(60).warning('The meta title should be under 160 characters'),
           type: 'string',
         },
         {
           name: 'metaDescription',
           title: 'Meta Description',
           description:
-            'Write a summary of what visitors can expect to see in the gallery. Mention your restaurant’s name and include keywords that potential visitors might search for, like "View DinePal’s culinary delights and cozy dining atmosphere."',
+            'Write a summary of maximum 160 characters of what visitors can expect to see in the gallery.  like "View DinePal´s culinary delights and cozy dining atmosphere."',
+          validation: (Rule) =>
+            Rule.max(160).warning('The meta desciption should be under 160 characters'),
           type: 'text',
         },
       ],
