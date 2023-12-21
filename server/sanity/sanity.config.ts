@@ -12,9 +12,9 @@ const singletonTypes = new Set(['settings'])
 
 export default defineConfig({
   title: 'Dine Pal',
-
   projectId: 'xjj2ak5d',
   dataset: 'production',
+  apiVersion: '2023-12-20',
 
   plugins: [
     deskTool({

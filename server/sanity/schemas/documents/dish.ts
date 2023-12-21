@@ -26,7 +26,7 @@ export default defineType({
       name: 'image',
       title: 'Image',
       type: 'image',
-      description: 'Upload an image that represents the dish attractively.',
+      description: 'Upload an image that represents the dish.',
       fields: [
         {
           name: 'alt',
@@ -51,15 +51,12 @@ export default defineType({
       type: 'array',
       title: 'Tags for item',
       description:
-        'Add tags that describe the dish such as "Gluten-free", "Vegan", or "Spicy". These help customers filter dishes based on their dietary preferences.',
+        'Add tags that describe the dish such as "Gluten-free", "Vegan", or "Spicy" to describe the dish.',
       of: [
         {
           type: 'object',
           name: 'tag',
-          fields: [
-            {type: 'string', name: 'label'},
-            {type: 'string', name: 'value'},
-          ],
+          fields: [{type: 'string', name: 'label'}],
         },
       ],
     },
