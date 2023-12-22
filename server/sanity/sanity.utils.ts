@@ -1,4 +1,4 @@
-import {createClient} from '@sanity/client'
+import {createClient} from 'next-sanity'
 import {IHomePage} from '../../client/src/app/interfaces'
 
 export const client = createClient({
