@@ -1,5 +1,5 @@
 import {createClient} from '@sanity/client'
-import {IHomePage} from '../../client/src/interfaces'
+import {IHomePage} from '../../client/src/app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',

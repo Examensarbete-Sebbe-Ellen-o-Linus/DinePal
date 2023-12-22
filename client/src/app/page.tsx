@@ -1,13 +1,15 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { fetchHomePageData } from "../../server/sanity/sanity.utils";
+import { fetchHomePageData } from "../../../server/sanity/sanity.utils";
 import { IHomePage } from "./interfaces";
 
-function App() {
+export default function Home() {
   const [homePageData, setHomePageData] = useState<IHomePage | null>(null);
   useEffect(() => {
     fetchHomePageData()
       .then((data) => {
-        console.log(data); // Check the data in the browser console
+        console.log(data);
         setHomePageData(data);
       })
       .catch((error) => {
@@ -59,5 +61,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
