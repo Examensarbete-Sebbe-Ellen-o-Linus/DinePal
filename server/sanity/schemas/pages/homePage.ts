@@ -1,9 +1,11 @@
 import {HomeIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
+const TITLE = 'Home Page'
+
 export default defineType({
   name: 'homePage',
-  title: 'Home Page',
+  title: TITLE,
   type: 'document',
   icon: HomeIcon,
   initialValue: {
@@ -84,4 +86,12 @@ export default defineType({
       ],
     },
   ],
+  preview: {
+    prepare() {
+      return {
+        subtitle: 'Index',
+        title: TITLE,
+      }
+    },
+  },
 })
