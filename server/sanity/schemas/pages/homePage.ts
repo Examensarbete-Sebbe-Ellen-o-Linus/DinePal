@@ -22,10 +22,6 @@ export default defineType({
       title: 'Selected dishes',
     },
     {
-      name: 'image',
-      title: 'Selected image',
-    },
-    {
       name: 'aboutUs',
       title: 'About us',
     },
