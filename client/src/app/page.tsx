@@ -1,21 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { fetchHomePageData } from "../../../server/sanity/sanity.utils";
-import { IHomePage } from "./interfaces";
 
-export default function Home() {
-  const [homePageData, setHomePageData] = useState<IHomePage | null>(null);
-  useEffect(() => {
-    fetchHomePageData()
-      .then((data) => {
-        console.log(data);
-        setHomePageData(data);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch data:", error);
-      });
-  }, []);
+export default async function Home() {
+  const homePageData = await fetchHomePageData();
 
   // Render loading state if data is not yet fetched
   if (!homePageData) {
