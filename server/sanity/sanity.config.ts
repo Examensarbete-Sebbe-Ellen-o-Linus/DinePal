@@ -30,7 +30,6 @@ export default defineConfig({
               .title('Settings')
               .id('settings')
               .icon(CogIcon)
-
               .child(S.document().schemaType('settings').documentId('settings')),
             S.listItem()
               .title('Home Page')

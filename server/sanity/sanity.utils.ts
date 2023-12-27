@@ -1,5 +1,5 @@
 import {createClient} from 'next-sanity'
-import {IHomePage} from '../../client/src/app/interfaces'
+import {IGalleryPage, IHomePage} from '../../client/src/app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -8,27 +8,7 @@ export const client = createClient({
   apiVersion: '2023-12-20',
 })
 
-// Function to fetch data with GROQ
-export const fetchHeroData = async () => {
-  const query = `*[_type == "homePage"][0]`
-  return await client.fetch(query)
-}
-
-// Common selection for images
-const imageSelection = `
-  "image": {
-    "alt": coalesce(image.alt, "No alt text"),
-    "url": image.asset->url
-  }
-`
-
-// Common selection for buttons
-const buttonSelection = `
-  "buttons": button[]{
-    actionType,
-    text
-  }
-`
+// ------------- Reusable queries ----------------
 
 // Reusable function to fetch documents by type with common selections
 const fetchDocumentByType = async (type: string, selections: string): Promise<any> => {
@@ -40,6 +20,26 @@ const fetchDocumentByType = async (type: string, selections: string): Promise<an
     throw error
   }
 }
+
+// Common selection for buttons
+const buttonSelection = `
+  "buttons": button[]{
+    actionType,
+    text
+  }
+`
+
+// Common selection for images nested in other documents
+const imageSelection = `
+  "image": {
+    "alt": coalesce(image.
+      alt, "No alt text"),
+    "url": image.asset->url,
+    "_key": string
+  }
+`
+
+// -------------- PAGES ----------------
 
 // Fetch homePage with common selections
 export const fetchHomePageData = async (): Promise<IHomePage> => {
@@ -53,11 +53,14 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
   return fetchDocumentByType('homePage', additionalSelections)
 }
 
-// Fetch homePage with common selections
-export const fetchGalleryPageData = async (): Promise<IHomePage> => {
+// Fetch galleryPage with common selections
+export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   const additionalSelections = `
-      title,
-      image[]
-    `
+  title,
+  "galleryImgs": galleryImgs[]{
+    "alt": coalesce(alt, "No alt text"),
+    "url": asset->url}
+  `
+  console.log(additionalSelections)
   return fetchDocumentByType('galleryPage', additionalSelections)
 }
