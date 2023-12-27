@@ -2,7 +2,6 @@
 export interface IImage {
   _type: "image";
   url: string;
-
   alt?: string;
 }
 
@@ -62,5 +61,13 @@ export interface IHomePage {
   hero: IHero;
   selectedDishes: IDish[];
   about: IAbout;
+  seo: ISEO;
+}
+
+// Gallery page
+export interface IGalleryPage {
+  _type: "galleryPage";
+  title: string;
+  galleryImgs: IImage[];
   seo: ISEO;
 }

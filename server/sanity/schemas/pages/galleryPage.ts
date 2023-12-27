@@ -25,26 +25,31 @@ export default defineType({
 
   fields: [
     {
-      name: 'gallery',
+      name: 'title',
       title: 'Gallery title',
       type: 'string',
       group: 'gallery',
     },
+
     {
       name: 'galleryImgs',
       title: 'Gallery Images',
-      description:
-        'Upload images of your restaurant’s ambiance and dishes. These photos will be showcased in the gallery on your page.',
-      type: 'array',
+      description: 'hi there',
       group: 'gallery',
-
+      type: 'array',
       of: [
         {
           type: 'image',
+          name: 'image',
+          title: 'Image',
+          options: {
+            hotspot: true,
+          },
           fields: [
             {
               name: 'alt',
-              title: 'Alt',
+              title: 'Alt Text',
+              description: 'Provide a descriptive text which conveys the content of the image',
               type: 'string',
             },
           ],
