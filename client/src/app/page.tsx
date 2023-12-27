@@ -1,4 +1,4 @@
-import { fetchHomePageData } from "../../../server/sanity/sanity.utils";
+import { fetchHomePageData } from '../../../server/sanity/sanity.utils';
 
 export default async function Home() {
   const homePageData = await fetchHomePageData();
@@ -13,7 +13,7 @@ export default async function Home() {
     <div>
       {/* Hero */}
       <section>
-        <h1>{hero.title}</h1>
+        <h3>{hero.title}</h3>
         {hero.description && <p>{hero.description}</p>}
         {hero.image && <img src={hero.image.url} alt={hero.image.alt}></img>}
         {hero.buttons &&
