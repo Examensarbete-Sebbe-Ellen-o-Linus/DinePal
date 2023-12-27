@@ -60,5 +60,13 @@ export default defineType({
         },
       ],
     },
+    {
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      description: 'Generate URL from product title by pressing the generate button',
+      options: {source: 'title'},
+      validation: (rule) => rule.required(),
+    },
   ],
 })
