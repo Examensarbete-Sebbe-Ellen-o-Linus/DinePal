@@ -1,5 +1,5 @@
 import {createClient} from 'next-sanity'
-import {IGalleryPage, IHomePage} from '../../client/src/app/interfaces'
+import {IDish, IGalleryPage, IHomePage} from '../../client/src/app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -63,4 +63,28 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   `
   console.log(additionalSelections)
   return fetchDocumentByType('galleryPage', additionalSelections)
+}
+
+// Fetch galleryPage with common selections
+export const fetchDishes = async (): Promise<IDish[]> => {
+  try {
+    const query = `*[_type == "dish"]`
+    return await client.fetch(query)
+  } catch (error) {
+    console.error('Error fetching ${dish}: ' + error)
+    throw error
+  }
+}
+
+// Fetch galleryPage with common selections
+export const fetchSingleDish = async (slug: string): Promise<IDish> => {
+  const query = `*[_type == "dish" && slug.current == $slug][0]{
+    _id,
+    title,
+    description,
+    image,
+    price,
+    tags[]
+  }`
+  return await client.fetch(query, {slug})
 }
