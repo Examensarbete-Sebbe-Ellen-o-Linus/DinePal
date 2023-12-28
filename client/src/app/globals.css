@@ -1,43 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
-:root {
-  /* White color palette */
-  --theme-color-white-0: #FEFEFE;
-  --theme-color-white-1: #FEFEFD;
-  --theme-color-white-2: #FCFCFB;
-  --theme-color-white-3: #F5F5F1; /* Main */
-  --theme-color-white-4: #DDDDD9;
-  --theme-color-white-5: #C4C4C1;
-  --theme-color-white-6: #B8B8B5;
-  --theme-color-white-7: #939391;
-  --theme-color-white-8: #6E6E6C;
-  --theme-color-white-9: #565654;
-
-  /* Black color palette */
-  --theme-color-black-0: #E9E9E9;
-  --theme-color-black-1: #DEDDDD;
-  --theme-color-black-2: #BABABA;
-  --theme-color-black-3: #221F1F; /* Main */
-  --theme-color-black-4: #1F1C1C;
-  --theme-color-black-5: #1B1919;
-  --theme-color-black-6: #1A1717;
-  --theme-color-black-7: #141313;
-  --theme-color-black-8: #0F0E0E;
-  --theme-color-black-9: #0C0B0B;
-
-  /* Orange color palette */
-  --theme-color-orange-0: #FFEFE6;
-  --theme-color-orange-1: #FFE6D9;
-  --theme-color-orange-2: #FFCCB0;
-  --theme-color-orange-3: #FF5B00; /* Main */
-  --theme-color-orange-4: #E65200;
-  --theme-color-orange-5: #CC4900;
-  --theme-color-orange-6: #BF4400;
-  --theme-color-orange-7: #993700;
-  --theme-color-orange-8: #732900;
-  --theme-color-orange-9: #592000;
-}
-
 * {
   margin:0;
   padding: 0;

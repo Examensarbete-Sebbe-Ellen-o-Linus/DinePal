@@ -1,6 +1,6 @@
-import { fetchHomePageData } from '../../../server/sanity/sanity.utils';
-
 import { Title } from '@mantine/core';
+
+import { fetchHomePageData } from '../../../server/sanity/sanity.utils';
 
 export default async function Home() {
   const homePageData = await fetchHomePageData();
