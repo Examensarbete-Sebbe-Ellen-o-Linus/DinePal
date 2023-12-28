@@ -1,5 +1,7 @@
 import { fetchHomePageData } from '../../../server/sanity/sanity.utils';
 
+import { Title } from '@mantine/core';
+
 export default async function Home() {
   const homePageData = await fetchHomePageData();
 
@@ -13,7 +15,7 @@ export default async function Home() {
     <div>
       {/* Hero */}
       <section>
-        <h3>{hero.title}</h3>
+        <Title order={1}>{hero.title}</Title>
         {hero.description && <p>{hero.description}</p>}
         {hero.image && <img src={hero.image.url} alt={hero.image.alt}></img>}
         {hero.buttons &&
