@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    padding: 8px 80px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: var(--mantine-color-black-3);
+    color: var(--mantine-color-white-3);
+    cursor: pointer;
+}
+
+.container:hover {
+    background: var(--mantine-color-white-9);
+}
+
+.container:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15); 
+    background: var(--mantine-color-white-8);
+}
+

@@ -4,6 +4,7 @@
   margin:0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
 html,
@@ -12,7 +13,8 @@ body {
   scrollbar-width: none; /* Firefox */
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  background: var(--theme-color-white-3);
+  background: var(--mantine-color-white-3);
+
 }
 
 body::-webkit-scrollbar {
@@ -24,8 +26,9 @@ body::-webkit-scrollbar {
 body, .mantine-Text-root {
   font-size: 18px;
   line-height: 1.5;
-  color: var(--theme-color-black-3)
+  color: var(--mantine-color-black-3);
 }
+
 
 a {
   color: inherit;
