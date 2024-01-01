@@ -3,6 +3,7 @@ export interface IImage {
   _type: "image";
   url: string;
   alt?: string;
+  link?: IButton;
 }
 
 // Button interface
@@ -60,6 +61,7 @@ export interface IHomePage {
   title: string;
   hero: IHero;
   selectedDishes: IDish[];
+  imageSection: IImageSection;
   about: IAbout;
   seo: ISEO;
 }
@@ -70,4 +72,13 @@ export interface IGalleryPage {
   title: string;
   galleryImgs: IImage[];
   seo: ISEO;
+}
+
+// Image section
+export interface IImageSection {
+  _type: "imageSection";
+  title?: string;
+  description: string;
+  imageCards: IImage[];
+  link: IButton;
 }

@@ -6,6 +6,7 @@ import about from './objects/about'
 import button from './objects/button'
 import footer from './objects/footer'
 import hero from './objects/hero'
+import imageSection from './objects/imageSection'
 import link from './objects/link'
 import galleryPage from './pages/galleryPage'
 import homePage from './pages/homePage'
@@ -22,4 +23,5 @@ export const schemaTypes = [
   footer,
   button,
   link,
+  imageSection,
 ]

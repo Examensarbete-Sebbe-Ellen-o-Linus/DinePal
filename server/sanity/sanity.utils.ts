@@ -32,10 +32,9 @@ const buttonSelection = `
 // Common selection for images nested in other documents
 const imageSelection = `
   "image": {
-    "alt": coalesce(image.
-      alt, "No alt text"),
+    "alt": coalesce(image.alt, "No alt text"),
     "url": image.asset->url,
-    "_key": string
+    "_key": string,
   }
 `
 
@@ -47,6 +46,11 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
       title,
       hero { title, ${imageSelection}, ${buttonSelection}, description },
       selectedDishes[]-> { title, description, ${imageSelection}, tags[] },
+      imageSection { title, description, imageCards[] {
+        'url': image.asset->url,
+        'alt': alt,
+        "link": link, 
+      }},
       about { title, description, ${imageSelection}, ${buttonSelection} },
       seo { metaTitle, metaDescription }
     `
@@ -59,7 +63,8 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   title,
   "galleryImgs": galleryImgs[]{
     "alt": coalesce(alt, "No alt text"),
-    "url": asset->url}
+    "url": asset->url
+  }
   `
   console.log(additionalSelections)
   return fetchDocumentByType('galleryPage', additionalSelections)

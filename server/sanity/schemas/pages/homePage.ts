@@ -22,6 +22,10 @@ export default defineType({
       title: 'Selected dishes',
     },
     {
+      name: 'imageSection',
+      title: 'Image section',
+    },
+    {
       name: 'aboutUs',
       title: 'About us',
     },
@@ -54,6 +58,12 @@ export default defineType({
       group: 'selectedDishes',
       of: [{type: 'reference', to: [{type: 'dish'}]}],
       validation: (Rule) => Rule.required().min(1).max(10),
+    },
+    {
+      name: 'imageSection',
+      type: 'imageSection',
+      description: 'Image section with links',
+      group: 'imageSection',
     },
     {
       name: 'seo',
