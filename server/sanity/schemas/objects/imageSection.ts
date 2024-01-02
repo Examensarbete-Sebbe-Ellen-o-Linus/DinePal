@@ -16,7 +16,7 @@ export default defineType({
       title: 'Image cards',
       description: 'This is a section to display images with links to other parts of the page',
       type: 'array',
-      validation: (Rule) => Rule.length(3).warning('Add three image cards to this section'),
+      validation: (Rule) => Rule.length(3).error('Add three image cards to this section'),
       of: [
         {
           type: 'object',
