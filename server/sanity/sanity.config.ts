@@ -1,6 +1,7 @@
-import {CogIcon, HomeIcon, ImageIcon} from '@sanity/icons'
+import {CogIcon, HomeIcon, IceCreamIcon, ImageIcon} from '@sanity/icons'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
+import {simplerColorInput} from 'sanity-plugin-simpler-color-input'
 import {deskTool} from 'sanity/desk'
 import {schemaTypes} from './schemas'
 
@@ -26,12 +27,7 @@ export default defineConfig({
             // Instead of rendering a list of documents, we render a single
             // document, specifying the `documentId` manually to ensure
             // that we're editing the single instance of the document
-            S.listItem()
-              .title('Settings')
-              .id('settings')
-              .icon(CogIcon)
-              .child(S.document().schemaType('settings').documentId('settings')),
-            S.divider(),
+
             S.listItem()
               .title('Home Page')
               .icon(HomeIcon)
@@ -48,14 +44,25 @@ export default defineConfig({
               .id('bookingPage')
               .child(S.document().schemaType('bookingPage').documentId('bookingPage')),
             S.divider(),
+            S.listItem()
+              .title('Color Theme')
+              .icon(IceCreamIcon)
+              .id('colorTheme')
+              .child(S.document().schemaType('colorTheme').documentId('colorTheme')),
+            S.divider(),
             // Regular document types
             S.documentTypeListItem('dish').title('Dish'),
             S.divider(),
-            S.documentTypeListItem('colorTheme').title('Color themes'),
+            S.listItem()
+              .title('Settings')
+              .id('settings')
+              .icon(CogIcon)
+              .child(S.document().schemaType('settings').documentId('settings')),
             S.divider(),
           ]),
     }),
     visionTool(),
+    simplerColorInput(),
   ],
 
   schema: {

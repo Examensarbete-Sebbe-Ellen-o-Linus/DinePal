@@ -1,19 +1,27 @@
-import {IceCreamIcon} from '@sanity/icons'
-import {defineType} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'colorTheme',
   title: 'Color theme',
   type: 'document',
-  icon: IceCreamIcon,
-
   fields: [
-    // Fyll på med textfärger, bakgrundsfärger, accentfärger, typografi osv
-    {
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    },
+    defineField({
+      name: 'accentColor',
+      title: 'Accent Color',
+      type: 'simplerColor',
+      description:
+        'Select the accent color that will be displayed across the page on buttons and other details. Use the color picker to choose a custom color.',
+      options: {
+        defaultColorFormat: 'rgba',
+        colorList: [{label: 'Click to select custom color...', value: 'custom'}],
+      },
+    }),
   ],
+  preview: {
+    prepare() {
+      return {
+        title: 'Color theme',
+      }
+    },
+  },
 })
