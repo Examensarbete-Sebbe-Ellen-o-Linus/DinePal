@@ -6,6 +6,13 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'logotype',
+      title: 'Logo',
+      type: 'image',
+      description:
+        'Upload your company logo here. It will be displayed in the footer on all pages.',
+    }),
+    defineField({
       name: 'openingHours',
       title: 'Opening hours',
       type: 'text',
@@ -55,7 +62,7 @@ export default defineType({
       title: 'Display as text instead of icon',
       type: 'boolean',
       description:
-        'Optionaly you can select to display your socials with text. E.g. instagram. Default will be to display them as icons',
+        'Optionaly you can display your socials with text. E.g. instagram. Default will be to display them as icons',
       options: {
         layout: 'checkbox',
       },

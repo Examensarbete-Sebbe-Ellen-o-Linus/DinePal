@@ -10,7 +10,7 @@ export default defineType({
       title: 'Logo',
       type: 'image',
       description:
-        'Upload your company logo here. It will be displayed in the header across the site.',
+        'Upload your company logo here. It will be displayed in the header on all pages.',
     }),
     defineField({
       name: 'navLinks',

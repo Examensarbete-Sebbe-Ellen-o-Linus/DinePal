@@ -8,9 +8,6 @@ export default defineType({
   title: TITLE,
   type: 'document',
   icon: ImageIcon,
-  initialValue: {
-    title: 'Gallery',
-  },
   groups: [
     {
       default: true,
