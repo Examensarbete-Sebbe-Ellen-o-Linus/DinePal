@@ -8,6 +8,7 @@ export default defineType({
     {
       name: 'booking',
       title: 'Booking page',
+      default: true,
     },
     {
       name: 'seo',
