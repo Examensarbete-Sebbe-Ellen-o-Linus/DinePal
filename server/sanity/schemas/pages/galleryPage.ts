@@ -100,7 +100,6 @@ export default defineType({
   preview: {
     prepare() {
       return {
-        subtitle: 'Index',
         title: TITLE,
       }
     },

@@ -110,4 +110,11 @@ export default defineType({
       ],
     },
   ],
+  preview: {
+    prepare() {
+      return {
+        title: 'Settings and navigation',
+      }
+    },
+  },
 })
