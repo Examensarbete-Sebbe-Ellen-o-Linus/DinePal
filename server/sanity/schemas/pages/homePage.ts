@@ -42,7 +42,6 @@ export default defineType({
       group: 'hero',
       validation: (Rule) => Rule.required(),
     },
-
     {
       name: 'about',
       title: 'About Section',

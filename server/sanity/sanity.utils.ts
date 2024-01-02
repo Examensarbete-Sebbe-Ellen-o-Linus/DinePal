@@ -70,18 +70,26 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   return fetchDocumentByType('galleryPage', additionalSelections)
 }
 
-// Fetch galleryPage with common selections
 export const fetchDishes = async (): Promise<IDish[]> => {
   try {
-    const query = `*[_type == "dish"]`
+    const query = `*[_type == "dish"]{ 
+      title,
+      description,
+      "image": {
+        "alt": coalesce(image.alt, "No alt text"),
+        "url": image.asset->url,
+        "_key": image._key
+      },
+      price,
+      tags
+    }`
     return await client.fetch(query)
   } catch (error) {
-    console.error('Error fetching ${dish}: ' + error)
+    console.error('Error fetching dishes ' + error)
     throw error
   }
 }
 
-// Fetch galleryPage with common selections
 export const fetchSingleDish = async (slug: string): Promise<IDish> => {
   const query = `*[_type == "dish" && slug.current == $slug][0]{
     _id,
