@@ -16,7 +16,6 @@ export default async function Home() {
       {/* Hero */}
       <section>
         <Title order={1}>{hero.title}</Title>
-        {/* <DishCard /> */}
         {hero.description && <p>{hero.description}</p>}
         {hero.image && <img src={hero.image.url} alt={hero.image.alt}></img>}
         {hero.buttons &&
