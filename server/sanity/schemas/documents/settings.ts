@@ -34,12 +34,6 @@ export default defineType({
       type: 'footer',
       group: 'footer',
     }),
-    defineField({
-      name: 'seo',
-      title: 'SEO Settings',
-      type: 'seo',
-      group: 'seo',
-    }),
   ],
   preview: {
     prepare() {

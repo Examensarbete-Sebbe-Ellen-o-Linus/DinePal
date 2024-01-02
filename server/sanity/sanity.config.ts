@@ -37,13 +37,11 @@ export default defineConfig({
               .icon(HomeIcon)
               .id('homePage')
               .child(S.document().schemaType('homePage').documentId('homePage')),
-            S.divider(),
             S.listItem()
               .title('Gallery Page')
               .icon(ImageIcon)
               .id('galleryPage')
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
-            S.divider(),
             S.listItem()
               .title('Booking Page')
               .icon(ImageIcon)
