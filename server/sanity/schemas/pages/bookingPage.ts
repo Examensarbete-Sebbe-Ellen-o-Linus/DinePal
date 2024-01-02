@@ -16,11 +16,6 @@ export default defineType({
       type: 'text',
       rows: 3,
     }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-    }),
   ],
   preview: {
     prepare() {

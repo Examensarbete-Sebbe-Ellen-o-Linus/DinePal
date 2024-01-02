@@ -77,6 +77,13 @@ export interface IGalleryPage {
   seo: ISEO;
 }
 
+// Booking page
+export interface IBookingPage {
+  _type: "bookingPage";
+  title: string;
+  text: string;
+}
+
 // Image section
 export interface IImageSection {
   _type: "imageSection";

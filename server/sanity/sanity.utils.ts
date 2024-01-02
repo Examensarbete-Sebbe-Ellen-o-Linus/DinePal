@@ -1,5 +1,5 @@
 import {createClient} from 'next-sanity'
-import {IDish, IGalleryPage, IHomePage} from '../../client/src/app/interfaces'
+import {IBookingPage, IDish, IGalleryPage, IHomePage} from '../../client/src/app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -66,8 +66,15 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
     "url": asset->url
   }
   `
-  console.log(additionalSelections)
   return fetchDocumentByType('galleryPage', additionalSelections)
+}
+
+export const fetchBookingPageData = async (): Promise<IBookingPage> => {
+  const additionalSelections = `
+  title,
+  text`
+
+  return fetchDocumentByType('bookingPage', additionalSelections)
 }
 
 export const fetchDishes = async (): Promise<IDish[]> => {

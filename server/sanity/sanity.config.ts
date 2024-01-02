@@ -43,6 +43,7 @@ export default defineConfig({
               .icon(ImageIcon)
               .id('galleryPage')
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
+            S.divider(),
             S.listItem()
               .title('Booking Page')
               .icon(ImageIcon)
