@@ -11,6 +11,7 @@ import imageSection from './objects/imageSection'
 import link from './objects/link'
 import seo from './objects/seo'
 import socialLink from './objects/socialLink'
+import bookingPage from './pages/bookingPage'
 import galleryPage from './pages/galleryPage'
 import homePage from './pages/homePage'
 
@@ -19,6 +20,7 @@ export const schemaTypes = [
   dish,
   homePage,
   galleryPage,
+  bookingPage,
   hero,
   about,
   settings,

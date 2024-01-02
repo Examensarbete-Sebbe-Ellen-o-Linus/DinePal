@@ -43,6 +43,11 @@ export default defineConfig({
               .icon(ImageIcon)
               .id('galleryPage')
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
+            S.listItem()
+              .title('Booking Page')
+              .icon(ImageIcon)
+              .id('bookingPage')
+              .child(S.document().schemaType('bookingPage').documentId('bookingPage')),
             S.divider(),
             // Regular document types
             S.documentTypeListItem('dish').title('Dish'),
