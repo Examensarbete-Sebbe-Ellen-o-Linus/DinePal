@@ -1,3 +1,4 @@
+import DishCard from '@/components/dishCard/DishCard';
 import Link from 'next/link';
 import { fetchHomePageData } from '../../../server/sanity/sanity.utils';
 import Hero from './components/Hero';
@@ -17,6 +18,7 @@ export default async function Home() {
     <div>
       <Link href="/gallery">Link to Gallery</Link>
       <Hero />
+      <DishCard showDescription={false} />
       <SelectedDishes products={selectedDishes} />
     </div>
   );
