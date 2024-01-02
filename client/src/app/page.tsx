@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { fetchHomePageData } from "../../../server/sanity/sanity.utils";
-import Hero from "./components/Hero";
-import SelectedDishes from "./components/SelectedDishes";
-import { IHomePage } from "./interfaces";
+import Link from 'next/link';
+import { fetchHomePageData } from '../../../server/sanity/sanity.utils';
+import Hero from './components/Hero';
+import SelectedDishes from './components/SelectedDishes';
+import { IHomePage } from './interfaces';
 
 export default async function Home() {
   const homePageData: IHomePage = await fetchHomePageData();
