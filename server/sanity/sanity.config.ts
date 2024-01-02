@@ -31,21 +31,26 @@ export default defineConfig({
               .id('settings')
               .icon(CogIcon)
               .child(S.document().schemaType('settings').documentId('settings')),
+            S.divider(),
             S.listItem()
               .title('Home Page')
               .icon(HomeIcon)
               .id('homePage')
               .child(S.document().schemaType('homePage').documentId('homePage')),
+            S.divider(),
             S.listItem()
               .title('Gallery Page')
               .icon(ImageIcon)
               .id('galleryPage')
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
-
+            S.divider(),
             // Regular document types
             S.documentTypeListItem('dish').title('Dish'),
+            S.divider(),
             S.documentTypeListItem('article').title('Article'),
+            S.divider(),
             S.documentTypeListItem('colorTheme').title('Color themes'),
+            S.divider(),
           ]),
     }),
     visionTool(),

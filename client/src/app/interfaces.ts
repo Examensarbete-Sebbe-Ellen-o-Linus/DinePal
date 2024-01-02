@@ -40,6 +40,9 @@ export interface IDish {
   image: IImage;
   price: number;
   tags: ITag[];
+  slug: {
+    current: string;
+  };
 }
 
 // Tag interface within Dish
