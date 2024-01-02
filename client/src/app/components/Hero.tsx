@@ -1,9 +1,6 @@
-import { fetchHomePageData } from "../../../../server/sanity/sanity.utils";
+import { IHero } from "../interfaces";
 
-export default async function Hero() {
-  const homePageData = await fetchHomePageData();
-  const { hero } = homePageData;
-
+export default async function Hero({ hero }: { hero: IHero }) {
   return (
     <section>
       <h1>{hero.title}</h1>
