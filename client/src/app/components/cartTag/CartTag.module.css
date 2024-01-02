@@ -1,0 +1,28 @@
+.container {
+    display: inline-flex;
+    padding: 8px 16px;
+    align-items: flex-start;
+    gap: 24px;
+    border-radius: var(--mantine-radius-secondary);
+    background: var(--mantine-color-orange-3);
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px; 
+}
+
+.badge {
+    display: flex;
+    padding: 2px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 32px;
+    background: var(--mantine-color-black-3);
+    color: var(--mantine-color-white-3);
+    font-size: 14px;
+
+}

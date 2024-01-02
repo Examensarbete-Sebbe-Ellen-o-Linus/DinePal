@@ -1,7 +1,7 @@
 import { Box, Text, Title } from '@mantine/core';
 
-import avocadoToast from '../../../public/images/avocado-toast.jpg';
-import line from '../../../public/images/line.png';
+import avocadoToast from '../../../../public/images/avocado-toast.jpg';
+import line from '../../../../public/images/line.png';
 import LongButton from '../longButton/LongButton';
 import classes from './DishCard.module.css';
 

@@ -2,6 +2,7 @@ import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import type { Metadata } from 'next';
 
+import Header from './components/header/Header';
 import './globals.css';
 import { theme } from './theme/theme';
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <Header />
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

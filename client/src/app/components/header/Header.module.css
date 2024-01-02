@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    width: 100%;
+    padding: 16px 40px;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--mantine-color-black-3);
+}
+
+.content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+}
+
+.burger {
+    --__burger-color: var(--mantine-color-white-3) !important;
+}
+
+
