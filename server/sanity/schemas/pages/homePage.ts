@@ -26,6 +26,10 @@ export default defineType({
       title: 'Image section',
     },
     {
+      name: 'news',
+      title: 'News',
+    },
+    {
       name: 'aboutUs',
       title: 'About us',
     },
@@ -63,6 +67,12 @@ export default defineType({
       type: 'imageSection',
       description: 'Image section with links',
       group: 'imageSection',
+    },
+    {
+      name: 'news',
+      title: 'News Section',
+      type: 'news',
+      group: 'news',
     },
     {
       name: 'seo',

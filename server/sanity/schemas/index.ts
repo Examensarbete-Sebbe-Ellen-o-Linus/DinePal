@@ -1,4 +1,3 @@
-import article from './documents/article'
 import colorTheme from './documents/colorTheme'
 import dish from './documents/dish'
 import settings from './documents/settings'
@@ -9,6 +8,7 @@ import header from './objects/header'
 import hero from './objects/hero'
 import imageSection from './objects/imageSection'
 import link from './objects/link'
+import news from './objects/news'
 import seo from './objects/seo'
 import socialLink from './objects/socialLink'
 import bookingPage from './pages/bookingPage'
@@ -16,7 +16,6 @@ import galleryPage from './pages/galleryPage'
 import homePage from './pages/homePage'
 
 export const schemaTypes = [
-  article,
   dish,
   homePage,
   galleryPage,
@@ -32,4 +31,5 @@ export const schemaTypes = [
   socialLink,
   seo,
   header,
+  news,
 ]

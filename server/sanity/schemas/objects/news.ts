@@ -2,9 +2,9 @@ import {ClipboardImageIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
 export default defineType({
-  name: 'article',
-  type: 'document',
-  title: 'Article',
+  name: 'news',
+  type: 'object',
+  title: 'News',
   icon: ClipboardImageIcon,
   fields: [
     {
@@ -23,10 +23,15 @@ export default defineType({
       },
     },
     {
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    },
+    {
       name: 'description',
       title: 'Description',
-      type: 'array',
-      of: [{type: 'block'}],
+      type: 'text',
+      rows: 4,
     },
   ],
 })
