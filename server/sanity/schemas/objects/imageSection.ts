@@ -10,7 +10,6 @@ export default defineType({
       title: 'Title',
       type: 'string',
     }),
-
     defineField({
       name: 'imageCards',
       title: 'Image cards',
@@ -38,7 +37,7 @@ export default defineType({
               name: 'link',
               title: 'Link',
               description: 'Select part of page you want to link to',
-              type: 'button',
+              type: 'link',
             },
           ],
         },
