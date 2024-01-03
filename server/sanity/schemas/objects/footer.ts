@@ -57,15 +57,5 @@ export default defineType({
       of: [{type: 'socialLink'}],
       description: 'Add links to social channels here.',
     }),
-    defineField({
-      name: 'displaySocialsOptions',
-      title: 'Display as text instead of icon',
-      type: 'boolean',
-      description:
-        'Optionaly you can display your socials with text. E.g. instagram. Default will be to display them as icons',
-      options: {
-        layout: 'checkbox',
-      },
-    }),
   ],
 })
