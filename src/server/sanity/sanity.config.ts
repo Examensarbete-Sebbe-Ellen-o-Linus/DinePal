@@ -44,6 +44,7 @@ export default defineConfig({
               .icon(ImageIcon)
               .id('galleryPage')
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
+            S.divider(),
             S.listItem()
               .title('Booking Page')
               .icon(ImageIcon)
@@ -58,10 +59,6 @@ export default defineConfig({
             S.divider(),
             // Regular document types
             S.documentTypeListItem('dish').title('Dish'),
-            S.divider(),
-            S.documentTypeListItem('article').title('Article'),
-            S.divider(),
-            S.documentTypeListItem('colorTheme').title('Color themes'),
             S.divider(),
           ]),
     }),
