@@ -80,6 +80,11 @@ export const theme = createTheme({
     body2: '14px',
   },
   shadows: {
-    default: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+    primary: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+    secondary: '0 2px 4px 0 rgba(0, 0, 0, 0.15)',
+  },
+  radius: {
+    primary: '4px',
+    secondary: '8px',
   },
 });
