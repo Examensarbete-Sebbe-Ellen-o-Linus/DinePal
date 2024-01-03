@@ -17,7 +17,7 @@ export default function Header() {
         alt="A logotype of the Bellis café. The letter 'B' in a golden banner."
       />
       <Box className={classes.content}>
-        {isDesktop ? <CartTag /> : null}
+        {isDesktop ? <CartTag itemCount={0} price={0} /> : null}
         <Burger
           opened={opened}
           onClick={toggle}
@@ -25,7 +25,9 @@ export default function Header() {
           aria-label="Toggle navigation"
         />
       </Box>
-      {!isDesktop ? <CartTag className={classes.bottomPosition} /> : null}
+      {!isDesktop ? (
+        <CartTag className={classes.bottomPosition} itemCount={0} price={0} />
+      ) : null}
     </Box>
   );
 }

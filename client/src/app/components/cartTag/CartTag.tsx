@@ -4,18 +4,27 @@ import classes from './CartTag.module.css';
 
 interface ICartTag {
   className?: string;
+  itemCount: number;
+  price: number;
 }
 
-export default function CartTag({ className = '' }: ICartTag) {
-  return (
-    <Box className={`${classes.container} ${className}`}>
-      <Box className={classes.content}>
-        {/* Mocked up for now */}
-        <Badge className={classes.badge}>5</Badge>
-        <Text>Varukorg</Text>
+export default function CartTag({
+  className = '',
+  itemCount,
+  price,
+}: ICartTag) {
+  if (itemCount > 0) {
+    return (
+      <Box className={`${classes.container} ${className}`}>
+        <Box className={classes.content}>
+          <Badge className={classes.badge}>{itemCount}</Badge>
+
+          <Text>Varukorg</Text>
+        </Box>
+        <Box className={classes.priceContainer}>{price} :-</Box>
       </Box>
-      {/* Mocked up for now */}
-      <Box className={classes.priceContainer}>1399,00 :-</Box>
-    </Box>
-  );
+    );
+  }
+
+  return null;
 }
