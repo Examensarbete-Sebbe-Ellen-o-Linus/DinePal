@@ -21,9 +21,9 @@ export default function CartTag({
           <Box className={classes.content}>
             <Badge className={classes.badge}>{itemCount}</Badge>
 
-            <Text>Varukorg</Text>
+            <Text className={classes.noWrapContainer}>Till varukorg</Text>
           </Box>
-          <Box className={classes.priceContainer}>{price} :-</Box>
+          <Box className={classes.noWrapContainer}>{price} :-</Box>
         </Box>
       </Link>
     );
