@@ -1,4 +1,5 @@
-import { fetchGalleryPageData } from "../../../../server/sanity/sanity.utils";
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
+import { fetchGalleryPageData } from '../api/sanity/sanity.utils';
 
 export default async function GalleryPage() {
   const galleryPageData = await fetchGalleryPageData();
