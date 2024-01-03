@@ -1,13 +1,15 @@
 'use client';
 import { Box, Burger } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
+import { theme } from '@/app/theme/theme';
 import logotype from '../../../../public/images/bellis-logo.png';
 import CartTag from '../cartTag/CartTag';
 import classes from './Header.module.css';
 
 export default function Header() {
   const [opened, { toggle }] = useDisclosure();
+  const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints?.sm})`);
   return (
     <Box className={classes.container}>
       <img
@@ -15,7 +17,7 @@ export default function Header() {
         alt="A logotype of the Bellis café. The letter 'B' in a golden banner."
       />
       <Box className={classes.content}>
-        <CartTag />
+        {isDesktop ? <CartTag /> : null}
         <Burger
           opened={opened}
           onClick={toggle}
@@ -23,6 +25,7 @@ export default function Header() {
           aria-label="Toggle navigation"
         />
       </Box>
+      {!isDesktop ? <CartTag className={classes.bottomPosition} /> : null}
     </Box>
   );
 }
