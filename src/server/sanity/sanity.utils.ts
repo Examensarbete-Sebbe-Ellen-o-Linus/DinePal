@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import {createClient} from 'next-sanity'
-import {IBookingPage, IDish, IGalleryPage, IHomePage} from '../../app/interfaces'
+import {IBookingPage, IDish, IGalleryPage, IHomePage, ISettings} from '../../app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -110,4 +110,23 @@ export const fetchSingleDish = async (slug: string): Promise<IDish> => {
     tags[]
   }`
   return await client.fetch(query, {slug})
+}
+
+export const fetchSettings = async (): Promise<ISettings> => {
+  const query = `
+  *[_type == "settings"][1]{
+    header, footer
+  }
+  `
+
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const data = await client.fetch(query)
+    console.log('Settings data fetched:', data)
+    return data
+  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    console.error(`Error fetching settings: ${error}`)
+    throw error
+  }
 }
