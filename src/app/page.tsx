@@ -1,14 +1,12 @@
 import Link from 'next/link';
 
 import { getServerAuthSession } from '~/server/auth';
-import { api } from '~/trpc/server';
+import Hero from './_components/Hero';
+import SelectedDishes from './_components/SelectedDishes';
 import { fetchHomePageData } from './api/sanity/sanity.utils';
-import Hero from './components/Hero';
-import SelectedDishes from './components/SelectedDishes';
 import { type IHomePage } from './interfaces';
 
 export default async function Home() {
-  const hello = await api.post.hello.query({ text: 'from tRPC' });
   const session = await getServerAuthSession();
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -17,7 +15,7 @@ export default async function Home() {
 
   return (
     <div>
-      <Link href="/gallery">Link to Gallery</Link>
+      <Link href='/gallery'>Link to Gallery</Link>
       <Hero />
       <SelectedDishes products={selectedDishes} />
 

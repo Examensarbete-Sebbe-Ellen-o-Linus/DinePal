@@ -11,6 +11,14 @@ datasource db {
     relationMode = "prisma"
 }
 
+model Food {
+    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    content   String
+    createdAt DateTime? @default(now())
+    updatedAt DateTime? @updatedAt
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -49,7 +57,8 @@ model User {
 }
 
 model VerificationToken {
-    identifier String   @id @default(auto()) @map("_id") @db.ObjectId
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    identifier String
     token      String   @unique
     expires    DateTime
 
