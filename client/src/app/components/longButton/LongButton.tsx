@@ -1,4 +1,4 @@
-import { Box, Title } from '@mantine/core';
+import { Title } from '@mantine/core';
 
 import classes from './LongButton.module.css';
 
@@ -18,7 +18,7 @@ export default function LongButton({
   const buttonColor = `${classes.container} ${classes[color]}`;
 
   return (
-    <Box className={buttonColor}>
+    <button className={buttonColor}>
       <Title order={6}>{buttonText}</Title>
       {showAddButton && (
         <svg
@@ -34,6 +34,6 @@ export default function LongButton({
           />
         </svg>
       )}
-    </Box>
+    </button>
   );
 }
