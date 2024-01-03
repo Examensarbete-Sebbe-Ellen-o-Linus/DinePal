@@ -1,5 +1,5 @@
 import { MantineProvider } from '@mantine/core';
-import '@mantine/core/styles.css';
+import '@mantine/core/styles.layer.css';
 import type { Metadata } from 'next';
 
 import Header from './components/header/Header';
