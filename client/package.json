@@ -22,6 +22,7 @@
     "@types/react-dom": "^18.2.18",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "postcss-preset-mantine": "^1.12.3",
     "typescript": "^5"
   }
 }
