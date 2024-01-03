@@ -2,7 +2,6 @@ import colorTheme from './documents/colorTheme'
 import dish from './documents/dish'
 import settings from './documents/settings'
 import about from './objects/about'
-import button from './objects/button'
 import footer from './objects/footer'
 import header from './objects/header'
 import hero from './objects/hero'
@@ -25,7 +24,6 @@ export const schemaTypes = [
   settings,
   colorTheme,
   footer,
-  button,
   link,
   imageSection,
   socialLink,
