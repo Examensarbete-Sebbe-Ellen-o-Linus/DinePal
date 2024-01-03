@@ -11,6 +11,15 @@ export default defineType({
       type: 'image',
       description:
         'Upload your company logo here. It will be displayed in the header on all pages.',
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt',
+          description: 'Provide an descriptive text which conveys the content of the image',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+      ],
     }),
     defineField({
       name: 'navLinks',
