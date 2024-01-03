@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { fetchGalleryPageData } from '../api/sanity/sanity.utils';
+import { fetchGalleryPageData } from '../../server/sanity/sanity.utils';
 
 export default async function GalleryPage() {
   const galleryPageData = await fetchGalleryPageData();

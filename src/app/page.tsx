@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
 import { getServerAuthSession } from '~/server/auth';
+
+import { fetchHomePageData } from '~/server/sanity/sanity.utils';
 import Hero from './_components/Hero';
 import SelectedDishes from './_components/SelectedDishes';
-import { fetchHomePageData } from './api/sanity/sanity.utils';
 import { type IHomePage } from './interfaces';
 
 export default async function Home() {

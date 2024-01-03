@@ -1,5 +1,8 @@
-import { createClient } from 'next-sanity'
-import { IDish, IGalleryPage, IHomePage } from '../../interfaces'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import {createClient} from 'next-sanity'
+import {IDish, IGalleryPage, IHomePage} from '../../app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',

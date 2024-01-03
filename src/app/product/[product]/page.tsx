@@ -1,4 +1,6 @@
-import { fetchSingleDish } from '~/app/api/sanity/sanity.utils';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { fetchSingleDish } from '~/server/sanity/sanity.utils';
 
 interface Props {
   params: {

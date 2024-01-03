@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { fetchHomePageData } from '../api/sanity/sanity.utils';
+
+import { fetchHomePageData } from '~/server/sanity/sanity.utils';
 import { type IHomePage } from '../interfaces';
 
 export default async function Hero() {
