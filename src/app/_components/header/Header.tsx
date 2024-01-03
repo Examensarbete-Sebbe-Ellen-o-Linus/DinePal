@@ -21,7 +21,8 @@ export default function Header() {
         />
       </Link>
       <Box className={classes.content}>
-        {isDesktop ? <CartTag itemCount={1} price={0} /> : null}
+        {/* Will be controlled by states later on */}
+        {isDesktop ? <CartTag itemCount={0} price={0} /> : null}
         <Burger
           opened={opened}
           onClick={toggle}
@@ -29,7 +30,7 @@ export default function Header() {
           aria-label='Toggle navigation'
         />
         {!isDesktop ? (
-          <CartTag className={classes.bottomPosition} itemCount={1} price={0} />
+          <CartTag className={classes.bottomPosition} itemCount={0} price={0} />
         ) : null}
       </Box>
     </Box>

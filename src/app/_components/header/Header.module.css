@@ -13,14 +13,13 @@
   align-items: center;
   gap: 0px;
 
-  @media (min-width: $mantine-breakpoint-sm) {
+  @media (min-width: 768px) {
     gap: 24px;
   }
 }
 
 .burger {
   --__burger-color: var(--mantine-color-white-3) !important;
-  /* margin-left: 24px; */
 }
 
 .bottomPosition {
