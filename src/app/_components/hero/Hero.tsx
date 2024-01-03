@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 
-import { fetchHomePageData } from '~/server/sanity/sanity.utils';
-import { type IHomePage } from '../interfaces';
+import { IHero } from '../../interfaces';
 
-export default async function Hero() {
+export default async function Hero({ hero }: { hero: IHero }) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const homePageData: IHomePage = await fetchHomePageData();
-  const { hero } = homePageData;
 
   return (
     <section>

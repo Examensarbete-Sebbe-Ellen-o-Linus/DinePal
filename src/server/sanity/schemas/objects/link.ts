@@ -1,9 +1,12 @@
+import {LinkIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
 export default defineType({
   name: 'link',
   title: 'Navigation Link',
   type: 'object',
+  icon: LinkIcon,
+
   fields: [
     {
       name: 'text',
@@ -22,6 +25,7 @@ export default defineType({
           {title: 'Book a Table', value: 'book-a-table'},
           {title: 'About us', value: 'about'},
           {title: 'Gallery', value: 'gallery'},
+          {title: 'View shopping cart', value: 'shopping-cart'},
           {title: 'Contact', value: 'contact'},
           {title: 'Checkout', value: 'contact'},
         ],

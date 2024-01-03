@@ -1,6 +1,7 @@
-import {CogIcon, HomeIcon, ImageIcon} from '@sanity/icons'
+import {CogIcon, HomeIcon, IceCreamIcon, ImageIcon} from '@sanity/icons'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
+import {simplerColorInput} from 'sanity-plugin-simpler-color-input'
 import {deskTool} from 'sanity/desk'
 import {schemaTypes} from './schemas'
 
@@ -44,16 +45,25 @@ export default defineConfig({
               .id('galleryPage')
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
             S.divider(),
+            S.listItem()
+              .title('Booking Page')
+              .icon(ImageIcon)
+              .id('bookingPage')
+              .child(S.document().schemaType('bookingPage').documentId('bookingPage')),
+            S.divider(),
+            S.listItem()
+              .title('Color Theme')
+              .icon(IceCreamIcon)
+              .id('colorTheme')
+              .child(S.document().schemaType('colorTheme').documentId('colorTheme')),
+            S.divider(),
             // Regular document types
             S.documentTypeListItem('dish').title('Dish'),
-            S.divider(),
-            S.documentTypeListItem('article').title('Article'),
-            S.divider(),
-            S.documentTypeListItem('colorTheme').title('Color themes'),
             S.divider(),
           ]),
     }),
     visionTool(),
+    simplerColorInput(),
   ],
 
   schema: {

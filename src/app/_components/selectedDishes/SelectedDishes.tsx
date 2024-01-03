@@ -1,17 +1,13 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 import Link from 'next/link';
-import { IDish } from '../interfaces';
+import { IDish } from '../../interfaces';
 
-interface Props {
-  products: IDish[];
-}
-
-export default function SelectedDishes({ products }: Props) {
+export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
   return (
     <section>
       <h3>Example how to display selected Dishes</h3>
-      {products &&
-        products.map((dish, i) => (
+      {dishes &&
+        dishes.map((dish, i) => (
           <div key={i}>
             <h4>{dish.title}</h4>
             <p>{dish.description}</p>
