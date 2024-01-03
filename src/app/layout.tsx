@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={inter.className}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <MantineProvider theme={theme}>{children}</MantineProvider>

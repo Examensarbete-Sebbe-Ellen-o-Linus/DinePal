@@ -1,13 +1,13 @@
 // Image interface used in multiple places
 export interface IImage {
-  _type: "image";
+  _type: 'image';
   url: string;
   alt?: string;
 }
 
 // Button interface
 export interface IButton {
-  _type: "button";
+  _type: 'button';
   _key: string;
   actionType: string; // e.g., 'go-to-menu'
   text: string; // e.g Go to menu
@@ -15,7 +15,7 @@ export interface IButton {
 
 // Hero section interface
 export interface IHero {
-  _type: "hero";
+  _type: 'hero';
   title: string;
   description?: string;
   image: IImage;
@@ -24,7 +24,7 @@ export interface IHero {
 
 // About section interface
 export interface IAbout {
-  _type: "about";
+  _type: 'about';
   title: string;
   description?: string;
   image: IImage;
@@ -33,7 +33,7 @@ export interface IAbout {
 
 // Dish interface
 export interface IDish {
-  _type: "dish";
+  _type: 'dish';
   title: string;
   description?: string;
   image: IImage;
@@ -46,20 +46,20 @@ export interface IDish {
 
 // Tag interface within Dish
 export interface ITag {
-  _type: "tag";
+  _type: 'tag';
   label: string; // e.g., 'Gluten-free'
 }
 
 // SEO settings interface
 export interface ISEO {
-  _type: "seo";
+  _type: 'seo';
   metaTitle?: string;
   metaDescription?: string;
 }
 
 // Main HomePage interface
 export interface IHomePage {
-  _type: "homePage";
+  _type: 'homePage';
   title: string;
   hero: IHero;
   selectedDishes: IDish[];
@@ -69,7 +69,7 @@ export interface IHomePage {
 
 // Gallery page
 export interface IGalleryPage {
-  _type: "galleryPage";
+  _type: 'galleryPage';
   title: string;
   galleryImgs: IImage[];
   seo: ISEO;

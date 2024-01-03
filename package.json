@@ -10,7 +10,9 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "formatCheck": "prettier --check \"**/*.{ts,tsx,css}\"",
+    "formatWrite": "prettier --write \"**/*.{ts,tsx,css}\""
   },
   "dependencies": {
     "@mantine/core": "^7.4.0",
@@ -28,6 +30,7 @@
     "next": "^14.0.4",
     "next-auth": "^4.24.5",
     "next-sanity": "^7.0.6",
+    "prettier": "^3.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "server-only": "^0.0.1",
