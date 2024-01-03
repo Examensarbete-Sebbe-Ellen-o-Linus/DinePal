@@ -115,10 +115,27 @@ export const fetchSingleDish = async (slug: string): Promise<IDish> => {
 export const fetchSettings = async (): Promise<ISettings> => {
   const query = `
   *[_type == "settings"][1]{
-    header, footer
+    ...,
+    header {
+      ...,
+      "logotype": logotype.asset->{
+        "url": url,
+        "alt": coalesce(alt, "Missing alt text")
+      }
+    },
+    footer {
+      ...,
+      "logotype": logotype.asset->{
+        "url": url,
+        "alt": coalesce(alt, "Missing alt text")
+      },
+      "socials": socials[] {
+        ...,
+        "icon": icon.asset->url
+      }
+    }
   }
-  `
-
+`
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const data = await client.fetch(query)
