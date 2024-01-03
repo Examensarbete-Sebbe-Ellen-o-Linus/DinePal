@@ -1,4 +1,4 @@
-import { fetchSingleDish } from "../../../../../server/sanity/sanity.utils";
+import { fetchSingleDish } from '~/app/api/sanity/sanity.utils';
 
 interface Props {
   params: {

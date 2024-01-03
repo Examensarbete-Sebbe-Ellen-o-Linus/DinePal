@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { IDish } from "../interfaces";
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
+import Link from 'next/link';
+import { IDish } from '../interfaces';
 
 interface Props {
   products: IDish[];
@@ -17,7 +18,7 @@ export default function SelectedDishes({ products }: Props) {
             {dish.image && <img src={dish.image.url} alt={dish.image.alt} />}
             {dish.tags &&
               dish.tags.map((tag, index) => (
-                <span key={index} className="tag">
+                <span key={index} className='tag'>
                   {tag.label}
                 </span>
               ))}
