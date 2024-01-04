@@ -1,19 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
-    sans-serif;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  background: var(--mantine-color-white-3) !important;
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body,
+.mantine-Text-root {
+  font-size: 18px !important;
+  line-height: 1.5;
+  color: var(--mantine-color-black-3);
 }
 
 a {
@@ -21,6 +34,6 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+button {
+  border: none;
 }

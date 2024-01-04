@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   background: var(--mantine-color-black-3);
+  /* position: fixed; */
 }
 
 .content {
