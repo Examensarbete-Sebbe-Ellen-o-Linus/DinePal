@@ -36,7 +36,15 @@ declare module 'next-auth' {
  * @see https://next-auth.js.org/configuration/options
  */
 
-const allowedUsers = ['bashan_', 'test123@gmail.com'];
+const allowedUsersFromDB = await db.allowedUsers.findMany({
+  select: {
+    username: true,
+  },
+});
+
+// console.log('Allowed users:', allowedUsersFromDB);
+
+// const allowedUsers = ['bashan_', 'test123@gmail.com'];
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => ({
@@ -47,7 +55,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     async signIn({ user }) {
-      if (allowedUsers.includes(user.name?.toLowerCase() ?? '')) {
+      if (allowedUsersFromDB?.some(u => u.username === user.name)) {
         return true;
       }
       return false;
