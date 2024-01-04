@@ -18,6 +18,7 @@
     "@mantine/core": "^7.4.0",
     "@mantine/hooks": "^7.4.0",
     "@next-auth/prisma-adapter": "^1.0.7",
+    "@preact/signals-react": "^2.0.0",
     "@prisma/client": "^5.6.0",
     "@sanity/client": "^6.10.0",
     "@sanity/vision": "^3.23.4",
