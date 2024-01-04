@@ -1,12 +1,7 @@
 'use client';
 
-import { AddToCartButton } from '~/app/_components/addToCart/addToCart';
-
-import { Text } from '@mantine/core';
 import Link from 'next/link';
-import { RemoveFromCartButton } from '~/app/_components/removeFromCart/removeFromCart';
 
-import { totalCartLenght } from 'signals/cartSignals';
 import type { IDish } from '../../interfaces';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
@@ -33,10 +28,6 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
                   {tag.label}
                 </span>
               ))}
-
-            <AddToCartButton dish={dish} />
-            <RemoveFromCartButton dish={dish} />
-            <Text>{totalCartLenght}</Text>
 
             {dish.slug && dish.slug.current && (
               <li>
