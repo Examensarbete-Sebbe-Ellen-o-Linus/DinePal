@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
