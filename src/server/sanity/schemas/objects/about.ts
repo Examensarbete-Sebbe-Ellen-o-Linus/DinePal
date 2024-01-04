@@ -43,7 +43,7 @@ export default defineType({
       name: 'button',
       title: 'Buttons/links',
       type: 'array',
-      of: [{type: 'button'}],
+      of: [{type: 'link'}],
       description: 'Add one or more links',
       validation: (Rule) => Rule.required(),
     },

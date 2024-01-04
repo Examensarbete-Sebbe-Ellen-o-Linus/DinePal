@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import {createClient} from 'next-sanity'
-import {IDish, IGalleryPage, IHomePage} from '../../app/interfaces'
+import type {IBookingPage, IDish, IGalleryPage, IHomePage, ISettings} from '../../app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -13,13 +13,13 @@ export const client = createClient({
 
 // ------------- Reusable queries ----------------
 
-// Reusable function to fetch documents by type with common selections
-const fetchDocumentByType = async (type: string, selections: string): Promise<any> => {
+// Reusable function to fetch documents by id with common selections
+const fetchDocumentById = async (id: string, selections: string): Promise<any> => {
   try {
-    const query = `*[_type == "${type}"]{ ${selections} }[0]`
+    const query = `*[_id == "${id}"]{ ${selections} }[0]`
     return await client.fetch(query)
   } catch (error) {
-    console.error('Error fetching ${type}: ' + error)
+    console.error('Error fetching ${id}: ' + error)
     throw error
   }
 }
@@ -35,10 +35,9 @@ const buttonSelection = `
 // Common selection for images nested in other documents
 const imageSelection = `
   "image": {
-    "alt": coalesce(image.
-      alt, "No alt text"),
+    "alt": coalesce(image.alt, "No alt text"),
     "url": image.asset->url,
-    "_key": string
+    "_key": string,
   }
 `
 
@@ -50,10 +49,15 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
       title,
       hero { title, ${imageSelection}, ${buttonSelection}, description },
       selectedDishes[]-> { title, description, ${imageSelection}, tags[] },
+      imageSection { title, description, imageCards[] {
+        'url': image.asset->url,
+        'alt': alt,
+        "link": link, 
+      }},
       about { title, description, ${imageSelection}, ${buttonSelection} },
       seo { metaTitle, metaDescription }
     `
-  return fetchDocumentByType('homePage', additionalSelections)
+  return fetchDocumentById('homePage', additionalSelections)
 }
 
 // Fetch galleryPage with common selections
@@ -62,24 +66,40 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   title,
   "galleryImgs": galleryImgs[]{
     "alt": coalesce(alt, "No alt text"),
-    "url": asset->url}
+    "url": asset->url
+  }  
   `
-  console.log(additionalSelections)
-  return fetchDocumentByType('galleryPage', additionalSelections)
+  return fetchDocumentById('galleryPage', additionalSelections)
 }
 
-// Fetch galleryPage with common selections
+export const fetchBookingPageData = async (): Promise<IBookingPage> => {
+  const additionalSelections = `
+  title,
+  text
+  `
+  return fetchDocumentById('bookingPage', additionalSelections)
+}
+
 export const fetchDishes = async (): Promise<IDish[]> => {
   try {
-    const query = `*[_type == "dish"]`
+    const query = `*[_type == "dish"]{ 
+      title,
+      description,
+      "image": {
+        "alt": coalesce(image.alt, "No alt text"),
+        "url": image.asset->url,
+        "_key": image._key
+      },
+      price,
+      tags
+    }`
     return await client.fetch(query)
   } catch (error) {
-    console.error('Error fetching ${dish}: ' + error)
+    console.error('Error fetching dishes ' + error)
     throw error
   }
 }
 
-// Fetch galleryPage with common selections
 export const fetchSingleDish = async (slug: string): Promise<IDish> => {
   const query = `*[_type == "dish" && slug.current == $slug][0]{
     _id,
@@ -90,4 +110,30 @@ export const fetchSingleDish = async (slug: string): Promise<IDish> => {
     tags[]
   }`
   return await client.fetch(query, {slug})
+}
+
+export const fetchSettingsData = async (): Promise<ISettings> => {
+  const additionalSelections = `
+    ...,
+    header {
+      ...,
+      "logotype": logotype.asset->{
+        "url": url,
+        "alt": coalesce(alt, "Missing alt text")
+      }
+    },
+    footer {
+      ...,
+      "logotype": logotype.asset->{
+        "url": url,
+        "alt": coalesce(alt, "Missing alt text")
+      },
+      "socials": socials[] {
+        ...,
+        "icon": icon.asset->url
+      }
+    }
+  
+`
+  return fetchDocumentById('settings', additionalSelections)
 }
