@@ -32,6 +32,13 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastScrollUp]);
+
+  const closeDrawer = () => {
+    if (opened) {
+      toggle();
+    }
+  };
+
   return (
     <Box
       className={`${classes.container} ${!headerVisible ? classes.hide : ''}`}
@@ -61,27 +68,27 @@ export default function Header() {
           position='top'
         >
           <Box className={classes.drawer}>
-            <Link href='/'>
+            <Link href='/' onClick={closeDrawer}>
               <Title className={classes.link} order={6}>
                 Hem
               </Title>
             </Link>
-            <Link href='/menu'>
+            <Link href='/menu' onClick={closeDrawer}>
               <Title className={classes.link} order={6}>
                 Meny
               </Title>
             </Link>
-            <Link href='/booking'>
+            <Link href='/booking' onClick={closeDrawer}>
               <Title className={classes.link} order={6}>
                 Boka bord
               </Title>
             </Link>
-            <Link href='/gallery'>
+            <Link href='/gallery' onClick={closeDrawer}>
               <Title className={classes.link} order={6}>
                 Galleri
               </Title>
             </Link>
-            <Link href='/chart'>
+            <Link href='/chart' onClick={closeDrawer}>
               <Title className={classes.link} order={6}>
                 Varukorg
               </Title>
