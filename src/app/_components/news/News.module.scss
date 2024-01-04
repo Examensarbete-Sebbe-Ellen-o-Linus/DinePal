@@ -5,7 +5,7 @@
   padding: 60px 32px 120px;
   gap: 2rem;
 
-  @media (max-width: $mantine-breakpoint-sm) {
+  @media (max-width: $mantine-breakpoint-md) {
     flex-direction: column;
   }
   @media (max-width: $mantine-breakpoint-sm) {
@@ -29,6 +29,7 @@
     border-radius: 4px;
     object-fit: cover;
     flex: 1 0 0;
+
     @media (max-width: $mantine-breakpoint-sm) {
       flex: auto;
     }
