@@ -1,0 +1,33 @@
+@import '../../../styles/mantine';
+
+.container {
+  display: flex;
+  padding: 60px 32px 120px;
+  gap: 2rem;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    flex-direction: column;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0px 16px 75px;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    gap: 8px;
+  }
+
+  img {
+    height: 840px;
+    border-radius: var(--mantine-radius-primary);
+    object-fit: cover;
+    flex: 1 0 0;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+      flex: auto;
+    }
+  }
+}
