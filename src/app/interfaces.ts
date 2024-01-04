@@ -8,9 +8,9 @@ export interface IImage {
 
 // Button interface
 export interface IButton {
-  _type: 'button';
+  _type: 'link';
   _key: string;
-  actionType: string; // e.g., 'go-to-menu'
+  pageType: string; // e.g., 'go-to-menu'
   text: string; // e.g Go to menu
 }
 
@@ -90,4 +90,37 @@ export interface IImageSection {
   description: string;
   imageCards: IImage[];
   link: IButton;
+}
+export interface ISettings {
+  header: IHeader;
+  footer: IFooter;
+}
+
+// Footer interface
+export interface IFooter {
+  openingHours: string;
+  socials: ISocials[];
+  logotype: IImage;
+  address: IAddress;
+  phone: string;
+}
+
+// Socials interface
+export interface ISocials {
+  _type: 'socialLink';
+  _key: string;
+  platform: string;
+  url: string;
+}
+
+// Address interface
+export interface IAddress {
+  street: string;
+  postalCode: string;
+  city: string;
+}
+
+export interface IHeader {
+  navLinks: IButton[];
+  logotype: IImage;
 }
