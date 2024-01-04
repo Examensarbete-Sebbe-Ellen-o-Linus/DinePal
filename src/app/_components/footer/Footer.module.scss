@@ -1,0 +1,99 @@
+@import '../../../styles/mantine';
+
+.imageContainer {
+  height: 512px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 512px;
+  object-fit: cover;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 16px 0;
+}
+
+.upperContainer {
+  display: flex;
+  width: 100%;
+
+  padding: 0px 160px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.lowerContainer {
+  display: flex;
+  padding: 0px 160px;
+  width: 100%;
+  padding-bottom: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.copyRight {
+  font-size: 14px !important;
+}
+
+.socialMedia {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .upperContainer,
+  .lowerContainer {
+    padding: 0 0px; /* Adjust padding for smaller screens */
+  }
+
+  .upperContainer {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items */
+  }
+
+  .logotype {
+    order: -1;
+  }
+
+  .contentContainer {
+    align-items: center; /* Center content for smaller screens */
+    text-align: center; /* Center align the text */
+  }
+
+  .content {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items */
+  }
+
+  .lowerContainer {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items */
+  }
+
+  .socialMedia {
+    margin-top: 16px; /* Add space above the social media icons */
+  }
+}

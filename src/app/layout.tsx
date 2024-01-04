@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 import { theme } from './theme/theme';
+import Footer from './_components/footer/Footer';
 
 export const metadata = {
   title: 'Create T3 App',
@@ -21,7 +22,10 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <TRPCReactProvider cookies={cookies().toString()}>
-          <MantineProvider theme={theme}>{children}</MantineProvider>
+          <MantineProvider theme={theme}>
+            {children}
+            <Footer />
+          </MantineProvider>
         </TRPCReactProvider>
       </body>
     </html>
