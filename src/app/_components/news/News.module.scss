@@ -2,10 +2,35 @@
 
 .container {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  padding: 60px 32px 120px;
+  gap: 2rem;
 
-  @media (max-width: $mantine-breakpoint-md) {
-    border: 3px solid black;
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0px 16px 75px;
+  }
+
+  h3 {
+    letter-spacing: -0.22px;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    gap: 8px;
+  }
+
+  img {
+    height: 840px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex: 1 0 0;
+    @media (max-width: $mantine-breakpoint-sm) {
+      flex: auto;
+    }
   }
 }

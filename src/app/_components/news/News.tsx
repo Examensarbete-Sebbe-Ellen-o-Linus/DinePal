@@ -4,8 +4,8 @@ import scss from './News.module.scss';
 
 export default async function News({ news }: { news: INews }) {
   return (
-    <Container className={scss.container}>
-      <Box>
+    <Container size={1120} fluid className={scss.container}>
+      <Box className={scss.text}>
         <Title order={3}>{news.title}</Title>
         <Text>{news.description}</Text>
       </Box>
