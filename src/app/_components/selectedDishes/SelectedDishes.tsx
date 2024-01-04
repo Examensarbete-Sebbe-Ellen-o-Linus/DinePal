@@ -1,8 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
+'use client';
+
 import Link from 'next/link';
-import { IDish } from '../../interfaces';
+
+import type { IDish } from '../../interfaces';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
+  // const totalCartLenght = computed(() => {
+  //   let total = 0;
+  //   cartValue.value.forEach(item => {
+  //     total += item.quantity;
+  //   });
+  //   return total;
+  // });
+
   return (
     <section>
       <h3>Example how to display selected Dishes</h3>

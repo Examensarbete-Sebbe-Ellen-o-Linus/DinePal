@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use client';
 
 import { useState } from 'react';
@@ -15,19 +12,19 @@ export function CreateFood() {
   const { refetch } = api.order.getFoods.useQuery();
   // const { refetch: refetchLatest } = api.example.getLatest.useQuery();
 
-  // const createFood = api.order.useMutation({
-  //   onSuccess: async () => {
-  //     await refetch();
-  //     setName('');
-  //     setContent('');
-  //   },
-  // });
+  const createFood = api.order.create.useMutation({
+    onSuccess: async () => {
+      await refetch();
+      setName('');
+      setContent('');
+    },
+  });
 
   return (
     <form
       onSubmit={e => {
         e.preventDefault();
-        // createFood.mutate({ name, content });
+        createFood.mutate({ name, content });
       }}
       className={styles.form}
     >
@@ -45,13 +42,13 @@ export function CreateFood() {
         onChange={e => setContent(e.target.value)}
         className={styles.input}
       />
-      {/* <button
+      <button
         type='submit'
         className={styles.submitButton}
         disabled={createFood.isLoading}
       >
         {createFood.isLoading ? 'Submitting...' : 'Submit'}
-      </button> */}
+      </button>
     </form>
   );
 }
