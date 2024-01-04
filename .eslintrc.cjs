@@ -22,6 +22,7 @@ const config = {
     '@typescript-eslint/restrict-plus-operands': 'off',
     '@typescript-eslint/prefer-optional-chain': 'off',
     '@next/next/no-img-element': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
     // '@typescript-eslint/consistent-type-imports': 'off',
 
     '@typescript-eslint/consistent-type-imports': [
