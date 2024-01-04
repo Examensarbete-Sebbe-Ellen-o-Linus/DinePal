@@ -35,6 +35,8 @@ declare module 'next-auth' {
  *
  * @see https://next-auth.js.org/configuration/options
  */
+
+const allowedUsers = ['bashan_', 'test123@gmail.com'];
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => ({
@@ -44,6 +46,12 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    async signIn({ user }) {
+      if (allowedUsers.includes(user.name?.toLowerCase() ?? '')) {
+        return true;
+      }
+      return false;
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [
