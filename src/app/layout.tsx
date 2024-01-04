@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { Container, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
-import '~/styles/globals.css';
-
 import { cookies } from 'next/headers';
-
-import { MantineProvider } from '@mantine/core';
+import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
+
 import Header from './_components/header/Header';
 import { theme } from './theme/theme';
 
@@ -26,7 +25,7 @@ export default function RootLayout({
         <TRPCReactProvider cookies={cookies().toString()}>
           <MantineProvider theme={theme}>
             <Header />
-            {children}
+            <Container style={{ marginTop: '112px' }}>{children}</Container>
           </MantineProvider>
         </TRPCReactProvider>
       </body>
