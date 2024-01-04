@@ -24,11 +24,20 @@
 .upperContainer {
   display: flex;
   width: 100%;
-
   padding: 0px 160px;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: 0 32px;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0 32px;
+    flex-direction: column; 
+    align-items: center;
+    gap: 16px;
+  }
 }
 
 .contentContainer {
@@ -45,6 +54,14 @@
   width: 100%;
 }
 
+.logotype {
+  order: 0;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    order: -1;
+  }
+}
+
 .lowerContainer {
   display: flex;
   padding: 0px 160px;
@@ -52,6 +69,17 @@
   padding-bottom: 16px;
   justify-content: space-between;
   align-items: flex-end;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: 0 32px;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0 32px;
+    flex-direction: column; 
+    align-items: center;
+    gap: 8px;
+  }
+
 }
 
 .copyRight {
@@ -61,39 +89,9 @@
 .socialMedia {
   display: flex;
   gap: 16px;
-}
 
-@media (max-width: 768px) {
-  .upperContainer,
-  .lowerContainer {
-    padding: 0 0px; /* Adjust padding for smaller screens */
-  }
-
-  .upperContainer {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center items */
-  }
-
-  .logotype {
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-top: 16px;
     order: -1;
-  }
-
-  .contentContainer {
-    align-items: center; /* Center content for smaller screens */
-    text-align: center; /* Center align the text */
-  }
-
-  .content {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center items */
-  }
-
-  .lowerContainer {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center items */
-  }
-
-  .socialMedia {
-    margin-top: 16px; /* Add space above the social media icons */
   }
 }
