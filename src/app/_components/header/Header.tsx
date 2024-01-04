@@ -1,5 +1,5 @@
 'use client';
-import { Box, Burger } from '@mantine/core';
+import { Box, Burger, Drawer, Title } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 import Image from 'next/image';
@@ -51,6 +51,44 @@ export default function Header() {
           className={classes.burger}
           aria-label='Toggle navigation'
         />
+
+        <Drawer
+          opened={opened}
+          onClose={toggle}
+          padding='xl'
+          withCloseButton={false}
+          size='xs'
+          position='top'
+        >
+          <Box className={classes.drawer}>
+            <Link href='/'>
+              <Title className={classes.link} order={6}>
+                Hem
+              </Title>
+            </Link>
+            <Link href='/menu'>
+              <Title className={classes.link} order={6}>
+                Meny
+              </Title>
+            </Link>
+            <Link href='/booking'>
+              <Title className={classes.link} order={6}>
+                Boka bord
+              </Title>
+            </Link>
+            <Link href='/gallery'>
+              <Title className={classes.link} order={6}>
+                Galleri
+              </Title>
+            </Link>
+            <Link href='/chart'>
+              <Title className={classes.link} order={6}>
+                Varukorg
+              </Title>
+            </Link>
+          </Box>
+        </Drawer>
+
         {!isDesktop ? (
           <CartTag className={classes.bottomPosition} itemCount={0} price={0} />
         ) : null}

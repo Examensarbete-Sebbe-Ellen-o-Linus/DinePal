@@ -16,7 +16,7 @@ export default function CartTag({
 }: ICartTag) {
   if (itemCount > 0) {
     return (
-      <Link href='/checkout'>
+      <Link href='/chart'>
         <Box className={`${classes.container} ${className}`}>
           <Box className={classes.content}>
             <Badge className={classes.badge}>{itemCount}</Badge>
