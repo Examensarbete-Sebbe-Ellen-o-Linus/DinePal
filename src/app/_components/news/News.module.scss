@@ -1,9 +1,11 @@
+@import '../../../styles/mantine';
+
 .container {
   display: flex;
   align-items: center;
   gap: 1rem;
 
-  h3 {
-    font-size: 40px;
+  @media (max-width: $mantine-breakpoint-md) {
+    border: 3px solid black;
   }
 }
