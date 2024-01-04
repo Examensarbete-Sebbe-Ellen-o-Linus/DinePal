@@ -2,9 +2,9 @@
 import { Container, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 
+import '~/styles/globals.css';
 import Header from './_components/header/Header';
 import { theme } from './theme/theme';
 
