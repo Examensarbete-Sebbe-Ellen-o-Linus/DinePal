@@ -67,7 +67,7 @@ export default function Header() {
           size='xs'
           position='top'
         >
-          <Box className={classes.drawer}>
+          <Box className={classes.drawerContainer}>
             <Link href='/' onClick={closeDrawer}>
               <Title className={classes.link} order={6}>
                 Hem
