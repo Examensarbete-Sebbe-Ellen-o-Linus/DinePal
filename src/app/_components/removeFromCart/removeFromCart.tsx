@@ -1,5 +1,5 @@
 import { Button } from '@mantine/core';
-import { cartValue } from 'signals/cartSignals';
+import { cartSignal } from 'signals/cartSignals';
 import type { IDish } from '~/app/interfaces';
 
 type CartItem = {
@@ -13,11 +13,11 @@ type Props = {
 
 export const RemoveFromCartButton = ({ dish }: Props) => {
   if (localStorage.getItem('cart')) {
-    cartValue.value = JSON.parse(localStorage.getItem('cart') ?? '[]');
+    cartSignal.value = JSON.parse(localStorage.getItem('cart') ?? '[]');
   }
 
   const handleRemoveFromCart = (dishTitle: string) => {
-    cartValue.value = cartValue.value.reduce((newCart, item) => {
+    cartSignal.value = cartSignal.value.reduce((newCart, item) => {
       if (item.dish.title === dishTitle) {
         if (item.quantity > 1) {
           newCart.push({ ...item, quantity: item.quantity - 1 });
@@ -28,7 +28,7 @@ export const RemoveFromCartButton = ({ dish }: Props) => {
       return newCart;
     }, [] as CartItem[]);
 
-    localStorage.setItem('cart', JSON.stringify(cartValue.value));
+    localStorage.setItem('cart', JSON.stringify(cartSignal.value));
   };
 
   return (

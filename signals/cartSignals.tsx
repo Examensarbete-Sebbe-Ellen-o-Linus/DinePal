@@ -8,13 +8,13 @@ type CartItem = {
 
 const localStorageValue = localStorage.getItem('cart');
 
-export const cartValue = signal<CartItem[]>(
+export const cartSignal = signal<CartItem[]>(
   localStorageValue ? JSON.parse(localStorageValue) : []
 );
 
 export const totalCartLenght = computed(() => {
   let total = 0;
-  cartValue.value.forEach(item => {
+  cartSignal.value.forEach(item => {
     total += item.quantity;
   });
   return total;

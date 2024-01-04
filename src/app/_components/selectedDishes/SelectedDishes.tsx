@@ -1,10 +1,10 @@
 'use client';
 
-import { AddToCartButton } from 'hooks/addToCart';
+import { AddToCartButton } from '~/app/_components/addToCart/addToCart';
 
 import { Text } from '@mantine/core';
-import { RemoveFromCartButton } from 'hooks/removeFromCart';
 import Link from 'next/link';
+import { RemoveFromCartButton } from '~/app/_components/removeFromCart/removeFromCart';
 
 import { totalCartLenght } from 'signals/cartSignals';
 import type { IDish } from '../../interfaces';

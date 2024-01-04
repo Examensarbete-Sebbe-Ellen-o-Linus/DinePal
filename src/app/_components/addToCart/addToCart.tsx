@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core';
 import { effect } from '@preact/signals-react';
-import { cartValue } from 'signals/cartSignals';
+import { cartSignal } from 'signals/cartSignals';
 import type { IDish } from '~/app/interfaces';
 
 type CartItem = {
@@ -14,7 +14,7 @@ type Props = {
 
 export const AddToCartButton = ({ dish }: Props) => {
   const handleAddToCart = (newDish: IDish) => {
-    cartValue.value = cartValue.value.reduce((newCart, item) => {
+    cartSignal.value = cartSignal.value.reduce((newCart, item) => {
       if (item.dish.title === newDish.title) {
         newCart.push({ ...item, quantity: item.quantity + 1 });
       } else {
@@ -24,16 +24,16 @@ export const AddToCartButton = ({ dish }: Props) => {
     }, [] as CartItem[]);
 
     // If the dish is not already in the cart, add it
-    if (!cartValue.value.some(item => item.dish.title === newDish.title)) {
-      cartValue.value = [...cartValue.value, { dish: newDish, quantity: 1 }];
+    if (!cartSignal.value.some(item => item.dish.title === newDish.title)) {
+      cartSignal.value = [...cartSignal.value, { dish: newDish, quantity: 1 }];
     }
 
-    localStorage.setItem('cart', JSON.stringify(cartValue.value));
+    localStorage.setItem('cart', JSON.stringify(cartSignal.value));
   };
 
   effect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartValue.value));
-    console.log('cart', cartValue.value);
+    localStorage.setItem('cart', JSON.stringify(cartSignal.value));
+    console.log('cart', cartSignal.value);
   });
 
   return (
