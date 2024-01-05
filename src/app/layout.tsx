@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Container, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
