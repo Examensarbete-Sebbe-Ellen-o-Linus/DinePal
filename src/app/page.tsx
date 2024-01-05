@@ -33,22 +33,6 @@ export default async function Home() {
         </Link>
       </div>
       <News news={news} />
-
-      {/* {footer && (
-        <>
-          <div>
-            <p>{footer.address?.street}</p>
-            <p>{footer.address?.postalCode}</p>
-            <p>{footer.address?.city}</p>
-          </div>
-          <img src={footer.logotype.url} alt={footer.logotype.alt} />
-          {footer.socials.map(social => (
-            <a key={social._key} href={social.url}>
-              {social.url}
-            </a>
-          ))}
-        </>
-      )} */}
     </div>
   );
 }

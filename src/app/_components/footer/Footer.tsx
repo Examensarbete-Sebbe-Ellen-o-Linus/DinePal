@@ -27,7 +27,7 @@ export default function Footer({ footer }: { footer: IFooter }) {
             ))}
           </Box>
 
-          <Image
+          <img
             className={classes.logotype}
             src={footer.logotype.url}
             alt={footer.logotype.alt}
@@ -60,10 +60,7 @@ export default function Footer({ footer }: { footer: IFooter }) {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Image
-                  src={social.icon.url}
-                  alt={social.icon.alt ?? 'Social icon'}
-                />
+                <img src={social.icon.url} alt={`${social.platform} icon`} />
               </a>
             ))}
           </Box>
