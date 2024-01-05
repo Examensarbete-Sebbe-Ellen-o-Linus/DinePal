@@ -1,3 +1,5 @@
+@import '../../../styles/mantine';
+
 .container {
   display: flex;
   width: 100%;
@@ -22,7 +24,7 @@
   align-items: center;
   gap: 0px;
 
-  @media (min-width: 768px) {
+  @media (max-width: $mantine-breakpoint-md) {
     gap: 24px;
   }
 }
