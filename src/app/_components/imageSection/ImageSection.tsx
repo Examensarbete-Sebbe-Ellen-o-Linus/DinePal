@@ -1,4 +1,7 @@
+import { Box, Container, Title } from '@mantine/core';
+import Link from 'next/link';
 import { IImageSection } from '~/app/interfaces';
+import scss from './ImageSection.module.scss';
 
 export default function ImageSection({
   imageSection,
@@ -6,17 +9,22 @@ export default function ImageSection({
   imageSection: IImageSection;
 }) {
   return (
-    <section>
-      {imageSection.description && <h1>{imageSection.description}</h1>}
-      {imageSection.title && <h1>{imageSection.title}</h1>}
-      <div>
+    <div className={scss.container}>
+      <Container size={1120} fluid>
         {imageSection.imageCards?.map((image, i) => (
-          <div key={i}>
-            <img src={image.url} alt={image.alt} />
-            {image.link && <h4>{image.link.text}</h4>}
-          </div>
+          <Box className={scss.imageCard} key={i}>
+            {image.link && (
+              <Link href={image.link?.pageType}>
+                <>
+                  <Box className={scss.overlay} />
+                  <img src={image.url} alt={image.alt} />
+                  <Title order={4}>{image.link.text}</Title>
+                </>
+              </Link>
+            )}
+          </Box>
         ))}
-      </div>
-    </section>
+      </Container>
+    </div>
   );
 }
