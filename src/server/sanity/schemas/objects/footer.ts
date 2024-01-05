@@ -100,11 +100,49 @@ export default defineType({
       title: 'Email',
       type: 'email',
     }),
+    // defineField({
+    //   name: 'socials',
+    //   title: 'Social Links',
+    //   type: 'array',
+    //   of: [{type: 'socialLink'}],
+    //   description: 'Add links to social channels here.',
+    // }),
+
     defineField({
       name: 'socials',
       title: 'Social Links',
       type: 'array',
-      of: [{type: 'socialLink'}],
+      of: [
+        {
+          type: 'object',
+          name: 'socialLink',
+          title: 'Social Link',
+          fields: [
+            defineField({
+              name: 'platform',
+              title: 'Platform',
+              type: 'string',
+            }),
+            defineField({
+              name: 'url',
+              title: 'URL',
+              type: 'url',
+            }),
+            defineField({
+              name: 'icon',
+              title: 'Icon',
+              type: 'image',
+              fields: [
+                {
+                  name: 'alt',
+                  title: 'Alternative Text',
+                  type: 'string',
+                },
+              ],
+            }),
+          ],
+        },
+      ],
       description: 'Add links to social channels here.',
     }),
   ],

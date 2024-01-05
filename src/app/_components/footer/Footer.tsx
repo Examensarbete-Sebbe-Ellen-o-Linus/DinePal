@@ -1,13 +1,12 @@
 import { Box, Image, Text, Title } from '@mantine/core';
 
 import { type IFooter } from '~/app/interfaces';
-// import preHeader from '../../../../public/images/brunch-table.png';
 import classes from './Footer.module.scss';
 
 export default function Footer({ footer }: { footer: IFooter }) {
   return (
     <Box>
-      <Box className={classes.imageContainer}>
+      <Box className={classes.preFooter}>
         <Image
           className={classes.image}
           src={footer.preFooter.url}
@@ -54,9 +53,19 @@ export default function Footer({ footer }: { footer: IFooter }) {
         <Box className={classes.lowerContainer}>
           <Text className={classes.copyRight}>©2024 Dine Pal</Text>
           <Box className={classes.socialMedia}>
-            {/* <Image src={facebook} alt='A logotype of Facebook.' />
-            <Image src={instagram} alt='A logotype of Instagram.' />
-            <Image src={x} alt='A logotype of X.' /> */}
+            {footer.socials.map(social => (
+              <a
+                key={social._key}
+                href={social.url}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <Image
+                  src={social.icon.url}
+                  alt={social.icon.alt ?? 'Social icon'}
+                />
+              </a>
+            ))}
           </Box>
         </Box>
       </Box>

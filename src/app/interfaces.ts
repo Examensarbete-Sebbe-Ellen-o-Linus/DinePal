@@ -121,6 +121,7 @@ export interface ISocials {
   _key: string;
   platform: string;
   url: string;
+  icon: IImage;
 }
 
 // Address interface
