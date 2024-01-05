@@ -20,28 +20,12 @@ export default function Footer({ footer }: { footer: IFooter }) {
           <Box className={classes.contentContainer}>
             <Title order={4}>Öppettider</Title>
 
-            {footer.openingHours.map((item, index) => (
-              <Text key={index} className={classes.openingHourRow}>
-                {`${item.day}: ${item.hours}`}
-              </Text>
+            {footer.openingHours.map(openingHour => (
+              <Box key={openingHour._key} className={classes.openingHourRow}>
+                <Text>{`${openingHour.day}:`}</Text>
+                <Text>{openingHour.hours}</Text>
+              </Box>
             ))}
-
-            {/* <Box className={classes.content}>
-              <Text>Mån-Tors</Text>
-              <Text>10:00-16:00</Text>
-            </Box>
-            <Box className={classes.content}>
-              <Text>Fredag</Text>
-              <Text>10:00-22:00</Text>
-            </Box>
-            <Box className={classes.content}>
-              <Text>Lördag</Text>
-              <Text>10:00-17:00</Text>
-            </Box>
-            <Box className={classes.content}>
-              <Text>Söndag</Text>
-              <Text>10:00-17:00</Text>
-            </Box> */}
           </Box>
 
           <Image

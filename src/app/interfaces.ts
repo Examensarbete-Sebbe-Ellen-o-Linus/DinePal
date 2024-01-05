@@ -112,6 +112,7 @@ export interface IFooter {
 export interface IOpeningHours {
   day: string;
   hours: string;
+  _key: string;
 }
 
 // Socials interface

@@ -43,18 +43,14 @@
 .contentContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
-  gap: 8px;
 }
 
 .openingHourRow {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  width: 100%;
 }
-
-
 
 .content {
   display: flex;
