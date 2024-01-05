@@ -7,6 +7,21 @@ export default defineType({
 
   fields: [
     defineField({
+      name: 'preFooter',
+      title: 'Pre-Footer',
+      type: 'image',
+      description: 'Upload an image here. It will be displayed as pre-footer on all pages.',
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt',
+          description: 'Provide an descriptive text which conveys the content of the image',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+    }),
+    defineField({
       name: 'logotype',
       title: 'Logo',
       type: 'image',
@@ -22,12 +37,37 @@ export default defineType({
         },
       ],
     }),
+    // defineField({
+    //   name: 'openingHours',
+    //   title: 'Opening hours',
+    //   type: 'text',
+    //   rows: 4,
+    // }),
     defineField({
       name: 'openingHours',
-      title: 'Opening hours',
-      type: 'text',
-      rows: 4,
+      title: 'Opening Hours',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'dailyHours',
+          title: 'Daily Hours',
+          fields: [
+            {
+              name: 'day',
+              title: 'Day',
+              type: 'string',
+            },
+            {
+              name: 'hours',
+              title: 'Hours',
+              type: 'string',
+            },
+          ],
+        },
+      ],
     }),
+
     defineField({
       name: 'address',
       title: 'Address',

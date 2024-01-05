@@ -1,20 +1,17 @@
-import { Box, Text, Title } from '@mantine/core';
+import { Box, Image, Text, Title } from '@mantine/core';
 
-import Image from 'next/image';
-import logotype from '../../../../public/images/bellis-logo-footer.png';
-import preHeader from '../../../../public/images/brunch-table.png';
-import facebook from '../../../../public/images/facebook.png';
-import instagram from '../../../../public/images/instagram.png';
-import x from '../../../../public/images/x.png';
+import { type IFooter } from '~/app/interfaces';
+// import preHeader from '../../../../public/images/brunch-table.png';
 import classes from './Footer.module.scss';
 
-export default function Footer() {
+export default function Footer({ footer }: { footer: IFooter }) {
   return (
     <Box>
       <Box className={classes.imageContainer}>
         <Image
-          src={preHeader}
-          alt='A brunch table with bottles, cups and some sandwiches.'
+          className={classes.image}
+          src={footer.preFooter.url}
+          alt={footer.preFooter.alt}
         />
       </Box>
 
@@ -22,7 +19,14 @@ export default function Footer() {
         <Box className={classes.upperContainer}>
           <Box className={classes.contentContainer}>
             <Title order={4}>Öppettider</Title>
-            <Box className={classes.content}>
+
+            {footer.openingHours.map((item, index) => (
+              <Text key={index} className={classes.openingHourRow}>
+                {`${item.day}: ${item.hours}`}
+              </Text>
+            ))}
+
+            {/* <Box className={classes.content}>
               <Text>Mån-Tors</Text>
               <Text>10:00-16:00</Text>
             </Box>
@@ -37,28 +41,28 @@ export default function Footer() {
             <Box className={classes.content}>
               <Text>Söndag</Text>
               <Text>10:00-17:00</Text>
-            </Box>
+            </Box> */}
           </Box>
 
           <Image
             className={classes.logotype}
-            src={logotype}
-            alt="A logotype of the Bellis café. The letter 'B' in a golden banner."
+            src={footer.logotype.url}
+            alt={footer.logotype.alt}
           />
 
           <Box className={classes.contentContainer}>
             <Title order={4}>Kontakt</Title>
             <Box className={classes.content}>
-              <Text>Norra Toggatan 9a</Text>
+              <Text>{footer.address.street}</Text>
             </Box>
             <Box className={classes.content}>
-              <Text>434 30 Kungsbacka</Text>
+              <Text>{footer.address.postalCode}</Text>
             </Box>
             <Box className={classes.content}>
-              <Text>Tel: 076-3223979</Text>
+              <Text>{footer.phone}</Text>
             </Box>
             <Box className={classes.content}>
-              <Text>Epost: info@belliscafe.se</Text>
+              <Text>{footer.email}</Text>
             </Box>
           </Box>
         </Box>
@@ -66,9 +70,9 @@ export default function Footer() {
         <Box className={classes.lowerContainer}>
           <Text className={classes.copyRight}>©2024 Dine Pal</Text>
           <Box className={classes.socialMedia}>
-            <Image src={facebook} alt='A logotype of Facebook.' />
+            {/* <Image src={facebook} alt='A logotype of Facebook.' />
             <Image src={instagram} alt='A logotype of Instagram.' />
-            <Image src={x} alt='A logotype of X.' />
+            <Image src={x} alt='A logotype of X.' /> */}
           </Box>
         </Box>
       </Box>

@@ -99,11 +99,19 @@ export interface ISettings {
 
 // Footer interface
 export interface IFooter {
-  openingHours: string;
+  preFooter: IImage;
+  openingHours: IOpeningHours[];
   socials: ISocials[];
   logotype: IImage;
   address: IAddress;
   phone: string;
+  email: string;
+}
+
+// Opening hours interface within Footer
+export interface IOpeningHours {
+  day: string;
+  hours: string;
 }
 
 // Socials interface

@@ -6,7 +6,7 @@
   overflow: hidden;
 }
 
-.imageContainer img {
+.image {
   width: 100%;
   height: 512px;
   object-fit: cover;
@@ -48,14 +48,25 @@
   gap: 8px;
 }
 
+.openingHourRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+
+
 .content {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  white-space: nowrap;
 }
 
 .logotype {
   order: 0;
+  width: 168px;
+  height: 162px;
 
   @media (max-width: $mantine-breakpoint-sm) {
     order: -1;

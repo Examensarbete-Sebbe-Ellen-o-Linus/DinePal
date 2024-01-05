@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
-import { theme } from './theme/theme';
+
+import { fetchSettingsData } from '~/server/sanity/sanity.utils';
+import '~/styles/globals.css';
 import Footer from './_components/footer/Footer';
+import { theme } from './theme/theme';
 
 export const metadata = {
   title: 'Create T3 App',
@@ -13,18 +14,20 @@ export const metadata = {
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settingsData = await fetchSettingsData();
+  const { footer } = settingsData;
   return (
     <html lang='en'>
       <body>
         <TRPCReactProvider cookies={cookies().toString()}>
           <MantineProvider theme={theme}>
             {children}
-            <Footer />
+            <Footer footer={footer} />
           </MantineProvider>
         </TRPCReactProvider>
       </body>

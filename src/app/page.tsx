@@ -34,7 +34,7 @@ export default async function Home() {
       </div>
       <News news={news} />
 
-      {footer && (
+      {/* {footer && (
         <>
           <div>
             <p>{footer.address?.street}</p>
@@ -48,17 +48,7 @@ export default async function Home() {
             </a>
           ))}
         </>
-      )}
-      {header && (
-        <>
-          <img src={header.logotype.url} alt={header.logotype.alt} />
-          {header.navLinks.map(link => (
-            <a key={link._key} href={link.pageType}>
-              {link.text}
-            </a>
-          ))}
-        </>
-      )}
+      )} */}
     </div>
   );
 }
