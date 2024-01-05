@@ -24,6 +24,7 @@ export default async function BusinessPage() {
       {allowedUsers ? (
         allowedUsers.map((allowerUser, index) => (
           <div key={index}>
+            <h2>allowed Users:</h2>
             <p>{allowerUser.username}</p>
           </div>
         ))
