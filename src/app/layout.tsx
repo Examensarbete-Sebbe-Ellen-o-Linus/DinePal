@@ -2,6 +2,7 @@
 import { Container, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
+import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import { TRPCReactProvider } from '~/trpc/react';
 
 import '~/styles/globals.css';
@@ -14,17 +15,20 @@ export const metadata = {
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settingsData = await fetchSettingsData();
+  const { header } = settingsData;
+
   return (
     <html lang='en'>
       <body>
         <TRPCReactProvider cookies={cookies().toString()}>
           <MantineProvider theme={theme}>
-            <Header />
+            <Header header={header} />
             <Container style={{ marginTop: '112px' }}>{children}</Container>
           </MantineProvider>
         </TRPCReactProvider>

@@ -1,16 +1,15 @@
 'use client';
-import { Box, Burger, Drawer, Title } from '@mantine/core';
+import { Box, Burger, Drawer, Image, Title } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { type IHeader } from '~/app/interfaces';
 import { theme } from '~/app/theme/theme';
-import logotype from '../../../../public/images/bellis-logo.png';
 import CartTag from '../cartTag/CartTag';
-import classes from './Header.module.css';
+import classes from './Header.module.scss';
 
-export default function Header() {
+export default function Header({ header }: { header: IHeader }) {
   const [opened, { toggle }] = useDisclosure();
   const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints?.sm})`);
   const [lastScrollUp, setLastScrollUp] = useState(0);
@@ -44,13 +43,10 @@ export default function Header() {
       className={`${classes.container} ${!headerVisible ? classes.hide : ''}`}
     >
       <Link href='/'>
-        <Image
-          src={logotype}
-          alt="A logotype of the Bellis café. The letter 'B' in a golden banner."
-        />
+        <Image src={header.logotype.url} alt={header.logotype.alt} />
       </Link>
       <Box className={classes.content}>
-        {/* Will be controlled by states later on */}
+        {/* Will be controlled by signals later on */}
         {isDesktop ? <CartTag itemCount={0} price={0} /> : null}
         <Burger
           opened={opened}
@@ -68,31 +64,18 @@ export default function Header() {
           position='top'
         >
           <Box className={classes.drawerContainer}>
-            <Link href='/' onClick={closeDrawer}>
-              <Title className={classes.link} order={6}>
-                Hem
-              </Title>
-            </Link>
-            <Link href='/menu' onClick={closeDrawer}>
-              <Title className={classes.link} order={6}>
-                Meny
-              </Title>
-            </Link>
-            <Link href='/booking' onClick={closeDrawer}>
-              <Title className={classes.link} order={6}>
-                Boka bord
-              </Title>
-            </Link>
-            <Link href='/gallery' onClick={closeDrawer}>
-              <Title className={classes.link} order={6}>
-                Galleri
-              </Title>
-            </Link>
-            <Link href='/chart' onClick={closeDrawer}>
-              <Title className={classes.link} order={6}>
-                Varukorg
-              </Title>
-            </Link>
+            {header.navLinks &&
+              header.navLinks.map(navLink => (
+                <Link
+                  key={navLink._key}
+                  href={navLink.pageType}
+                  onClick={closeDrawer}
+                >
+                  <Title className={classes.link} order={6}>
+                    {navLink.text}
+                  </Title>
+                </Link>
+              ))}
           </Box>
         </Drawer>
 
