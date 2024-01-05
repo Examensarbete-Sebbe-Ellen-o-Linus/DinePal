@@ -106,6 +106,7 @@ export interface IFooter {
   address: IAddress;
   phone: string;
   email: string;
+  homePageLink?: string;
 }
 
 // Opening hours interface within Footer

@@ -35,14 +35,14 @@ export default defineType({
           type: 'string',
           validation: (Rule) => Rule.required(),
         },
+        defineField({
+          name: 'homePageLink',
+          title: 'Home Page Link',
+          type: 'url',
+          description: 'URL to link the logo to the home page.',
+        }),
       ],
     }),
-    // defineField({
-    //   name: 'openingHours',
-    //   title: 'Opening hours',
-    //   type: 'text',
-    //   rows: 4,
-    // }),
     defineField({
       name: 'openingHours',
       title: 'Opening Hours',
@@ -100,14 +100,6 @@ export default defineType({
       title: 'Email',
       type: 'email',
     }),
-    // defineField({
-    //   name: 'socials',
-    //   title: 'Social Links',
-    //   type: 'array',
-    //   of: [{type: 'socialLink'}],
-    //   description: 'Add links to social channels here.',
-    // }),
-
     defineField({
       name: 'socials',
       title: 'Social Links',

@@ -1,9 +1,11 @@
 import { Box, Image, Text, Title } from '@mantine/core';
 
+import Link from 'next/link';
 import { type IFooter } from '~/app/interfaces';
 import classes from './Footer.module.scss';
 
 export default function Footer({ footer }: { footer: IFooter }) {
+  const { logotype, homePageLink } = footer;
   return (
     <Box>
       <Box className={classes.preFooter}>
@@ -27,11 +29,13 @@ export default function Footer({ footer }: { footer: IFooter }) {
             ))}
           </Box>
 
-          <img
-            className={classes.logotype}
-            src={footer.logotype.url}
-            alt={footer.logotype.alt}
-          />
+          <Link href={homePageLink ?? '/'}>
+            <img
+              className={classes.logotype}
+              src={logotype.url}
+              alt={logotype.alt}
+            />
+          </Link>
 
           <Box className={classes.contentContainer}>
             <Title order={4}>Kontakt</Title>
