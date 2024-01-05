@@ -66,6 +66,7 @@ export interface IHomePage {
   selectedDishes: IDish[];
   imageSection: IImageSection;
   about: IAbout;
+  news: INews;
   seo: ISEO;
 }
 
@@ -123,4 +124,9 @@ export interface IAddress {
 export interface IHeader {
   navLinks: IButton[];
   logotype: IImage;
+}
+export interface INews {
+  title: string;
+  description: string;
+  image: IImage;
 }

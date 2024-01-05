@@ -1,0 +1,16 @@
+.hero {
+  background: yellow;
+  @media (max-width: $mantine-breakpoint-md) {
+    background: green;
+  }
+}
+
+.title {
+  color: red;
+}
+
+.hero {
+  @media (max-width: $mantine-breakpoint-xs) {
+    background-color: red;
+  }
+}

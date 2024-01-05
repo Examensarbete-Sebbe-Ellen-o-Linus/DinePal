@@ -8,6 +8,7 @@ import {
 import About from './_components/about/About';
 import Hero from './_components/hero/Hero';
 import ImageSection from './_components/imageSection/ImageSection';
+import News from './_components/news/News';
 import SelectedDishes from './_components/selectedDishes/SelectedDishes';
 
 export default async function Home() {
@@ -15,7 +16,7 @@ export default async function Home() {
   const homePageData = await fetchHomePageData();
   const settingsData = await fetchSettingsData();
 
-  const { about, selectedDishes, imageSection, hero } = homePageData;
+  const { about, selectedDishes, imageSection, hero, news } = homePageData;
   const { header, footer } = settingsData;
 
   return (
@@ -31,6 +32,7 @@ export default async function Home() {
           {session ? 'Sign out' : 'Sign in'}
         </Link>
       </div>
+      <News news={news} />
 
       {footer && (
         <>
