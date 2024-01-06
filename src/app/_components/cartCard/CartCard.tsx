@@ -1,16 +1,16 @@
 import { Box, Divider, NumberInput, Text, Title } from '@mantine/core';
 
 import blueBerryPancakes from '../../../../public/images/blueberry-pancakes.jpg';
-import classes from './AddedDish.module.scss';
+import classes from './CartCard.module.scss';
 
-export default function AddedDish() {
+export default function CartCard() {
   return (
     <Box className={classes.container}>
       <img
         src={blueBerryPancakes.src}
         alt='Place name of dish here later on.'
       />
-      <Title order={6}>Blue Berry Pancake</Title>
+      <Title order={6}>Blueberry Pancakes</Title>
       <Text>278 :-</Text>
       <Divider mt={0} mb={0} w={'100%'} my='md' />
       <Box className={classes.selectRemove}>
