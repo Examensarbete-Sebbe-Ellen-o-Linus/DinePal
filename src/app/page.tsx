@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Box, Container } from '@mantine/core';
+import { Box } from '@mantine/core';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
 import {
@@ -7,7 +7,6 @@ import {
   fetchSettingsData,
 } from '~/server/sanity/sanity.utils';
 import About from './_components/about/About';
-import Cart from './_components/cart/Cart';
 import Hero from './_components/hero/Hero';
 import ImageSection from './_components/imageSection/ImageSection';
 import News from './_components/news/News';
@@ -23,13 +22,10 @@ export default async function Home() {
 
   return (
     <Box>
-      <Container size={'1120px'}>
-        <Link href='/gallery'>Link to Gallery</Link>
-        <Cart />
-        <Hero hero={hero} />
-        <SelectedDishes dishes={selectedDishes} />
-        <News news={news} />
-      </Container>
+      <Link href='/gallery'>Link to Gallery</Link>
+      <Hero hero={hero} />
+      <SelectedDishes dishes={selectedDishes} />
+      <News news={news} />
       <ImageSection imageSection={imageSection} />
       <About about={about} />
       <div>

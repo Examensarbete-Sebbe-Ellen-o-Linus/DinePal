@@ -24,7 +24,7 @@ export default function CheckoutTag({
         <Box className={classes.content}>
           <Badge className={classes.badge}>{itemCount}</Badge>
 
-          <Text className={classes.noWrapContainer}>Till varukorg</Text>
+          <Text className={classes.noWrapContainer}>Till kassa</Text>
         </Box>
         <Box className={classes.noWrapContainer}>{formatPrice(price)} :-</Box>
       </Box>

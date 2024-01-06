@@ -10,7 +10,6 @@ export default function Cart() {
   const [opened, { toggle }] = useDisclosure();
   return (
     <Box>
-      <button onClick={toggle}>Click me</button>
       <Drawer
         opened={opened}
         onClose={toggle}
