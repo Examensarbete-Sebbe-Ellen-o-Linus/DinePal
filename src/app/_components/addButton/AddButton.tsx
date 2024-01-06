@@ -8,19 +8,15 @@ interface IAddButton {
   color: 'black' | 'orange';
 }
 
-export default function AddButton({
-  showAddIcon: showAddButton,
-  text: buttonText,
-  color,
-}: IAddButton) {
+export default function AddButton({ showAddIcon, text, color }: IAddButton) {
   // Assign a CSS class to 'buttonColor' based on the 'color' prop passed from the parent.
   // The 'color' prop should be either 'black' or 'orange'.
   const buttonColor = `${classes.container} ${classes[color]}`;
 
   return (
     <button className={buttonColor}>
-      <Title order={6}>{buttonText}</Title>
-      {showAddButton && (
+      <Title order={6}>{text}</Title>
+      {showAddIcon && (
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
