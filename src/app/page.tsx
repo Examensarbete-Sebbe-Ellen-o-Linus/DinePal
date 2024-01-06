@@ -5,6 +5,7 @@ import {
   fetchHomePageData,
   fetchSettingsData,
 } from '~/server/sanity/sanity.utils';
+
 import About from './_components/about/About';
 import Hero from './_components/hero/Hero';
 import ImageSection from './_components/imageSection/ImageSection';
