@@ -1,15 +1,24 @@
 'use client';
-import { Box, NumberInput } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Group,
+  NumberInput,
+  TextInput,
+  Textarea,
+} from '@mantine/core';
 import { DatePicker, TimeInput, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import dayjs from 'dayjs';
 import 'dayjs/locale/sv';
+import { useFormik } from 'formik';
 import { useState } from 'react';
 
 import { theme } from '~/app/theme/theme';
 import classes from './BookingForm.module.scss';
 
 export default function BookingForm() {
+  // DatePicker
   const [value, setValue] = useState<Date | null>(null);
 
   const minSelectableDate = dayjs().toDate();
@@ -32,9 +41,27 @@ export default function BookingForm() {
         },
       };
     }
-
     return {};
   };
+  // DatePicker
+
+  // Form
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      commentary: '',
+    },
+    onSubmit: values => {
+      console.log(values);
+      // handle form submission
+    },
+    // later add validationSchema or validate for validation
+  });
+
+  // Form
 
   return (
     <Box className={classes.container}>
@@ -49,11 +76,11 @@ export default function BookingForm() {
         leftSectionWidth={'50px'}
         styles={{
           input: {
-            fontSize: '18px',
+            fontSize: theme.other?.body1,
             width: '128px',
           },
           label: {
-            fontSize: '18px',
+            fontSize: theme.other?.body2,
           },
         }}
       />
@@ -75,14 +102,71 @@ export default function BookingForm() {
         withAsterisk={true}
         styles={{
           input: {
-            fontSize: '18px',
+            fontSize: theme.other?.body1,
             width: '128px',
           },
           label: {
-            fontSize: '18px',
+            fontSize: theme.other?.body2,
           },
         }}
       />
+
+      {/* FORM */}
+      <Box className={classes.formContainer}>
+        <form onSubmit={formik.handleSubmit}>
+          <TextInput
+            label='Förnamn'
+            name='firstName'
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+            withAsterisk={true}
+            styles={{
+              input: {
+                fontSize: theme.other?.body1,
+                width: '100%',
+              },
+              label: {
+                fontSize: theme.other?.body2,
+              },
+            }}
+          />
+
+          <TextInput
+            label='Efternamn'
+            name='lastName'
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+            withAsterisk={true}
+          />
+
+          <TextInput
+            label='Email'
+            name='email'
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            withAsterisk={true}
+          />
+
+          <TextInput
+            label='Telefon'
+            name='phone'
+            value={formik.values.phone}
+            onChange={formik.handleChange}
+            withAsterisk={true}
+          />
+
+          <Textarea
+            label='Kommentar'
+            name='kommentar'
+            value={formik.values.commentary}
+            onChange={formik.handleChange}
+            placeholder='Skriv kommentar...'
+          />
+          <Group mt='md'>
+            <Button type='submit'>Submit</Button>
+          </Group>
+        </form>
+      </Box>
     </Box>
   );
 }
