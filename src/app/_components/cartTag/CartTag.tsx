@@ -14,6 +14,11 @@ export default function CartTag({
   itemCount,
   price,
 }: ICartTag) {
+  // Adds a blank space between every thousand
+  function formatPrice(price: number): string {
+    return price.toLocaleString('sv-SE');
+  }
+
   if (itemCount > 0) {
     return (
       <Link href='/chart'>
@@ -23,7 +28,7 @@ export default function CartTag({
 
             <Text className={classes.noWrapContainer}>Till varukorg</Text>
           </Box>
-          <Box className={classes.noWrapContainer}>{price} :-</Box>
+          <Box className={classes.noWrapContainer}>{formatPrice(price)} :-</Box>
         </Box>
       </Link>
     );
