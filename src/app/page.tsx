@@ -29,8 +29,8 @@ export default async function Home() {
         <Hero hero={hero} />
         <SelectedDishes dishes={selectedDishes} />
         <News news={news} />
-        <ImageSection imageSection={imageSection} />
       </Container>
+      <ImageSection imageSection={imageSection} />
       <About about={about} />
       <div>
         <p>{session && <span>Logged in as {session.user?.name}</span>}</p>

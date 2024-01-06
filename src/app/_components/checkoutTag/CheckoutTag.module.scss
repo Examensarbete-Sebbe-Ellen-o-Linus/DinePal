@@ -1,0 +1,37 @@
+@import '../../../styles/mantine';
+
+.container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 8px 16px;
+    gap: 24px;
+    border-radius: var(--mantine-radius-secondary);
+    background: var(--mantine-color-orange-3);
+    cursor: pointer;
+
+    min-width: 252px;
+  }
+  
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  
+  .badge {
+    display: flex;
+    padding: 2px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 32px;
+    background: var(--mantine-color-black-3) !important;
+    color: var(--mantine-color-white-3);
+    font-size: 14px;
+  }
+  
+  .noWrapContainer {
+    white-space: nowrap;
+  }
