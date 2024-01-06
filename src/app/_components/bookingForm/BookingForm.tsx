@@ -1,12 +1,5 @@
 'use client';
-import {
-  Box,
-  Button,
-  Group,
-  NumberInput,
-  TextInput,
-  Textarea,
-} from '@mantine/core';
+import { Box, Group, NumberInput, TextInput, Textarea } from '@mantine/core';
 import { DatePicker, TimeInput, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import dayjs from 'dayjs';
@@ -15,6 +8,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 
 import { theme } from '~/app/theme/theme';
+import LongButton from '../longButton/LongButton';
 import classes from './BookingForm.module.scss';
 
 export default function BookingForm() {
@@ -163,7 +157,11 @@ export default function BookingForm() {
             placeholder='Skriv kommentar...'
           />
           <Group mt='md'>
-            <Button type='submit'>Submit</Button>
+            <LongButton
+              showAddIcon={false}
+              text={'Boka bord'}
+              color={'black'}
+            />
           </Group>
         </form>
       </Box>
