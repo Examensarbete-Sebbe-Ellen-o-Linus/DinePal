@@ -3,7 +3,6 @@ import { Title } from '@mantine/core';
 import classes from './LongButton.module.css';
 
 interface ILongButton {
-  showAddIcon: boolean;
   text: string;
   color: 'black' | 'orange';
 }

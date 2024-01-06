@@ -59,6 +59,7 @@ export default function BookingForm() {
 
   return (
     <Box className={classes.container}>
+      {/* GUESTS */}
       <NumberInput
         withAsterisk={true}
         label='Antal gäster'
@@ -79,6 +80,7 @@ export default function BookingForm() {
         }}
       />
 
+      {/* CALENDAR */}
       <DatePicker
         allowDeselect
         value={value}
@@ -90,6 +92,7 @@ export default function BookingForm() {
         getDayProps={getDayProps}
       />
 
+      {/* TIME */}
       <TimeInput
         label='Välj tid'
         placeholder='Input placeholder'
@@ -157,11 +160,7 @@ export default function BookingForm() {
             placeholder='Skriv kommentar...'
           />
           <Group mt='md'>
-            <LongButton
-              showAddIcon={false}
-              text={'Boka bord'}
-              color={'black'}
-            />
+            <LongButton text={'Boka bord'} color={'black'} />
           </Group>
         </form>
       </Box>
