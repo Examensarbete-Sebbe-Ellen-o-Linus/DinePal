@@ -16,26 +16,25 @@ export default function BookingForm() {
   // Time Select
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
-  //   const getTimeOptions = (date: Date) => {
-  //     const dayOfWeek = date.getDay();
-  //     if ([1, 2, 3, 4].includes(dayOfWeek)) {
-  //       // Monday to Thursday, 10:00 to 15:00
-  //       return Array.from({ length: 6 }, (_, i) => `${10 + i}:00`);
-  //     } else if ([5, 6, 0].includes(dayOfWeek)) {
-  //       // Friday to Sunday, 10:00 to 16:00
-  //       return Array.from({ length: 7 }, (_, i) => `${10 + i}:00`);
-  //     }
-  //     return [];
-  //   };
-
   const getTimeOptions = (date: Date) => {
     const currentDateTime = new Date();
     const isToday = currentDateTime.toDateString() === date.toDateString();
     const currentHour = currentDateTime.getHours();
 
     const dayOfWeek = date.getDay();
-    const startHour = 10; // Booking starts at 10:00
-    const endHour = [1, 2, 3, 4].includes(dayOfWeek) ? 15 : 16; // 15:00 for Mon-Thu, 16:00 for Fri-Sun
+    const startHour = 10;
+    let endHour;
+
+    if ([1, 2, 3, 4].includes(dayOfWeek)) {
+      // Monday to Thursday
+      endHour = 15;
+    } else if (dayOfWeek === 5) {
+      // Friday
+      endHour = 21;
+    } else {
+      // Saturday and Sunday
+      endHour = 16;
+    }
 
     const timeSlots = [];
     for (let hour = startHour; hour <= endHour; hour++) {
