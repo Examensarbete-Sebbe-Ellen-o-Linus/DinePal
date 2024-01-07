@@ -12,10 +12,23 @@ import { theme } from '~/app/theme/theme';
 import { bookingFormValidation } from '~/app/validation/bookingFormValidation';
 import LongButton from '../longButton/LongButton';
 import classes from './BookingForm.module.scss';
+import BookingModal from './components/BookingModal';
+
+export interface FormikValues {
+  guests: string;
+  date: Date | null;
+  time: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  commentary: string;
+}
 
 export default function BookingForm() {
   // Don't know why the theme is not applied here. Using the value for xs here instead.
   const isDesktop = useMediaQuery(`(min-width: 36em`);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   // Time Select
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
@@ -96,6 +109,7 @@ export default function BookingForm() {
     validationSchema: bookingFormValidation,
     onSubmit: values => {
       console.log(values);
+      setModalOpen(true);
     },
     validateOnChange: true,
     validateOnBlur: true,
@@ -256,6 +270,12 @@ export default function BookingForm() {
           </Box>
         </form>
       </Box>
+
+      <BookingModal
+        formikValues={formik.values}
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </Box>
   );
 }
