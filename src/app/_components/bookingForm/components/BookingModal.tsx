@@ -1,4 +1,4 @@
-import { Box, Modal, Text, Title } from '@mantine/core';
+import { Box, Modal, Text } from '@mantine/core';
 
 import { useState } from 'react';
 import LongButton from '../../longButton/LongButton';
@@ -67,9 +67,9 @@ export default function BookingModal({
         onClose={onClose}
         title={
           showConfirmation ? (
-            <Title order={6}>Tack för din bokning!</Title>
+            <Text>Tack för din bokning!</Text>
           ) : (
-            <Title order={6}>Bekräfta din bokning</Title>
+            <Text>Bekräfta din bokning</Text>
           )
         }
         centered
@@ -90,7 +90,7 @@ export default function BookingModal({
                   viewBox='0 0 81 80'
                   fill='none'
                 >
-                  <g clip-path='url(#clip0_449_5706)'>
+                  <g clipPath='url(#clip0_449_5706)'>
                     <path
                       d='M40.5 80C29.8913 80 19.7172 75.7857 12.2157 68.2843C4.71427 60.7828 0.5 50.6087 0.5 40C0.5 29.3913 4.71427 19.2172 12.2157 11.7157C19.7172 4.21427 29.8913 0 40.5 0C51.1087 0 61.2828 4.21427 68.7843 11.7157C76.2857 19.2172 80.5 29.3913 80.5 40C80.5 50.6087 76.2857 60.7828 68.7843 68.2843C61.2828 75.7857 51.1087 80 40.5 80ZM32.5 60L68.5 26L62.5 20L32.5 48L18.5 34L12.5 40L32.5 60Z'
                       fill='#221F1F'
