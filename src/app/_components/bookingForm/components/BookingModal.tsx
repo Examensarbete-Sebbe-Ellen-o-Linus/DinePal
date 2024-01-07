@@ -9,17 +9,20 @@ interface IBookingModal {
   formikValues: FormikValues;
   isOpen: boolean;
   onClose: () => void;
+  onConfirm: () => void;
 }
 
 export default function BookingModal({
   formikValues,
   isOpen,
   onClose,
+  onConfirm,
 }: IBookingModal) {
-  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   function handleConfirm() {
-    setIsConfirmed(true);
+    setShowConfirmation(true);
+    onConfirm();
   }
 
   function BookingInfo() {
@@ -63,7 +66,7 @@ export default function BookingModal({
         opened={isOpen}
         onClose={onClose}
         title={
-          isConfirmed ? (
+          showConfirmation ? (
             <Title order={6}>Tack för din bokning!</Title>
           ) : (
             <Title order={6}>Bekräfta din bokning</Title>
@@ -72,7 +75,7 @@ export default function BookingModal({
         centered
       >
         <Box className={classes.container}>
-          {isConfirmed ? (
+          {showConfirmation ? (
             <Box>
               <Text>
                 Din bokningsbekräftelse har skickats till din angivna

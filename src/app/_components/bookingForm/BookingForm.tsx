@@ -29,6 +29,7 @@ export default function BookingForm() {
   // Don't know why the theme is not applied here. Using the value for xs here instead.
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectKey, setSelectKey] = useState('');
 
   // Time Select
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
@@ -114,6 +115,12 @@ export default function BookingForm() {
     validateOnChange: true,
     validateOnBlur: true,
   });
+  //Form
+
+  function resetForm() {
+    formik.resetForm();
+    setSelectKey(prevKey => prevKey + 1);
+  }
 
   // Time Select
 
@@ -197,6 +204,7 @@ export default function BookingForm() {
         onBlur={formik.handleBlur}
         data={timeOptions}
         disabled={!formik.values.date}
+        key={selectKey}
         error={
           formik.touched.time && formik.errors.time ? formik.errors.time : null
         }
@@ -274,7 +282,10 @@ export default function BookingForm() {
       <BookingModal
         formikValues={formik.values}
         isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setModalOpen(false);
+        }}
+        onConfirm={resetForm}
       />
     </Box>
   );
