@@ -135,7 +135,7 @@ export default function BookingForm() {
       />
       {/* Manually render the error message below the input to prevent styling errors */}
       {formik.touched.guests && formik.errors.guests && (
-        <div
+        <Box
           style={{
             color: theme.colors?.red?.[6] ?? '#FA5252',
             marginTop: '-16px',
@@ -143,19 +143,31 @@ export default function BookingForm() {
           }}
         >
           {formik.errors.guests}
-        </div>
+        </Box>
       )}
 
       {/* CALENDAR */}
-      <DatePicker
-        size='xl'
-        minDate={minSelectableDate}
-        maxDate={maxSelectableDate}
-        locale='sv'
-        getDayProps={getDayProps}
-        value={formik.values.date}
-        onChange={date => formik.setFieldValue('date', date)}
-      />
+      <Box className={classes.datePickerWrapper}>
+        <DatePicker
+          size='xl'
+          minDate={minSelectableDate}
+          maxDate={maxSelectableDate}
+          locale='sv'
+          getDayProps={getDayProps}
+          value={formik.values.date}
+          onChange={date => {
+            const guestsNumber = +formik.values.guests;
+            if (guestsNumber >= 1 && guestsNumber <= 8) {
+              void formik.setFieldValue('date', date);
+            }
+          }}
+        />
+        {(!formik.values.guests ||
+          +formik.values.guests < 1 ||
+          +formik.values.guests > 8) && (
+          <Box className={classes.datePickerOverlay}></Box>
+        )}
+      </Box>
 
       {/* TIME */}
       <Select
@@ -166,6 +178,7 @@ export default function BookingForm() {
         onChange={time => formik.setFieldValue('time', time)}
         onBlur={formik.handleBlur}
         data={timeOptions}
+        disabled={!formik.values.date}
         error={
           formik.touched.time && formik.errors.time ? formik.errors.time : null
         }
@@ -190,6 +203,7 @@ export default function BookingForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.firstName && formik.errors.firstName}
+            disabled={!formik.values.time}
           />
 
           <TextInput
@@ -200,6 +214,7 @@ export default function BookingForm() {
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             error={formik.touched.lastName && formik.errors.lastName}
+            disabled={!formik.values.time}
           />
 
           <TextInput
@@ -210,6 +225,7 @@ export default function BookingForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && formik.errors.email}
+            disabled={!formik.values.time}
           />
 
           <TextInput
@@ -220,6 +236,7 @@ export default function BookingForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.phone && formik.errors.phone}
+            disabled={!formik.values.time}
           />
 
           <Textarea
@@ -228,6 +245,7 @@ export default function BookingForm() {
             value={formik.values.commentary}
             onChange={formik.handleChange}
             placeholder='Skriv kommentar...'
+            disabled={!formik.values.time}
           />
           <Box mt='md'>
             <LongButton text={'Boka bord'} color={'black'} type='submit' />

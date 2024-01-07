@@ -11,6 +11,22 @@
     box-shadow: var(--mantine-shadow-primary); 
 }
 
+.datePickerWrapper {
+    position: relative;
+  }
+  
+  .datePickerOverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: var(--mantine-radius-primary);
+    background: rgba( 233, 233, 233, 0.5);
+    z-index: 1; 
+  }
+  
+
 .formContainer {
     padding: 16px 0;
     border-radius: var(--mantine-radius-primary);
