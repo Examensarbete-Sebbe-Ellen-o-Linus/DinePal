@@ -51,8 +51,6 @@ export default function BookingForm() {
   // Time Select
 
   // DatePicker
-  const [value, setValue] = useState<Date | null>(null);
-
   const minSelectableDate = dayjs().toDate();
 
   const currentDate = new Date();
@@ -65,23 +63,25 @@ export default function BookingForm() {
   maxSelectableDate.setDate(maxSelectableDate.getDate() - 1);
 
   const getDayProps: DatePickerProps['getDayProps'] = date => {
-    if (value && date.getTime() === value.getTime()) {
+    const selectedDate = formik.values.date;
+    if (selectedDate && dayjs(date).isSame(selectedDate, 'day')) {
       return {
         style: {
-          // The theme is acting strange. I've to set up an alternate color to prevent undefined.
+          // The theme is acting strange. I've to set up an alternate color to prevent
           backgroundColor: theme.colors?.black?.[3] ?? '#221F1F',
         },
       };
     }
     return {};
   };
+
   // DatePicker
 
   // Form
   const formik = useFormik({
     initialValues: {
-      guests: 1,
-      date: new Date(),
+      guests: '',
+      date: null,
       time: '',
       firstName: '',
       lastName: '',
@@ -93,6 +93,8 @@ export default function BookingForm() {
     onSubmit: values => {
       console.log(values);
     },
+    validateOnChange: true,
+    validateOnBlur: true,
   });
 
   // Time Select
@@ -113,14 +115,15 @@ export default function BookingForm() {
       <NumberInput
         withAsterisk={true}
         label='Antal gäster'
-        placeholder='Välj antal'
+        name='guests'
         size='xs'
         min={1}
-        max={8}
-        allowDecimal={true}
+        allowDecimal={false}
         leftSectionWidth={'50px'}
         value={formik.values.guests}
         onChange={value => formik.setFieldValue('guests', value)}
+        onBlur={formik.handleBlur}
+        error={formik.touched.guests && formik.errors.guests ? null : undefined}
         styles={{
           input: {
             width: '128px',
@@ -130,12 +133,21 @@ export default function BookingForm() {
           },
         }}
       />
+      {/* Manually render the error message below the input to prevent styling errors */}
+      {formik.touched.guests && formik.errors.guests && (
+        <div
+          style={{
+            color: theme.colors?.red?.[6] ?? '#FA5252',
+            marginTop: '-16px',
+            fontSize: '12px',
+          }}
+        >
+          {formik.errors.guests}
+        </div>
+      )}
 
       {/* CALENDAR */}
       <DatePicker
-        allowDeselect
-        // value={value}
-        // onChange={setValue}
         size='xl'
         minDate={minSelectableDate}
         maxDate={maxSelectableDate}
@@ -148,11 +160,15 @@ export default function BookingForm() {
       {/* TIME */}
       <Select
         label='Välj tid'
-        placeholder='Tider'
+        name='time'
         withAsterisk={true}
         value={formik.values.time}
         onChange={time => formik.setFieldValue('time', time)}
+        onBlur={formik.handleBlur}
         data={timeOptions}
+        error={
+          formik.touched.time && formik.errors.time ? formik.errors.time : null
+        }
         styles={{
           input: {
             width: '128px',
@@ -215,7 +231,6 @@ export default function BookingForm() {
           />
           <Box mt='md'>
             <LongButton text={'Boka bord'} color={'black'} type='submit' />
-            {/* <Button type='submit'>Boka bord</Button> */}
           </Box>
         </form>
       </Box>
