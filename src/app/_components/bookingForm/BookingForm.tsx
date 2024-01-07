@@ -1,11 +1,11 @@
 'use client';
-import { Box, NumberInput, TextInput, Textarea } from '@mantine/core';
-import { DatePicker, TimeInput, type DatePickerProps } from '@mantine/dates';
+import { Box, NumberInput, Select, TextInput, Textarea } from '@mantine/core';
+import { DatePicker, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import dayjs from 'dayjs';
 import 'dayjs/locale/sv';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { theme } from '~/app/theme/theme';
 import { bookingFormValidation } from '~/app/validation/bookingFormValidation';
@@ -13,6 +13,44 @@ import LongButton from '../longButton/LongButton';
 import classes from './BookingForm.module.scss';
 
 export default function BookingForm() {
+  // Time Select
+  const [timeOptions, setTimeOptions] = useState<string[]>([]);
+
+  //   const getTimeOptions = (date: Date) => {
+  //     const dayOfWeek = date.getDay();
+  //     if ([1, 2, 3, 4].includes(dayOfWeek)) {
+  //       // Monday to Thursday, 10:00 to 15:00
+  //       return Array.from({ length: 6 }, (_, i) => `${10 + i}:00`);
+  //     } else if ([5, 6, 0].includes(dayOfWeek)) {
+  //       // Friday to Sunday, 10:00 to 16:00
+  //       return Array.from({ length: 7 }, (_, i) => `${10 + i}:00`);
+  //     }
+  //     return [];
+  //   };
+
+  const getTimeOptions = (date: Date) => {
+    const currentDateTime = new Date();
+    const isToday = currentDateTime.toDateString() === date.toDateString();
+    const currentHour = currentDateTime.getHours();
+
+    const dayOfWeek = date.getDay();
+    const startHour = 10; // Booking starts at 10:00
+    const endHour = [1, 2, 3, 4].includes(dayOfWeek) ? 15 : 16; // 15:00 for Mon-Thu, 16:00 for Fri-Sun
+
+    const timeSlots = [];
+    for (let hour = startHour; hour <= endHour; hour++) {
+      const timeSlot = `${hour}:00`;
+      // If the date is today, only add time slots that are in the future
+      if (!isToday || (isToday && hour > currentHour)) {
+        timeSlots.push(timeSlot);
+      }
+    }
+
+    return timeSlots;
+  };
+
+  // Time Select
+
   // DatePicker
   const [value, setValue] = useState<Date | null>(null);
 
@@ -43,6 +81,9 @@ export default function BookingForm() {
   // Form
   const formik = useFormik({
     initialValues: {
+      guests: 1,
+      date: new Date(),
+      time: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -54,6 +95,16 @@ export default function BookingForm() {
       console.log(values);
     },
   });
+
+  // Time Select
+
+  useEffect(() => {
+    if (formik.values.date) {
+      const newTimeOptions = getTimeOptions(formik.values.date);
+      setTimeOptions(newTimeOptions);
+    }
+  }, [formik.values.date]);
+  // Time Select
 
   // Form
 
@@ -67,8 +118,10 @@ export default function BookingForm() {
         size='xs'
         min={1}
         max={8}
-        allowDecimal={false}
+        allowDecimal={true}
         leftSectionWidth={'50px'}
+        value={formik.values.guests}
+        onChange={value => formik.setFieldValue('guests', value)}
         styles={{
           input: {
             width: '128px',
@@ -82,20 +135,25 @@ export default function BookingForm() {
       {/* CALENDAR */}
       <DatePicker
         allowDeselect
-        value={value}
-        onChange={setValue}
+        // value={value}
+        // onChange={setValue}
         size='xl'
         minDate={minSelectableDate}
         maxDate={maxSelectableDate}
         locale='sv'
         getDayProps={getDayProps}
+        value={formik.values.date}
+        onChange={date => formik.setFieldValue('date', date)}
       />
 
       {/* TIME */}
-      <TimeInput
+      <Select
         label='Välj tid'
-        placeholder='Input placeholder'
+        placeholder='Tider'
         withAsterisk={true}
+        value={formik.values.time}
+        onChange={time => formik.setFieldValue('time', time)}
+        data={timeOptions}
         styles={{
           input: {
             width: '128px',
