@@ -2,6 +2,7 @@
 import { Box, NumberInput, Select, TextInput, Textarea } from '@mantine/core';
 import { DatePicker, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
+import { useMediaQuery } from '@mantine/hooks';
 import dayjs from 'dayjs';
 import 'dayjs/locale/sv';
 import { useFormik } from 'formik';
@@ -13,6 +14,9 @@ import LongButton from '../longButton/LongButton';
 import classes from './BookingForm.module.scss';
 
 export default function BookingForm() {
+  // Don't know why the theme is not applied here. Using the value for xs here instead.
+  const isDesktop = useMediaQuery(`(min-width: 36em`);
+
   // Time Select
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
@@ -149,7 +153,7 @@ export default function BookingForm() {
       {/* CALENDAR */}
       <Box className={classes.datePickerWrapper}>
         <DatePicker
-          size='xl'
+          size={isDesktop ? 'xl' : 'sm'}
           minDate={minSelectableDate}
           maxDate={maxSelectableDate}
           locale='sv'
@@ -165,7 +169,7 @@ export default function BookingForm() {
         {(!formik.values.guests ||
           +formik.values.guests < 1 ||
           +formik.values.guests > 8) && (
-          <Box className={classes.datePickerOverlay}></Box>
+          <Box className={classes.datePickerOverlay} />
         )}
       </Box>
 
