@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 import { Text } from '@mantine/core';
+import { cartSignal } from 'signals/cartSignals';
 import type { IDish } from '../../interfaces';
 import { AddToCartButton } from '../addToCart/addToCart';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
@@ -23,6 +24,13 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
                   {tag.label}
                 </span>
               ))}
+
+            {cartSignal.value.map((item, i) => (
+              <div key={i}>
+                <span style={{ fontWeight: 'bold' }}>{item.dish.title}</span>
+                <span style={{ fontWeight: 'bold' }}>{item.quantity}</span>
+              </div>
+            ))}
 
             <AddToCartButton dish={dish} />
             <RemoveFromCartButton dish={dish} />

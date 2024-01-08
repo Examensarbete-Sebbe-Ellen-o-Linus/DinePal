@@ -1,5 +1,5 @@
 'use client';
-import { Badge, Box, Drawer, Text, Title } from '@mantine/core';
+import { Badge, Box, Drawer, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 import { useEffect } from 'react';
@@ -25,7 +25,6 @@ export default function Cart() {
     return (
       <>
         <Box>
-          {/* <Button onClick={toggle}>ASDASDASD</Button> */}
           <Box onClick={toggle} className={classes.container}>
             <Box className={classes.content}>
               <Badge className={classes.badge}>{totalCartLenght}</Badge>
@@ -41,14 +40,12 @@ export default function Cart() {
             withCloseButton={true}
             size='xs'
             position='right'
-            title={<Title order={5}>Din beställning</Title>}
+            title={<Text>Din beställning</Text>}
+            // title={<Title order={5}>Din beställning</Title>}
           >
             <Box className={classes.container2}>
               <CheckoutTag />
-              {cart.map((item, i) => (
-                <CartCard key={i} item={item} />
-              ))}
-              {/* <CartCard /> */}
+              <CartCard />
             </Box>
           </Drawer>
         </Box>
