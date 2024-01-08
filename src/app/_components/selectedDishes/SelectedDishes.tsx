@@ -2,7 +2,10 @@
 
 import Link from 'next/link';
 
+import { Text } from '@mantine/core';
 import type { IDish } from '../../interfaces';
+import { AddToCartButton } from '../addToCart/addToCart';
+import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
   // const totalCartLenght = computed(() => {
@@ -28,6 +31,10 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
                   {tag.label}
                 </span>
               ))}
+
+            <AddToCartButton dish={dish} />
+            <RemoveFromCartButton dish={dish} />
+            <Text> pris: {dish.price}</Text>
 
             {dish.slug && dish.slug.current && (
               <li>

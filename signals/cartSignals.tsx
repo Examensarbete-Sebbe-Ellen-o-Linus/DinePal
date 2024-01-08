@@ -19,3 +19,11 @@ export const totalCartLenght = computed(() => {
   });
   return total;
 });
+
+export const totalCartPrice = computed(() => {
+  let total = 0;
+  cartSignal.value.forEach(item => {
+    total += item.dish.price * item.quantity;
+  });
+  return total;
+});

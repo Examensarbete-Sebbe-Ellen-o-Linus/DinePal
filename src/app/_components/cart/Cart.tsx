@@ -1,7 +1,8 @@
 'use client';
-import { Box, Drawer, Title } from '@mantine/core';
+import { Badge, Box, Drawer, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
+import { totalCartLenght, totalCartPrice } from 'signals/cartSignals';
 import CartCard from '../cartCard/CartCard';
 import CheckoutTag from '../checkoutTag/CheckoutTag';
 import classes from './Cart.module.scss';
@@ -10,6 +11,15 @@ export default function Cart() {
   const [opened, { toggle }] = useDisclosure();
   return (
     <Box>
+      {/* <Button onClick={toggle}>ASDASDASD</Button> */}
+      <Box onClick={toggle} className={classes.container}>
+        <Box className={classes.content}>
+          <Badge className={classes.badge}>{totalCartLenght}</Badge>
+
+          <Text className={classes.noWrapContainer}>Till varukorg</Text>
+        </Box>
+        <Box className={classes.noWrapContainer}>{totalCartPrice} :-</Box>
+      </Box>
       <Drawer
         opened={opened}
         onClose={toggle}
@@ -19,8 +29,8 @@ export default function Cart() {
         position='right'
         title={<Title order={5}>Din beställning</Title>}
       >
-        <Box className={classes.container}>
-          <CheckoutTag itemCount={3} price={22900} />
+        <Box className={classes.container2}>
+          <CheckoutTag price={22900} />
           <CartCard />
           <CartCard />
           <CartCard />

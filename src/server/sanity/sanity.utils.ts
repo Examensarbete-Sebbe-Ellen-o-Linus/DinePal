@@ -48,7 +48,7 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
   const additionalSelections = `
       title,
       hero { title, ${imageSelection}, ${buttonSelection}, description },
-      selectedDishes[]-> { title, description, ${imageSelection}, tags[] },
+      selectedDishes[]-> { title, description, price, ${imageSelection}, tags[] },
       imageSection { 
         title, 
         description, 
