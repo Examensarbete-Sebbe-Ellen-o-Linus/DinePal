@@ -11,14 +11,6 @@ type Props = {
 };
 
 export default function CartCard({ item }: Props) {
-  // export const totalCartLenght = computed(() => {
-  //   let total = 0;
-  //   cartSignal.value.forEach(item => {
-  //     total += item.quantity;
-  //   });
-  //   return total;
-  // });
-
   const thisItemsQuantity = computed(() => {
     const thisItem = cartSignal.value.find(
       cartItem => cartItem.dish.title === item.dish.title
@@ -26,13 +18,6 @@ export default function CartCard({ item }: Props) {
     return thisItem?.quantity;
   });
 
-  // const thisItemsQuantity = (item: CartItem) => {
-  //   // compare the title from the cart signal and get the quantity from the signal
-  //   const thisItem = cartSignal.value.find(
-  //     cartItem => cartItem.dish.title === item.dish.title
-  //   );
-  //   return thisItem?.quantity;
-  // };
   return (
     <Box className={classes.container}>
       <img src={item.dish.image.url} alt={item.dish.image.alt} />
@@ -40,12 +25,6 @@ export default function CartCard({ item }: Props) {
       <Text>{item.dish.price} :-</Text>
       <Divider mt={0} mb={0} w={'100%'} my='md' />
       <Box className={classes.selectRemove}>
-        {/* <NumberInput
-          value={item.quantity}
-          size='xs'
-          min={1}
-          allowDecimal={false}
-        /> */}
         <Text>{thisItemsQuantity}</Text>
         <AddToCartButton dish={item.dish} />
         <RemoveFromCartButton dish={item.dish} />
