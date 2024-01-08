@@ -31,21 +31,11 @@ export default defineType({
           title: 'Alt',
           description: 'Provide an descriptive text which conveys the content of the image',
           type: 'string',
-          validation: (Rule) => Rule.required(),
         },
       ],
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
-    },
-    {
-      name: 'button',
-      title: 'Buttons/links',
-      type: 'array',
-      of: [{type: 'link'}],
-      description: 'Add one or more links',
-      validation: (Rule) => Rule.required(),
     },
   ],
 })
