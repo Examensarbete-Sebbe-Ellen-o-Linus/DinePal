@@ -23,6 +23,7 @@ export default function BookingModal({
   function handleConfirm() {
     setShowConfirmation(true);
     onConfirm();
+    console.log('Booking confirmed', formikValues);
   }
 
   function BookingInfo() {

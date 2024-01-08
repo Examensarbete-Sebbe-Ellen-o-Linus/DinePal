@@ -111,6 +111,7 @@ export default function BookingForm() {
     onSubmit: values => {
       console.log(values);
       setModalOpen(true);
+      console.log('Form submitted with values:', values);
     },
     validateOnChange: true,
     validateOnBlur: true,
@@ -122,12 +123,22 @@ export default function BookingForm() {
     setSelectKey(prevKey => prevKey + 1);
   }
 
+  function handleSubmitForm() {
+    console.log('Final form values for submission:', formik.values);
+    setModalOpen(false);
+
+    formik.resetForm();
+
+    setTimeOptions([]);
+  }
+
   // Time Select
 
   useEffect(() => {
     if (formik.values.date) {
       const newTimeOptions = getTimeOptions(formik.values.date);
       setTimeOptions(newTimeOptions);
+      // console.log('New time options:', newTimeOptions);
     }
   }, [formik.values.date]);
   // Time Select
@@ -220,7 +231,7 @@ export default function BookingForm() {
 
       {/* FORM */}
       <Box className={classes.formContainer}>
-        <form onSubmit={formik.handleSubmit}>
+        <form>
           <TextInput
             withAsterisk={true}
             label='Förnamn'
@@ -273,8 +284,8 @@ export default function BookingForm() {
             placeholder='Skriv kommentar...'
             disabled={!formik.values.time}
           />
-          <Box mt='md'>
-            <LongButton text={'Boka bord'} color={'black'} type='submit' />
+          <Box onClick={() => setModalOpen(true)} mt='md'>
+            <LongButton text={'Boka bord'} color={'black'} />
           </Box>
         </form>
       </Box>
@@ -285,7 +296,10 @@ export default function BookingForm() {
         onClose={() => {
           setModalOpen(false);
         }}
-        onConfirm={resetForm}
+        onConfirm={() => {
+          handleSubmitForm();
+          resetForm();
+        }}
       />
     </Box>
   );
