@@ -1,7 +1,7 @@
+import { Button } from '@mantine/core';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
-import AddAllowedUser from '../_components/addAllowedUser';
 
 export default async function BusinessPage() {
   const prisma = new PrismaClient();
@@ -17,11 +17,13 @@ export default async function BusinessPage() {
         )}
       </p>
       <p>{session && <span>Logged in as {session.user?.name}</span>}</p>
-      <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
-        {session ? 'Sign out' : 'Sign in'}
-      </Link>
+      <Button>
+        <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
+          {session ? 'Sign out' : 'Sign in'}
+        </Link>
+      </Button>
 
-      {allowedUsers ? (
+      {/* {allowedUsers ? (
         allowedUsers.map((allowerUser, index) => (
           <div key={index}>
             <h2>allowed Users:</h2>
@@ -30,8 +32,9 @@ export default async function BusinessPage() {
         ))
       ) : (
         <>No users yet</>
-      )}
-      <AddAllowedUser />
+      )} */}
+
+      {/* <AddAllowedUser /> */}
     </div>
   );
 }
