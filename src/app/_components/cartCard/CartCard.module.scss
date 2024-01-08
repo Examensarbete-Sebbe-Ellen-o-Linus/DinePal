@@ -1,0 +1,36 @@
+@import '../../../styles/mantine';
+
+.container {
+    display: flex;
+    width: 240px;
+    height: 293px;
+    padding: 16px 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+
+    > img {
+        align-self: stretch;
+        border-radius: var(--mantine-radius-primary);
+        height: 156px;
+        object-fit: cover;
+     }
+}
+
+ .selectRemove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 120px;
+
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+ }
+
+ 

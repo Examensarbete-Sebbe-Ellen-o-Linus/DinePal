@@ -27,7 +27,8 @@ export interface IHero {
 export interface IAbout {
   _type: 'about';
   title: string;
-  description?: string;
+  descriptionFirstP?: string;
+  descriptionSecondP?: string;
   image: IImage;
   button: IButton[];
 }
@@ -99,11 +100,21 @@ export interface ISettings {
 
 // Footer interface
 export interface IFooter {
-  openingHours: string;
+  preFooter: IImage;
+  openingHours: IOpeningHours[];
   socials: ISocials[];
   logotype: IImage;
   address: IAddress;
   phone: string;
+  email: string;
+  homePageLink?: string;
+}
+
+// Opening hours interface within Footer
+export interface IOpeningHours {
+  day: string;
+  hours: string;
+  _key: string;
 }
 
 // Socials interface
@@ -112,6 +123,7 @@ export interface ISocials {
   _key: string;
   platform: string;
   url: string;
+  icon: IImage;
 }
 
 // Address interface

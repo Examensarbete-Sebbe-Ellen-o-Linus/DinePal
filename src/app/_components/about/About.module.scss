@@ -1,0 +1,41 @@
+@import '../../../styles/mantine';
+
+.container {
+  background: var(--mantine-color-black-3);
+  color: var(--mantine-color-white-3);
+  padding: 120px 0;
+  > div {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+  }
+
+  h3 {
+    color: var(--mantine-color-white-3);
+  }
+
+  .text {
+    max-width: 560px;
+  }
+
+  p:first-of-type {
+    margin-bottom: 32px;
+  }
+
+  img {
+    width: 480px;
+    height: auto;
+    object-fit: cover;
+    max-height: 600px;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+      width: 100%;
+    }
+  }
+}

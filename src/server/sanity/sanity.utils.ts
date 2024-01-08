@@ -65,7 +65,7 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
         "url": image.asset->url,
         "_key": image._key
       }},
-      about { title, description, ${imageSelection}, ${buttonSelection} },
+      about { title, descriptionFirstP, descriptionSecondP, ${imageSelection}, ${buttonSelection} },
       seo { metaTitle, metaDescription }
     `
   return fetchDocumentById('homePage', additionalSelections)
@@ -135,13 +135,20 @@ export const fetchSettingsData = async (): Promise<ISettings> => {
     },
     footer {
       ...,
+      "preFooter": preFooter.asset->{
+        "url": url,
+        "alt": coalesce(alt, "Missing alt text")
+      },
       "logotype": logotype.asset->{
         "url": url,
         "alt": coalesce(alt, "Missing alt text")
       },
       "socials": socials[] {
         ...,
-        "icon": icon.asset->url
+        "icon": icon.asset->{
+          "url": url,
+          "alt": alt
+        }
       }
     }
   
