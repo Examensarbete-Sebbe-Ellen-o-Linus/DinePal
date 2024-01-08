@@ -5,6 +5,7 @@ import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import { TRPCReactProvider } from '~/trpc/react';
 
 import '~/styles/globals.css';
+import Footer from './_components/footer/Footer';
 import Header from './_components/header/Header';
 import { theme } from './theme/theme';
 
@@ -20,7 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const settingsData = await fetchSettingsData();
-  const { header } = settingsData;
+  const { footer, header } = settingsData;
 
   return (
     <html lang='en'>
@@ -29,6 +30,7 @@ export default async function RootLayout({
           <MantineProvider theme={theme}>
             <Header header={header} />
             <Box style={{ marginTop: '112px' }}>{children}</Box>
+            <Footer footer={footer} />
           </MantineProvider>
         </TRPCReactProvider>
       </body>

@@ -1,0 +1,104 @@
+@import '../../../styles/mantine';
+
+.preFooter {
+  height: 512px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 512px;
+  object-fit: cover;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 16px 0;
+}
+
+.upperContainer {
+  display: flex;
+  width: 100%;
+  padding: 0px 160px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: 0 32px;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0 32px;
+    flex-direction: column; 
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.openingHourRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.logotype {
+  order: 0;
+  width: 168px;
+  height: 162px;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    order: -1;
+  }
+}
+
+.lowerContainer {
+  display: flex;
+  padding: 0px 160px;
+  width: 100%;
+  padding-bottom: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: 0 32px;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0 32px;
+    flex-direction: column; 
+    align-items: center;
+    gap: 8px;
+  }
+
+}
+
+.copyRight {
+  font-size: 14px !important;
+}
+
+.socialMedia {
+  display: flex;
+  gap: 16px;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-top: 16px;
+    order: -1;
+  }
+}
