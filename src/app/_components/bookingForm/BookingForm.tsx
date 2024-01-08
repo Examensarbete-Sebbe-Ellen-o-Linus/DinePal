@@ -140,7 +140,6 @@ export default function BookingForm() {
     if (formik.values.date) {
       const newTimeOptions = getTimeOptions(formik.values.date);
       setTimeOptions(newTimeOptions);
-      // console.log('New time options:', newTimeOptions);
     }
   }, [formik.values.date]);
   // Time Select
@@ -298,13 +297,13 @@ export default function BookingForm() {
         showConfirmation={showConfirmation}
         setShowConfirmation={setShowConfirmation}
         onClose={() => {
-          console.log('Modal closed. Resetting showConfirmation...');
           setModalOpen(false);
           setShowConfirmation(false);
         }}
         onConfirm={() => {
           handleSubmitForm();
           resetForm();
+          setShowConfirmation(true);
         }}
       />
     </Box>

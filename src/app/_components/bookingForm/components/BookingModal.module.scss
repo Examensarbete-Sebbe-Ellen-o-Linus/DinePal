@@ -1,6 +1,6 @@
 @import '../../../../styles/mantine';
 
-.container {
+.containerConfirmModal {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -15,4 +15,11 @@
         justify-content: center;
         }
     }
+}
+
+.containerBookingDoneModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
 }
