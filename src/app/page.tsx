@@ -21,7 +21,6 @@ export default async function Home() {
 
   return (
     <div>
-      <Link href='/gallery'>Link to Gallery</Link>
       <Hero hero={hero} />
       <SelectedDishes dishes={selectedDishes} />
       <News news={news} />
