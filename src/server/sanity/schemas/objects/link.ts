@@ -22,12 +22,12 @@ export default defineType({
       options: {
         list: [
           {title: 'Menu', value: 'menu'},
-          {title: 'Book a Table', value: 'book-a-table'},
+          {title: 'Book a Table', value: 'booking'},
           {title: 'About us', value: 'about'},
           {title: 'Gallery', value: 'gallery'},
           {title: 'View shopping cart', value: 'shopping-cart'},
           {title: 'Contact', value: 'contact'},
-          {title: 'Checkout', value: 'contact'},
+          {title: 'Checkout', value: 'checkout'},
         ],
       },
     },

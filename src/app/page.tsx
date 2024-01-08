@@ -24,8 +24,9 @@ export default async function Home() {
       <Link href='/gallery'>Link to Gallery</Link>
       <Hero hero={hero} />
       <SelectedDishes dishes={selectedDishes} />
-      <About about={about} />
+      <News news={news} />
       <ImageSection imageSection={imageSection} />
+      <About about={about} />
       <div>
         <p>{session && <span>Logged in as {session.user?.name}</span>}</p>
         <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
