@@ -14,7 +14,7 @@ export default function CartCard() {
       <Text>278 :-</Text>
       <Divider mt={0} mb={0} w={'100%'} my='md' />
       <Box className={classes.selectRemove}>
-        <NumberInput size='xs' min={1} allowDecimal={false} />
+        <NumberInput value={5} size='xs' min={1} allowDecimal={false} />
 
         <Box>
           <svg

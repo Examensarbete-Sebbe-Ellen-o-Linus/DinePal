@@ -2,13 +2,18 @@
 import { Badge, Box, Drawer, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
-import { totalCartLenght, totalCartPrice } from 'signals/cartSignals';
+import {
+  cartSignal,
+  totalCartLenght,
+  totalCartPrice,
+} from 'signals/cartSignals';
 import CartCard from '../cartCard/CartCard';
 import CheckoutTag from '../checkoutTag/CheckoutTag';
 import classes from './Cart.module.scss';
 
 export default function Cart() {
   const [opened, { toggle }] = useDisclosure();
+  const cart = cartSignal.value;
   return (
     <Box>
       {/* <Button onClick={toggle}>ASDASDASD</Button> */}
@@ -30,9 +35,10 @@ export default function Cart() {
         title={<Title order={5}>Din beställning</Title>}
       >
         <Box className={classes.container2}>
-          <CheckoutTag price={22900} />
-          <CartCard />
-          <CartCard />
+          <CheckoutTag />
+          {/* {cart.map((item, i) => (
+            <CartCard key={i} item={item} />
+          ))} */}
           <CartCard />
         </Box>
       </Drawer>

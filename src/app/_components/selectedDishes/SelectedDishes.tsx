@@ -34,7 +34,7 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
 
             <AddToCartButton dish={dish} />
             <RemoveFromCartButton dish={dish} />
-            <Text> pris: {dish.price}</Text>
+            <Text> pris: {dish.price} :-</Text>
 
             {dish.slug && dish.slug.current && (
               <li>
