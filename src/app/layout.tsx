@@ -29,7 +29,7 @@ export default async function RootLayout({
         <TRPCReactProvider cookies={cookies().toString()}>
           <MantineProvider theme={theme}>
             <Header header={header} />
-            <Box style={{ marginTop: '112px' }}>{children}</Box>
+            <Box style={{ marginTop: '104px' }}>{children}</Box>
             <Footer footer={footer} />
           </MantineProvider>
         </TRPCReactProvider>
