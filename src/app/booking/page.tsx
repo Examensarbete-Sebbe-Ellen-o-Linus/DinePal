@@ -1,23 +1,20 @@
-import { Box, Container, Text, Title } from '@mantine/core';
+import { Box, Text, Title } from '@mantine/core';
 
 import { fetchBookingPageData } from '../../server/sanity/sanity.utils';
 import BookingForm from '../_components/bookingForm/BookingForm';
 import classes from './page.module.scss';
 
-import booking from '../../../public/images/booking.jpg';
-
 export default async function Booking() {
   const bookingData = await fetchBookingPageData();
   return (
-    <Box>
+    <Box className={classes.container}>
       <Box className={classes.heroContainer}>
-        <img
-          src={booking.src}
-          alt='Picture of bowl with yoghurt, granola and berries together with a plate with a cake on it.'
-        />
-        <Box className={classes.titleContainer}></Box>
+        <Box className={classes.titleContainer}>
+          <Title order={2}>Boka bord</Title>
+        </Box>
+        <Box className={classes.overlay} />
       </Box>
-      <Container className={classes.pageContent}>
+      <Box className={classes.pageContent}>
         <Box>
           <Title order={6}>
             Gör din bordsbokning digitalt och få en bekräftelse tillbaka på din
@@ -36,7 +33,7 @@ export default async function Booking() {
           </Text>
         </Box>
         <BookingForm />
-      </Container>
+      </Box>
     </Box>
   );
 }
