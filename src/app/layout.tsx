@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import { TRPCReactProvider } from '~/trpc/react';
 
+import { CartProvider } from 'context/cartContext';
 import '~/styles/globals.css';
 import Footer from './_components/footer/Footer';
 import Header from './_components/header/Header';
@@ -27,11 +28,13 @@ export default async function RootLayout({
     <html lang='en'>
       <body>
         <TRPCReactProvider cookies={cookies().toString()}>
-          <MantineProvider theme={theme}>
-            <Header header={header} />
-            <Box style={{ marginTop: '112px' }}>{children}</Box>
-            <Footer footer={footer} />
-          </MantineProvider>
+          <CartProvider>
+            <MantineProvider theme={theme}>
+              <Header header={header} />
+              <Box style={{ marginTop: '112px' }}>{children}</Box>
+              <Footer footer={footer} />
+            </MantineProvider>
+          </CartProvider>
         </TRPCReactProvider>
       </body>
     </html>

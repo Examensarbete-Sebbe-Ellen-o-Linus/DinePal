@@ -1,4 +1,5 @@
 import { Text } from '@mantine/core';
+import { useCart } from 'context/cartContext';
 import { cartSignal } from 'signals/cartSignals';
 import type { IDish } from '~/app/interfaces';
 import classes from './addToCart.module.css';
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export const AddToCartButton = ({ dish }: Props) => {
+  const { cartState, setCartState } = useCart();
   const handleAddToCart = (newDish: IDish) => {
     const ItemInCart = cartSignal.value.find(
       item => item.dish.title === newDish.title
@@ -20,6 +22,7 @@ export const AddToCartButton = ({ dish }: Props) => {
 
     if (!ItemInCart) {
       cartSignal.value = [...cartSignal.value, { dish: newDish, quantity: 1 }];
+      setCartState(cartSignal.value);
     } else {
       // +1 to quantity of item in cart
       const newSignal = cartSignal.value.reduce((newCart, item) => {
@@ -31,6 +34,7 @@ export const AddToCartButton = ({ dish }: Props) => {
         return newCart;
       }, [] as CartItem[]);
       cartSignal.value = newSignal;
+      setCartState(newSignal);
     }
   };
 

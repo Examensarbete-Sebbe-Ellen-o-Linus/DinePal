@@ -6,7 +6,7 @@ export type CartItem = {
   quantity: number;
 };
 
-const getCartFromLS = () => {
+export const getCartFromLS = () => {
   const value = localStorage.getItem('cart');
   if (value === null) return [];
   return JSON.parse(value);
