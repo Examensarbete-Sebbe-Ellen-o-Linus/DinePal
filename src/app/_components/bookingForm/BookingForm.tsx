@@ -30,6 +30,7 @@ export default function BookingForm() {
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectKey, setSelectKey] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   // Time Select
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
@@ -128,6 +129,7 @@ export default function BookingForm() {
     setModalOpen(false);
 
     formik.resetForm();
+    setShowConfirmation(false);
 
     setTimeOptions([]);
   }
@@ -293,8 +295,12 @@ export default function BookingForm() {
       <BookingModal
         formikValues={formik.values}
         isOpen={isModalOpen}
+        showConfirmation={showConfirmation}
+        setShowConfirmation={setShowConfirmation}
         onClose={() => {
+          console.log('Modal closed. Resetting showConfirmation...');
           setModalOpen(false);
+          setShowConfirmation(false);
         }}
         onConfirm={() => {
           handleSubmitForm();

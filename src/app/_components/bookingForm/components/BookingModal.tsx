@@ -1,6 +1,5 @@
 import { Box, Modal, Text } from '@mantine/core';
 
-import { useState } from 'react';
 import LongButton from '../../longButton/LongButton';
 import { type FormikValues } from '../BookingForm';
 import classes from './BookingModal.module.scss';
@@ -10,6 +9,8 @@ interface IBookingModal {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  showConfirmation: boolean;
+  setShowConfirmation: (show: boolean) => void;
 }
 
 export default function BookingModal({
@@ -17,9 +18,9 @@ export default function BookingModal({
   isOpen,
   onClose,
   onConfirm,
+  showConfirmation,
+  setShowConfirmation,
 }: IBookingModal) {
-  const [showConfirmation, setShowConfirmation] = useState(false);
-
   function handleConfirm() {
     setShowConfirmation(true);
     onConfirm();
@@ -59,6 +60,12 @@ export default function BookingModal({
       </Box>
     );
   }
+
+  //   useEffect(() => {
+  //     if (!isOpen) {
+  //       resetConfirmation();
+  //     }
+  //   }, [isOpen, resetConfirmation]);
 
   return (
     <Box>
