@@ -27,7 +27,8 @@ export interface IHero {
 export interface IAbout {
   _type: 'about';
   title: string;
-  description?: string;
+  descriptionFirstP?: string;
+  descriptionSecondP?: string;
   image: IImage;
   button: IButton[];
 }

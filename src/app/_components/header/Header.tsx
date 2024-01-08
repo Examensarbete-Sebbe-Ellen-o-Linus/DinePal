@@ -3,7 +3,7 @@ import { Box, Burger, Drawer, Image, Title } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { type IHeader } from '~/app/interfaces';
 import { theme } from '~/app/theme/theme';
 import CartTag from '../cartTag/CartTag';
@@ -64,18 +64,23 @@ export default function Header({ header }: { header: IHeader }) {
           position='top'
         >
           <Box className={classes.drawerContainer}>
-            {header.navLinks &&
-              header.navLinks.map(navLink => (
-                <Link
-                  key={navLink._key}
-                  href={navLink.pageType}
-                  onClick={closeDrawer}
-                >
-                  <Title className={classes.link} order={6}>
-                    {navLink.text}
-                  </Title>
-                </Link>
-              ))}
+            {header.navLinks?.map(navLink => (
+              <React.Fragment key={navLink._key}>
+                {navLink.pageType === 'about' ? (
+                  <Link href={`/#${navLink.pageType}`} onClick={closeDrawer}>
+                    <Title className={classes.link} order={6}>
+                      {navLink.text}
+                    </Title>
+                  </Link>
+                ) : (
+                  <Link href={navLink.pageType} onClick={closeDrawer}>
+                    <Title className={classes.link} order={6}>
+                      {navLink.text}
+                    </Title>
+                  </Link>
+                )}
+              </React.Fragment>
+            ))}
           </Box>
         </Drawer>
 
