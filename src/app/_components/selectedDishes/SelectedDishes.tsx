@@ -9,20 +9,16 @@ import scss from './SelectedDishes.module.scss';
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
   return (
     <Container size={1120} className={scss.container}>
-      <Title order={2}>Favoriter</Title>
-      {/* <Box className={scss.outerGrid}> */}
       <Box className={scss.grid}>
+        <Title order={2}>Favoriter</Title>
         {dishes.map((dish, i) => (
           <DishCard key={i} showDescription={false} dish={dish} />
         ))}
-      </Box>
-      {/* </Box> */}
-      <div>
         <Box className={scss.bottom}>
           <Title order={5}>Ta del av hela vårt utbud</Title>
           <Link href='/menu'>Meny</Link>
         </Box>
-      </div>
+      </Box>
     </Container>
   );
 }
