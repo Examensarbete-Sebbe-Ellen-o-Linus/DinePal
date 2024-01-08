@@ -1,4 +1,4 @@
-import { Container, MantineProvider } from '@mantine/core';
+import { Box, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
@@ -28,7 +28,7 @@ export default async function RootLayout({
         <TRPCReactProvider cookies={cookies().toString()}>
           <MantineProvider theme={theme}>
             <Header header={header} />
-            <Container style={{ marginTop: '112px' }}>{children}</Container>
+            <Box style={{ marginTop: '112px' }}>{children}</Box>
           </MantineProvider>
         </TRPCReactProvider>
       </body>
