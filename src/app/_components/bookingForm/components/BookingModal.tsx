@@ -10,8 +10,6 @@ interface IBookingModal {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  showConfirmation: boolean;
-  setShowConfirmation: (show: boolean) => void;
 }
 
 export default function BookingModal({
@@ -19,19 +17,17 @@ export default function BookingModal({
   isOpen,
   onClose,
   onConfirm,
-  showConfirmation,
-  setShowConfirmation,
 }: IBookingModal) {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
   function handleConfirm() {
-    setShowConfirmation(true);
     onConfirm();
-    handleConfirmClick();
+    onClose();
+    handleBookingDone();
     console.log('Booking confirmed', formikValues);
   }
 
-  function handleConfirmClick() {
+  function handleBookingDone() {
     setConfirmationModalOpen(true);
   }
 
