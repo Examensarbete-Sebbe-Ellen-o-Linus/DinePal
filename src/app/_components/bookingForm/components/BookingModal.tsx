@@ -10,6 +10,7 @@ interface IBookingModal {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  onReset: () => void;
 }
 
 export default function BookingModal({
@@ -17,18 +18,19 @@ export default function BookingModal({
   isOpen,
   onClose,
   onConfirm,
+  onReset,
 }: IBookingModal) {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
   function handleConfirm() {
     onConfirm();
-    onClose();
-    handleBookingDone();
-    console.log('Booking confirmed', formikValues);
+    onReset();
+    setConfirmationModalOpen(true);
   }
 
-  function handleBookingDone() {
-    setConfirmationModalOpen(true);
+  function closeConfirmationModal() {
+    setConfirmationModalOpen(false);
+    onClose();
   }
 
   function BookingInfo() {
@@ -81,10 +83,11 @@ export default function BookingModal({
           </Box>
         </Box>
       </Modal>
+
       <Modal
         size='sm'
         opened={isConfirmationModalOpen}
-        onClose={() => setConfirmationModalOpen(false)}
+        onClose={closeConfirmationModal}
         title={<Text>Tack för din bokning!</Text>}
         centered
       >

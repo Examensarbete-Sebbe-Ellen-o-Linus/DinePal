@@ -122,6 +122,11 @@ export default function BookingForm() {
     formik.resetForm();
     setSelectKey(prevKey => prevKey + 1);
   }
+  function handleSubmitForm() {
+    console.log('Final form values for submission:', formik.values);
+    setModalOpen(false); // Close the booking modal
+    // Any additional logic you want to execute upon form submission
+  }
 
   // Time Select
 
@@ -284,7 +289,8 @@ export default function BookingForm() {
         formikValues={formik.values}
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={resetForm}
+        onConfirm={handleSubmitForm}
+        onReset={resetForm}
       />
     </Box>
   );
