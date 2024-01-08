@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { Box } from '@mantine/core';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
 import {
@@ -20,7 +21,7 @@ export default async function Home() {
   const { header, footer } = settingsData;
 
   return (
-    <div>
+    <Box>
       <Link href='/gallery'>Link to Gallery</Link>
       <Hero hero={hero} />
       <SelectedDishes dishes={selectedDishes} />
@@ -33,7 +34,6 @@ export default async function Home() {
           {session ? 'Sign out' : 'Sign in'}
         </Link>
       </div>
-      <News news={news} />
-    </div>
+    </Box>
   );
 }
