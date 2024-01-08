@@ -1,0 +1,9 @@
+.container {
+  flex-direction: column;
+  background: var(--mantine-color-black-3);
+  color: var(--mantine-color-white-3);
+
+  h3 {
+    color: var(--mantine-color-white-3);
+  }
+}
