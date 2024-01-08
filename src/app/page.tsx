@@ -33,32 +33,7 @@ export default async function Home() {
           {session ? 'Sign out' : 'Sign in'}
         </Link>
       </div>
-
-      {footer && (
-        <>
-          <div>
-            <p>{footer.address?.street}</p>
-            <p>{footer.address?.postalCode}</p>
-            <p>{footer.address?.city}</p>
-          </div>
-          <img src={footer.logotype.url} alt={footer.logotype.alt} />
-          {footer.socials.map(social => (
-            <a key={social._key} href={social.url}>
-              {social.url}
-            </a>
-          ))}
-        </>
-      )}
-      {header && (
-        <>
-          <img src={header.logotype.url} alt={header.logotype.alt} />
-          {header.navLinks.map(link => (
-            <a key={link._key} href={link.pageType}>
-              {link.text}
-            </a>
-          ))}
-        </>
-      )}
+      <News news={news} />
     </div>
   );
 }
