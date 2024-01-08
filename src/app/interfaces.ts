@@ -66,6 +66,7 @@ export interface IHomePage {
   selectedDishes: IDish[];
   imageSection: IImageSection;
   about: IAbout;
+  news: INews;
   seo: ISEO;
 }
 
@@ -98,11 +99,21 @@ export interface ISettings {
 
 // Footer interface
 export interface IFooter {
-  openingHours: string;
+  preFooter: IImage;
+  openingHours: IOpeningHours[];
   socials: ISocials[];
   logotype: IImage;
   address: IAddress;
   phone: string;
+  email: string;
+  homePageLink?: string;
+}
+
+// Opening hours interface within Footer
+export interface IOpeningHours {
+  day: string;
+  hours: string;
+  _key: string;
 }
 
 // Socials interface
@@ -111,6 +122,7 @@ export interface ISocials {
   _key: string;
   platform: string;
   url: string;
+  icon: IImage;
 }
 
 // Address interface
@@ -123,4 +135,9 @@ export interface IAddress {
 export interface IHeader {
   navLinks: IButton[];
   logotype: IImage;
+}
+export interface INews {
+  title: string;
+  description: string;
+  image: IImage;
 }

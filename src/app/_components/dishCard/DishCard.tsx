@@ -1,7 +1,6 @@
-import { Box, Text, Title } from '@mantine/core';
+import { Box, Divider, Text, Title } from '@mantine/core';
 
 import avocadoToast from '../../../../public/images/avocado-toast.jpg';
-import line from '../../../../public/images/line.png';
 import LongButton from '../longButton/LongButton';
 import classes from './DishCard.module.css';
 
@@ -77,7 +76,7 @@ export default function DishCard({ showDescription }: IDishCard) {
           />
         </svg>
       </Box>
-      <img className={classes.line} src={line.src} alt='A gray line' />
+      <Divider mt={0} mb={0} w={'100%'} my='md' />
       <LongButton showAddIcon={true} text={'Lägg till'} color={'black'} />
     </Box>
   );

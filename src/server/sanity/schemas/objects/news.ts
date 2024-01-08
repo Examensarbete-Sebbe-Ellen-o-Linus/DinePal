@@ -18,5 +18,22 @@ export default defineType({
       type: 'text',
       rows: 4,
     },
+    {
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt',
+          description: 'Provide an descriptive text which conveys the content of the image',
+          validation: (Rule) => Rule.required(),
+          type: 'string',
+        },
+      ],
+      options: {
+        hotspot: true,
+      },
+    },
   ],
 })

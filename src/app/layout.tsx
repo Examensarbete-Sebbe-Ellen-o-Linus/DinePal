@@ -1,16 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import '~/styles/globals.css';
-
-import { Inter } from 'next/font/google';
+import { Box, MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-
-import { MantineProvider } from '@mantine/core';
+import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import { TRPCReactProvider } from '~/trpc/react';
-import { theme } from './theme/theme';
 
-const inter = Inter({
-  subsets: ['latin'],
-});
+import '~/styles/globals.css';
+import Footer from './_components/footer/Footer';
+import Header from './_components/header/Header';
+import { theme } from './theme/theme';
 
 export const metadata = {
   title: 'Create T3 App',
@@ -18,16 +15,23 @@ export const metadata = {
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settingsData = await fetchSettingsData();
+  const { footer, header } = settingsData;
+
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body>
         <TRPCReactProvider cookies={cookies().toString()}>
-          <MantineProvider theme={theme}>{children}</MantineProvider>
+          <MantineProvider theme={theme}>
+            <Header header={header} />
+            <Box style={{ marginTop: '112px' }}>{children}</Box>
+            <Footer footer={footer} />
+          </MantineProvider>
         </TRPCReactProvider>
       </body>
     </html>

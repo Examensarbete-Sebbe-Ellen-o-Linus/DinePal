@@ -49,10 +49,21 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
       title,
       hero { title, ${imageSelection}, ${buttonSelection}, description },
       selectedDishes[]-> { title, description, ${imageSelection}, tags[] },
-      imageSection { title, description, imageCards[] {
-        'url': image.asset->url,
-        'alt': alt,
+      imageSection { 
+        title, 
+        description, 
+        imageCards[] {
+        "url": image.asset->url,
+        "alt": alt,
         "link": link, 
+      }},
+      news {
+        title, 
+        description, 
+        "image": {
+        "alt": coalesce(image.alt, "No alt text"),
+        "url": image.asset->url,
+        "_key": image._key
       }},
       about { title, description, ${imageSelection}, ${buttonSelection} },
       seo { metaTitle, metaDescription }
@@ -124,13 +135,20 @@ export const fetchSettingsData = async (): Promise<ISettings> => {
     },
     footer {
       ...,
+      "preFooter": preFooter.asset->{
+        "url": url,
+        "alt": coalesce(alt, "Missing alt text")
+      },
       "logotype": logotype.asset->{
         "url": url,
         "alt": coalesce(alt, "Missing alt text")
       },
       "socials": socials[] {
         ...,
-        "icon": icon.asset->url
+        "icon": icon.asset->{
+          "url": url,
+          "alt": alt
+        }
       }
     }
   

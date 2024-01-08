@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  border-radius: var(--mantine-radius-default);
+  border-radius: var(--mantine-radius-primary);
   background: var(--mantine-color-white-0);
   box-shadow: var(--mantine-shadow-primary);
   cursor: pointer;
@@ -18,7 +18,7 @@
 
 .image {
   height: 376px;
-  border-radius: var(--mantine-radius-default);
+  border-radius: var(--mantine-radius-primary);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;

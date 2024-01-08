@@ -1,3 +1,4 @@
+import { Title } from '@mantine/core';
 import { fetchGalleryPageData } from '../../server/sanity/sanity.utils';
 
 export default async function GalleryPage() {
@@ -11,7 +12,7 @@ export default async function GalleryPage() {
 
   return (
     <>
-      <h2>Gallery</h2>
+      <Title order={2}>Gallery</Title>
       <div>{title}</div>
       <div>
         {galleryImgs?.map((image, i) => (
