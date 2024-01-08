@@ -35,6 +35,16 @@ declare module 'next-auth' {
  *
  * @see https://next-auth.js.org/configuration/options
  */
+
+const allowedUsersFromDB = await db.allowedUsers.findMany({
+  select: {
+    username: true,
+  },
+});
+
+// console.log('Allowed users:', allowedUsersFromDB);
+
+// const allowedUsers = ['bashan_', 'test123@gmail.com'];
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => ({
@@ -44,6 +54,12 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    async signIn({ user }) {
+      if (allowedUsersFromDB?.some(u => u.username === user.name)) {
+        return true;
+      }
+      return false;
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [
