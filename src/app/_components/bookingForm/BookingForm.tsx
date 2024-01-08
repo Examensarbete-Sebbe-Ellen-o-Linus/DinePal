@@ -30,10 +30,10 @@ export default function BookingForm() {
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectKey, setSelectKey] = useState('');
-
-  // Time Select
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
+  // Supplies the user with available booking times. It will differ depending on which time and day the booking is made on
+  // This is now hardcoded. Come back and make the time for booking dynamic.
   const getTimeOptions = (date: Date) => {
     const currentDateTime = new Date();
     const isToday = currentDateTime.toDateString() === date.toDateString();
@@ -57,7 +57,7 @@ export default function BookingForm() {
     const timeSlots = [];
     for (let hour = startHour; hour <= endHour; hour++) {
       const timeSlot = `${hour}:00`;
-      // If the date is today, only add time slots that are in the future
+      // If the date is today, only add time slots that are in the future not that have passed
       if (!isToday || (isToday && hour > currentHour)) {
         timeSlots.push(timeSlot);
       }
@@ -66,9 +66,6 @@ export default function BookingForm() {
     return timeSlots;
   };
 
-  // Time Select
-
-  // DatePicker
   const minSelectableDate = dayjs().toDate();
 
   const currentDate = new Date();
@@ -80,6 +77,7 @@ export default function BookingForm() {
   const maxSelectableDate = new Date(threeMonthBookingView);
   maxSelectableDate.setDate(maxSelectableDate.getDate() - 1);
 
+  // This is just to be able to change the color of the selected day in the calendar
   const getDayProps: DatePickerProps['getDayProps'] = date => {
     const selectedDate = formik.values.date;
     if (selectedDate && dayjs(date).isSame(selectedDate, 'day')) {
@@ -93,9 +91,6 @@ export default function BookingForm() {
     return {};
   };
 
-  // DatePicker
-
-  // Form
   const formik = useFormik({
     initialValues: {
       guests: '',
@@ -116,7 +111,6 @@ export default function BookingForm() {
     validateOnChange: true,
     validateOnBlur: true,
   });
-  //Form
 
   function resetForm() {
     formik.resetForm();
@@ -124,11 +118,8 @@ export default function BookingForm() {
   }
   function handleSubmitForm() {
     console.log('Final form values for submission:', formik.values);
-    setModalOpen(false); // Close the booking modal
-    // Any additional logic you want to execute upon form submission
+    setModalOpen(false);
   }
-
-  // Time Select
 
   useEffect(() => {
     if (formik.values.date) {
@@ -136,9 +127,6 @@ export default function BookingForm() {
       setTimeOptions(newTimeOptions);
     }
   }, [formik.values.date]);
-  // Time Select
-
-  // Form
 
   return (
     <Box className={classes.container}>
