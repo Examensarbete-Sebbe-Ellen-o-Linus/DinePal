@@ -1,0 +1,33 @@
+@import '../../../styles/mantine';
+
+.container {
+  padding-top: 48px;
+  .grid {
+    display: grid;
+    margin: 32px 44px;
+    grid-template-columns: repeat(3, 328px);
+    gap: 32px 24px;
+    justify-items: center;
+    justify-content: center;
+
+    @media (max-width: $mantine-breakpoint-md) {
+      grid-template-columns: repeat(2, 328px);
+    }
+
+    @media (max-width: $mantine-breakpoint-sm) {
+      grid-template-columns: repeat(1, 328px);
+    }
+  }
+
+  .bottom {
+    h5 {
+      margin-bottom: 8px;
+    }
+
+    a {
+      background-color: var(--mantine-color-orange-3);
+      border-radius: var(--mantine-radius-secondary);
+      padding: 8px 16px;
+    }
+  }
+}
