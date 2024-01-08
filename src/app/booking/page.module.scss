@@ -1,1 +1,55 @@
-@import '../../../styles/mantine';
+@import '../../styles/mantine';
+
+.heroContainer {
+    width: 100%;
+    position: relative; 
+  }
+  
+  .heroContainer img {
+    width: 100%; 
+    height: 512px; 
+    display: block; 
+    object-fit: cover;
+  }
+  
+  .pageContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1120px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    gap: 32px;
+
+    @media (max-width: $mantine-breakpoint-md) {
+        flex-direction: column;
+        max-width: 680px;
+    }
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        flex-direction: column;
+        max-width: 328px;
+       }
+    
+    > div {
+        display: inline-flex;
+        max-width: 600px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+  }
+
+  .topicContainer {
+    padding-top: 48px;
+    max-width: 1120px;
+
+    @media (max-width: $mantine-breakpoint-md) {
+
+     max-width: 680px;
+    }
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        max-width: 328px;
+       }
+  }

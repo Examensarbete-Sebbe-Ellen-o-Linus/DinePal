@@ -268,7 +268,7 @@ export default function BookingForm() {
             disabled={!formik.values.time}
           />
           <Box onClick={() => setModalOpen(true)} mt='md'>
-            <LongButton text={'Boka bord'} color={'black'} />
+            <LongButton text={'Boka'} color={'black'} />
           </Box>
         </form>
       </Box>

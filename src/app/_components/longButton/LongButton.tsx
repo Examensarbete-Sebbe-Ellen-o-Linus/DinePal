@@ -1,6 +1,6 @@
 import { Title } from '@mantine/core';
 
-import classes from './LongButton.module.css';
+import classes from './LongButton.module.scss';
 
 interface ILongButton {
   text: string;
