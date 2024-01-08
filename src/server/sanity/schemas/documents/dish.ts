@@ -57,7 +57,7 @@ export default defineType({
       options: {
         list: [
           {title: 'Vegan', value: 'vegan'},
-          {title: 'Lacto-ovo vegetarian', value: 'vegitarian'},
+          {title: 'Lakto-ovo vegetarian', value: 'vegitarian'},
           {title: 'Glutenfri', value: 'glutenFree'},
           {title: 'Laktosfri', value: 'lactoseFree'},
           {title: 'Stark', value: 'spicy'},
