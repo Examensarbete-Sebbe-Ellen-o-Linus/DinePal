@@ -1,6 +1,6 @@
 import { Box, Container, Title } from '@mantine/core';
 import Link from 'next/link';
-import { IImageSection } from '~/app/interfaces';
+import type { IImageSection } from '~/app/interfaces';
 import scss from './ImageSection.module.scss';
 
 export default function ImageSection({
