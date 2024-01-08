@@ -65,7 +65,7 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
         "url": image.asset->url,
         "_key": image._key
       }},
-      about { title, description, ${imageSelection}, ${buttonSelection} },
+      about { title, descriptionFirstP, descriptionSecondP, ${imageSelection}, ${buttonSelection} },
       seo { metaTitle, metaDescription }
     `
   return fetchDocumentById('homePage', additionalSelections)

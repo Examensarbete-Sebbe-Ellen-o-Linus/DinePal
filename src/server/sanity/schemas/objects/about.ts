@@ -15,8 +15,15 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'description',
-      title: 'About us text',
+      name: 'descriptionFirstP',
+      title: 'About us, first paragraph',
+      description: 'Here you can write a desciption about your restaurant',
+      type: 'text',
+      rows: 4,
+    },
+    {
+      name: 'descriptionSecondP',
+      title: 'About us, second pararaph',
       description: 'Here you can write a desciption about your restaurant',
       type: 'text',
       rows: 4,
