@@ -1,20 +1,54 @@
-import { Box, Divider, NumberInput, Text, Title } from '@mantine/core';
+import { Box, Divider, Text, Title } from '@mantine/core';
 
-import blueBerryPancakes from '../../../../public/images/blueberry-pancakes.jpg';
+import { computed } from '@preact/signals-react';
+import { CartItem, cartSignal } from 'signals/cartSignals';
+import { AddToCartButton } from '../addToCart/addToCart';
+import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 import classes from './CartCard.module.scss';
 
-export default function CartCard() {
+type Props = {
+  item: CartItem;
+};
+
+export default function CartCard({ item }: Props) {
+  // export const totalCartLenght = computed(() => {
+  //   let total = 0;
+  //   cartSignal.value.forEach(item => {
+  //     total += item.quantity;
+  //   });
+  //   return total;
+  // });
+
+  const thisItemsQuantity = computed(() => {
+    const thisItem = cartSignal.value.find(
+      cartItem => cartItem.dish.title === item.dish.title
+    );
+    return thisItem?.quantity;
+  });
+
+  // const thisItemsQuantity = (item: CartItem) => {
+  //   // compare the title from the cart signal and get the quantity from the signal
+  //   const thisItem = cartSignal.value.find(
+  //     cartItem => cartItem.dish.title === item.dish.title
+  //   );
+  //   return thisItem?.quantity;
+  // };
   return (
     <Box className={classes.container}>
-      <img
-        src={blueBerryPancakes.src}
-        alt='Place name of dish here later on.'
-      />
-      <Title order={6}>Blueberry Pancakes</Title>
-      <Text>278 :-</Text>
+      <img src={item.dish.image.url} alt={item.dish.image.alt} />
+      <Title order={6}>{item.dish.title}</Title>
+      <Text>{item.dish.price} :-</Text>
       <Divider mt={0} mb={0} w={'100%'} my='md' />
       <Box className={classes.selectRemove}>
-        <NumberInput value={5} size='xs' min={1} allowDecimal={false} />
+        {/* <NumberInput
+          value={item.quantity}
+          size='xs'
+          min={1}
+          allowDecimal={false}
+        /> */}
+        <Text>{thisItemsQuantity}</Text>
+        <AddToCartButton dish={item.dish} />
+        <RemoveFromCartButton dish={item.dish} />
 
         <Box>
           <svg

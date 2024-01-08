@@ -1,7 +1,8 @@
-import { Button } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { effect } from '@preact/signals-react';
 import { cartSignal } from 'signals/cartSignals';
 import type { IDish } from '~/app/interfaces';
+import classes from './addToCart.module.css';
 
 type CartItem = {
   dish: IDish;
@@ -38,7 +39,12 @@ export const AddToCartButton = ({ dish }: Props) => {
 
   return (
     <>
-      <Button onClick={() => handleAddToCart(dish)}>Add to 🛒</Button>
+      <Text
+        className={classes.cartButton}
+        onClick={() => handleAddToCart(dish)}
+      >
+        +
+      </Text>
     </>
   );
 };

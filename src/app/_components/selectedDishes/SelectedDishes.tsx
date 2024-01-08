@@ -8,14 +8,6 @@ import { AddToCartButton } from '../addToCart/addToCart';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
-  // const totalCartLenght = computed(() => {
-  //   let total = 0;
-  //   cartValue.value.forEach(item => {
-  //     total += item.quantity;
-  //   });
-  //   return total;
-  // });
-
   return (
     <section>
       <h3>Example how to display selected Dishes</h3>

@@ -1,7 +1,7 @@
 import { computed, signal } from '@preact/signals-react';
 import type { IDish } from '~/app/interfaces';
 
-type CartItem = {
+export type CartItem = {
   dish: IDish;
   quantity: number;
 };

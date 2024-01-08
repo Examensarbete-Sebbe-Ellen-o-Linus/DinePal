@@ -1,6 +1,7 @@
-import { Button } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { cartSignal } from 'signals/cartSignals';
 import type { IDish } from '~/app/interfaces';
+import classes from './removeFromCart.module.css';
 
 type CartItem = {
   dish: IDish;
@@ -33,9 +34,15 @@ export const RemoveFromCartButton = ({ dish }: Props) => {
 
   return (
     <>
-      <Button onClick={() => handleRemoveFromCart(dish.title)}>
+      {/* <Button onClick={() => handleRemoveFromCart(dish.title)}>
         Remove ❌
-      </Button>
+      </Button> */}
+      <Text
+        className={classes.cartButton}
+        onClick={() => handleRemoveFromCart(dish.title)}
+      >
+        -
+      </Text>
     </>
   );
 };
