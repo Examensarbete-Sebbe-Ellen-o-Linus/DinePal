@@ -27,7 +27,7 @@ export default defineType({
           {title: 'Gallery', value: 'gallery'},
           {title: 'View shopping cart', value: 'shopping-cart'},
           {title: 'Contact', value: 'contact'},
-          {title: 'Checkout', value: 'contact'},
+          {title: 'Checkout', value: 'checkout'},
         ],
       },
     },

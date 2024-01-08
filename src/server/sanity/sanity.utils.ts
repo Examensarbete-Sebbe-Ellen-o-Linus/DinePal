@@ -135,13 +135,20 @@ export const fetchSettingsData = async (): Promise<ISettings> => {
     },
     footer {
       ...,
+      "preFooter": preFooter.asset->{
+        "url": url,
+        "alt": coalesce(alt, "Missing alt text")
+      },
       "logotype": logotype.asset->{
         "url": url,
         "alt": coalesce(alt, "Missing alt text")
       },
       "socials": socials[] {
         ...,
-        "icon": icon.asset->url
+        "icon": icon.asset->{
+          "url": url,
+          "alt": alt
+        }
       }
     }
   
