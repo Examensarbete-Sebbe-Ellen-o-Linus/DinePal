@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 html,
@@ -23,7 +24,7 @@ body::-webkit-scrollbar {
 
 body,
 .mantine-Text-root {
-  font-size: 18px;
+  font-size: 18px !important;
   line-height: 1.5;
   color: var(--mantine-color-black-3);
 }
@@ -31,6 +32,10 @@ body,
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  border: none;
 }
 
 img {

@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { MantineProvider } from '@mantine/core';
+import { Box, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-import '~/styles/globals.css';
+import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import { TRPCReactProvider } from '~/trpc/react';
+
+import '~/styles/globals.css';
+import Header from './_components/header/Header';
 import { theme } from './theme/theme';
 
 export const metadata = {
@@ -12,16 +14,22 @@ export const metadata = {
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settingsData = await fetchSettingsData();
+  const { header } = settingsData;
+
   return (
     <html lang='en'>
       <body>
         <TRPCReactProvider cookies={cookies().toString()}>
-          <MantineProvider theme={theme}>{children}</MantineProvider>
+          <MantineProvider theme={theme}>
+            <Header header={header} />
+            <Box style={{ marginTop: '112px' }}>{children}</Box>
+          </MantineProvider>
         </TRPCReactProvider>
       </body>
     </html>
