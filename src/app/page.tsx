@@ -2,11 +2,7 @@
 import { Box } from '@mantine/core';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
-import {
-  fetchHomePageData,
-  fetchSettingsData,
-} from '~/server/sanity/sanity.utils';
-
+import { fetchHomePageData } from '~/server/sanity/sanity.utils';
 import About from './_components/about/About';
 import Hero from './_components/hero/Hero';
 import ImageSection from './_components/imageSection/ImageSection';
@@ -16,10 +12,8 @@ import SelectedDishes from './_components/selectedDishes/SelectedDishes';
 export default async function Home() {
   const session = await getServerAuthSession();
   const homePageData = await fetchHomePageData();
-  const settingsData = await fetchSettingsData();
 
   const { about, selectedDishes, imageSection, hero, news } = homePageData;
-  const { header, footer } = settingsData;
 
   return (
     <Box>

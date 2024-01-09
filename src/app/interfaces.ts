@@ -36,20 +36,15 @@ export interface IAbout {
 // Dish interface
 export interface IDish {
   _type: 'dish';
+  _key: string;
   title: string;
   description?: string;
   image: IImage;
   price: number;
-  tags: ITag[];
+  tags: string[];
   slug: {
     current: string;
   };
-}
-
-// Tag interface within Dish
-export interface ITag {
-  _type: 'tag';
-  label: string; // e.g., 'Gluten-free'
 }
 
 // SEO settings interface

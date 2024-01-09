@@ -1,43 +1,24 @@
 'use client';
 
+import { Box, Container, Title } from '@mantine/core';
 import Link from 'next/link';
-
 import type { IDish } from '../../interfaces';
+import DishCard from '../dishCard/DishCard';
+import scss from './SelectedDishes.module.scss';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
-  // const totalCartLenght = computed(() => {
-  //   let total = 0;
-  //   cartValue.value.forEach(item => {
-  //     total += item.quantity;
-  //   });
-  //   return total;
-  // });
-
   return (
-    <section>
-      <h3>Example how to display selected Dishes</h3>
-      {dishes &&
-        dishes.map((dish, i) => (
-          <div key={i}>
-            <h4>{dish.title}</h4>
-            <p>{dish.description}</p>
-            {dish.image && <img src={dish.image.url} alt={dish.image.alt} />}
-            {dish.tags &&
-              dish.tags.map((tag, index) => (
-                <span key={index} className='tag'>
-                  {tag.label}
-                </span>
-              ))}
-
-            {dish.slug && dish.slug.current && (
-              <li>
-                <Link key={i} href={`/product/${dish.slug.current}`}>
-                  {dish.title}
-                </Link>
-              </li>
-            )}
-          </div>
+    <Container size={1120} className={scss.container}>
+      <Box className={scss.grid}>
+        <Title order={2}>Favoriter</Title>
+        {dishes.map((dish, i) => (
+          <DishCard key={i} showDescription={false} dish={dish} />
         ))}
-    </section>
+        <Box className={scss.bottom}>
+          <Title order={5}>Ta del av hela vårt utbud</Title>
+          <Link href='/menu'>Meny</Link>
+        </Box>
+      </Box>
+    </Container>
   );
 }
