@@ -20,6 +20,7 @@ body::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  font-size: 18px !important;
 }
 
 body,
