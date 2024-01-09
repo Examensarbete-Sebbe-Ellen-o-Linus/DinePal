@@ -1,16 +1,27 @@
+'use client';
 import { Box, Text, Title } from '@mantine/core';
 
+import { useEffect, useState } from 'react';
 import { fetchBookingPageData } from '../../server/sanity/sanity.utils';
 import BookingForm from '../_components/bookingForm/BookingForm';
 import classes from './page.module.scss';
 
-export default async function Booking() {
-  const bookingData = await fetchBookingPageData();
+export default function Booking() {
+  const [bookingData, setBookingData] = useState({ title: '', text: '' });
+
+  useEffect(() => {
+    const loadData = async () => {
+      const data = await fetchBookingPageData();
+      setBookingData(data);
+    };
+
+    void loadData();
+  }, []);
   return (
     <Box className={classes.container}>
       <Box className={classes.heroContainer}>
         <Box className={classes.titleContainer}>
-          <Title order={2}>Boka bord</Title>
+          <Title order={2}>{bookingData.title}</Title>
         </Box>
         <Box className={classes.overlay} />
       </Box>
@@ -24,12 +35,7 @@ export default async function Booking() {
             Här kan du boka bord för upp till 8 personer.
             <br />
             <br />
-            Vid bokningar för fler personer, vänligen maila oss på
-            info@belliscafe.se.
-            <br />
-            <br />
-            Vid frågor, maila oss på info@belliscafe.se alternativt ring oss på
-            076-3223979.
+            {bookingData.text}
           </Text>
         </Box>
         <BookingForm />
