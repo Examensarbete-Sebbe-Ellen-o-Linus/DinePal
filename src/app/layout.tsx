@@ -31,7 +31,7 @@ export default async function RootLayout({
           <CartProvider>
             <MantineProvider theme={theme}>
               <Header header={header} />
-              <Box style={{ marginTop: '112px' }}>{children}</Box>
+              <Box style={{ marginTop: '104px' }}>{children}</Box>
               <Footer footer={footer} />
             </MantineProvider>
           </CartProvider>

@@ -5,7 +5,7 @@ import scss from './About.module.scss';
 export default async function About({ about }: { about: IAbout }) {
   return (
     <section className={scss.container} id='about'>
-      <Container>
+      <Container size={1120} fluid>
         {about.image.url ? (
           <img src={about.image.url} alt={about.image.alt} />
         ) : (
