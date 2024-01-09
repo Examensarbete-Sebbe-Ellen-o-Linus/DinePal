@@ -116,9 +116,24 @@ export default function BookingForm() {
     formik.resetForm();
     setSelectKey(prevKey => prevKey + 1);
   }
-  function handleSubmitForm() {
-    console.log('Final form values for submission:', formik.values);
-    setModalOpen(false);
+
+  async function handleSubmitForm() {
+    await formik.setTouched({
+      guests: true,
+      date: true,
+      time: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      phone: true,
+      commentary: true,
+    });
+
+    void formik.validateForm().then(errors => {
+      if (Object.keys(errors).length === 0) {
+        setModalOpen(true);
+      }
+    });
   }
 
   useEffect(() => {
@@ -267,7 +282,7 @@ export default function BookingForm() {
             placeholder='Skriv kommentar...'
             disabled={!formik.values.time}
           />
-          <Box onClick={() => setModalOpen(true)} mt='md'>
+          <Box onClick={handleSubmitForm} mt='md'>
             <LongButton text={'Boka'} color={'black'} />
           </Box>
         </form>

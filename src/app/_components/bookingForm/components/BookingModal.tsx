@@ -23,8 +23,10 @@ export default function BookingModal({
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
   function handleConfirm() {
+    console.log('Booking data:', formikValues);
     onConfirm();
     onReset();
+    onClose();
     setConfirmationModalOpen(true);
   }
 
