@@ -48,6 +48,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     });
     setCartLenght(total);
     setCartPrice(totalPrice);
+    localStorage.setItem('cart', JSON.stringify(cartState));
   }, [cartState]);
 
   return (
