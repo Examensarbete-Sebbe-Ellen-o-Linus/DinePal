@@ -9,7 +9,7 @@ interface ICheckoutTag {
 }
 
 export default function CheckoutTag({ className = '' }: ICheckoutTag) {
-  const { cartLenght } = useCart();
+  const { cartLenght, cartPrice } = useCart();
   // Adds a blank space between every thousand.
   function formatPrice(price: number): string {
     return price.toLocaleString('sv-SE');
@@ -22,7 +22,7 @@ export default function CheckoutTag({ className = '' }: ICheckoutTag) {
 
           <Text className={classes.noWrapContainer}>Till kassa</Text>
         </Box>
-        <Box className={classes.noWrapContainer}>100 :-</Box>
+        <Box className={classes.noWrapContainer}>{cartPrice} :-</Box>
       </Box>
     </Link>
   );

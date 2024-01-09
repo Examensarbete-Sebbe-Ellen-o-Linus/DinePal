@@ -20,6 +20,17 @@ export const getCartLenghtFromLS = () => {
   });
   return total;
 };
+
+export const getCartPriceFromLS = () => {
+  let total = 0;
+  const value = localStorage.getItem('cart');
+  if (value === null) return 0;
+  JSON.parse(value).forEach((item: CartItem) => {
+    total += item.dish.price * item.quantity;
+  });
+  return total;
+};
+
 // export const cartSignal = signal<CartItem[]>(getCartFromLS());
 
 // effect(() => {

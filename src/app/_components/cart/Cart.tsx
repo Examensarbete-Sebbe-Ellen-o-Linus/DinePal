@@ -10,7 +10,7 @@ import classes from './Cart.module.scss';
 
 export default function Cart() {
   const [opened, { toggle }] = useDisclosure();
-  const { cartLenght } = useCart();
+  const { cartLenght, cartPrice } = useCart();
 
   //re render when cart changes
 
@@ -23,7 +23,7 @@ export default function Cart() {
 
             <Text className={classes.noWrapContainer}>Till varukorg</Text>
           </Box>
-          <Box className={classes.noWrapContainer}>100 :-</Box>
+          <Box className={classes.noWrapContainer}>{cartPrice} :-</Box>
         </Box>
         <Drawer
           opened={opened}
