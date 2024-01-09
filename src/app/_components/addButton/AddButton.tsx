@@ -6,15 +6,21 @@ interface IAddButton {
   showAddIcon: boolean;
   text: string;
   color: 'black' | 'orange';
+  onClick?: () => void;
 }
 
-export default function AddButton({ showAddIcon, text, color }: IAddButton) {
+export default function AddButton({
+  showAddIcon,
+  text,
+  color,
+  onClick,
+}: IAddButton) {
   // Assign a CSS class to 'buttonColor' based on the 'color' prop passed from the parent.
   // The 'color' prop should be either 'black' or 'orange'.
   const buttonColor = `${classes.container} ${classes[color]}`;
 
   return (
-    <button className={buttonColor}>
+    <button className={buttonColor} onClick={onClick}>
       <Title order={6}>{text}</Title>
       {showAddIcon && (
         <svg

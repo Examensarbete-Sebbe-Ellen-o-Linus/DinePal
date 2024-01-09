@@ -282,9 +282,11 @@ export default function BookingForm() {
             placeholder='Skriv kommentar...'
             disabled={!formik.values.time}
           />
-          <Box onClick={handleSubmitForm} mt='md'>
-            <LongButton text={'Boka'} color={'black'} />
-          </Box>
+          <LongButton
+            onClick={handleSubmitForm}
+            text={'Boka'}
+            color={'black'}
+          />
         </form>
       </Box>
 
