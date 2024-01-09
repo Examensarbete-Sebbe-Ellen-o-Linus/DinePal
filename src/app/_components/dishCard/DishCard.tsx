@@ -48,7 +48,7 @@ export default function DishCard({ showDescription, dish }: Props) {
         <Link href={dishLink}>
           <Title order={6}>{dish.title}</Title>
         </Link>
-        <Text>{dish.price} :-</Text>
+        <Text>{dish.price}:-</Text>
       </Box>
       {showDescription && <Text>{dish.description}</Text>}
       <Box className={classes.iconContainer}>

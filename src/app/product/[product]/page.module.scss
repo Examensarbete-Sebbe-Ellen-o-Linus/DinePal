@@ -54,7 +54,7 @@
       }
       .input {
         width: 72px !important;
-        margin: 8px 0;
+        margin: 16px 0;
 
         button {
           background-color: var(--mantine-color-black-3);
@@ -79,7 +79,12 @@
     justify-content: space-between;
     margin-bottom: 32px;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
+
+    h3 {
+      white-space: nowrap;
+    }
 
     @media (max-width: $mantine-breakpoint-sm) {
       flex-direction: column;

@@ -9,8 +9,8 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
+import AddButton from '~/app/_components/addButton/AddButton';
 import { IconKey, tagDetails } from '~/app/_components/dishCard/DishCard';
-import LongButton from '~/app/_components/longButton/LongButton';
 import { fetchSingleDish } from '~/server/sanity/sanity.utils';
 import scss from './page.module.scss';
 
@@ -62,7 +62,7 @@ export default async function Product({ params }: Props) {
               size={'xs'}
               allowDecimal={false}
             />
-            <LongButton showAddIcon={true} text={'Lägg till'} color={'black'} />
+            <AddButton showAddIcon={true} text={'Lägg till'} color={'black'} />
           </Box>
         </Box>
       </Box>
