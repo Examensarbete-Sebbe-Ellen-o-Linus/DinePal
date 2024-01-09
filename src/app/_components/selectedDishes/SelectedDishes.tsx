@@ -10,7 +10,6 @@ import { AddToCartButton } from '../addToCart/addToCart';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
-  // const [cartState, setCartState] = useState(cartSignal.value);
   const { cartState, setCartState } = useCart();
   useEffect(() => {
     console.log('cartState', cartState);

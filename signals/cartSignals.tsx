@@ -1,4 +1,3 @@
-import { computed, effect, signal } from '@preact/signals-react';
 import type { IDish } from '~/app/interfaces';
 
 export type CartItem = {
@@ -11,30 +10,36 @@ export const getCartFromLS = () => {
   if (value === null) return [];
   return JSON.parse(value);
 };
-export const cartSignal = signal<CartItem[]>(getCartFromLS());
 
-effect(() => {
-  localStorage.setItem('cart', JSON.stringify(cartSignal.value));
-});
-
-export const totalCartLenght = computed(() => {
+export const getCartLenghtFromLS = () => {
   let total = 0;
-  cartSignal.value.forEach(item => {
+  const value = localStorage.getItem('cart');
+  if (value === null) return 0;
+  JSON.parse(value).forEach((item: CartItem) => {
     total += item.quantity;
   });
   return total;
-});
+};
+// export const cartSignal = signal<CartItem[]>(getCartFromLS());
 
-export const totalCartPrice = computed(() => {
-  let total = 0;
-  cartSignal.value.forEach(item => {
-    total += item.dish.price * item.quantity;
-  });
-  return total;
-});
+// effect(() => {
+//   localStorage.setItem('cart', JSON.stringify(cartSignal.value));
+// });
 
-// export const signalsArray = signal<hejArr[]>(
-//   localStorage.getItem('signalsArray')
-//     ? JSON.parse(localStorage.getItem('signalsArray') as string)
-//     : [{ name: 'hej' }]
-// );
+// export const cartLenght2 = signal();
+
+// export const totalCartLenght = () => {
+//   let total = 0;
+//   cartSignal.value.forEach(item => {
+//     total += item.quantity;
+//   });
+//   return total;
+// };
+
+// export const totalCartPrice = computed(() => {
+//   let total = 0;
+//   cartSignal.value.forEach(item => {
+//     total += item.dish.price * item.quantity;
+//   });
+//   return total;
+// });

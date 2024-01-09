@@ -1,6 +1,5 @@
 import { Text } from '@mantine/core';
 import { useCart } from 'context/cartContext';
-import { cartSignal } from 'signals/cartSignals';
 import type { IDish } from '~/app/interfaces';
 import classes from './addToCart.module.css';
 
@@ -16,16 +15,17 @@ type Props = {
 export const AddToCartButton = ({ dish }: Props) => {
   const { cartState, setCartState } = useCart();
   const handleAddToCart = (newDish: IDish) => {
-    const ItemInCart = cartSignal.value.find(
+    const ItemInCart = cartState.find(
       item => item.dish.title === newDish.title
     );
 
     if (!ItemInCart) {
-      cartSignal.value = [...cartSignal.value, { dish: newDish, quantity: 1 }];
-      setCartState(cartSignal.value);
+      // cartSignal.value = [...cartSignal.value, { dish: newDish, quantity: 1 }];
+      const updatedCart = [...cartState, { dish: newDish, quantity: 1 }];
+      setCartState(updatedCart);
     } else {
       // +1 to quantity of item in cart
-      const newSignal = cartSignal.value.reduce((newCart, item) => {
+      const updatedCart = cartState.reduce((newCart, item) => {
         if (item.dish.title === newDish.title) {
           newCart.push({ ...item, quantity: item.quantity + 1 });
         } else {
@@ -33,8 +33,8 @@ export const AddToCartButton = ({ dish }: Props) => {
         }
         return newCart;
       }, [] as CartItem[]);
-      cartSignal.value = newSignal;
-      setCartState(newSignal);
+      // cartSignal.value = newSignal;
+      setCartState(updatedCart);
     }
   };
 
