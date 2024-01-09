@@ -12,6 +12,7 @@ export default function Checkout() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          gap: '16px',
         }}
       >
         <Box

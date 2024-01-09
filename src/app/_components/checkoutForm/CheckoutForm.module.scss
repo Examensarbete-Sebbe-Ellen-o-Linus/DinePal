@@ -10,7 +10,6 @@
     background: var(--mantine-color-white-0);
     box-shadow: var(--mantine-shadow-primary);
 
-    border: 2px solid lime;
     
 }
 
@@ -19,7 +18,6 @@
     border-radius: var(--mantine-radius-primary);
     width: 100%;
 
-    border: 2px solid coral;
 
     form {
         display: flex;
@@ -29,16 +27,16 @@
     }
 }
 
-.paymentContainer {
+.paymentMethodContainer {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
     align-self: stretch;
     width: 100%;
+    margin-top: 32px;
 
 
-    border: 2px solid rebeccapurple;
 
     >div {
         display: flex;

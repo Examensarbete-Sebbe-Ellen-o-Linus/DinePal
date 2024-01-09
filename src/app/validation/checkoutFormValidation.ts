@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const bookingFormValidation = Yup.object({
+export const checkoutFormValidation = Yup.object({
   firstName: Yup.string().required('Var god uppge förnamn'),
   lastName: Yup.string().required('Var god uppge efternamn'),
   email: Yup.string()
