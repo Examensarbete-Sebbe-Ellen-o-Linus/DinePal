@@ -1,7 +1,7 @@
-import { Button } from '@mantine/core';
-import { effect } from '@preact/signals-react';
-import { cartSignal } from 'signals/cartSignals';
+import { Text } from '@mantine/core';
+import { useCart } from 'context/cartContext';
 import type { IDish } from '~/app/interfaces';
+import classes from './addToCart.module.css';
 
 type CartItem = {
   dish: IDish;
@@ -13,32 +13,39 @@ type Props = {
 };
 
 export const AddToCartButton = ({ dish }: Props) => {
+  const { cartState, setCartState } = useCart();
   const handleAddToCart = (newDish: IDish) => {
-    cartSignal.value = cartSignal.value.reduce((newCart, item) => {
-      if (item.dish.title === newDish.title) {
-        newCart.push({ ...item, quantity: item.quantity + 1 });
-      } else {
-        newCart.push(item);
-      }
-      return newCart;
-    }, [] as CartItem[]);
+    const ItemInCart = cartState.find(
+      item => item.dish.title === newDish.title
+    );
 
-    // If the dish is not already in the cart, add it
-    if (!cartSignal.value.some(item => item.dish.title === newDish.title)) {
-      cartSignal.value = [...cartSignal.value, { dish: newDish, quantity: 1 }];
+    if (!ItemInCart) {
+      // cartSignal.value = [...cartSignal.value, { dish: newDish, quantity: 1 }];
+      const updatedCart = [...cartState, { dish: newDish, quantity: 1 }];
+      setCartState(updatedCart);
+    } else {
+      // +1 to quantity of item in cart
+      const updatedCart = cartState.reduce((newCart, item) => {
+        if (item.dish.title === newDish.title) {
+          newCart.push({ ...item, quantity: item.quantity + 1 });
+        } else {
+          newCart.push(item);
+        }
+        return newCart;
+      }, [] as CartItem[]);
+      // cartSignal.value = newSignal;
+      setCartState(updatedCart);
     }
-
-    localStorage.setItem('cart', JSON.stringify(cartSignal.value));
   };
-
-  effect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartSignal.value));
-    console.log('cart', cartSignal.value);
-  });
 
   return (
     <>
-      <Button onClick={() => handleAddToCart(dish)}>Add to 🛒</Button>
+      <Text
+        className={classes.cartButton}
+        onClick={() => handleAddToCart(dish)}
+      >
+        +
+      </Text>
     </>
   );
 };

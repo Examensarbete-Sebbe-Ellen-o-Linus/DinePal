@@ -1,31 +1,46 @@
 'use client';
-import { Box, Drawer, Title } from '@mantine/core';
+import { Badge, Box, Drawer, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
+import { useCart } from 'context/cartContext';
 import CartCard from '../cartCard/CartCard';
 import CheckoutTag from '../checkoutTag/CheckoutTag';
 import classes from './Cart.module.scss';
 
 export default function Cart() {
   const [opened, { toggle }] = useDisclosure();
+  const { cartLenght, cartPrice } = useCart();
+
+  //re render when cart changes
+
   return (
-    <Box>
-      <Drawer
-        opened={opened}
-        onClose={toggle}
-        padding='xl'
-        withCloseButton={true}
-        size='xs'
-        position='right'
-        title={<Title order={5}>Din beställning</Title>}
-      >
-        <Box className={classes.container}>
-          <CheckoutTag itemCount={3} price={22900} />
-          <CartCard />
-          <CartCard />
-          <CartCard />
+    <>
+      <Box>
+        <Box onClick={toggle} className={classes.container}>
+          <Box className={classes.content}>
+            <Badge className={classes.badge}>{cartLenght}</Badge>
+
+            <Text className={classes.noWrapContainer}>Till varukorg</Text>
+          </Box>
+          <Box className={classes.noWrapContainer}>{cartPrice} :-</Box>
         </Box>
-      </Drawer>
-    </Box>
+        <Drawer
+          opened={opened}
+          onClose={toggle}
+          padding='xl'
+          withCloseButton={true}
+          size='xs'
+          position='right'
+          title={<Text>Din beställning</Text>}
+          // title={<Title order={5}>Din beställning</Title>}
+        >
+          <Box className={classes.container2}>
+            <CheckoutTag />
+            <CartCard />
+          </Box>
+        </Drawer>
+      </Box>
+      ;
+    </>
   );
 }
