@@ -1,6 +1,5 @@
 import { Badge, Box, Text } from '@mantine/core';
 
-import Link from 'next/link';
 import classes from './CartTag.module.css';
 
 interface ICartTag {
@@ -21,16 +20,14 @@ export default function CartTag({
 
   if (itemCount > 0) {
     return (
-      <Link href='/chart'>
-        <Box className={`${classes.container} ${className}`}>
-          <Box className={classes.content}>
-            <Badge className={classes.badge}>{itemCount}</Badge>
+      <Box className={`${classes.container} ${className}`}>
+        <Box className={classes.content}>
+          <Badge className={classes.badge}>{itemCount}</Badge>
 
-            <Text className={classes.noWrapContainer}>Till varukorg</Text>
-          </Box>
-          <Box className={classes.noWrapContainer}>{formatPrice(price)} :-</Box>
+          <Text className={classes.noWrapContainer}>Till varukorg</Text>
         </Box>
-      </Link>
+        <Box className={classes.noWrapContainer}>{formatPrice(price)} :-</Box>
+      </Box>
     );
   }
 

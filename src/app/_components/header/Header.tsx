@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { type IHeader } from '~/app/interfaces';
 import { theme } from '~/app/theme/theme';
-import CartTag from '../cartTag/CartTag';
+import Cart from '../cart/Cart';
 import classes from './Header.module.scss';
 
 export default function Header({ header }: { header: IHeader }) {
@@ -47,7 +47,8 @@ export default function Header({ header }: { header: IHeader }) {
       </Link>
       <Box className={classes.content}>
         {/* Will be controlled by signals later on */}
-        {isDesktop ? <CartTag itemCount={0} price={0} /> : null}
+        {/* {isDesktop ? <CartTag itemCount={5} price={1100} /> : null} */}
+        <Cart />
         <Burger
           opened={opened}
           onClick={toggle}
@@ -84,9 +85,13 @@ export default function Header({ header }: { header: IHeader }) {
           </Box>
         </Drawer>
 
-        {!isDesktop ? (
-          <CartTag className={classes.bottomPosition} itemCount={0} price={0} />
-        ) : null}
+        {/* {!isDesktop ? (
+          <CartTag
+            className={classes.bottomPosition}
+            itemCount={5}
+            price={1100}
+          />
+        ) : null} */}
       </Box>
     </Box>
   );
