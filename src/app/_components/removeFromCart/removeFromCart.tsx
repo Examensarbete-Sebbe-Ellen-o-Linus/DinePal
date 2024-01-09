@@ -1,12 +1,8 @@
 import { Text } from '@mantine/core';
 import { useCart } from 'context/cartContext';
+import type { CartItem } from 'context/initializers';
 import type { IDish } from '~/app/interfaces';
 import classes from './removeFromCart.module.css';
-
-type CartItem = {
-  dish: IDish;
-  quantity: number;
-};
 
 type Props = {
   dish: IDish;
@@ -14,9 +10,6 @@ type Props = {
 
 export const RemoveFromCartButton = ({ dish }: Props) => {
   const { cartState, setCartState } = useCart();
-  // if (localStorage.getItem('cart')) {
-  //   cartSignal.value = JSON.parse(localStorage.getItem('cart') ?? '[]');
-  // }
 
   const handleRemoveFromCart = (dishTitle: string) => {
     const updatedCart = cartState.reduce((newCart, item) => {
@@ -35,9 +28,6 @@ export const RemoveFromCartButton = ({ dish }: Props) => {
 
   return (
     <>
-      {/* <Button onClick={() => handleRemoveFromCart(dish.title)}>
-        Remove ❌
-      </Button> */}
       <Text
         className={classes.cartButton}
         onClick={() => handleRemoveFromCart(dish.title)}

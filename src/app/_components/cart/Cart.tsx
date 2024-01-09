@@ -3,7 +3,6 @@ import { Badge, Box, Drawer, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 import { useCart } from 'context/cartContext';
-import {} from 'signals/cartSignals';
 import CartCard from '../cartCard/CartCard';
 import CheckoutTag from '../checkoutTag/CheckoutTag';
 import classes from './Cart.module.scss';

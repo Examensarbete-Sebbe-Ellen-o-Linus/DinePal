@@ -3,12 +3,12 @@
 
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import type { CartItem } from './initializers';
 import {
   getCartFromLS,
   getCartLenghtFromLS,
   getCartPriceFromLS,
-  type CartItem,
-} from 'signals/cartSignals';
+} from './initializers';
 
 interface CartContextType {
   cartState: CartItem[];
@@ -68,11 +68,3 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
 
 // Hook to use the context
 export const useCart = () => useContext(CartContext);
-
-// export const totalCartLenght = computed(() => {
-//   let total = 0;
-//   cartSignal.value.forEach(item => {
-//     total += item.quantity;
-//   });
-//   return total;
-// });

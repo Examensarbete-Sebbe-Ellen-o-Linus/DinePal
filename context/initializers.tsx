@@ -30,27 +30,3 @@ export const getCartPriceFromLS = () => {
   });
   return total;
 };
-
-// export const cartSignal = signal<CartItem[]>(getCartFromLS());
-
-// effect(() => {
-//   localStorage.setItem('cart', JSON.stringify(cartSignal.value));
-// });
-
-// export const cartLenght2 = signal();
-
-// export const totalCartLenght = () => {
-//   let total = 0;
-//   cartSignal.value.forEach(item => {
-//     total += item.quantity;
-//   });
-//   return total;
-// };
-
-// export const totalCartPrice = computed(() => {
-//   let total = 0;
-//   cartSignal.value.forEach(item => {
-//     total += item.dish.price * item.quantity;
-//   });
-//   return total;
-// });

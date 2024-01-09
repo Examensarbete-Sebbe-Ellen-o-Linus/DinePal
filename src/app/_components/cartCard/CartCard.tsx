@@ -1,17 +1,13 @@
 import { Box, Divider, Text, Title } from '@mantine/core';
 
 import { useCart } from 'context/cartContext';
-import type { CartItem } from 'signals/cartSignals';
+import type { CartItem } from 'context/initializers';
 import { AddToCartButton } from '../addToCart/addToCart';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 import classes from './CartCard.module.scss';
 
-// type Props = {
-//   item: CartItem;
-// };
-
 export default function CartCard() {
-  const { cartState, setCartState, cartLenght } = useCart();
+  const { cartState, setCartState } = useCart();
 
   const addToCart = (newDish: CartItem) => {
     const updatedCart = [...cartState];
