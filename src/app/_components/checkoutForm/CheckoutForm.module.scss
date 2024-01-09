@@ -1,0 +1,50 @@
+@import '../../../styles/mantine';
+
+.container {
+    display: flex;
+    padding: 16px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    border-radius: var(--mantine-radius-primary);
+    background: var(--mantine-color-white-0);
+    box-shadow: var(--mantine-shadow-primary);
+
+    border: 2px solid lime;
+    
+}
+
+.formContainer {
+    padding: 16px 0;
+    border-radius: var(--mantine-radius-primary);
+    width: 100%;
+
+    border: 2px solid coral;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 16px;
+    }
+}
+
+.paymentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    width: 100%;
+
+
+    border: 2px solid rebeccapurple;
+
+    >div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }        
+}
+
