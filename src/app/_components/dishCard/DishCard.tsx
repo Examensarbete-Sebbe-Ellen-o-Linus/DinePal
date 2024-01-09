@@ -2,7 +2,7 @@ import { Box, Divider, Text, Title, Tooltip } from '@mantine/core';
 
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
-import LongButton from '../longButton/LongButton';
+import AddButton from '../addButton/AddButton';
 import classes from './DishCard.module.css';
 import {
   GlutenFreeIcon,
@@ -68,7 +68,7 @@ export default function DishCard({ showDescription, dish }: Props) {
         </Box>
       </Box>
       <Divider mt={0} mb={0} w={'100%'} my='md' />
-      <LongButton showAddIcon={true} text={'Lägg till'} color={'black'} />
+      <AddButton showAddIcon={true} text={'Lägg till'} color={'black'} />
     </Box>
   );
 }
