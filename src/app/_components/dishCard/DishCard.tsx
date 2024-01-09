@@ -17,9 +17,14 @@ interface Props {
   dish: IDish;
 }
 
-type IconKey = 'spicy' | 'vegan' | 'vegitarian' | 'glutenFree' | 'lactoseFree';
+export type IconKey =
+  | 'spicy'
+  | 'vegan'
+  | 'vegitarian'
+  | 'glutenFree'
+  | 'lactoseFree';
 
-const tagDetails = {
+export const tagDetails = {
   vegan: { title: 'Vegan', Icon: VeganIcon },
   vegitarian: { title: 'Lakto-ovo vegetarian', Icon: VegitarianIcon },
   glutenFree: { title: 'Glutenfri', Icon: GlutenFreeIcon },
@@ -43,7 +48,7 @@ export default function DishCard({ showDescription, dish }: Props) {
         <Link href={dishLink}>
           <Title order={6}>{dish.title}</Title>
         </Link>
-        <Text>{dish.price} SEK</Text>
+        <Text>{dish.price} :-</Text>
       </Box>
       {showDescription && <Text>{dish.description}</Text>}
       <Box className={classes.iconContainer}>
