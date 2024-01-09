@@ -1,44 +1,12 @@
 import { Box, Divider, Text, Title } from '@mantine/core';
 
 import { useCart } from 'context/cartContext';
-import type { CartItem } from 'context/initializers';
 import { AddToCartButton } from '../addToCart/addToCart';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 import classes from './CartCard.module.scss';
 
 export default function CartCard() {
-  const { cartState, setCartState } = useCart();
-
-  const addToCart = (newDish: CartItem) => {
-    const updatedCart = [...cartState];
-
-    for (const item of updatedCart) {
-      if (item.dish.title === newDish.dish.title) {
-        item.quantity += 1;
-        setCartState(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-        return;
-      }
-    }
-  };
-
-  const removeFromCart = (dishToRemove: CartItem) => {
-    const updatedCart = [];
-    let itemRemoved = false;
-
-    for (const item of cartState) {
-      if (item.dish.title === dishToRemove.dish.title && !itemRemoved) {
-        if (item.quantity > 1) {
-          updatedCart.push({ ...item, quantity: item.quantity - 1 });
-        }
-        itemRemoved = true;
-      } else {
-        updatedCart.push(item);
-      }
-    }
-
-    setCartState(updatedCart);
-  };
+  const { cartState } = useCart();
 
   return (
     <Box className={classes.container}>
@@ -50,8 +18,6 @@ export default function CartCard() {
           <Text>x {item.quantity}</Text>
           <Divider mt={0} mb={0} w={'100%'} my='md' />
           <Box className={classes.selectRemove}>
-            <Text onClick={() => addToCart(item)}>✅</Text>
-            <Text onClick={() => removeFromCart(item)}>❌</Text>
             <AddToCartButton dish={item.dish} />
             <RemoveFromCartButton dish={item.dish} />
             <Box>
