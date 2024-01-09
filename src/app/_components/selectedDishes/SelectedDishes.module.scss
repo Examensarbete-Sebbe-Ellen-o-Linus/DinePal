@@ -13,7 +13,6 @@
     margin: 32px 44px;
     grid-template-columns: repeat(3, 328px);
     gap: 32px 24px;
-    justify-items: center;
     justify-content: center;
 
     @media (max-width: $mantine-breakpoint-md) {
