@@ -48,7 +48,7 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
   const additionalSelections = `
       title,
       hero { title, ${imageSelection}, ${buttonSelection}, description },
-      selectedDishes[]-> { title, description, ${imageSelection}, tags[] },
+      selectedDishes[]-> { title, description, price, slug, ${imageSelection}, tags[] },
       imageSection { 
         title, 
         description, 
@@ -102,7 +102,7 @@ export const fetchDishes = async (): Promise<IDish[]> => {
         "_key": image._key
       },
       price,
-      tags
+      tags[]
     }`
     return await client.fetch(query)
   } catch (error) {

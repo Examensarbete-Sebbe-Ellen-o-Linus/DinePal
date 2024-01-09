@@ -57,8 +57,10 @@ export default defineType({
       options: {
         list: [
           {title: 'Vegan', value: 'vegan'},
-          {title: 'Gluten Free', value: 'glutenFree'},
-          {title: 'Spicy', value: 'spicy'},
+          {title: 'Lakto-ovo vegetarian', value: 'vegitarian'},
+          {title: 'Glutenfri', value: 'glutenFree'},
+          {title: 'Laktosfri', value: 'lactoseFree'},
+          {title: 'Stark', value: 'spicy'},
         ],
       },
       validation: (Rule) =>

@@ -73,7 +73,7 @@ export default function Header({ header }: { header: IHeader }) {
                     </Title>
                   </Link>
                 ) : (
-                  <Link href={navLink.pageType} onClick={closeDrawer}>
+                  <Link href={`/${navLink.pageType}`} onClick={closeDrawer}>
                     <Title className={classes.link} order={6}>
                       {navLink.text}
                     </Title>
