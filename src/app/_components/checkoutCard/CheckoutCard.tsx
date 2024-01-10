@@ -2,18 +2,27 @@ import { Box, Divider, Text } from '@mantine/core';
 
 import classes from './CheckoutCard.module.scss';
 
-export default function CheckoutCard() {
+interface ICheckoutCard {
+  itemCount: number;
+  price: number;
+}
+
+export default function CheckoutCard({ itemCount, price }: ICheckoutCard) {
+  // Adds a blank space between every thousand
+  function formatPrice(price: number): string {
+    return price.toLocaleString('sv-SE');
+  }
   return (
     <Box className={classes.container}>
       <Box className={classes.imgContainer} />
       <Box className={classes.contentContainer}>
         <Box>
           <Text>Blueberry pancakes</Text>
-          <Text>278 :-</Text>
+          <Text>{formatPrice(price)} :-</Text>
         </Box>
         <Divider mt={0} mb={0} w={'100%'} my='md' />
         <Box>
-          <Text>32</Text>
+          <Text>{itemCount}</Text>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='24'

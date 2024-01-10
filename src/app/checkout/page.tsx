@@ -10,7 +10,7 @@ export default function Checkout() {
       <h1>Checkout</h1>
       <Container className={classes.container}>
         <Box>
-          <CheckoutCard />
+          <CheckoutCard itemCount={0} price={0} />
           <CheckoutForm />
         </Box>
         <Box className={classes.imgContainer} />
