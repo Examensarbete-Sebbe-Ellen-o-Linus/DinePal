@@ -1,5 +1,6 @@
 import { Box, Divider, Text, Title, Tooltip } from '@mantine/core';
 
+import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
@@ -34,6 +35,7 @@ export const tagDetails = {
 
 export default function DishCard({ showDescription, dish }: Props) {
   const dishLink = `/product/${dish?.slug?.current ?? '404'}`;
+  const { handleAddToCart } = useCart();
 
   return (
     <Box className={classes.card}>
@@ -68,7 +70,12 @@ export default function DishCard({ showDescription, dish }: Props) {
         </Box>
       </Box>
       <Divider mt={0} mb={0} w={'100%'} my='md' />
-      <AddButton showAddIcon={true} text={'Lägg till'} color={'black'} />
+      <AddButton
+        showAddIcon={true}
+        text={'Lägg till'}
+        color={'black'}
+        onClick={() => handleAddToCart(dish)}
+      />
     </Box>
   );
 }
