@@ -51,6 +51,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     });
     setCartLenght(total);
     setCartPrice(totalPrice);
+    localStorage.setItem('cart', JSON.stringify(cartState));
   }, [cartState]);
 
   const handleAddToCart = (newDish: IDish, quantityToAdd = 1) => {
