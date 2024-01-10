@@ -24,6 +24,7 @@ export default function Product({ params }: Props) {
   const [error, setError] = useState();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const loadDish = async () => {
       try {
         const fetchedDish = await fetchSingleDish(slug);
