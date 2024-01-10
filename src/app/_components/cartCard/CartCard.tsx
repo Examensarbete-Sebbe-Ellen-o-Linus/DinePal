@@ -17,7 +17,6 @@ export default function CartCard() {
           <img src={item.dish.image.url} alt={item.dish.image.alt} />
           <Title order={6}>{item.dish.title}</Title>
           <Text>{item.dish.price} :-</Text>
-          <Text>x {item.quantity}</Text>
           <Divider mt={0} mb={0} w={'100%'} my='md' />
           <Box className={classes.selectRemove}>
             <Quantity
