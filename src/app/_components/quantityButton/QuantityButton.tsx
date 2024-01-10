@@ -8,7 +8,7 @@ interface Props {
   setQuantity: (value: number) => void;
 }
 
-export default function Quantity({ quantity, setQuantity }: Props) {
+export default function QuantityButton({ quantity, setQuantity }: Props) {
   const changeQuantity = (operator: string) => {
     if (operator === '+') {
       setQuantity(quantity + 1);
