@@ -1,31 +1,20 @@
 import CheckoutForm from '../_components/checkoutForm/CheckoutForm';
 
-import { Box } from '@mantine/core';
-import mockUp from '../../../public/images/blueberry-pancakes.jpg';
+import { Box, Container } from '@mantine/core';
+import CheckoutCard from '../_components/checkoutCard/CheckoutCard';
+import classes from './page.module.scss';
 
 export default function Checkout() {
   return (
     <>
       <h1>Checkout</h1>
-      <Box
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          gap: '16px',
-        }}
-      >
-        <Box
-          style={{
-            width: '50%',
-          }}
-        >
+      <Container className={classes.container}>
+        <Box>
+          <CheckoutCard />
           <CheckoutForm />
         </Box>
-        <Box style={{ width: '50%' }}>
-          <img src={mockUp.src} alt='Mockup' />
-        </Box>
-      </Box>
+        <Box className={classes.imgContainer} />
+      </Container>
     </>
   );
 }

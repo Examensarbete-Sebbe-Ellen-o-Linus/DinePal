@@ -1,0 +1,28 @@
+@import '../../styles/mantine';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+  align-items: stretch;
+  max-width: 1120px;
+
+  :nth-child(1) { 
+    // max-width: 560px;
+    flex: 1; 
+  }
+
+}
+.imgContainer { 
+  // flex: 1; 
+  width: 50%; 
+
+  background-image: url('../../../public/images/blueberry-pancakes.jpg'); 
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+
