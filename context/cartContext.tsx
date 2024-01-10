@@ -19,6 +19,7 @@ interface CartContextType {
   cartPrice: number;
   setCartPrice: React.Dispatch<React.SetStateAction<number>>;
   handleAddToCart: (dish: IDish, quantityToAdd?: number) => void;
+  updateItemQuantity: (dish: IDish, quantityToAdd: number) => void;
 }
 
 // Create context with an empty array and a dummy function as default
@@ -30,6 +31,7 @@ const CartContext = createContext<CartContextType>({
   cartPrice: 0,
   setCartPrice: () => {},
   handleAddToCart: () => {},
+  updateItemQuantity: () => {},
 });
 
 // Provider component
@@ -58,7 +60,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     const ItemInCart = cartState.find(
       item => item.dish.title === newDish.title
     );
-
     if (!ItemInCart) {
       const updatedCart = [
         ...cartState,
@@ -77,6 +78,17 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
       setCartState(updatedCart);
     }
   };
+  const updateItemQuantity = (dish: IDish, newQuantity: number) => {
+    setCartState(currentCartState => {
+      const updatedCart = currentCartState.map(item => {
+        if (item.dish.title === dish.title) {
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      });
+      return updatedCart;
+    });
+  };
 
   return (
     <CartContext.Provider
@@ -88,6 +100,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         cartPrice,
         setCartPrice,
         handleAddToCart,
+        updateItemQuantity,
       }}
     >
       {children}
