@@ -1,7 +1,7 @@
-import CheckoutForm from '../_components/checkoutForm/CheckoutForm';
-
 import { Box, Container } from '@mantine/core';
-import CheckoutCard from '../_components/checkoutCard/CheckoutCard';
+
+import CheckoutForm from '../_components/checkoutForm/CheckoutForm';
+import CheckoutSummary from '../_components/checkoutSummary/CheckoutSummary';
 import classes from './page.module.scss';
 
 export default function Checkout() {
@@ -10,7 +10,7 @@ export default function Checkout() {
       <h1>Checkout</h1>
       <Container className={classes.container}>
         <Box>
-          <CheckoutCard itemCount={0} price={0} />
+          <CheckoutSummary totalPrice={1000} />
           <CheckoutForm />
         </Box>
         <Box className={classes.imgContainer} />
