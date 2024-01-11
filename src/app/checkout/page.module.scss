@@ -1,6 +1,10 @@
 @import '../../styles/mantine';
 
 .container {
+  position: relative;
+}
+
+.contentContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -23,10 +27,11 @@
 
 .imgContainer {
   width: calc(50% - 8px);
-  height: 100vh;
-  position: fixed; 
+  height: 100%;
+  position: absolute; 
   top: 0; 
   right: 0; 
+  bottom: 0;
   background-image: url('../../../public/images/blueberry-pancakes.jpg');
   background-size: cover;
   background-position: center;

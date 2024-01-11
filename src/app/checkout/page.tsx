@@ -6,15 +6,14 @@ import classes from './page.module.scss';
 
 export default function Checkout() {
   return (
-    <>
-      <h1>Checkout</h1>
-      <Container className={classes.container}>
+    <Box className={classes.container}>
+      <Box className={classes.imgContainer} />
+      <Container className={classes.contentContainer}>
         <Box className={classes.content}>
           <CheckoutSummary totalPrice={1000} />
           <CheckoutForm />
         </Box>
-        <Box className={classes.imgContainer} />
       </Container>
-    </>
+    </Box>
   );
 }
