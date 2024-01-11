@@ -1,43 +1,25 @@
 'use client';
-import { Box, Container, MultiSelect, Title } from '@mantine/core';
+import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { fetchDishes } from '~/server/sanity/sanity.utils';
 import DishCard from '../_components/dishCard/DishCard';
-import {
-  GlutenFreeIcon,
-  LactoseFreeIcon,
-  SpicyIcon,
-  VeganIcon,
-  VegitarianIcon,
-} from '../_components/tags/TagIcons';
-import { IDish } from '../interfaces';
+import { tagDetails, type IconKey } from '../_components/tags/Tags';
+import { type IDish } from '../interfaces';
 import scss from './page.module.scss';
 
-export type IconKey =
-  | 'spicy'
-  | 'vegan'
-  | 'vegitarian'
-  | 'glutenFree'
-  | 'lactoseFree';
-
-export const tagDetails = {
-  vegan: { title: 'Vegan', Icon: VeganIcon },
-  vegitarian: { title: 'Lakto-ovo vegetarian', Icon: VegitarianIcon },
-  glutenFree: { title: 'Glutenfri', Icon: GlutenFreeIcon },
-  lactoseFree: { title: 'Laktosfri', Icon: LactoseFreeIcon },
-  spicy: { title: 'Stark', Icon: SpicyIcon },
-};
-
 export default function Menu() {
-  const [dishes, setDishes] = useState<IDish[] | null>();
+  const [dishes, setDishes] = useState<IDish[]>([]);
   const [error, setError] = useState(false);
+  const [filteredDishes, setFilteredDishes] = useState<IDish[]>([]);
+  const [selectedTags, setSelectedTags] = useState<IconKey[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchDishesData = async () => {
       try {
         const dishes = await fetchDishes();
-        setDishes(dishes);
+        setDishes(dishes || []);
+        setFilteredDishes(dishes || []);
       } catch (err) {
         setError(true);
         console.error('failed to fetch dishes', err);
@@ -45,6 +27,25 @@ export default function Menu() {
     };
     void fetchDishesData();
   }, []);
+
+  useEffect(() => {
+    // Filter dishes whenever selectedTags changes
+    if (selectedTags.length === 0) {
+      setFilteredDishes(dishes);
+    } else {
+      const filtered = dishes.filter(dish =>
+        selectedTags.every(tag => dish.tags?.includes(tag))
+      );
+      setFilteredDishes(filtered);
+    }
+  }, [selectedTags, dishes]);
+
+  const handleTagChange = (value: string[]) => {
+    const tags: IconKey[] = value.filter(
+      (tag): tag is IconKey => tag in tagDetails
+    );
+    setSelectedTags(tags);
+  };
 
   const tagOptions = Object.entries(tagDetails).map(([key, detail]) => ({
     value: key,
@@ -59,16 +60,36 @@ export default function Menu() {
           <Box className={scss.top}>
             <Title order={2}>Menu</Title>
             <MultiSelect
-              className={scss.multiSelect}
+              classNames={scss}
               label='Filtrera'
               placeholder='Filter'
               data={tagOptions}
+              value={selectedTags}
               checkIconPosition='right'
+              onChange={handleTagChange}
+              comboboxProps={{
+                position: 'bottom',
+                middlewares: { flip: false, shift: false },
+                offset: 0,
+              }}
             />
           </Box>
-          {dishes?.map((dish, i) => (
-            <DishCard key={i} showDescription={true} dish={dish} />
-          ))}
+          {!error ? (
+            filteredDishes.length ? (
+              filteredDishes.map((dish, i) => (
+                <DishCard key={i} showDescription={true} dish={dish} />
+              ))
+            ) : (
+              <Text className={scss.error}>
+                Det finns tyvärr inga rätter med valda filter. Testa något annat
+                filter eller kontakta restaurangen vid eventuella frågor.
+              </Text>
+            )
+          ) : (
+            <Text className={scss.error}>
+              Det gick inte att hämta rätter. Försök igen senare.
+            </Text>
+          )}
         </Box>
       </Container>
     </>
