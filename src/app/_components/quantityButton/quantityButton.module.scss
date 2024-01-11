@@ -1,0 +1,44 @@
+@import '../../../styles/mantine';
+
+.quantity {
+  display: flex;
+  justify-content: space-between;
+  width: 72px;
+  height: 30px;
+  border: 1px solid var(--mantine-color-gray-4);
+  border-radius: var(--mantine-radius-primary);
+  padding-left: 10px;
+  margin: 16px 0;
+
+  .controls {
+    background-color: var(--mantine-color-black-3);
+    color: var(--mantine-color-white-0);
+    border-left: 1px solid var(--mantine-color-gray-4);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 3px 3px 0;
+    height: 28px;
+    width: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+    }
+
+    &::after {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      height: 1px;
+      right: 0;
+      content: '';
+      background-color: var(--mantine-color-gray-4);
+    }
+  }
+}

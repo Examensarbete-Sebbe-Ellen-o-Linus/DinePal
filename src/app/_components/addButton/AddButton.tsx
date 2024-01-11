@@ -1,12 +1,11 @@
 import { Title } from '@mantine/core';
-
-import classes from './AddButton.module.scss';
+import scss from './AddButton.module.scss';
 
 interface IAddButton {
   showAddIcon: boolean;
   text: string;
   color: 'black' | 'orange';
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 export default function AddButton({
@@ -17,7 +16,7 @@ export default function AddButton({
 }: IAddButton) {
   // Assign a CSS class to 'buttonColor' based on the 'color' prop passed from the parent.
   // The 'color' prop should be either 'black' or 'orange'.
-  const buttonColor = `${classes.container} ${classes[color]}`;
+  const buttonColor = `${scss.container} ${scss[color]}`;
 
   return (
     <button className={buttonColor} onClick={onClick}>

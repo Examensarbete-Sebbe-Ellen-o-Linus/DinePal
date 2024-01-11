@@ -11,7 +11,7 @@ export default async function Menu() {
           <h4>{dish.title}</h4>
           <p>{dish.description}</p>
           {dish.image && <img src={dish.image.url} alt={dish.image.alt} />}
-          {dish.tags?.map((tag, index) => <span key={index}>{tag.label}</span>)}
+          {dish.tags?.map((tag, index) => <span key={index}>{tag}</span>)}
         </div>
       ))}
     </>

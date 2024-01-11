@@ -1,23 +1,19 @@
-import { Button } from '@mantine/core';
-import { cartSignal } from 'signals/cartSignals';
-import type { IDish } from '~/app/interfaces';
+'use client';
 
-type CartItem = {
-  dish: IDish;
-  quantity: number;
-};
+import { useCart } from 'context/cartContext';
+import type { CartItem } from 'context/initializers';
+import type { IDish } from '~/app/interfaces';
+import scss from './removeFromCart.module.scss';
 
 type Props = {
   dish: IDish;
 };
 
 export const RemoveFromCartButton = ({ dish }: Props) => {
-  if (localStorage.getItem('cart')) {
-    cartSignal.value = JSON.parse(localStorage.getItem('cart') ?? '[]');
-  }
+  const { cartState, setCartState } = useCart();
 
   const handleRemoveFromCart = (dishTitle: string) => {
-    cartSignal.value = cartSignal.value.reduce((newCart, item) => {
+    const updatedCart = cartState.reduce((newCart, item) => {
       if (item.dish.title === dishTitle) {
         if (item.quantity > 1) {
           newCart.push({ ...item, quantity: item.quantity - 1 });
@@ -28,14 +24,17 @@ export const RemoveFromCartButton = ({ dish }: Props) => {
       return newCart;
     }, [] as CartItem[]);
 
-    localStorage.setItem('cart', JSON.stringify(cartSignal.value));
+    setCartState(updatedCart);
   };
 
   return (
     <>
-      <Button onClick={() => handleRemoveFromCart(dish.title)}>
-        Remove ❌
-      </Button>
+      <button
+        className={scss.cartButton}
+        onClick={() => handleRemoveFromCart(dish.title)}
+      >
+        -
+      </button>
     </>
   );
 };
