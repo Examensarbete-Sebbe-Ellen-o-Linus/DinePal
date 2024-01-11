@@ -1,5 +1,5 @@
 'use client';
-import { Box, Text, Title } from '@mantine/core';
+import { Box, Text } from '@mantine/core';
 
 import { useCart } from 'context/cartContext';
 import CheckoutCard from '../checkoutCard/CheckoutCard';
@@ -13,9 +13,6 @@ export default function CheckoutSummary() {
   }
   return (
     <Box className={classes.container}>
-      <Title mt={'48px'} order={2}>
-        Kassa
-      </Title>
       {cartState.map((item, index) => (
         <CheckoutCard key={index} item={item} />
       ))}
