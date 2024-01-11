@@ -1,37 +1,16 @@
-import { Box, Divider, Text, Title, Tooltip } from '@mantine/core';
+import { Box, Divider, Text, Title } from '@mantine/core';
 
 import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
+import Tags from '../tags/Tags';
 import classes from './DishCard.module.css';
-import {
-  GlutenFreeIcon,
-  LactoseFreeIcon,
-  SpicyIcon,
-  VeganIcon,
-  VegitarianIcon,
-} from './TagIcons';
 
 interface Props {
   showDescription: boolean;
   dish: IDish;
 }
-
-export type IconKey =
-  | 'spicy'
-  | 'vegan'
-  | 'vegitarian'
-  | 'glutenFree'
-  | 'lactoseFree';
-
-export const tagDetails = {
-  vegan: { title: 'Vegan', Icon: VeganIcon },
-  vegitarian: { title: 'Lakto-ovo vegetarian', Icon: VegitarianIcon },
-  glutenFree: { title: 'Glutenfri', Icon: GlutenFreeIcon },
-  lactoseFree: { title: 'Laktosfri', Icon: LactoseFreeIcon },
-  spicy: { title: 'Stark', Icon: SpicyIcon },
-};
 
 export default function DishCard({ showDescription, dish }: Props) {
   const dishLink = `/product/${dish?.slug?.current ?? '404'}`;
@@ -55,18 +34,7 @@ export default function DishCard({ showDescription, dish }: Props) {
       {showDescription && <Text>{dish.description}</Text>}
       <Box className={classes.iconContainer}>
         <Box className={classes.iconContainer}>
-          {dish.tags.map((tagValue, i) => {
-            const tagInfo = tagDetails[tagValue as IconKey];
-            if (!tagInfo) return null;
-            const { title, Icon } = tagInfo;
-            return (
-              <Tooltip label={title} key={i}>
-                <Box>
-                  <Icon />
-                </Box>
-              </Tooltip>
-            );
-          })}
+          <Tags dish={dish} />
         </Box>
       </Box>
       <Divider mt={0} mb={0} w={'100%'} my='md' />

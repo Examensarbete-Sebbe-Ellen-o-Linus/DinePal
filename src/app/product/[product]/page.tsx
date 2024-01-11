@@ -4,7 +4,7 @@ import { Box, Container, Divider, Text, Title, Tooltip } from '@mantine/core';
 import { useCart } from 'context/cartContext';
 import { useEffect, useState } from 'react';
 import AddButton from '~/app/_components/addButton/AddButton';
-import { tagDetails, type IconKey } from '~/app/_components/dishCard/DishCard';
+import { tagDetails, type IconKey } from '~/app/_components/tags/Tags';
 import { type IDish } from '~/app/interfaces';
 import { fetchSingleDish } from '~/server/sanity/sanity.utils';
 import QuantityButton from '../../_components/quantityButton/QuantityButton';
