@@ -78,10 +78,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
       setCartState(updatedCart);
     }
   };
+
   const updateItemQuantity = (dish: IDish, newQuantity: number) => {
     setCartState(currentCartState => {
       const updatedCart = currentCartState.map(item => {
-        if (item.dish.title === dish.title) {
+        if (item.dish === dish) {
           return { ...item, quantity: newQuantity };
         }
         return item;

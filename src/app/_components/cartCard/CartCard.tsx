@@ -7,8 +7,7 @@ import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 import classes from './CartCard.module.scss';
 
 export default function CartCard() {
-  const { cartState, updateItemQuantity, setCartState, handleAddToCart } =
-    useCart();
+  const { cartState, updateItemQuantity } = useCart();
 
   return (
     <Box className={classes.container}>
