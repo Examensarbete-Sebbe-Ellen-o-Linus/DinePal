@@ -31,25 +31,15 @@ export default defineType({
     {
       name: 'checkoutImg',
       title: 'Checkout Image',
-      description: 'hi there',
+      description: 'Upload an image here. It will be displayed as a parallax on the Checkout-page.',
       group: 'checkout',
-      type: 'array',
-      of: [
+      type: 'image',
+      fields: [
         {
-          type: 'image',
-          name: 'image',
-          title: 'Image',
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'alt',
-              title: 'Alt Text',
-              description: 'Provide a descriptive text which conveys the content of the image',
-              type: 'string',
-            },
-          ],
+          name: 'alt',
+          title: 'Alt Text',
+          description: 'Provide a descriptive text which conveys the content of the image',
+          type: 'string',
         },
       ],
       validation: (Rule) => Rule.required(),

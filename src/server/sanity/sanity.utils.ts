@@ -94,10 +94,12 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
 export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
   const additionalSelections = `
   title,
-  "checkoutImg": checkoutImg {
-    "alt": coalesce(alt, "No alt text"),
-    "url": asset->url
-  }  
+  "checkoutImg": {
+    "alt": coalesce(checkoutImg.alt, "No alt text"),
+    "url": checkoutImg.asset->url
+  }
+
+  
   `
   return fetchDocumentById('checkoutPage', additionalSelections)
 }

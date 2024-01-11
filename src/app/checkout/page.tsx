@@ -11,9 +11,10 @@ export default async function Checkout() {
 
   return (
     <Box className={classes.container}>
-      <Box className={classes.imgContainer}>
-        <img src={checkoutImg?.url} alt={checkoutImg?.alt} />
-      </Box>
+      <Box
+        className={classes.imgContainer}
+        style={{ backgroundImage: `url(${checkoutImg?.url})` }}
+      ></Box>
       <Container className={classes.contentContainer}>
         <Box className={classes.content}>
           <Box className={classes.titleSummary}>
