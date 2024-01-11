@@ -60,6 +60,9 @@ export const authOptions: NextAuthOptions = {
       }
       return false;
     },
+    async redirect() {
+      return '/business';
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [

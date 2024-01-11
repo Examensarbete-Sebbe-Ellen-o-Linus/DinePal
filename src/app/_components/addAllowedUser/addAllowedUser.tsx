@@ -16,12 +16,12 @@ const AddAllowedUser = () => {
   return (
     <>
       <div>
-        {/* {data &&
+        {data &&
           data.map((u, index: number) => (
             <div key={index}>
               <p>{u.username}</p>
             </div>
-          ))} */}
+          ))}
 
         <button onClick={() => handleAddUser()}>Add test user</button>
       </div>
