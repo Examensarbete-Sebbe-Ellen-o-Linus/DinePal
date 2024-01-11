@@ -1,24 +1,24 @@
+'use client';
 import { Box, Text } from '@mantine/core';
 
+import { useCart } from 'context/cartContext';
 import CheckoutCard from '../checkoutCard/CheckoutCard';
 import classes from './CheckoutSummary.module.scss';
 
-interface ICheckoutSummary {
-  totalPrice: number;
-}
+export default function CheckoutSummary() {
+  const { cartPrice } = useCart();
 
-export default function CheckoutSummary({ totalPrice }: ICheckoutSummary) {
   function formatPrice(price: number): string {
     return price.toLocaleString('sv-SE');
   }
   return (
     <Box className={classes.container}>
-      <CheckoutCard itemCount={0} price={0} />
+      <CheckoutCard />
 
       <Box className={classes.totalPrice}>
         <Text>Totalt</Text>
         <Text>
-          <strong>{formatPrice(totalPrice)} :-</strong>
+          <strong>{formatPrice(cartPrice)} :-</strong>
         </Text>
       </Box>
     </Box>

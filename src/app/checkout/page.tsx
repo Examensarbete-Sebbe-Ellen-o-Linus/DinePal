@@ -10,7 +10,7 @@ export default function Checkout() {
       <Box className={classes.imgContainer} />
       <Container className={classes.contentContainer}>
         <Box className={classes.content}>
-          <CheckoutSummary totalPrice={1000} />
+          <CheckoutSummary />
           <CheckoutForm />
         </Box>
       </Container>
