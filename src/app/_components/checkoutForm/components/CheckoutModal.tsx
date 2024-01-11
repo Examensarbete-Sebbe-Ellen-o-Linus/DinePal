@@ -1,6 +1,7 @@
 import { Box, Modal, Text } from '@mantine/core';
 import { useState } from 'react';
 
+import { type CartItem } from 'context/initializers';
 import LongButton from '../../longButton/LongButton';
 import { type FormikValues } from '../CheckoutForm';
 import classes from './CheckoutModal.module.scss';
@@ -11,6 +12,8 @@ interface ICheckoutModal {
   onClose: () => void;
   onConfirm: () => void;
   onReset: () => void;
+  cartItems: CartItem[];
+  cartPrice: number;
 }
 
 export default function CheckoutModal({
@@ -19,6 +22,8 @@ export default function CheckoutModal({
   onClose,
   onConfirm,
   onReset,
+  cartItems,
+  cartPrice,
 }: ICheckoutModal) {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
@@ -33,6 +38,10 @@ export default function CheckoutModal({
   function closeConfirmationModal() {
     setConfirmationModalOpen(false);
     onClose();
+  }
+
+  function formatPrice(price: number): string {
+    return price.toLocaleString('sv-SE');
   }
 
   function CheckoutInfo() {
@@ -61,6 +70,22 @@ export default function CheckoutModal({
         </Text>
         <Text>
           <strong>Betalsätt:</strong> {formikValues.paymentMethod}
+        </Text>
+        <Text>
+          <strong>Rätter:</strong>
+          {cartItems.map((item, index) => (
+            <span key={index}>
+              <br />x{item.quantity} {item.dish.title}
+              {index < cartItems.length - 1 ? ', ' : ''}
+            </span>
+          ))}
+        </Text>
+        <Text>
+          <strong>Totalpris:</strong> {formatPrice(cartPrice)} :-
+        </Text>
+        <br />
+        <Text>
+          <strong>Kommentar:</strong> {formikValues.commentary}
         </Text>
       </Box>
     );

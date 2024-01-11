@@ -1,8 +1,9 @@
 'use client';
-import { Box, Radio, Text, TextInput } from '@mantine/core';
+import { Box, Radio, Text, TextInput, Textarea } from '@mantine/core';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 
+import { useCart } from 'context/cartContext';
 import { theme } from '~/app/theme/theme';
 import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
 import LongButton from '../longButton/LongButton';
@@ -18,10 +19,12 @@ export interface FormikValues {
   postcode: string;
   city: string;
   paymentMethod: string;
+  commentary: string;
 }
 
 export default function CheckoutForm() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { cartState, cartPrice } = useCart();
 
   const formik = useFormik({
     initialValues: {
@@ -33,6 +36,7 @@ export default function CheckoutForm() {
       postcode: '',
       city: '',
       paymentMethod: 'Klarna',
+      commentary: '',
     },
     validationSchema: checkoutFormValidation,
     onSubmit: values => {
@@ -139,6 +143,15 @@ export default function CheckoutForm() {
             onBlur={formik.handleBlur}
             error={formik.touched.city && formik.errors.city}
           />
+
+          <Textarea
+            label='Kommentar'
+            name='commentary'
+            value={formik.values.commentary}
+            onChange={formik.handleChange}
+            placeholder='Skriv kommentar...'
+          />
+
           <Box className={classes.paymentMethodContainer}>
             <Box>
               <Radio
@@ -176,6 +189,8 @@ export default function CheckoutForm() {
         onClose={() => setModalOpen(false)}
         onConfirm={handleSubmitForm}
         onReset={resetForm}
+        cartItems={cartState}
+        cartPrice={cartPrice}
       />
     </Box>
   );

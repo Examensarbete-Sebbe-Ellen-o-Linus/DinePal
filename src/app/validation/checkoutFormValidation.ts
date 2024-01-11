@@ -14,4 +14,5 @@ export const checkoutFormValidation = Yup.object({
     .matches(/^[0-9]+$/, 'Ett postnummer bör bestå av endast siffror')
     .required('Var god uppge postnummer'),
   city: Yup.string().required('Var god uppge ort'),
+  commentary: Yup.string().max(200, 'Max 150 tecken'),
 });
