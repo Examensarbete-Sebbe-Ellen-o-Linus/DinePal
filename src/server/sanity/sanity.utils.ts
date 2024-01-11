@@ -116,7 +116,10 @@ export const fetchSingleDish = async (slug: string): Promise<IDish> => {
     _id,
     title,
     description,
-    image,
+    "image": {
+      "alt": coalesce(image.alt, "No alt text"),
+      "url": image.asset->url,
+    },    
     price,
     tags[]
   }`

@@ -3,6 +3,7 @@
 
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { type IDish } from '~/app/interfaces';
 import type { CartItem } from './initializers';
 import {
   getCartFromLS,
@@ -17,6 +18,7 @@ interface CartContextType {
   setCartLenght: React.Dispatch<React.SetStateAction<number>>;
   cartPrice: number;
   setCartPrice: React.Dispatch<React.SetStateAction<number>>;
+  handleAddToCart: (dish: IDish, quantityToAdd?: number) => void;
 }
 
 // Create context with an empty array and a dummy function as default
@@ -27,6 +29,7 @@ const CartContext = createContext<CartContextType>({
   setCartLenght: () => {},
   cartPrice: 0,
   setCartPrice: () => {},
+  handleAddToCart: () => {},
 });
 
 // Provider component
@@ -51,6 +54,30 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     localStorage.setItem('cart', JSON.stringify(cartState));
   }, [cartState]);
 
+  const handleAddToCart = (newDish: IDish, quantityToAdd = 1) => {
+    const ItemInCart = cartState.find(
+      item => item.dish.title === newDish.title
+    );
+
+    if (!ItemInCart) {
+      const updatedCart = [
+        ...cartState,
+        { dish: newDish, quantity: quantityToAdd },
+      ];
+      setCartState(updatedCart);
+    } else {
+      const updatedCart = cartState.reduce((newCart, item) => {
+        if (item.dish.title === newDish.title) {
+          newCart.push({ ...item, quantity: item.quantity + quantityToAdd });
+        } else {
+          newCart.push(item);
+        }
+        return newCart;
+      }, [] as CartItem[]);
+      setCartState(updatedCart);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -60,6 +87,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         setCartLenght,
         cartPrice,
         setCartPrice,
+        handleAddToCart,
       }}
     >
       {children}

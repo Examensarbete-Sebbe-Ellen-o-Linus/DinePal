@@ -1,7 +1,8 @@
-import { Text } from '@mantine/core';
+'use client';
+
 import { useCart } from 'context/cartContext';
 import type { IDish } from '~/app/interfaces';
-import classes from './addToCart.module.css';
+import scss from './addToCart.module.scss';
 
 type CartItem = {
   dish: IDish;
@@ -40,12 +41,9 @@ export const AddToCartButton = ({ dish }: Props) => {
 
   return (
     <>
-      <Text
-        className={classes.cartButton}
-        onClick={() => handleAddToCart(dish)}
-      >
+      <button className={scss.cartButton} onClick={() => handleAddToCart(dish)}>
         +
-      </Text>
+      </button>
     </>
   );
 };

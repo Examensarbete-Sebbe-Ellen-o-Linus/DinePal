@@ -1,5 +1,6 @@
 import { Box, Divider, Text, Title, Tooltip } from '@mantine/core';
 
+import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
@@ -17,9 +18,14 @@ interface Props {
   dish: IDish;
 }
 
-type IconKey = 'spicy' | 'vegan' | 'vegitarian' | 'glutenFree' | 'lactoseFree';
+export type IconKey =
+  | 'spicy'
+  | 'vegan'
+  | 'vegitarian'
+  | 'glutenFree'
+  | 'lactoseFree';
 
-const tagDetails = {
+export const tagDetails = {
   vegan: { title: 'Vegan', Icon: VeganIcon },
   vegitarian: { title: 'Lakto-ovo vegetarian', Icon: VegitarianIcon },
   glutenFree: { title: 'Glutenfri', Icon: GlutenFreeIcon },
@@ -29,6 +35,7 @@ const tagDetails = {
 
 export default function DishCard({ showDescription, dish }: Props) {
   const dishLink = `/product/${dish?.slug?.current ?? '404'}`;
+  const { handleAddToCart } = useCart();
 
   return (
     <Box className={classes.card}>
@@ -43,7 +50,7 @@ export default function DishCard({ showDescription, dish }: Props) {
         <Link href={dishLink}>
           <Title order={6}>{dish.title}</Title>
         </Link>
-        <Text>{dish.price} SEK</Text>
+        <Text>{dish.price}:-</Text>
       </Box>
       {showDescription && <Text>{dish.description}</Text>}
       <Box className={classes.iconContainer}>
@@ -63,7 +70,12 @@ export default function DishCard({ showDescription, dish }: Props) {
         </Box>
       </Box>
       <Divider mt={0} mb={0} w={'100%'} my='md' />
-      <AddButton showAddIcon={true} text={'Lägg till'} color={'black'} />
+      <AddButton
+        showAddIcon={true}
+        text={'Lägg till'}
+        color={'black'}
+        onClick={() => handleAddToCart(dish)}
+      />
     </Box>
   );
 }
