@@ -1,19 +1,24 @@
 'use client';
-import { Box, Text } from '@mantine/core';
+import { Box, Text, Title } from '@mantine/core';
 
 import { useCart } from 'context/cartContext';
 import CheckoutCard from '../checkoutCard/CheckoutCard';
 import classes from './CheckoutSummary.module.scss';
 
 export default function CheckoutSummary() {
-  const { cartPrice } = useCart();
+  const { cartState, cartPrice } = useCart();
 
   function formatPrice(price: number): string {
     return price.toLocaleString('sv-SE');
   }
   return (
     <Box className={classes.container}>
-      <CheckoutCard />
+      <Title mt={'48px'} order={2}>
+        Kassa
+      </Title>
+      {cartState.map((item, index) => (
+        <CheckoutCard key={index} item={item} />
+      ))}
 
       <Box className={classes.totalPrice}>
         <Text>Totalt</Text>

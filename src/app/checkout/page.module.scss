@@ -17,8 +17,12 @@
 }
 
 .content { 
+  display: flex;
+  flex-direction: column;
   max-width: 544px;
   width: calc(50% - 8px);
+  gap: 32px;
+  margin-bottom: 32px;
 
   @media (max-width: $mantine-breakpoint-xs) {
    width: 100%;
