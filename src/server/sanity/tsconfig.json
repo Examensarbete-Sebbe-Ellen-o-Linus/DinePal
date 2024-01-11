@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "../../app/interfaces.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "../../app/interfaces.ts", "**/*.cjs" ],
   "exclude": ["node_modules"]
 }
+
