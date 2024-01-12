@@ -44,7 +44,7 @@ export default function Product({ params }: Props) {
     };
 
     return (
-      <Container className={scss.container}>
+      <Container size={1120} className={scss.container}>
         <Box className={scss.card}>
           <img src={dish.image.url} alt={dish.image.alt} />
           <Box className={scss.text}>

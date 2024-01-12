@@ -3,6 +3,9 @@
 .container {
   margin-top: 188px;
   margin-bottom: 148px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: $mantine-breakpoint-md) {
     padding: 0 132px;
