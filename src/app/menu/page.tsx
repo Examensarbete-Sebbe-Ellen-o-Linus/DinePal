@@ -29,7 +29,6 @@ export default function Menu() {
   }, []);
 
   useEffect(() => {
-    // Filter dishes whenever selectedTags changes
     if (selectedTags.length === 0) {
       setFilteredDishes(dishes);
     } else {
@@ -41,9 +40,7 @@ export default function Menu() {
   }, [selectedTags, dishes]);
 
   const handleTagChange = (value: string[]) => {
-    const tags: IconKey[] = value.filter(
-      (tag): tag is IconKey => tag in tagDetails
-    );
+    const tags = value.filter((tag): tag is IconKey => tag in tagDetails);
     setSelectedTags(tags);
   };
 
