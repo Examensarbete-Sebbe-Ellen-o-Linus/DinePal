@@ -5,7 +5,7 @@ import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
 import Tags from '../tags/Tags';
-import classes from './DishCard.module.css';
+import classes from './DishCard.module.scss';
 
 interface Props {
   showDescription: boolean;
@@ -19,31 +19,48 @@ export default function DishCard({ showDescription, dish }: Props) {
   return (
     <Box className={classes.card}>
       <Link href={dishLink}>
-        <img
-          className={classes.image}
-          src={dish.image.url}
-          alt={dish.image.alt}
-        />
+        {dish.image.url ? (
+          <img
+            className={classes.image}
+            src={dish.image.url}
+            alt={dish.image.alt}
+          />
+        ) : (
+          <Box className={classes.image}>Ingen bild tillagd ännu</Box>
+        )}
       </Link>
-      <Box className={classes.headingPrice}>
-        <Link href={dishLink}>
-          <Title order={6}>{dish.title}</Title>
-        </Link>
-        <Text>{dish.price}:-</Text>
-      </Box>
-      {showDescription && <Text>{dish.description}</Text>}
-      <Box className={classes.iconContainer}>
-        <Box className={classes.iconContainer}>
-          <Tags dish={dish} />
+      <Box className={classes.top}>
+        <Box className={classes.textTop}>
+          <Box className={classes.headingPrice}>
+            <Link href={dishLink}>
+              <Title order={6}>{dish.title}</Title>
+            </Link>
+            <Text>{dish.price}:-</Text>
+          </Box>
+          {showDescription && <Text>{dish.description}</Text>}
+        </Box>
+        <Box className={classes.bottom}>
+          <Box className={classes.iconContainer}>
+            <Box className={classes.iconContainer}>
+              <Tags dish={dish} />
+            </Box>
+          </Box>
+
+          <Divider
+            mt={0}
+            mb={16}
+            w={'100%'}
+            my='md'
+            className={classes.bottom}
+          />
+          <AddButton
+            showAddIcon={true}
+            text={'Lägg till'}
+            color={'black'}
+            onClick={() => handleAddToCart(dish)}
+          />
         </Box>
       </Box>
-      <Divider mt={0} mb={0} w={'100%'} my='md' />
-      <AddButton
-        showAddIcon={true}
-        text={'Lägg till'}
-        color={'black'}
-        onClick={() => handleAddToCart(dish)}
-      />
     </Box>
   );
 }
