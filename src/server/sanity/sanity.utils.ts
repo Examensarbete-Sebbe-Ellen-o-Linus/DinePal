@@ -95,6 +95,7 @@ export const fetchDishes = async (): Promise<IDish[]> => {
   try {
     const query = `*[_type == "dish"]{ 
       title,
+      slug,
       description,
       "image": {
         "alt": coalesce(image.alt, "No alt text"),
