@@ -8,6 +8,7 @@ import { CartProvider } from 'context/cartContext';
 import '~/styles/globals.css';
 import Footer from './_components/footer/Footer';
 import Header from './_components/header/Header';
+import AccentColor from './theme/AccentColor';
 import { theme } from './theme/theme';
 
 export const metadata = {
@@ -31,6 +32,7 @@ export default async function RootLayout({
           <CartProvider>
             <MantineProvider theme={theme}>
               <Header header={header} />
+              <AccentColor />
               <Box style={{ marginTop: '104px' }}>{children}</Box>
               <Footer footer={footer} />
             </MantineProvider>
