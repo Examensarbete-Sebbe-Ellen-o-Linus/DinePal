@@ -158,3 +158,14 @@ export const fetchSettingsData = async (): Promise<ISettings> => {
 `
   return fetchDocumentById('settings', additionalSelections)
 }
+
+export const fetchAccentColor = async () => {
+  const query = `*[_type == "colorTheme"][0]{accentColor}`
+  try {
+    const data = await client.fetch(query)
+    return data.accentColor
+  } catch (error) {
+    console.error('Error fetching accent color:', error)
+    return null
+  }
+}
