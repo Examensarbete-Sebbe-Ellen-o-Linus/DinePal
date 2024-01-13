@@ -5,13 +5,22 @@ import {
   Center,
   Menu,
   Text,
+  Tooltip,
   type AccordionControlProps,
 } from '@mantine/core';
 
+import { useState } from 'react';
 import classes from './OrderCard.module.scss';
 import Status from './components/Status';
 
+type StatusType = 'received' | 'ongoing' | 'completed';
+
 export default function OrderCard() {
+  const [currentStatus, setCurrentStatus] = useState<StatusType>('received');
+
+  const updateStatus = (status: 'received' | 'ongoing' | 'completed') => {
+    setCurrentStatus(status);
+  };
   const commentIcon = (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -29,7 +38,6 @@ export default function OrderCard() {
       />
     </svg>
   );
-
   const dotsMenuIcon = (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -45,6 +53,19 @@ export default function OrderCard() {
     </svg>
   );
 
+  const tooltipText = (status: StatusType): string => {
+    switch (status) {
+      case 'received':
+        return 'Inkommen';
+      case 'ongoing':
+        return 'Påbörjad';
+      case 'completed':
+        return 'Avslutad';
+      default:
+        return '';
+    }
+  };
+
   function AccordionControl(props: AccordionControlProps) {
     return (
       <Center>
@@ -58,9 +79,15 @@ export default function OrderCard() {
 
           <Menu.Dropdown>
             <Menu.Label>Välj status</Menu.Label>
-            <Menu.Item>Inkommen</Menu.Item>
-            <Menu.Item>Påbörjad</Menu.Item>
-            <Menu.Item>Färdigställd</Menu.Item>
+            <Menu.Item onClick={() => updateStatus('received')}>
+              Inkommen
+            </Menu.Item>
+            <Menu.Item onClick={() => updateStatus('ongoing')}>
+              Påbörjad
+            </Menu.Item>
+            <Menu.Item onClick={() => updateStatus('completed')}>
+              Färdigställd
+            </Menu.Item>
           </Menu.Dropdown>
         </Menu>
       </Center>
@@ -81,7 +108,15 @@ export default function OrderCard() {
               <Text>4 st</Text>
               <Text>123 456</Text>
               {commentIcon}
-              <Status status={'received'} />
+              <Tooltip
+                label={tooltipText(currentStatus)}
+                position='top'
+                withArrow
+              >
+                <div>
+                  <Status status={currentStatus} />
+                </div>
+              </Tooltip>
             </Box>
           </AccordionControl>
           <Accordion.Panel>
