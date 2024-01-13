@@ -1,15 +1,25 @@
 @import '../../../styles/mantine';
 
-.container {
-}
-
 .accordion {
     background: var(--mantine-color-white-0);
     border-radius: var(--mantine-radius-primary);
     box-shadow: var(--mantine-shadow-primary);
+    max-width: 352px;
+    align-self: stretch;
 
     span {
         font-size: 18px !important;
+    }
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        max-width: 900px;
+    }
+    @media (max-width: $mantine-breakpoint-md) {
+        max-width: 680px;
+
+    }
+    @media (max-width: $mantine-breakpoint-xs) {
+        max-width: 328px;
     }
 
 }

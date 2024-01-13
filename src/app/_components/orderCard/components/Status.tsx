@@ -14,10 +14,10 @@ export default function Status({ status }: IStatus) {
       color = theme.colors?.red ? theme.colors.red[9] : '#C92A2A';
       break;
     case 'ongoing':
-      color = theme.colors?.yellow ? theme.colors.yellow[9] : '#E67700';
+      color = theme.colors?.cyan ? theme.colors.cyan[2] : '#99E9F2';
       break;
     case 'completed':
-      color = theme.colors?.teal ? theme.colors.teal[9] : '#087F5B';
+      color = theme.colors?.teal ? theme.colors.teal[8] : '#099268';
       break;
     default:
       color = '#C92A2A';

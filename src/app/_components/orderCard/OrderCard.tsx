@@ -56,11 +56,11 @@ export default function OrderCard() {
   const tooltipText = (status: StatusType): string => {
     switch (status) {
       case 'received':
-        return 'Inkommen';
+        return 'Mottagen';
       case 'ongoing':
-        return 'Påbörjad';
+        return 'Pågående';
       case 'completed':
-        return 'Avslutad';
+        return 'Färdigställd';
       default:
         return '';
     }
@@ -80,10 +80,10 @@ export default function OrderCard() {
           <Menu.Dropdown>
             <Menu.Label>Välj status</Menu.Label>
             <Menu.Item onClick={() => updateStatus('received')}>
-              Inkommen
+              Mottagen
             </Menu.Item>
             <Menu.Item onClick={() => updateStatus('ongoing')}>
-              Påbörjad
+              Pågående
             </Menu.Item>
             <Menu.Item onClick={() => updateStatus('completed')}>
               Färdigställd
@@ -95,51 +95,47 @@ export default function OrderCard() {
   }
 
   return (
-    <Box className={classes.container}>
-      <Accordion
-        className={classes.accordion}
-        chevronPosition='left'
-        maw={352}
-        mx='auto'
-      >
-        <Accordion.Item value='item-1'>
-          <AccordionControl>
-            <Box className={classes.accordionContent}>
-              <Text>4 st</Text>
-              <Text>123 456</Text>
-              {commentIcon}
-              <Tooltip
-                label={tooltipText(currentStatus)}
-                position='top'
-                withArrow
-              >
-                <div>
-                  <Status status={currentStatus} />
-                </div>
-              </Tooltip>
-            </Box>
-          </AccordionControl>
-          <Accordion.Panel>
-            <Box>
-              <Text>
-                <strong>Rätter:</strong>
-              </Text>
-              <Text>x1 Avoavo</Text>
-              <Text>x2 Blueberry pancakes</Text>
-              <Text>x1 Toast Skagen</Text>
-            </Box>
-            <Box>
-              <Text>
-                <strong>Kommentar:</strong>
-              </Text>
+    <Accordion
+      className={classes.accordion}
+      chevronPosition='left'
+      //   maw={352}
+      mx='auto'
+    >
+      <Accordion.Item value='item-1'>
+        <AccordionControl>
+          <Box className={classes.accordionContent}>
+            <Text>4 st</Text>
+            <Text>123 456</Text>
+            {commentIcon}
+            <Tooltip
+              label={tooltipText(currentStatus)}
+              position='top'
+              withArrow
+            >
+              <div>
+                <Status status={currentStatus} />
+              </div>
+            </Tooltip>
+          </Box>
+        </AccordionControl>
+        <Accordion.Panel>
+          <Box>
+            <Text>
+              <strong>Rätter:</strong>
+            </Text>
+            <Text>x1 Avoavo</Text>
+            <Text>x2 Blueberry pancakes</Text>
+            <Text>x1 Toast Skagen</Text>
+          </Box>
+          <Box>
+            <Text>
+              <strong>Kommentar:</strong>
+            </Text>
 
-              <Text>
-                Hej! Jag har hört att ni har god mat. Är kocken singel?
-              </Text>
-            </Box>
-          </Accordion.Panel>
-        </Accordion.Item>
-      </Accordion>
-    </Box>
+            <Text>Hej! Jag har hört att ni har god mat. Är kocken singel?</Text>
+          </Box>
+        </Accordion.Panel>
+      </Accordion.Item>
+    </Accordion>
   );
 }
