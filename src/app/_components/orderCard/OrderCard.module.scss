@@ -1,0 +1,22 @@
+@import '../../../styles/mantine';
+
+.container {
+}
+
+.accordion {
+    background: var(--mantine-color-white-0);
+    border-radius: var(--mantine-radius-primary);
+    box-shadow: var(--mantine-shadow-primary);
+
+    span {
+        font-size: 18px !important;
+    }
+
+}
+
+.accordionContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: space-between;
+}
