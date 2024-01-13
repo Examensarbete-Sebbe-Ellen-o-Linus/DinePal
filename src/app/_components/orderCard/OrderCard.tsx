@@ -15,12 +15,20 @@ import Status from './components/Status';
 
 type StatusType = 'received' | 'ongoing' | 'completed';
 
-export default function OrderCard() {
-  const [currentStatus, setCurrentStatus] = useState<StatusType>('received');
+interface IOrderCard {
+  id: number;
+  status: StatusType;
+  updateStatus: (newStatus: StatusType) => void;
+}
 
-  const updateStatus = (status: 'received' | 'ongoing' | 'completed') => {
-    setCurrentStatus(status);
+export default function OrderCard({ id, status, updateStatus }: IOrderCard) {
+  const [currentStatus, setCurrentStatus] = useState<StatusType>(status);
+
+  const handleStatusChange = (newStatus: StatusType) => {
+    setCurrentStatus(newStatus);
+    updateStatus(newStatus);
   };
+
   const commentIcon = (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -79,13 +87,13 @@ export default function OrderCard() {
 
           <Menu.Dropdown>
             <Menu.Label>Välj status</Menu.Label>
-            <Menu.Item onClick={() => updateStatus('received')}>
+            <Menu.Item onClick={() => handleStatusChange('received')}>
               Mottagen
             </Menu.Item>
-            <Menu.Item onClick={() => updateStatus('ongoing')}>
+            <Menu.Item onClick={() => handleStatusChange('ongoing')}>
               Pågående
             </Menu.Item>
-            <Menu.Item onClick={() => updateStatus('completed')}>
+            <Menu.Item onClick={() => handleStatusChange('completed')}>
               Färdigställd
             </Menu.Item>
           </Menu.Dropdown>
@@ -95,12 +103,7 @@ export default function OrderCard() {
   }
 
   return (
-    <Accordion
-      className={classes.accordion}
-      chevronPosition='left'
-      //   maw={352}
-      mx='auto'
-    >
+    <Accordion className={classes.accordion} chevronPosition='left' mx='auto'>
       <Accordion.Item value='item-1'>
         <AccordionControl>
           <Box className={classes.accordionContent}>

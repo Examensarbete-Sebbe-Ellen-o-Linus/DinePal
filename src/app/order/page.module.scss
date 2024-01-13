@@ -33,11 +33,9 @@
     max-width: 352px;
     width: 100%;
 
-    h4 {
-        margin-bottom: 16px;
-    }
-    
-    @media (max-width: $mantine-breakpoint-lg) {
+    @media (max-width: 1024px) {
+        margin-top: 16px;
+
         max-width: 680px;
     }
     @media (max-width: $mantine-breakpoint-md) {
@@ -49,6 +47,6 @@
     }
 }
 
-.tabs {
-    color: var(--mantine-color-orange-3);
+.divider {
+    margin: 8px 0;
 }

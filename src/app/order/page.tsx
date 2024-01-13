@@ -1,14 +1,52 @@
 'use client';
-import { Box, Container, Tabs, Title } from '@mantine/core';
+import { Box, Container, Divider, Tabs, Title } from '@mantine/core';
 
 import { useMediaQuery } from '@mantine/hooks';
+import { useState } from 'react';
 import OrderCard from '../_components/orderCard/OrderCard';
 import { theme } from '../theme/theme';
 import classes from './page.module.scss';
 
+type StatusType = 'received' | 'ongoing' | 'completed';
+
+interface OrderType {
+  id: number;
+  status: StatusType;
+}
+
 export default function Order() {
-  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.sm})`);
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.xs})`);
   const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints?.md})`);
+
+  const [orders, setOrders] = useState<OrderType[]>([
+    { id: 1, status: 'received' },
+    { id: 2, status: 'received' },
+    { id: 3, status: 'received' },
+  ]);
+
+  function updateOrderStatus(orderId: number, newStatus: StatusType) {
+    setOrders(
+      orders.map(order => {
+        if (order.id === orderId) {
+          return { ...order, status: newStatus };
+        }
+        return order;
+      })
+    );
+  }
+
+  const renderOrderCards = (status: StatusType) =>
+    orders
+      .filter(order => order.status === status)
+      .map(order => (
+        <OrderCard
+          key={order.id}
+          id={order.id}
+          status={order.status}
+          updateStatus={newStatus => updateOrderStatus(order.id, newStatus)}
+        />
+      ));
+
   return (
     <Container fluid className={classes.container}>
       {isMobile ? (
@@ -34,27 +72,21 @@ export default function Order() {
             <Tabs.Panel value='received'>
               <Box className={classes.topic}>
                 <Title order={4}>Mottagna</Title>
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
+                {renderOrderCards('received')}
               </Box>
             </Tabs.Panel>
 
             <Tabs.Panel value='ongoing'>
               <Box className={classes.topic}>
                 <Title order={4}>Pågående</Title>
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
+                {renderOrderCards('ongoing')}
               </Box>
             </Tabs.Panel>
 
             <Tabs.Panel value='completed'>
               <Box className={classes.topic}>
                 <Title order={4}>Färdigställda</Title>
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
+                {renderOrderCards('completed')}
               </Box>
             </Tabs.Panel>
           </Tabs>
@@ -63,23 +95,20 @@ export default function Order() {
         <Box className={classes.topicsContainer}>
           <Box className={classes.topic}>
             <Title order={4}>Mottagna</Title>
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
+            <Divider className={classes.divider} />
+            {renderOrderCards('received')}
           </Box>
 
           <Box className={classes.topic}>
             <Title order={4}>Pågående</Title>
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
+            <Divider className={classes.divider} />
+            {renderOrderCards('ongoing')}
           </Box>
 
           <Box className={classes.topic}>
             <Title order={4}>Färdigställda</Title>
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
+            <Divider className={classes.divider} />
+            {renderOrderCards('completed')}
           </Box>
         </Box>
       )}
