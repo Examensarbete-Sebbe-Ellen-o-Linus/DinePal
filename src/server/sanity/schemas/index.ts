@@ -13,12 +13,14 @@ import socialLink from './objects/socialLink'
 import bookingPage from './pages/bookingPage'
 import galleryPage from './pages/galleryPage'
 import homePage from './pages/homePage'
+import menuPage from './pages/menuPage'
 
 export const schemaTypes = [
   dish,
   homePage,
   galleryPage,
   bookingPage,
+  menuPage,
   hero,
   about,
   settings,

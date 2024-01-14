@@ -3,6 +3,7 @@ import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { fetchDishes } from '~/server/sanity/sanity.utils';
 import DishCard from '../_components/dishCard/DishCard';
+import Promo from '../_components/promo/Promo';
 import { tagDetails, type IconKey } from '../_components/tags/Tags';
 import { type IDish } from '../interfaces';
 import scss from './page.module.scss';
@@ -89,6 +90,7 @@ export default function Menu() {
           )}
         </Box>
       </Container>
+      <Promo />
     </>
   );
 }

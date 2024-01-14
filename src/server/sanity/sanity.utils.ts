@@ -2,7 +2,14 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import {createClient} from 'next-sanity'
-import type {IBookingPage, IDish, IGalleryPage, IHomePage, ISettings} from '../../app/interfaces'
+import type {
+  IBookingPage,
+  IDish,
+  IGalleryPage,
+  IHomePage,
+  IMenuPage,
+  ISettings,
+} from '../../app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -89,6 +96,16 @@ export const fetchBookingPageData = async (): Promise<IBookingPage> => {
   text
   `
   return fetchDocumentById('bookingPage', additionalSelections)
+}
+
+export const fetchMenuPageData = async (): Promise<IMenuPage> => {
+  const additionalSelections = `
+  promo {
+    text, 
+    button
+  }
+  `
+  return fetchDocumentById('menuPage', additionalSelections)
 }
 
 export const fetchDishes = async (): Promise<IDish[]> => {

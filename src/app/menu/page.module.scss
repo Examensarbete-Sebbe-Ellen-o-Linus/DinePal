@@ -2,6 +2,9 @@
 
 .container {
   padding: 48px 0;
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 0 0 48px 0;
+  }
 
   h2 {
     grid-column: 1 / -1;

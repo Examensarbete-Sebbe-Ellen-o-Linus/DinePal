@@ -137,3 +137,11 @@ export interface INews {
   description: string;
   image: IImage;
 }
+
+export interface IMenuPage {
+  promo: IPromo;
+}
+export interface IPromo {
+  text: string;
+  button: IButton;
+}
