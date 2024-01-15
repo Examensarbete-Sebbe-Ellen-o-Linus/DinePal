@@ -85,7 +85,8 @@ export default function Menu() {
             )
           ) : (
             <Text className={scss.error}>
-              Det gick inte att hämta rätter. Försök igen senare.
+              För tillfället går det inte att hämta menyn. Kontakta oss eller
+              försök igen senare.
             </Text>
           )}
         </Box>
