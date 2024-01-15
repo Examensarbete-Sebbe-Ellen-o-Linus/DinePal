@@ -73,6 +73,15 @@ export interface IGalleryPage {
   galleryImgs: IImage[];
   seo: ISEO;
 }
+
+// Checkout page
+export interface ICheckoutPage {
+  _type: 'checkoutPage';
+  title: string;
+  checkoutImg: IImage;
+  seo: ISEO;
+}
+
 // Booking page
 export interface IBookingPage {
   _type: 'bookingPage';
@@ -136,4 +145,12 @@ export interface INews {
   title: string;
   description: string;
   image: IImage;
+}
+
+export interface IMenuPage {
+  promo: IPromo;
+}
+export interface IPromo {
+  text: string;
+  button: IButton;
 }

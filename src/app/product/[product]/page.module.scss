@@ -3,6 +3,9 @@
 .container {
   margin-top: 188px;
   margin-bottom: 148px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: $mantine-breakpoint-md) {
     padding: 0 132px;
@@ -27,7 +30,7 @@
     }
   }
 
-  img {
+  .image {
     width: 400px;
     height: 600px;
     object-fit: cover;
@@ -49,8 +52,8 @@
     width: 100%;
 
     .bottom {
-      input {
-        font-size: 18px !important;
+      div {
+        margin-bottom: 16px;
       }
     }
   }

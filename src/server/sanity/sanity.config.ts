@@ -46,10 +46,22 @@ export default defineConfig({
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
             S.divider(),
             S.listItem()
+              .title('Checkout Page')
+              .icon(ImageIcon)
+              .id('checkoutPage')
+              .child(S.document().schemaType('checkoutPage').documentId('checkoutPage')),
+            S.divider(),
+            S.listItem()
               .title('Booking Page')
               .icon(ImageIcon)
               .id('bookingPage')
               .child(S.document().schemaType('bookingPage').documentId('bookingPage')),
+            S.divider(),
+            S.listItem()
+              .title('Menu Page')
+              .icon(ImageIcon)
+              .id('menuPage')
+              .child(S.document().schemaType('menuPage').documentId('menuPage')),
             S.divider(),
             S.listItem()
               .title('Color Theme')
