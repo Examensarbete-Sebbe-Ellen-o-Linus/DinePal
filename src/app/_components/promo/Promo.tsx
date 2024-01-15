@@ -25,11 +25,11 @@ export default function Promo() {
     void fetchData();
   }, []);
 
-  return (
-    <Box className={scss.container}>
-      <Container size={1120}>
-        {!error ? (
-          promo && (
+  if (!error) {
+    return (
+      <Box className={scss.container}>
+        <Container size={1120}>
+          {promo && (
             <>
               <Title order={6} className={scss.text}>
                 {promo.text}
@@ -38,11 +38,9 @@ export default function Promo() {
                 {promo.button?.text}
               </Link>
             </>
-          )
-        ) : (
-          <Title order={6}>Kunde inte ladda datan</Title>
-        )}
-      </Container>
-    </Box>
-  );
+          )}
+        </Container>
+      </Box>
+    );
+  }
 }
