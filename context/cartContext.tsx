@@ -70,7 +70,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         { dish: newDish, quantity: quantityToAdd },
       ];
       setCartState(updatedCart);
-      notificationMessage = `Du har lagt till ${quantityToAdd}x ${newDish.title} i din varukorg.`;
+      notificationMessage = `${quantityToAdd}x ${newDish.title} är nu tillagd i din varukorg.`;
     } else {
       const updatedCart = cartState.reduce((newCart, item) => {
         if (item.dish.title === newDish.title) {
@@ -81,7 +81,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         return newCart;
       }, [] as CartItem[]);
       setCartState(updatedCart);
-      notificationMessage = `Du har lagt till ${quantityToAdd}x ${newDish.title} i din varukorg.`;
+      notificationMessage = `${quantityToAdd}x ${newDish.title} är nu tillagd i din varukorg.`;
     }
 
     showNotification({
