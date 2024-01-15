@@ -1,9 +1,9 @@
 import { Box, Divider, Text, Title } from '@mantine/core';
-
 import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
+import PlaceholderSmall from '../placeholderSmall/PlaceholderSmall';
 import Tags from '../tags/Tags';
 import classes from './DishCard.module.scss';
 
@@ -26,7 +26,7 @@ export default function DishCard({ showDescription, dish }: Props) {
             alt={dish.image.alt}
           />
         ) : (
-          <Box className={classes.image}>Ingen bild tillagd ännu</Box>
+          <PlaceholderSmall />
         )}
       </Link>
       <Box className={classes.top}>
@@ -45,7 +45,6 @@ export default function DishCard({ showDescription, dish }: Props) {
               <Tags dish={dish} />
             </Box>
           </Box>
-
           <Divider
             mt={0}
             mb={16}
