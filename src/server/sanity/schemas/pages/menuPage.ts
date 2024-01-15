@@ -1,9 +1,11 @@
 import {LemonIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 
+const TITLE = 'Menu page'
+
 export default defineType({
   name: 'menuPage',
-  title: 'Menu page',
+  title: TITLE,
   type: 'document',
   icon: LemonIcon,
 
@@ -45,4 +47,11 @@ export default defineType({
       group: 'seo',
     }),
   ],
+  preview: {
+    prepare() {
+      return {
+        title: TITLE,
+      }
+    },
+  },
 })
