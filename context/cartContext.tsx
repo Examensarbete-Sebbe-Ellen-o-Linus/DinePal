@@ -5,6 +5,7 @@ import { showNotification } from '@mantine/notifications';
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { type IDish } from '~/app/interfaces';
+import { theme } from '~/app/theme/theme';
 import type { CartItem } from './initializers';
 import {
   getCartFromLS,
@@ -69,7 +70,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         { dish: newDish, quantity: quantityToAdd },
       ];
       setCartState(updatedCart);
-      notificationMessage = `Added ${quantityToAdd} ${newDish.title} to cart.`;
+      notificationMessage = `Du har lagt till ${quantityToAdd}x ${newDish.title} i din varukorg.`;
     } else {
       const updatedCart = cartState.reduce((newCart, item) => {
         if (item.dish.title === newDish.title) {
@@ -80,12 +81,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         return newCart;
       }, [] as CartItem[]);
       setCartState(updatedCart);
-      notificationMessage = `Increased ${newDish.title} quantity by ${quantityToAdd}.`;
+      notificationMessage = `Du har lagt till ${quantityToAdd}x ${newDish.title} i din varukorg.`;
     }
 
     showNotification({
-      title: 'Cart Updated',
-      message: notificationMessage,
+      title: notificationMessage,
+      message: 'Varukorg uppdaterad',
+      color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
     });
   };
 
