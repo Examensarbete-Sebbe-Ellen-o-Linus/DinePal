@@ -15,6 +15,31 @@ export const orderRouter = createTRPCRouter({
       return food;
     }),
 
+  createWithSocket: publicProcedure
+    .input(z.object({}))
+    .mutation(async ({ input: {}, ctx }) => {
+      // const food = await ctx.db.food.create({ data: { name, content } });
+      const order = 'order from backend';
+
+      // Skicka till socket servern
+      fetch('https://678f-94-246-102-106.ngrok-free.app/createorder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Notification sent', data);
+        })
+        .catch(error => {
+          console.error('Error sending notification', error);
+        });
+
+      return order;
+    }),
+
   delete: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input: { id }, ctx }) => {
