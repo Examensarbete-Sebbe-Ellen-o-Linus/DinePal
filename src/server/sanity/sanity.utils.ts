@@ -4,6 +4,7 @@
 import {createClient} from 'next-sanity'
 import type {
   IBookingPage,
+  ICheckoutPage,
   IDish,
   IGalleryPage,
   IHomePage,
@@ -88,6 +89,20 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   }  
   `
   return fetchDocumentById('galleryPage', additionalSelections)
+}
+
+// Fetch checkoutPage with common selections
+export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
+  const additionalSelections = `
+  title,
+  "checkoutImg": {
+    "alt": coalesce(checkoutImg.alt, "No alt text"),
+    "url": checkoutImg.asset->url
+  }
+
+  
+  `
+  return fetchDocumentById('checkoutPage', additionalSelections)
 }
 
 export const fetchBookingPageData = async (): Promise<IBookingPage> => {

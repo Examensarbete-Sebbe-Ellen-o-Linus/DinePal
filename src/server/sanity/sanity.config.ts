@@ -46,6 +46,12 @@ export default defineConfig({
               .child(S.document().schemaType('galleryPage').documentId('galleryPage')),
             S.divider(),
             S.listItem()
+              .title('Checkout Page')
+              .icon(ImageIcon)
+              .id('checkoutPage')
+              .child(S.document().schemaType('checkoutPage').documentId('checkoutPage')),
+            S.divider(),
+            S.listItem()
               .title('Booking Page')
               .icon(ImageIcon)
               .id('bookingPage')
