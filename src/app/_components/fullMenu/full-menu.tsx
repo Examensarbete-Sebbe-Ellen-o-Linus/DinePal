@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 import { api } from '~/trpc/react';
 
-const socket = io('https://678f-94-246-102-106.ngrok-free.app'); // Replace with my accual socket server!!
+const socket = io('https://14d1-92-35-35-90.ngrok-free.app'); // Replace with my accual socket server!!
 
 export function FullMenu() {
   useEffect(() => {
@@ -21,6 +21,19 @@ export function FullMenu() {
   const socketTest = api.order.createWithSocket.useMutation();
 
   const { data, refetch } = api.order.getFoods.useQuery();
+
+  const sendOrderViaPost = () => {
+    fetch('https://14d1-92-35-35-90.ngrok-free.app/ordercreated', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ order: 'New Order' }), // Adjust the body as needed
+    })
+      .then(response => response.json())
+      .then(data => console.log('Answer from Post:', data))
+      .catch(error => console.error('Error:', error));
+  };
 
   const deleteFood = api.order.delete.useMutation({
     onSuccess: async () => {
@@ -55,6 +68,7 @@ export function FullMenu() {
       </button>
 
       <Button onClick={() => socketTest.mutate({})}>Test Socket!</Button>
+      <Button onClick={() => sendOrderViaPost()}>Regular POST</Button>
     </>
   );
 }

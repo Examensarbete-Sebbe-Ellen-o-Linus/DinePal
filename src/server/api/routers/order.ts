@@ -22,7 +22,7 @@ export const orderRouter = createTRPCRouter({
       const order = 'order from backend';
 
       // Skicka till socket servern
-      fetch('https://6ab0-94-246-102-106.ngrok-free.app/createorder', {
+      fetch('https://14d1-92-35-35-90.ngrok-free.app', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
