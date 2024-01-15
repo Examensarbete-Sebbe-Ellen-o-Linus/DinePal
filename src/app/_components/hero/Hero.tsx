@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
-
 import { Container, Title } from '@mantine/core';
-import { IHero } from '../../interfaces';
-import classes from './Hero.module.css';
+import Link from 'next/link';
+import { type IHero } from '../../interfaces';
+import ShortButton from '../shortButton/ShortButton';
+import classes from './Hero.module.scss';
 
 export default async function Hero({ hero }: { hero: IHero }) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-
   return (
     <Container className={classes.hero}>
       <Title order={1} className={classes.title}>
@@ -16,6 +14,12 @@ export default async function Hero({ hero }: { hero: IHero }) {
       {hero.image && <img src={hero.image.url} alt={hero.image.alt}></img>}
       {hero.buttons &&
         hero.buttons.map((button, i) => <button key={i}>{button.text}</button>)}
+      <Link href='/menu'>
+        <ShortButton text={'Meny'} color={'orange'} />
+      </Link>
+      <Link href='/booking'>
+        <ShortButton text={'Boka bord'} color={'black'} />
+      </Link>
     </Container>
   );
 }
