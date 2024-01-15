@@ -1,10 +1,11 @@
 'use client';
 
-import { Box, Container, Divider, Text, Title, Tooltip } from '@mantine/core';
+import { Box, Container, Divider, Text, Title } from '@mantine/core';
 import { useCart } from 'context/cartContext';
 import { useEffect, useState } from 'react';
 import AddButton from '~/app/_components/addButton/AddButton';
-import { tagDetails, type IconKey } from '~/app/_components/tags/Tags';
+import Placeholder from '~/app/_components/placeholder/Placeholder';
+import Tags from '~/app/_components/tags/Tags';
 import { type IDish } from '~/app/interfaces';
 import { fetchSingleDish } from '~/server/sanity/sanity.utils';
 import QuantityButton from '../../_components/quantityButton/QuantityButton';
@@ -46,7 +47,15 @@ export default function Product({ params }: Props) {
     return (
       <Container size={1120} className={scss.container}>
         <Box className={scss.card}>
-          <img src={dish.image.url} alt={dish.image.alt} />
+          {dish.image.url ? (
+            <img
+              src={dish.image.url}
+              alt={dish.image.alt}
+              className={scss.image}
+            />
+          ) : (
+            <Placeholder />
+          )}
           <Box className={scss.text}>
             <Box>
               <Box className={scss.top}>
@@ -56,18 +65,7 @@ export default function Product({ params }: Props) {
               <Box className={scss.middle}>
                 <Text>{dish.description}</Text>
                 <Box className={scss.iconContainer}>
-                  {dish.tags.map((tagValue, i) => {
-                    const tagInfo = tagDetails[tagValue as IconKey];
-                    if (!tagInfo) return null;
-                    const { title, Icon } = tagInfo;
-                    return (
-                      <Tooltip label={title} key={i}>
-                        <Box>
-                          <Icon />
-                        </Box>
-                      </Tooltip>
-                    );
-                  })}
+                  <Tags dish={dish} />
                 </Box>
               </Box>
               <Divider />
