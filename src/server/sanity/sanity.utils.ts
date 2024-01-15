@@ -2,7 +2,14 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import {createClient} from 'next-sanity'
-import type {IBookingPage, IDish, IGalleryPage, IHomePage, ISettings} from '../../app/interfaces'
+import type {
+  IBookingPage,
+  ICheckoutPage,
+  IDish,
+  IGalleryPage,
+  IHomePage,
+  ISettings,
+} from '../../app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -81,6 +88,20 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   }  
   `
   return fetchDocumentById('galleryPage', additionalSelections)
+}
+
+// Fetch checkoutPage with common selections
+export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
+  const additionalSelections = `
+  title,
+  "checkoutImg": {
+    "alt": coalesce(checkoutImg.alt, "No alt text"),
+    "url": checkoutImg.asset->url
+  }
+
+  
+  `
+  return fetchDocumentById('checkoutPage', additionalSelections)
 }
 
 export const fetchBookingPageData = async (): Promise<IBookingPage> => {

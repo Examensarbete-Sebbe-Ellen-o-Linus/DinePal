@@ -1,18 +1,15 @@
 import { Badge, Box, Text } from '@mantine/core';
 
+import { useCart } from 'context/cartContext';
 import classes from './CartTag.module.css';
 
 interface ICartTag {
   className?: string;
   itemCount: number;
-  price: number;
 }
 
-export default function CartTag({
-  className = '',
-  itemCount,
-  price,
-}: ICartTag) {
+export default function CartTag({ className = '', itemCount }: ICartTag) {
+  const { cartPrice } = useCart();
   // Adds a blank space between every thousand
   function formatPrice(price: number): string {
     return price.toLocaleString('sv-SE');
@@ -26,7 +23,9 @@ export default function CartTag({
 
           <Text className={classes.noWrapContainer}>Till varukorg</Text>
         </Box>
-        <Box className={classes.noWrapContainer}>{formatPrice(price)} :-</Box>
+        <Box className={classes.noWrapContainer}>
+          {formatPrice(cartPrice)} :-
+        </Box>
       </Box>
     );
   }

@@ -22,7 +22,9 @@ export default function CheckoutTag({ className = '' }: ICheckoutTag) {
 
           <Text className={classes.noWrapContainer}>Till kassa</Text>
         </Box>
-        <Box className={classes.noWrapContainer}>{cartPrice} :-</Box>
+        <Box className={classes.noWrapContainer}>
+          {formatPrice(cartPrice)} :-
+        </Box>
       </Box>
     </Link>
   );
