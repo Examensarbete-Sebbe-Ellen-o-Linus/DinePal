@@ -21,7 +21,7 @@ export default async function GalleryPage() {
   const { galleryImgs, title } = galleryPageData;
 
   return (
-    <Container size={1120} className={scss.container}>
+    <Container size={1120} className={scss.container} fluid>
       <Title order={2}>{title}</Title>
       <div className={scss.grid}>
         {galleryImgs?.map((image, index) => {
