@@ -8,6 +8,7 @@ import type {
   IDish,
   IGalleryPage,
   IHomePage,
+  IMenuPage,
   ISettings,
 } from '../../app/interfaces'
 
@@ -112,10 +113,21 @@ export const fetchBookingPageData = async (): Promise<IBookingPage> => {
   return fetchDocumentById('bookingPage', additionalSelections)
 }
 
+export const fetchMenuPageData = async (): Promise<IMenuPage> => {
+  const additionalSelections = `
+  promo {
+    text, 
+    button
+  }
+  `
+  return fetchDocumentById('menuPage', additionalSelections)
+}
+
 export const fetchDishes = async (): Promise<IDish[]> => {
   try {
     const query = `*[_type == "dish"]{ 
       title,
+      slug,
       description,
       "image": {
         "alt": coalesce(image.alt, "No alt text"),
@@ -178,4 +190,15 @@ export const fetchSettingsData = async (): Promise<ISettings> => {
   
 `
   return fetchDocumentById('settings', additionalSelections)
+}
+
+export const fetchAccentColor = async () => {
+  const query = `*[_type == "colorTheme"][0]{accentColor}`
+  try {
+    const data = await client.fetch(query)
+    return data.accentColor
+  } catch (error) {
+    console.error('Error fetching accent color:', error)
+    return null
+  }
 }

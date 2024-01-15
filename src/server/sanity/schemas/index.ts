@@ -14,6 +14,7 @@ import bookingPage from './pages/bookingPage'
 import checkoutPage from './pages/checkoutPage'
 import galleryPage from './pages/galleryPage'
 import homePage from './pages/homePage'
+import menuPage from './pages/menuPage'
 
 export const schemaTypes = [
   dish,
@@ -21,6 +22,7 @@ export const schemaTypes = [
   galleryPage,
   checkoutPage,
   bookingPage,
+  menuPage,
   hero,
   about,
   settings,
