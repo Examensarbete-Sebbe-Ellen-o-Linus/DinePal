@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@mantine/core';
 import { useEffect } from 'react';
 import io from 'socket.io-client';
 
@@ -49,9 +50,11 @@ export function FullMenu() {
             </div>
           ))}
       </div>
-      <button onClick={() => refetch()}>Refresh</button>
+      <button style={{ display: 'block' }} onClick={() => refetch()}>
+        Refresh
+      </button>
 
-      <button onClick={() => socketTest.mutate({})}>Test Socket!</button>
+      <Button onClick={() => socketTest.mutate({})}>Test Socket!</Button>
     </>
   );
 }
