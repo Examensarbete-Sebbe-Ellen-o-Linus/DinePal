@@ -4,6 +4,7 @@ import { Box, Container, Title } from '@mantine/core';
 import Link from 'next/link';
 import type { IDish } from '../../interfaces';
 import DishCard from '../dishCard/DishCard';
+import ShortButton from '../shortButton/ShortButton';
 import scss from './SelectedDishes.module.scss';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
@@ -16,7 +17,9 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
         ))}
         <Box className={scss.bottom}>
           <Title order={5}>Ta del av hela vårt utbud</Title>
-          <Link href='/menu'>Meny</Link>
+          <Link href='/menu'>
+            <ShortButton text={'Meny'} color={'orange'} />
+          </Link>
         </Box>
       </Box>
     </Container>

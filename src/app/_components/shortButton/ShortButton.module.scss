@@ -13,10 +13,6 @@
     color: var(--button-text-color);
   }
   
-  .container:hover {
-    background: var(--mantine-color-white-9);
-  }
-  
   .container:active {
     transform: translateY(1px);
     box-shadow: var(--mantine-shadow-secondary);
@@ -29,8 +25,16 @@
     --button-border: 1px solid var(--mantine-color-orange-3);
     border: var(--button-border);
   }
+
+  .black:hover {
+    background: var(--mantine-color-white-9);
+  }
   
   .orange {
     --button-background: var(--mantine-color-orange-3);
     --button-text-color: var(--mantine-color-black-3);
+  }
+
+  .orange:hover {
+    background: var(--mantine-color-orange-1); 
   }
