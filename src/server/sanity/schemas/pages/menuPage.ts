@@ -22,6 +22,12 @@ export default defineType({
   ],
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      description: 'Write a short title for the menu.',
+    }),
+    defineField({
       name: 'promo',
       type: 'object',
       title: 'Promo section',

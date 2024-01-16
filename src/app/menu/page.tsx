@@ -1,11 +1,11 @@
 'use client';
 import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { fetchDishes } from '~/server/sanity/sanity.utils';
+import { fetchDishes, fetchMenuPageData } from '~/server/sanity/sanity.utils';
 import DishCard from '../_components/dishCard/DishCard';
 import Promo from '../_components/promo/Promo';
 import { tagDetails, type IconKey } from '../_components/tags/Tags';
-import { type IDish } from '../interfaces';
+import { type IDish, type IMenuPage } from '../interfaces';
 import scss from './page.module.scss';
 
 export default function Menu() {
@@ -13,9 +13,14 @@ export default function Menu() {
   const [error, setError] = useState(false);
   const [filteredDishes, setFilteredDishes] = useState<IDish[]>([]);
   const [selectedTags, setSelectedTags] = useState<IconKey[]>([]);
+  const [menuData, setmenuData] = useState<IMenuPage>();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const fetchMenuData = async () => {
+      const menu = await fetchMenuPageData();
+      setmenuData(menu);
+    };
     const fetchDishesData = async () => {
       try {
         const dishes = await fetchDishes();
@@ -27,6 +32,7 @@ export default function Menu() {
       }
     };
     void fetchDishesData();
+    void fetchMenuData();
   }, []);
 
   useEffect(() => {
@@ -56,7 +62,7 @@ export default function Menu() {
       <Container size={1120} className={scss.container}>
         <Box className={scss.grid}>
           <Box className={scss.top}>
-            <Title order={2}>Menu</Title>
+            <Title order={2}>{menuData?.title}</Title>
             <MultiSelect
               classNames={scss}
               label='Filtrera'
