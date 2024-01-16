@@ -8,13 +8,24 @@ import { api } from '~/trpc/react';
 const socket = io('https://14d1-92-35-35-90.ngrok-free.app'); // Replace with my accual socket server!!
 
 export function FullMenu() {
+  const { data: orders, refetch: refetchOrders } =
+    api.order.getOrders.useQuery();
+
   useEffect(() => {
+    function connect() {
+      socket.on('connect', () => console.log('Socket connected!'));
+      console.log('Socket connected!');
+    }
+
     socket.on('orderCreated', order => {
       console.log('Order from socket!!!:::::', order);
     });
 
+    socket.on('connect', connect);
+
     return () => {
       socket.off('orderCreated');
+      socket.off('connect');
     };
   }, []);
 
@@ -23,6 +34,8 @@ export function FullMenu() {
   const { data, refetch } = api.order.getFoods.useQuery();
 
   const sendOrderViaPost = () => {
+    socket.emit('orderCreated', { order: 'New Order' });
+
     fetch('https://14d1-92-35-35-90.ngrok-free.app/ordercreated', {
       method: 'POST',
       headers: {
@@ -43,6 +56,13 @@ export function FullMenu() {
 
   const handleDelete = (id: string) => {
     deleteFood.mutate({ id });
+  };
+
+  const handleAsyncTimer = async () => {
+    while (true) {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      await refetchOrders();
+    }
   };
 
   return (

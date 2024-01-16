@@ -40,6 +40,11 @@ export const orderRouter = createTRPCRouter({
       return order;
     }),
 
+  getOrders: publicProcedure.query(async ({ ctx }) => {
+    const orders = await ctx.db.food.findMany({});
+    return orders;
+  }),
+
   delete: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input: { id }, ctx }) => {
