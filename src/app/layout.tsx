@@ -1,5 +1,7 @@
 import { Box, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
+import { Notifications } from '@mantine/notifications';
+import '@mantine/notifications/styles.css';
 import { cookies } from 'next/headers';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import { TRPCReactProvider } from '~/trpc/react';
@@ -31,9 +33,12 @@ export default async function RootLayout({
         <TRPCReactProvider cookies={cookies().toString()}>
           <CartProvider>
             <MantineProvider theme={theme}>
+              <Notifications />
               <Header header={header} />
               <AccentColor />
-              <Box style={{ marginTop: '104px' }}>{children}</Box>
+              <Box style={{ marginTop: 'var(--header-height)' }}>
+                {children}
+              </Box>
               <Footer footer={footer} />
             </MantineProvider>
           </CartProvider>
