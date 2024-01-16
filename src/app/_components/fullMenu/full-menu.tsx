@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 import { api } from '~/trpc/react';
 
-const socket = io('https://git.heroku.com/socket-server-dinepal.git'); // Replace with my accual socket server!!
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com'); // Replace with my accual socket server!!
 
 export function FullMenu() {
   // const { data: orders, refetch: refetchOrders } =
@@ -18,13 +18,16 @@ export function FullMenu() {
   const sendOrderViaPost = () => {
     socket.emit('orderCreated', { order: 'New Order' });
 
-    fetch('https://git.heroku.com/socket-server-dinepal.git/ordercreated', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ order: 'New Order' }), // Adjust the body as needed
-    })
+    fetch(
+      'https://socket-server-dinepal-237ee597ef2d.herokuapp.com/ordercreated',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order: 'New Order' }), // Adjust the body as needed
+      }
+    )
       .then(response => response.json())
       .then(data => console.log('Answer from Post:', data))
       .catch(error => console.error('Error:', error));
