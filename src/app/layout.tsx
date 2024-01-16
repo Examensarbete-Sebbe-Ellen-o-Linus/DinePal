@@ -33,7 +33,9 @@ export default async function RootLayout({
             <MantineProvider theme={theme}>
               <Header header={header} />
               <AccentColor />
-              <Box style={{ marginTop: '104px' }}>{children}</Box>
+              <Box style={{ marginTop: 'var(--header-height)' }}>
+                {children}
+              </Box>
               <Footer footer={footer} />
             </MantineProvider>
           </CartProvider>

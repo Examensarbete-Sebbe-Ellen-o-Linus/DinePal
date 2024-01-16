@@ -3,6 +3,7 @@
 .container {
   display: flex;
   width: 100%;
+  max-height: var(--header-height);
   padding: 8px 40px;
   justify-content: space-between;
   align-items: center;
