@@ -14,6 +14,26 @@ export default function Menu() {
   const [filteredDishes, setFilteredDishes] = useState<IDish[]>([]);
   const [selectedTags, setSelectedTags] = useState<IconKey[]>([]);
   const [menuData, setmenuData] = useState<IMenuPage>();
+  const [lastScrollUp, setLastScrollUp] = useState(0);
+  const [filterVisible, setFilterVisible] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollUp = window.scrollY || document.documentElement.scrollTop;
+      if (scrollUp > lastScrollUp) {
+        setFilterVisible(false);
+        setIsDropdownOpen(false);
+      } else {
+        setFilterVisible(true);
+      }
+      setLastScrollUp(scrollUp <= 0 ? 0 : scrollUp);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollUp]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -61,22 +81,29 @@ export default function Menu() {
     <>
       <Container size={1120} className={scss.container}>
         <Box className={scss.grid}>
-          <Box className={scss.top}>
-            <Title order={2}>{menuData?.title}</Title>
-            <MultiSelect
-              classNames={scss}
-              label='Filtrera'
-              placeholder='Filter'
-              data={tagOptions}
-              value={selectedTags}
-              checkIconPosition='right'
-              onChange={handleTagChange}
-              comboboxProps={{
-                position: 'bottom',
-                middlewares: { flip: false, shift: false },
-                offset: 0,
-              }}
-            />
+          <Box className={` ${!filterVisible ? scss.hideTop : scss.filterTop}`}>
+            <Box>
+              <Title order={2}>{menuData?.title}</Title>
+              <Box className={scss.hej}>
+                <MultiSelect
+                  classNames={scss}
+                  dropdownOpened={isDropdownOpen}
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  onBlur={() => setIsDropdownOpen(false)}
+                  label='Filtrera'
+                  placeholder='Filter'
+                  data={tagOptions}
+                  value={selectedTags}
+                  checkIconPosition='right'
+                  onChange={handleTagChange}
+                  comboboxProps={{
+                    position: 'bottom',
+                    middlewares: { flip: false, shift: false },
+                    offset: 0,
+                  }}
+                />
+              </Box>
+            </Box>
           </Box>
           {!error ? (
             filteredDishes.length ? (
