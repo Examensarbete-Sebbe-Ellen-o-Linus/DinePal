@@ -46,9 +46,7 @@ export default function Header({ header }: { header: IHeader }) {
         <Image src={header.logotype.url} alt={header.logotype.alt} />
       </Link>
       <Box className={classes.content}>
-        {/* Will be controlled by signals later on */}
-        {/* {isDesktop ? <CartTag itemCount={5} price={1100} /> : null} */}
-        <Cart />
+        {isDesktop ? <Cart /> : null}
         <Burger
           opened={opened}
           onClick={toggle}
@@ -85,13 +83,11 @@ export default function Header({ header }: { header: IHeader }) {
           </Box>
         </Drawer>
 
-        {/* {!isDesktop ? (
-          <CartTag
-            className={classes.bottomPosition}
-            itemCount={5}
-            price={1100}
-          />
-        ) : null} */}
+        {!isDesktop ? (
+          <Box className={classes.bottomPosition}>
+            <Cart />
+          </Box>
+        ) : null}
       </Box>
     </Box>
   );
