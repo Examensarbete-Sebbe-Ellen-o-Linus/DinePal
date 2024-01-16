@@ -5,29 +5,11 @@ import io from 'socket.io-client';
 
 import { api } from '~/trpc/react';
 
-const socket = io('https://14d1-92-35-35-90.ngrok-free.app'); // Replace with my accual socket server!!
+const socket = io('https://socket-dine-pal.vercel.app/'); // Replace with my accual socket server!!
 
 export function FullMenu() {
-  const { data: orders, refetch: refetchOrders } =
-    api.order.getOrders.useQuery();
-
-  useEffect(() => {
-    function connect() {
-      socket.on('connect', () => console.log('Socket connected!'));
-      console.log('Socket connected!');
-    }
-
-    socket.on('orderCreated', order => {
-      console.log('Order from socket!!!:::::', order);
-    });
-
-    socket.on('connect', connect);
-
-    return () => {
-      socket.off('orderCreated');
-      socket.off('connect');
-    };
-  }, []);
+  // const { data: orders, refetch: refetchOrders } =
+  //   api.order.getOrders.useQuery();
 
   const socketTest = api.order.createWithSocket.useMutation();
 
@@ -36,7 +18,7 @@ export function FullMenu() {
   const sendOrderViaPost = () => {
     socket.emit('orderCreated', { order: 'New Order' });
 
-    fetch('https://14d1-92-35-35-90.ngrok-free.app/ordercreated', {
+    fetch('https://socket-dine-pal.vercel.app/ordercreated', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -58,12 +40,13 @@ export function FullMenu() {
     deleteFood.mutate({ id });
   };
 
-  const handleAsyncTimer = async () => {
-    while (true) {
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      await refetchOrders();
-    }
+  const send = () => {
+    socket.emit('message', 'Hello there from the client!');
   };
+
+  useEffect(() => {
+    socket.on('message', arg => console.log(arg));
+  });
 
   return (
     <>
@@ -89,6 +72,7 @@ export function FullMenu() {
 
       <Button onClick={() => socketTest.mutate({})}>Test Socket!</Button>
       <Button onClick={() => sendOrderViaPost()}>Regular POST</Button>
+      <Button onClick={() => send()}>Socket test NEW!</Button>
     </>
   );
 }
