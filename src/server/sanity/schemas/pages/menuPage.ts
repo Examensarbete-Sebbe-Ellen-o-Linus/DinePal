@@ -25,6 +25,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
+      group: 'menu',
       description: 'Write a short title for the menu.',
     }),
     defineField({
