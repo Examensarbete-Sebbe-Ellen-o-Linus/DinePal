@@ -3,7 +3,8 @@ import { Badge, Box, Drawer, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 import { useCart } from 'context/cartContext';
-import CartCard from '../cartCard/CartCard'; // Import CartCard
+import { formatPrice } from '~/app/formatPrice';
+import CartCard from '../cartCard/CartCard';
 import CheckoutTag from '../checkoutTag/CheckoutTag';
 import classes from './Cart.module.scss';
 
@@ -19,7 +20,10 @@ export default function Cart() {
             <Badge className={classes.badge}>{cartLenght}</Badge>
             <Text className={classes.noWrapContainer}>Till varukorg</Text>
           </Box>
-          <Box className={classes.noWrapContainer}>{cartPrice} :-</Box>
+          <Box className={classes.noWrapContainer}>
+            {' '}
+            {formatPrice(cartPrice)} :-
+          </Box>
         </Box>
         <Drawer
           opened={opened}

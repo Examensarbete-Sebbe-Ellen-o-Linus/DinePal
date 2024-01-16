@@ -3,6 +3,7 @@ import { Box, Divider, Text } from '@mantine/core';
 
 import { useCart } from 'context/cartContext';
 import { type CartItem } from 'context/initializers';
+import { formatPrice } from '~/app/formatPrice';
 import Quantity from '../quantityButton/QuantityButton';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 import classes from './CheckoutCard.module.scss';
@@ -13,11 +14,6 @@ interface ICheckoutCard {
 
 export default function CheckoutCard({ item }: ICheckoutCard) {
   const { updateItemQuantity } = useCart();
-
-  // Adds a blank space between every thousand
-  function formatPrice(price: number): string {
-    return price.toLocaleString('sv-SE');
-  }
 
   function calculateTotalPrice(quantity: number, price: number): string {
     const totalPrice = quantity * price;

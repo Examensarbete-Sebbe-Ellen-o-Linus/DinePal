@@ -3,6 +3,7 @@ import { Badge, Box, Text } from '@mantine/core';
 import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import classes from './CheckoutTag.module.scss';
+import { formatPrice } from '~/app/formatPrice';
 
 interface ICheckoutTag {
   className?: string;
@@ -10,10 +11,7 @@ interface ICheckoutTag {
 
 export default function CheckoutTag({ className = '' }: ICheckoutTag) {
   const { cartLenght, cartPrice } = useCart();
-  // Adds a blank space between every thousand.
-  function formatPrice(price: number): string {
-    return price.toLocaleString('sv-SE');
-  }
+
   return (
     <Link href='/checkout'>
       <Box className={`${classes.container} ${className}`}>

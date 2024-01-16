@@ -2,15 +2,13 @@
 import { Box, Text } from '@mantine/core';
 
 import { useCart } from 'context/cartContext';
+import { formatPrice } from '~/app/formatPrice';
 import CheckoutCard from '../checkoutCard/CheckoutCard';
 import classes from './CheckoutSummary.module.scss';
 
 export default function CheckoutSummary() {
   const { cartState, cartPrice } = useCart();
 
-  function formatPrice(price: number): string {
-    return price.toLocaleString('sv-SE');
-  }
   return (
     <Box className={classes.container}>
       {cartState.map((item, index) => (
