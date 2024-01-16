@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
 
+import { showNotification } from '@mantine/notifications';
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { type IDish } from '~/app/interfaces';
+import { theme } from '~/app/theme/theme';
 import type { CartItem } from './initializers';
 import {
   getCartFromLS,
@@ -57,6 +59,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   }, [cartState]);
 
   const handleAddToCart = (newDish: IDish, quantityToAdd = 1) => {
+    let notificationMessage = '';
+
     const ItemInCart = cartState.find(
       item => item.dish.title === newDish.title
     );
@@ -66,6 +70,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         { dish: newDish, quantity: quantityToAdd },
       ];
       setCartState(updatedCart);
+      notificationMessage = `${quantityToAdd}x ${newDish.title} är nu tillagd i din varukorg.`;
     } else {
       const updatedCart = cartState.reduce((newCart, item) => {
         if (item.dish.title === newDish.title) {
@@ -76,7 +81,14 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         return newCart;
       }, [] as CartItem[]);
       setCartState(updatedCart);
+      notificationMessage = `${quantityToAdd}x ${newDish.title} är nu tillagd i din varukorg.`;
     }
+
+    showNotification({
+      title: notificationMessage,
+      message: 'Varukorg uppdaterad',
+      color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
+    });
   };
 
   const updateItemQuantity = (dish: IDish, newQuantity: number) => {
