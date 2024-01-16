@@ -148,6 +148,7 @@ export interface INews {
 }
 
 export interface IMenuPage {
+  title: string;
   promo: IPromo;
 }
 export interface IPromo {
