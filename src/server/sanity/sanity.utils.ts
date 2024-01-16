@@ -85,7 +85,8 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   title,
   "galleryImgs": galleryImgs[]{
     "alt": coalesce(alt, "No alt text"),
-    "url": asset->url
+    "url": asset->url,
+    "key": _key
   }  
   `
   return fetchDocumentById('galleryPage', additionalSelections)

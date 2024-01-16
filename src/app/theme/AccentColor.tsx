@@ -10,7 +10,6 @@ export default function AccentColor() {
       const color = await fetchAccentColor();
       if (color) {
         const colorShades = generateColorShades(color.value);
-        console.log(colorShades);
         colorShades.forEach((shade, index) => {
           document.documentElement.style.setProperty(
             `--mantine-color-orange-${index}`,
