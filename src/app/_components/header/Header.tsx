@@ -21,52 +21,54 @@ export default function Header({ header }: { header: IHeader }) {
 
   return (
     <Box className={classes.container}>
-      <Link href='/'>
-        <Image src={header.logotype.url} alt={header.logotype.alt} />
-      </Link>
-      <Box className={classes.content}>
-        {isDesktop ? <Cart /> : null}
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          className={classes.burger}
-          aria-label='Toggle navigation'
-        />
+      <Box className={classes.contentContainer}>
+        <Link href='/'>
+          <Image src={header.logotype.url} alt={header.logotype.alt} />
+        </Link>
+        <Box className={classes.content}>
+          {isDesktop ? <Cart /> : null}
+          <Burger
+            opened={opened}
+            onClick={toggle}
+            className={classes.burger}
+            aria-label='Toggle navigation'
+          />
 
-        <Drawer
-          opened={opened}
-          onClose={toggle}
-          padding='xl'
-          withCloseButton={false}
-          size='xs'
-          position='top'
-        >
-          <Box className={classes.drawerContainer}>
-            {header.navLinks?.map(navLink => (
-              <React.Fragment key={navLink._key}>
-                {navLink.pageType === 'about' ? (
-                  <Link href={`/#${navLink.pageType}`} onClick={closeDrawer}>
-                    <Title className={classes.link} order={6}>
-                      {navLink.text}
-                    </Title>
-                  </Link>
-                ) : (
-                  <Link href={`/${navLink.pageType}`} onClick={closeDrawer}>
-                    <Title className={classes.link} order={6}>
-                      {navLink.text}
-                    </Title>
-                  </Link>
-                )}
-              </React.Fragment>
-            ))}
-          </Box>
-        </Drawer>
+          <Drawer
+            opened={opened}
+            onClose={toggle}
+            padding='xl'
+            withCloseButton={false}
+            size='xs'
+            position='top'
+          >
+            <Box className={classes.drawerContainer}>
+              {header.navLinks?.map(navLink => (
+                <React.Fragment key={navLink._key}>
+                  {navLink.pageType === 'about' ? (
+                    <Link href={`/#${navLink.pageType}`} onClick={closeDrawer}>
+                      <Title className={classes.link} order={6}>
+                        {navLink.text}
+                      </Title>
+                    </Link>
+                  ) : (
+                    <Link href={`/${navLink.pageType}`} onClick={closeDrawer}>
+                      <Title className={classes.link} order={6}>
+                        {navLink.text}
+                      </Title>
+                    </Link>
+                  )}
+                </React.Fragment>
+              ))}
+            </Box>
+          </Drawer>
 
-        {!isDesktop ? (
-          <Box className={classes.bottomPosition}>
-            <Cart />
-          </Box>
-        ) : null}
+          {!isDesktop ? (
+            <Box className={classes.bottomPosition}>
+              <Cart />
+            </Box>
+          ) : null}
+        </Box>
       </Box>
     </Box>
   );
