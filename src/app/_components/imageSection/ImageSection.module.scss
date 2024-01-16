@@ -73,6 +73,7 @@
 
         @media (max-width: $mantine-breakpoint-sm) {
           transform: none; 
+          box-shadow: none;
         }
       }
 
@@ -111,6 +112,7 @@
 
       @media (max-width: $mantine-breakpoint-sm) {
         transform: none; 
+        box-shadow: none;
       }
     }
     
@@ -120,6 +122,7 @@
 
       @media (max-width: $mantine-breakpoint-sm) {
         transform: none; 
+        box-shadow: none;
       }
     }
   }
