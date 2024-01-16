@@ -1,0 +1,33 @@
+@import '../../../styles/mantine';
+
+.accordion {
+    background: var(--mantine-color-white-0);
+    border-radius: var(--mantine-radius-primary);
+    box-shadow: var(--mantine-shadow-primary);
+    max-width: 352px;
+    align-self: stretch;
+    margin-bottom: 8px;
+
+    span {
+        font-size: 18px !important;
+    }
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        max-width: 900px;
+    }
+    @media (max-width: $mantine-breakpoint-md) {
+        max-width: 680px;
+
+    }
+    @media (max-width: $mantine-breakpoint-xs) {
+        max-width: 328px;
+    }
+
+}
+
+.accordionContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: space-between;
+}

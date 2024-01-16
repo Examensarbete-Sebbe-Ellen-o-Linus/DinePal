@@ -1,0 +1,33 @@
+.placeholder {
+  display: flex;
+  border-radius: var(--mantine-radius-primary);
+  cursor: pointer;
+  height: 376px;
+  width: 300px;
+
+  .inner {
+    background: var(--mantine-color-white-0);
+    border-radius: var(--mantine-radius-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    filter: grayscale(1);
+    gap: 32px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid var(--mantine-color-gray-4);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+    &:hover {
+      transform: translateY(-24px);
+      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    h6 {
+      color: var(--mantine-color-gray-6);
+    }
+  }
+}
