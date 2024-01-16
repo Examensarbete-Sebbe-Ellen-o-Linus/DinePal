@@ -74,7 +74,13 @@
         @media (max-width: $mantine-breakpoint-sm) {
           transform: none; 
           box-shadow: none;
+          
         }
+      }
+
+      &:active {
+        transform: translateY(-208px) scale(1.1); 
+        transition: transform 0.1s ease;
       }
 
       img {
@@ -114,6 +120,12 @@
         transform: none; 
         box-shadow: none;
       }
+
+      &:active {
+        transform: translateY(-48px) scale(1.1); 
+        transition: transform 0.1s ease;
+
+      }
     }
     
     .imageCard:nth-of-type(3):hover {
@@ -123,6 +135,12 @@
       @media (max-width: $mantine-breakpoint-sm) {
         transform: none; 
         box-shadow: none;
+      }
+
+      &:active {
+        transform: translateY(-168px) scale(1.1); 
+        transition: transform 0.1s ease;
+
       }
     }
   }
