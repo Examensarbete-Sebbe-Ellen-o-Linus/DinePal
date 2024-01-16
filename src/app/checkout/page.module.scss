@@ -1,0 +1,56 @@
+@import '../../styles/mantine';
+
+.container {
+  position: relative;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  align-items: stretch;
+  max-width: 1120px;
+  width: 100%;
+  position: relative;
+
+}
+
+.content { 
+  display: flex;
+  flex-direction: column;
+  max-width: 544px;
+  width: calc(50% - 8px);
+  gap: 32px;
+  margin-bottom: 32px;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+   width: 100%;
+  }
+}
+
+.titleSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.imgContainer {
+  width: calc(50% - 8px);
+  height: 100%;
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: none;
+  }
+}
+
+

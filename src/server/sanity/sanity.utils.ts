@@ -2,7 +2,15 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import {createClient} from 'next-sanity'
-import type {IBookingPage, IDish, IGalleryPage, IHomePage, ISettings} from '../../app/interfaces'
+import type {
+  IBookingPage,
+  ICheckoutPage,
+  IDish,
+  IGalleryPage,
+  IHomePage,
+  IMenuPage,
+  ISettings,
+} from '../../app/interfaces'
 
 export const client = createClient({
   projectId: 'xjj2ak5d',
@@ -77,10 +85,25 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   title,
   "galleryImgs": galleryImgs[]{
     "alt": coalesce(alt, "No alt text"),
-    "url": asset->url
+    "url": asset->url,
+    "key": _key
   }  
   `
   return fetchDocumentById('galleryPage', additionalSelections)
+}
+
+// Fetch checkoutPage with common selections
+export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
+  const additionalSelections = `
+  title,
+  "checkoutImg": {
+    "alt": coalesce(checkoutImg.alt, "No alt text"),
+    "url": checkoutImg.asset->url
+  }
+
+  
+  `
+  return fetchDocumentById('checkoutPage', additionalSelections)
 }
 
 export const fetchBookingPageData = async (): Promise<IBookingPage> => {
@@ -91,10 +114,22 @@ export const fetchBookingPageData = async (): Promise<IBookingPage> => {
   return fetchDocumentById('bookingPage', additionalSelections)
 }
 
+export const fetchMenuPageData = async (): Promise<IMenuPage> => {
+  const additionalSelections = `
+  title,
+  promo {
+    text, 
+    button
+  }
+  `
+  return fetchDocumentById('menuPage', additionalSelections)
+}
+
 export const fetchDishes = async (): Promise<IDish[]> => {
   try {
     const query = `*[_type == "dish"]{ 
       title,
+      slug,
       description,
       "image": {
         "alt": coalesce(image.alt, "No alt text"),
@@ -157,4 +192,15 @@ export const fetchSettingsData = async (): Promise<ISettings> => {
   
 `
   return fetchDocumentById('settings', additionalSelections)
+}
+
+export const fetchAccentColor = async () => {
+  const query = `*[_type == "colorTheme"][0]{accentColor}`
+  try {
+    const data = await client.fetch(query)
+    return data.accentColor
+  } catch (error) {
+    console.error('Error fetching accent color:', error)
+    return null
+  }
 }

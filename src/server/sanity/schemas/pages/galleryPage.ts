@@ -31,7 +31,6 @@ export default defineType({
     {
       name: 'galleryImgs',
       title: 'Gallery Images',
-      description: 'hi there',
       group: 'gallery',
       type: 'array',
       of: [

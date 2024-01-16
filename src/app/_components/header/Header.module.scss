@@ -3,31 +3,35 @@
 .container {
   display: flex;
   width: 100%;
-  padding: 8px 40px;
-  justify-content: space-between;
+  max-height: var(--header-height);
+  justify-content: center;
   align-items: center;
   background: var(--mantine-color-black-3);
   position: fixed;
   top: 0;
   left: 0;
-  transition: top 0.3s ease-in;
   z-index: 100;
+  padding: 8px 40px;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 8px 8px;
+  }
 }
 
-.hide {
-  top: -100%;
-  transition: top 1.5s ease-out;
+.contentContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .content {
+  max-width: 1200px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 0px;
-
-  @media (max-width: $mantine-breakpoint-md) {
-    gap: 24px;
-  }
+  gap: 24px;
 }
 
 .burger {
