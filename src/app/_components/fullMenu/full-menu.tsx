@@ -10,6 +10,7 @@ const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com'); /
 export function FullMenu() {
   // const { data: orders, refetch: refetchOrders } =
   //   api.order.getOrders.useQuery();
+  // asd
 
   const socketTest = api.order.createWithSocket.useMutation();
 
