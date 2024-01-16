@@ -70,10 +70,6 @@
     grid-template-columns: repeat(1, 328px);
     margin-top: 250px;
   }
-
-  @media (max-width: $mantine-breakpoint-xs) {
-    margin-top: 0;
-  }
 }
 
 .error {
