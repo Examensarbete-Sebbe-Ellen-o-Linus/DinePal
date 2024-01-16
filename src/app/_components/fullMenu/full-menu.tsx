@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 import { api } from '~/trpc/react';
 
-const socket = io('https://socket-dine-pal.vercel.app/'); // Replace with my accual socket server!!
+const socket = io('https://git.heroku.com/socket-server-dinepal.git'); // Replace with my accual socket server!!
 
 export function FullMenu() {
   // const { data: orders, refetch: refetchOrders } =
@@ -18,7 +18,7 @@ export function FullMenu() {
   const sendOrderViaPost = () => {
     socket.emit('orderCreated', { order: 'New Order' });
 
-    fetch('https://socket-dine-pal.vercel.app/ordercreated', {
+    fetch('https://git.heroku.com/socket-server-dinepal.git/ordercreated', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
