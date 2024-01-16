@@ -6,15 +6,19 @@
   background: var(--mantine-color-black-3);
   display: flex;
   margin-bottom: calc(198px - 35px);
+
   @media (max-width: $mantine-breakpoint-sm) {
     transform: none;
     margin-top: 273px;
+    margin-bottom: 0;
+
   }
 
   > div {
     display: inline-flex;
     align-items: flex-start;
     gap: 34px;
+
     @media (max-width: $mantine-breakpoint-sm) {
       flex-wrap: wrap;
       transform: translateY(-276px);
@@ -34,27 +38,41 @@
       position: relative;
       width: 352px;
       height: 480px;
+      transition: transform 0.5s ease;
+
       @media (max-width: $mantine-breakpoint-sm) {
         width: 100%;
         height: 480px;
       }
 
       &:nth-of-type(1) {
-        transform: translateY(-198px);
+        transform: translateY(-200px);
+
         @media (max-width: $mantine-breakpoint-sm) {
           transform: none;
         }
       }
       &:nth-of-type(2) {
-        transform: translateY(-35px);
+        transform: translateY(-40px);
+
         @media (max-width: $mantine-breakpoint-sm) {
           transform: none;
         }
       }
       &:nth-of-type(3) {
-        transform: translateY(-156px);
+        transform: translateY(-160px);
+
         @media (max-width: $mantine-breakpoint-sm) {
           transform: none;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-216px) scale(1.1); 
+        box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
+
+        @media (max-width: $mantine-breakpoint-sm) {
+          transform: none; 
         }
       }
 
@@ -85,6 +103,23 @@
         align-items: center;
         text-align: center;
         color: var(--mantine-color-white-3);
+      }
+    }
+    .imageCard:nth-of-type(2):hover {
+      transform: translateY(-56px) scale(1.1);
+      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
+
+      @media (max-width: $mantine-breakpoint-sm) {
+        transform: none; 
+      }
+    }
+    
+    .imageCard:nth-of-type(3):hover {
+      transform: translateY(-176px) scale(1.1);
+      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
+
+      @media (max-width: $mantine-breakpoint-sm) {
+        transform: none; 
       }
     }
   }
