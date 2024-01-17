@@ -46,6 +46,7 @@ const imageSelection = `
     "alt": coalesce(image.alt, "No alt text"),
     "url": image.asset->url,
     "_key": string,
+    "hotspot": {...}
   }
 `
 
@@ -82,12 +83,15 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
 // Fetch galleryPage with common selections
 export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   const additionalSelections = `
+  ...,
   title,
-  "galleryImgs": galleryImgs[]{
-    "alt": coalesce(alt, "No alt text"),
-    "url": asset->url,
-    "key": _key
-  }  
+ "galleryImgs": galleryImgs[]{
+   "alt": coalesce(alt, "No alt text"),
+   "url": asset->url,
+   "key": _key,
+   "hotspot": {...}, 
+   "crop": {...} 
+  }
   `
   return fetchDocumentById('galleryPage', additionalSelections)
 }
@@ -98,7 +102,8 @@ export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
   title,
   "checkoutImg": {
     "alt": coalesce(checkoutImg.alt, "No alt text"),
-    "url": checkoutImg.asset->url
+    "url": checkoutImg.asset->url,
+    "hotspot": {...}, 
   }
 
   
@@ -134,7 +139,8 @@ export const fetchDishes = async (): Promise<IDish[]> => {
       "image": {
         "alt": coalesce(image.alt, "No alt text"),
         "url": image.asset->url,
-        "_key": image._key
+        "_key": image._key,
+        "hotspot": {...}, 
       },
       price,
       tags[]
@@ -154,6 +160,7 @@ export const fetchSingleDish = async (slug: string): Promise<IDish> => {
     "image": {
       "alt": coalesce(image.alt, "No alt text"),
       "url": image.asset->url,
+      "hotspot": {...}, 
     },    
     price,
     tags[]
