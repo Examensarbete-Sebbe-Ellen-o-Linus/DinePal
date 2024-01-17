@@ -12,27 +12,7 @@ export function FullMenu() {
   //   api.order.getOrders.useQuery();
   // asd
 
-  const socketTest = api.order.createWithSocket.useMutation();
-
   const { data, refetch } = api.order.getFoods.useQuery();
-
-  const sendOrderViaPost = () => {
-    socket.emit('orderCreated', { order: 'New Order' });
-
-    fetch(
-      'https://socket-server-dinepal-237ee597ef2d.herokuapp.com/ordercreated',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ order: 'New Order' }), // Adjust the body as needed
-      }
-    )
-      .then(response => response.json())
-      .then(data => console.log('Answer from Post:', data))
-      .catch(error => console.error('Error:', error));
-  };
 
   const deleteFood = api.order.delete.useMutation({
     onSuccess: async () => {
@@ -74,8 +54,8 @@ export function FullMenu() {
         Refresh
       </button>
 
-      <Button onClick={() => socketTest.mutate({})}>Test Socket!</Button>
-      <Button onClick={() => sendOrderViaPost()}>Regular POST</Button>
+      {/* <Button onClick={() => socketTest.mutate({})}>Test Socket!</Button> */}
+      {/* <Button onClick={() => handleCreateOrder()}>Create order Endpoint!</Button> */}
       <Button onClick={() => send()}>Socket test NEW!</Button>
     </>
   );

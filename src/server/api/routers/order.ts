@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { z } from 'zod';
-
 import { createTRPCRouter, publicProcedure } from '~/server/api/trpc';
 
 export const orderRouter = createTRPCRouter({
@@ -15,33 +10,43 @@ export const orderRouter = createTRPCRouter({
       return food;
     }),
 
-  createWithSocket: publicProcedure
-    .input(z.object({}))
-    .mutation(async ({ input: {}, ctx }) => {
-      // const food = await ctx.db.food.create({ data: { name, content } });
-      const order = 'order from backend';
-
-      // Skicka till socket servern
-      fetch('https://14d1-92-35-35-90.ngrok-free.app', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ order }),
+  createOrder: publicProcedure
+    .input(
+      z.object({
+        cart: z.array(
+          z.object({
+            description: z.string().optional(),
+            price: z.number().optional(),
+            title: z.string().optional(),
+            image: z
+              .object({
+                alt: z.string().optional(),
+                url: z.string().optional(),
+              })
+              .optional(),
+            tags: z.object({ tag: z.array(z.string()) }).optional(),
+            quantity: z.number(),
+          })
+        ),
+        customer: z.object({
+          firstName: z.string(),
+          lastName: z.string(),
+          email: z.string(),
+          phone: z.number(),
+          comment: z.string().optional(),
+        }),
+        orderStatus: z.enum(['recieved', 'ongoing', 'completed']),
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Notification sent', data);
-        })
-        .catch(error => {
-          console.error('Error sending notification', error);
-        });
-
-      return order;
+    )
+    .mutation(async ({ input: { cart, customer, orderStatus }, ctx }) => {
+      const newOrder = await ctx.db.order.create({
+        data: { cart: { dish: cart }, customer, orderStatus },
+      });
+      return newOrder;
     }),
 
   getOrders: publicProcedure.query(async ({ ctx }) => {
-    const orders = await ctx.db.food.findMany({});
+    const orders = await ctx.db.order.findMany({});
     return orders;
   }),
 
@@ -66,31 +71,37 @@ export const orderRouter = createTRPCRouter({
   }),
 });
 
-// export const orderRouter = createTRPCRouter({
-//   hello: publicProcedure
-//     .input(z.object({ text: z.string() }))
-//     .query(({ input }) => {
-//       return {
-//         greeting: `Hello ${input.text}`,
-//       };
+// createWithSocket: publicProcedure
+// .input(
+//   z.object({
+//     // order: z.object({
+//     cart: z.object({
+//       dish: z.array(
+//         z.object({
+//           description: z.string().optional(),
+//           price: z.number().optional(),
+//           title: z.string().optional(),
+//           image: z
+//             .object({
+//               alt: z.string().optional(),
+//               url: z.string().optional(),
+//             })
+//             .optional(),
+//           tags: z.object({ tag: z.array(z.string()) }).optional(),
+//         })
+//       ),
+//       // }),
 //     }),
-
-//   create: publicProcedure
-//     .input(z.object({ name: z.string().min(1) }))
-//     .mutation(async ({ ctx, input }) => {
-//       // simulate a slow db call
-//       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-//       return ctx.db.post.create({
-//         data: {
-//           name: input.name,
-//         },
-//       });
+//     customer: z.object({
+//       firstName: z.string(),
+//       lastName: z.string(),
+//       email: z.string(),
+//       phone: z.number(),
+//       comment: z.string().optional(),
 //     }),
-
-//   getLatest: publicProcedure.query(({ ctx }) => {
-//     return ctx.db.post.findFirst({
-//       orderBy: { createdAt: 'desc' },
-//     });
-//   }),
-// });
+//   })
+// )
+// .mutation(async ({ input: { cart, customer }, ctx }) => {
+//   const newOrder = await ctx.db.order.create({ data: { cart, customer } });
+//   return newOrder;
+// }),

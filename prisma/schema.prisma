@@ -72,3 +72,47 @@ model AllowedUsers {
     createdAt DateTime? @default(now())
     updatedAt DateTime? @updatedAt
 }
+
+type Image {
+    url String?
+    alt String?
+}
+
+type Tags {
+    tag String[]
+}
+
+type Dish {
+    description String?
+    price       Int?
+    title       String?
+    image       Image?
+    tags        Tags?
+    quantity    Int
+}
+
+type Cart {
+    dish Dish[]
+}
+
+type Customer {
+    firstName String
+    lastName  String
+    email     String
+    phone     Int
+    comment   String?
+}
+
+enum Orderstatus {
+    recieved
+    ongoing
+    completed
+}
+
+model Order {
+    id          String      @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt   DateTime?   @default(now())
+    cart        Cart
+    customer    Customer
+    orderStatus Orderstatus @default(recieved)
+}

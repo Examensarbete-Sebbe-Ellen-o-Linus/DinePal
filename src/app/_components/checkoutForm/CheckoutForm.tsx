@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { useCart } from 'context/cartContext';
 import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
+import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
 import classes from './CheckoutForm.module.scss';
 import CheckoutModal from './components/CheckoutModal';
@@ -14,7 +15,7 @@ export interface FormikValues {
   lastName: string;
   email: string;
   phone: string;
-  commentary: string;
+  comment: string;
 
   // Leave this for future development
   // address: string;
@@ -27,13 +28,38 @@ export default function CheckoutForm() {
   const [isModalOpen, setModalOpen] = useState(false);
   const { cartState, cartPrice } = useCart();
 
+  const createOrder = api.order.createOrder.useMutation({
+    onSuccess: async () => {
+      console.log('Order created!');
+      setModalOpen(false);
+    },
+  });
+
+  const adaptedCart = cartState.map(item => ({
+    ...item.dish,
+    quantity: item.quantity,
+    tags: { tag: item.dish.tags },
+  }));
+
+  const handleCreateOrder = () => {
+    const costumerData = {
+      ...formik.values,
+      phone: parseInt(formik.values.phone),
+    };
+    createOrder.mutate({
+      cart: adaptedCart,
+      customer: costumerData,
+      orderStatus: 'recieved',
+    });
+  };
+
   const formik = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
       email: '',
       phone: '',
-      commentary: '',
+      comment: '',
 
       // Leave this for future development
       // address: '',
@@ -73,6 +99,8 @@ export default function CheckoutForm() {
         setModalOpen(true);
       }
     });
+
+    handleCreateOrder();
   }
 
   return (
@@ -111,6 +139,7 @@ export default function CheckoutForm() {
 
           <TextInput
             withAsterisk={true}
+            min={0}
             label='Telefon'
             name='phone'
             value={formik.values.phone}
@@ -121,9 +150,9 @@ export default function CheckoutForm() {
 
           <Textarea
             label='Kommentar'
-            name='commentary'
+            name='comment'
             description='Max 150 tecken'
-            value={formik.values.commentary}
+            value={formik.values.comment}
             onChange={formik.handleChange}
             placeholder='Skriv kommentar...'
             maxLength={150}
