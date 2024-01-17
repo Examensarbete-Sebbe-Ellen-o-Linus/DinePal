@@ -1,10 +1,9 @@
 'use client';
-import { Box, Radio, Text, TextInput, Textarea } from '@mantine/core';
+import { Box, TextInput, Textarea } from '@mantine/core';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 
 import { useCart } from 'context/cartContext';
-import { theme } from '~/app/theme/theme';
 import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
 import LongButton from '../longButton/LongButton';
 import classes from './CheckoutForm.module.scss';
@@ -15,11 +14,13 @@ export interface FormikValues {
   lastName: string;
   email: string;
   phone: string;
-  address: string;
-  postcode: string;
-  city: string;
-  paymentMethod: string;
   commentary: string;
+
+  // Leave this for future development
+  // address: string;
+  // postcode: string;
+  // city: string;
+  // paymentMethod: string;
 }
 
 export default function CheckoutForm() {
@@ -32,11 +33,13 @@ export default function CheckoutForm() {
       lastName: '',
       email: '',
       phone: '',
-      address: '',
-      postcode: '',
-      city: '',
-      paymentMethod: 'Klarna',
       commentary: '',
+
+      // Leave this for future development
+      // address: '',
+      // postcode: '',
+      // city: '',
+      // paymentMethod: 'Klarna',
     },
     validationSchema: checkoutFormValidation,
     onSubmit: values => {
@@ -57,10 +60,12 @@ export default function CheckoutForm() {
       lastName: true,
       email: true,
       phone: true,
-      address: true,
-      postcode: true,
-      city: true,
-      paymentMethod: true,
+
+      // Leave this for future development
+      // address: true,
+      // postcode: true,
+      // city: true,
+      // paymentMethod: true,
     });
 
     void formik.validateForm().then(errors => {
@@ -114,7 +119,18 @@ export default function CheckoutForm() {
             error={formik.touched.phone && formik.errors.phone}
           />
 
-          <TextInput
+          <Textarea
+            label='Kommentar'
+            name='commentary'
+            description='Max 150 tecken'
+            value={formik.values.commentary}
+            onChange={formik.handleChange}
+            placeholder='Skriv kommentar...'
+            maxLength={150}
+          />
+
+          {/* Leave this for future development */}
+          {/* <TextInput
             withAsterisk={true}
             label='Adress'
             name='address'
@@ -142,18 +158,10 @@ export default function CheckoutForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.city && formik.errors.city}
-          />
-
-          <Textarea
-            label='Kommentar'
-            name='commentary'
-            value={formik.values.commentary}
-            onChange={formik.handleChange}
-            placeholder='Skriv kommentar...'
-          />
+          /> */}
 
           <Box className={classes.paymentMethodContainer}>
-            <Box>
+            {/* <Box>
               <Radio
                 name='paymentMethod'
                 value='Klarna'
@@ -173,10 +181,10 @@ export default function CheckoutForm() {
                 color={theme.colors?.black?.[3]}
               />
               <Text>Betala med kort</Text>
-            </Box>
+            </Box> */}
 
             <LongButton
-              text={'Betala'}
+              text={'Lägg order'}
               color={'black'}
               onClick={handleSubmitForm}
             />
