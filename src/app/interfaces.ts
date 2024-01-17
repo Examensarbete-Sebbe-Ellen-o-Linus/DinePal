@@ -5,12 +5,10 @@ export interface IImage {
   alt?: string;
   link?: IButton;
   hotspot: {
-    hotspot: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    };
+    x: number;
+    y: number;
+    width: number;
+    height: number;
   };
   crop: {
     top: number;
