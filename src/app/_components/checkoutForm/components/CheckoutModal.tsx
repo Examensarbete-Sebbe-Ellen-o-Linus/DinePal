@@ -57,18 +57,6 @@ export default function CheckoutModal({
           <strong>Telefon:</strong> {formikValues.phone}
         </Text>
         <Text>
-          <strong>Adress:</strong> {formikValues.address}
-        </Text>
-        <Text>
-          <strong>Postnummer:</strong> {formikValues.postcode}
-        </Text>
-        <Text>
-          <strong>Ort:</strong> {formikValues.city}
-        </Text>
-        <Text>
-          <strong>Betalsätt:</strong> {formikValues.paymentMethod}
-        </Text>
-        <Text>
           <strong>Rätter:</strong>
           {cartItems.map((item, index) => (
             <span key={index}>
@@ -84,6 +72,20 @@ export default function CheckoutModal({
         <Text>
           <strong>Kommentar:</strong> {formikValues.commentary}
         </Text>
+
+        {/*Leave this for future development */}
+        {/* <Text>
+          <strong>Adress:</strong> {formikValues.address}
+        </Text>
+        <Text>
+          <strong>Postnummer:</strong> {formikValues.postcode}
+        </Text>
+        <Text>
+          <strong>Ort:</strong> {formikValues.city}
+        </Text>
+        <Text>
+          <strong>Betalsätt:</strong> {formikValues.paymentMethod}
+        </Text> */}
       </Box>
     );
   }
