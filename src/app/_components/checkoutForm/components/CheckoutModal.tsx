@@ -2,6 +2,7 @@ import { Box, Modal, Text } from '@mantine/core';
 import { useState } from 'react';
 
 import { type CartItem } from 'context/initializers';
+import { formatPrice } from '~/app/formatPrice';
 import LongButton from '../../longButton/LongButton';
 import { type FormikValues } from '../CheckoutForm';
 import classes from './CheckoutModal.module.scss';
@@ -40,10 +41,6 @@ export default function CheckoutModal({
     onClose();
   }
 
-  function formatPrice(price: number): string {
-    return price.toLocaleString('sv-SE');
-  }
-
   function CheckoutInfo() {
     return (
       <Box>
@@ -58,18 +55,6 @@ export default function CheckoutModal({
         </Text>
         <Text>
           <strong>Telefon:</strong> {formikValues.phone}
-        </Text>
-        <Text>
-          <strong>Adress:</strong> {formikValues.address}
-        </Text>
-        <Text>
-          <strong>Postnummer:</strong> {formikValues.postcode}
-        </Text>
-        <Text>
-          <strong>Ort:</strong> {formikValues.city}
-        </Text>
-        <Text>
-          <strong>Betalsätt:</strong> {formikValues.paymentMethod}
         </Text>
         <Text>
           <strong>Rätter:</strong>
@@ -87,6 +72,20 @@ export default function CheckoutModal({
         <Text>
           <strong>Kommentar:</strong> {formikValues.commentary}
         </Text>
+
+        {/*Leave this for future development */}
+        {/* <Text>
+          <strong>Adress:</strong> {formikValues.address}
+        </Text>
+        <Text>
+          <strong>Postnummer:</strong> {formikValues.postcode}
+        </Text>
+        <Text>
+          <strong>Ort:</strong> {formikValues.city}
+        </Text>
+        <Text>
+          <strong>Betalsätt:</strong> {formikValues.paymentMethod}
+        </Text> */}
       </Box>
     );
   }

@@ -1,10 +1,10 @@
 'use client';
 
 import { Box, Container, Title } from '@mantine/core';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { type IPromo } from '~/app/interfaces';
 import { fetchMenuPageData } from '~/server/sanity/sanity.utils';
+import LongButton from '../longButton/LongButton';
 import scss from './promo.module.scss';
 
 export default function Promo() {
@@ -34,9 +34,13 @@ export default function Promo() {
               <Title order={6} className={scss.text}>
                 {promo.text}
               </Title>
-              <Link href={`/${promo.button?.pageType}`}>
-                {promo.button?.text}
-              </Link>
+              <LongButton
+                text={promo.button?.text ?? 'Default Text'}
+                color={'orange'}
+                onClick={() =>
+                  (window.location.href = `/${promo.button?.pageType}`)
+                }
+              />
             </>
           )
         ) : (
