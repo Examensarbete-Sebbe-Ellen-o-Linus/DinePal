@@ -3,7 +3,6 @@
 .container {
   display: flex;
   width: 240px;
-  height: 293px;
   padding: 16px 0px;
   flex-direction: column;
   align-items: flex-start;
@@ -15,6 +14,18 @@
     border-radius: var(--mantine-radius-primary);
     height: 156px;
     object-fit: cover;
+  }
+
+  .error {
+    filter: grayscale(1);
+    padding: 8px;
+    align-self: auto;
+    max-height: 156px;
+  }
+
+  img.error {
+    object-fit: contain;
+    max-height: 100px;
   }
 }
 
