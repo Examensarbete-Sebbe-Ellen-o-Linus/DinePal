@@ -1,7 +1,7 @@
 @import '../../../styles/mantine';
 
 .container {
-  padding: 48px 0 0;
+  // padding: 48px 0 0;
 
   h2 {
     grid-column: 1 / -1;
@@ -10,7 +10,7 @@
 
   .grid {
     display: grid;
-    margin: 0 40px;
+    // margin: 0 40px;
     grid-template-columns: repeat(3, 328px);
     gap: 32px 24px;
     justify-content: center;
