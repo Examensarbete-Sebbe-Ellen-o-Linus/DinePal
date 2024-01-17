@@ -15,6 +15,18 @@
     height: 156px;
     object-fit: cover;
   }
+
+  .error {
+    filter: grayscale(1);
+    padding: 8px;
+    align-self: auto;
+    max-height: 156px;
+  }
+
+  img.error {
+    object-fit: contain;
+    max-height: 100px;
+  }
 }
 
 .selectRemove {
