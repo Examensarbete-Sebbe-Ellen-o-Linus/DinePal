@@ -3,6 +3,7 @@ import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
+import CustomImage from '../customImage/CustomImage';
 import PlaceholderSmall from '../placeholderSmall/PlaceholderSmall';
 import Tags from '../tags/Tags';
 import classes from './DishCard.module.scss';
@@ -20,11 +21,7 @@ export default function DishCard({ showDescription, dish }: Props) {
     <Box className={classes.card}>
       <Link href={dishLink}>
         {dish.image.url ? (
-          <img
-            className={classes.image}
-            src={dish.image.url}
-            alt={dish.image.alt}
-          />
+          <CustomImage image={dish.image} className={classes.image} />
         ) : (
           <PlaceholderSmall />
         )}

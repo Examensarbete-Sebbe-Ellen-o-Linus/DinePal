@@ -1,5 +1,6 @@
 import { Container, Title } from '@mantine/core';
 import { fetchGalleryPageData } from '../../server/sanity/sanity.utils';
+import CustomImage from '../_components/customImage/CustomImage';
 import scss from './page.module.scss';
 
 export default async function GalleryPage() {
@@ -33,7 +34,7 @@ export default async function GalleryPage() {
           };
           return (
             <div key={index} className={scss.col} style={style}>
-              <img src={image.url} alt={image.alt} className={scss.image} />
+              <CustomImage image={image} className={scss.image} />
             </div>
           );
         })}
