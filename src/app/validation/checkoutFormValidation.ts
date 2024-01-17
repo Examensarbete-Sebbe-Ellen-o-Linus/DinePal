@@ -6,7 +6,7 @@ export const checkoutFormValidation = Yup.object({
   email: Yup.string()
     .email('Ogiltig mailadress')
     .required('Var god uppge mailadress'),
-  phone: Yup.number()
+  phone: Yup.string()
     // .matches(/^[0-9]+$/, 'Ett telefonnummer bör bestå av endast siffror')
     .required('Var god uppge telefonnummer'),
   // address: Yup.string().required('Var god uppge adress'),

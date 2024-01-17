@@ -99,7 +99,7 @@ type Customer {
     firstName String
     lastName  String
     email     String
-    phone     Int
+    phone     String
     comment   String?
 }
 
@@ -115,4 +115,5 @@ model Order {
     cart        Cart
     customer    Customer
     orderStatus Orderstatus @default(recieved)
+    totalPrice  Int
 }

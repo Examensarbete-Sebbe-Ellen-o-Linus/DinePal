@@ -42,14 +42,15 @@ export default function CheckoutForm() {
   }));
 
   const handleCreateOrder = () => {
-    const costumerData = {
-      ...formik.values,
-      phone: parseInt(formik.values.phone),
-    };
+    // const costumerData = {
+    //   ...formik.values,
+    //   phone: parseInt(formik.values.phone),
+    // };
     createOrder.mutate({
       cart: adaptedCart,
-      customer: costumerData,
+      customer: formik.values,
       orderStatus: 'recieved',
+      totalPrice: cartPrice,
     });
   };
 
