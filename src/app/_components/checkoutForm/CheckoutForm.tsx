@@ -97,7 +97,7 @@ export default function CheckoutForm() {
 
     void formik.validateForm().then(errors => {
       if (Object.keys(errors).length === 0) {
-        setModalOpen(true);
+        // setModalOpen(true);
       }
     });
 
@@ -216,7 +216,7 @@ export default function CheckoutForm() {
             <LongButton
               text={'Lägg order'}
               color={'black'}
-              onClick={handleSubmitForm}
+              onClick={() => setModalOpen(true)}
             />
           </Box>
         </form>
