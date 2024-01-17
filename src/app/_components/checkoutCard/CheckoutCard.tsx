@@ -4,7 +4,8 @@ import { Box, Divider, Text } from '@mantine/core';
 import { useCart } from 'context/cartContext';
 import { type CartItem } from 'context/initializers';
 import { useEffect, useState } from 'react';
-import { IImage } from '~/app/interfaces';
+import { formatPrice } from '~/app/formatPrice';
+import { type IImage } from '~/app/interfaces';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import Quantity from '../quantityButton/QuantityButton';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
@@ -17,11 +18,6 @@ interface ICheckoutCard {
 export default function CheckoutCard({ item }: ICheckoutCard) {
   const { updateItemQuantity } = useCart();
   const [logo, setLogo] = useState<IImage | null>(null);
-
-  // Adds a blank space between every thousand
-  function formatPrice(price: number): string {
-    return price.toLocaleString('sv-SE');
-  }
 
   function calculateTotalPrice(quantity: number, price: number): string {
     const totalPrice = quantity * price;

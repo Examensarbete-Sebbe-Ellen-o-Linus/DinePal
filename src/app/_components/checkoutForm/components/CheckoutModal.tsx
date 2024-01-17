@@ -2,6 +2,7 @@ import { Box, Modal, Text } from '@mantine/core';
 import { useState } from 'react';
 
 import { type CartItem } from 'context/initializers';
+import { formatPrice } from '~/app/formatPrice';
 import LongButton from '../../longButton/LongButton';
 import { type FormikValues } from '../CheckoutForm';
 import classes from './CheckoutModal.module.scss';
@@ -38,10 +39,6 @@ export default function CheckoutModal({
   function closeConfirmationModal() {
     setConfirmationModalOpen(false);
     onClose();
-  }
-
-  function formatPrice(price: number): string {
-    return price.toLocaleString('sv-SE');
   }
 
   function CheckoutInfo() {

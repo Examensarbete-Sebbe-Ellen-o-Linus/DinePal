@@ -4,6 +4,13 @@
   background: var(--mantine-color-black-3);
   padding: 120px 0;
 
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 0 120px;
+  }
+
+
   > div {
     display: flex;
     gap: 32px;
