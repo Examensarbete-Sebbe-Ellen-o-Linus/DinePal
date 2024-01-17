@@ -1,13 +1,17 @@
 'use client';
+import { Button } from '@mantine/core';
+import { useEffect } from 'react';
+import io from 'socket.io-client';
 
-// import { useEffect, useState } from 'react';
 import { api } from '~/trpc/react';
 
-export function FullMenu() {
-  // useState to hold the fetched foods
-  // const [foods, setFoods] = useState([]);
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com'); // Replace with my accual socket server!!
 
-  // getFoods query from the tRPC router
+export function FullMenu() {
+  // const { data: orders, refetch: refetchOrders } =
+  //   api.order.getOrders.useQuery();
+  // asd
+
   const { data, refetch } = api.order.getFoods.useQuery();
 
   const deleteFood = api.order.delete.useMutation({
@@ -19,6 +23,14 @@ export function FullMenu() {
   const handleDelete = (id: string) => {
     deleteFood.mutate({ id });
   };
+
+  const send = () => {
+    socket.emit('message', 'Hello there from the client!');
+  };
+
+  useEffect(() => {
+    socket.on('message', arg => console.log(arg));
+  });
 
   return (
     <>
@@ -38,7 +50,13 @@ export function FullMenu() {
             </div>
           ))}
       </div>
-      <button onClick={() => refetch()}>Refresh</button>
+      <button style={{ display: 'block' }} onClick={() => refetch()}>
+        Refresh
+      </button>
+
+      {/* <Button onClick={() => socketTest.mutate({})}>Test Socket!</Button> */}
+      {/* <Button onClick={() => handleCreateOrder()}>Create order Endpoint!</Button> */}
+      <Button onClick={() => send()}>Socket test NEW!</Button>
     </>
   );
 }

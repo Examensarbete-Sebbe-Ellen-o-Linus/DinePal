@@ -1,4 +1,4 @@
-import { orderRouter } from '~/server/api/routers/post';
+import { orderRouter } from '~/server/api/routers/order';
 import { createTRPCRouter } from '~/server/api/trpc';
 import { userRouter } from './routers/user';
 

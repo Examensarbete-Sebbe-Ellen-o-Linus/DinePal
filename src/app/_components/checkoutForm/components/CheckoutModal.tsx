@@ -70,7 +70,7 @@ export default function CheckoutModal({
         </Text>
         <br />
         <Text>
-          <strong>Kommentar:</strong> {formikValues.commentary}
+          <strong>Kommentar:</strong> {formikValues.comment}
         </Text>
 
         {/*Leave this for future development */}

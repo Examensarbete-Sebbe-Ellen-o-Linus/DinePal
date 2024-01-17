@@ -56,6 +56,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     setCartLenght(total);
     setCartPrice(totalPrice);
     localStorage.setItem('cart', JSON.stringify(cartState));
+    console.log(cartState); // remove this when order endpoint is done!!
   }, [cartState]);
 
   const handleAddToCart = (newDish: IDish, quantityToAdd = 1) => {
@@ -80,7 +81,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         }
         return newCart;
       }, [] as CartItem[]);
-      setCartState(updatedCart);
       notificationMessage = `${quantityToAdd}x ${newDish.title} är nu tillagd i din varukorg.`;
     }
 
