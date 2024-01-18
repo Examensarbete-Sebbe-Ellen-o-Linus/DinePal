@@ -33,6 +33,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.hover:hover {
+    transform: translateY(-24px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .top {
@@ -48,11 +53,6 @@
   flex-direction: column;
   gap: 16px;
   margin-bottom: 16px;
-}
-
-.image:hover {
-  transform: translateY(-24px);
-  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
 }
 
 .headingPrice {

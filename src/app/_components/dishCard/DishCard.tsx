@@ -10,9 +10,10 @@ import classes from './DishCard.module.scss';
 interface Props {
   showDescription: boolean;
   dish: IDish;
+  hover?: boolean;
 }
 
-export default function DishCard({ showDescription, dish }: Props) {
+export default function DishCard({ showDescription, dish, hover }: Props) {
   const dishLink = `/product/${dish?.slug?.current ?? '404'}`;
   const { handleAddToCart } = useCart();
 
@@ -21,7 +22,9 @@ export default function DishCard({ showDescription, dish }: Props) {
       <Link href={dishLink}>
         {dish.image.url ? (
           <img
-            className={classes.image}
+            className={
+              hover ? `${classes.image} ${classes.hover}` : classes.image
+            }
             src={dish.image.url}
             alt={dish.image.alt}
           />

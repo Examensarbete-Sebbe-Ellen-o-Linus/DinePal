@@ -22,7 +22,7 @@
       transform 0.3s ease,
       box-shadow 0.3s ease,
       transform 0.3s ease;
-    &:hover {
+    &.hover:hover {
       transform: translateY(-24px);
       box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
     }

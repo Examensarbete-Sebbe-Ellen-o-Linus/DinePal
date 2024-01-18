@@ -4,7 +4,7 @@ import { type IImage } from '~/app/interfaces';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
 import scss from './placeholderSmall.module.scss';
 
-export default function PlaceholderSmall() {
+export default function PlaceholderSmall({ hover }: { hover?: boolean }) {
   const [logo, setLogo] = useState<IImage | null>(null);
 
   useEffect(() => {
@@ -23,7 +23,11 @@ export default function PlaceholderSmall() {
   return (
     <Box className={scss.placeholder}>
       <Box className={scss.inner}>
-        <img src={logo?.url} alt={logo?.alt}></img>
+        <img
+          src={logo?.url}
+          alt={logo?.alt}
+          className={hover ? `${scss.image} ${scss.hover}` : scss.image}
+        ></img>
         <Title order={6}>Bild kommer snart</Title>
       </Box>
     </Box>
