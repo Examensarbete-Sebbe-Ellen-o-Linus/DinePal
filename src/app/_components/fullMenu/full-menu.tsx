@@ -28,6 +28,10 @@ export function FullMenu() {
   };
 
   useEffect(() => {
+    console.log('food fetched:', data);
+  }, [data]);
+
+  useEffect(() => {
     console.log('orders fetched:', orders);
   }, [orders]);
 

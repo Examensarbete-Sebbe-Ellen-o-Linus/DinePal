@@ -57,7 +57,7 @@ export default function CheckoutForm() {
   }));
 
   const handleCreateOrder = () => {
-    const createdOrderNumber = nanoid();
+    const createdOrderNumber = nanoid().toString();
     console.log('order nummer:', createdOrderNumber);
     createOrder.mutate({
       cart: adaptedCart,
