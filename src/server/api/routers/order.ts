@@ -63,6 +63,22 @@ export const orderRouter = createTRPCRouter({
     return orders;
   }),
 
+  changeOrderStatus: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        orderStatus: z.enum(['recieved', 'ongoing', 'completed']),
+      })
+    )
+    .mutation(async ({ input: { id, orderStatus }, ctx }) => {
+      const updatedOrder = await ctx.db.order.update({
+        where: { id },
+        data: { orderStatus },
+      });
+
+      return updatedOrder;
+    }),
+
   delete: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input: { id }, ctx }) => {

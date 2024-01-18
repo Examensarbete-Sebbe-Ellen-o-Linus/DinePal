@@ -1,7 +1,7 @@
 'use client';
 import { Box, TextInput, Textarea } from '@mantine/core';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useCart } from 'context/cartContext';
 import { customAlphabet } from 'nanoid';
@@ -42,12 +42,6 @@ export default function CheckoutForm() {
     onError: error => {
       console.log('Error creating order:', error);
     },
-  });
-
-  useEffect(() => {
-    socket.on('orderCreated', arg =>
-      console.log('From the socket server:', arg)
-    );
   });
 
   const adaptedCart = cartState.map(item => ({
