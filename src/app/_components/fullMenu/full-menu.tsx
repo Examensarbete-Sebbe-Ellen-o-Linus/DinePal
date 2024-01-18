@@ -36,14 +36,15 @@ export function FullMenu() {
   }, [orders]);
 
   useEffect(() => {
-    socket.on('orderCreated', arg => {
-      console.log('From the socket server:', arg);
-      return async () => {
-        socket.off('orderCreated');
-        await refetchOrders();
-        console.log('NU HAR DET HÄMTATS');
-      };
-    });
+    const fetchNewOrders = async () => {
+      console.log('useEffect triggered by socket!');
+      await refetchOrders();
+    };
+    socket.on('orderCreated', fetchNewOrders);
+
+    return () => {
+      socket.off('orderCreated', fetchNewOrders);
+    };
   });
 
   return (
