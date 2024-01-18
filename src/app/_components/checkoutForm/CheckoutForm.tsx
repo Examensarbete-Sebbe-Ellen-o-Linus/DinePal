@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 
 import { useCart } from 'context/cartContext';
+import { customAlphabet } from 'nanoid';
 import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
 import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
@@ -27,11 +28,16 @@ export interface FormikValues {
 export default function CheckoutForm() {
   const [isModalOpen, setModalOpen] = useState(false);
   const { cartState, cartPrice } = useCart();
+  const nanoid = customAlphabet('abcdefghijklmnopqrstuvwqxzy1234567890', 4);
 
   const createOrder = api.order.createOrder.useMutation({
     onSuccess: async () => {
       console.log('Order created!');
       setModalOpen(false);
+      formik.resetForm();
+    },
+    onError: error => {
+      console.log('Error creating order:', error);
     },
   });
 
@@ -42,15 +48,14 @@ export default function CheckoutForm() {
   }));
 
   const handleCreateOrder = () => {
-    // const costumerData = {
-    //   ...formik.values,
-    //   phone: parseInt(formik.values.phone),
-    // };
+    const createdOrderNumber = nanoid();
+    console.log('order nummer:', createdOrderNumber);
     createOrder.mutate({
       cart: adaptedCart,
       customer: formik.values,
       orderStatus: 'recieved',
       totalPrice: cartPrice,
+      orderNumber: createdOrderNumber,
     });
   };
 

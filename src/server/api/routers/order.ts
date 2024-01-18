@@ -29,20 +29,30 @@ export const orderRouter = createTRPCRouter({
           })
         ),
         customer: z.object({
-          firstName: z.string(),
-          lastName: z.string(),
-          email: z.string(),
-          phone: z.string(),
+          firstName: z.string().min(2),
+          lastName: z.string().min(2),
+          email: z.string().min(4),
+          phone: z.string().min(7),
           comment: z.string().optional(),
         }),
         orderStatus: z.enum(['recieved', 'ongoing', 'completed']),
         totalPrice: z.number(),
+        orderNumber: z.string(),
       })
     )
     .mutation(
-      async ({ input: { cart, customer, orderStatus, totalPrice }, ctx }) => {
+      async ({
+        input: { cart, customer, orderStatus, totalPrice, orderNumber },
+        ctx,
+      }) => {
         const newOrder = await ctx.db.order.create({
-          data: { cart: { dish: cart }, customer, orderStatus, totalPrice },
+          data: {
+            cart: { dish: cart },
+            customer,
+            orderStatus,
+            totalPrice,
+            orderNumber,
+          },
         });
         return newOrder;
       }
