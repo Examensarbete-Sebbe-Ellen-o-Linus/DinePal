@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { useCart } from 'context/cartContext';
 import { customAlphabet } from 'nanoid';
+import { io } from 'socket.io-client';
 import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
 import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
@@ -25,6 +26,7 @@ export interface FormikValues {
   // paymentMethod: string;
 }
 
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function CheckoutForm() {
   const [isModalOpen, setModalOpen] = useState(false);
   const { cartState, cartPrice } = useCart();
@@ -35,6 +37,7 @@ export default function CheckoutForm() {
       console.log('Order created!');
       setModalOpen(false);
       formik.resetForm();
+      socket.emit('orderCreated', 'order created');
     },
     onError: error => {
       console.log('Error creating order:', error);

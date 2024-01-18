@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 import { api } from '~/trpc/react';
 
-const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com'); // Replace with my accual socket server!!
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 
 export function FullMenu() {
   // const { data: orders, refetch: refetchOrders } =
