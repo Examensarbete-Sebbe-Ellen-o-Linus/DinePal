@@ -41,6 +41,7 @@ export function FullMenu() {
       return async () => {
         socket.off('orderCreated');
         await refetchOrders();
+        console.log('NU HAR DET HÄMTATS');
       };
     });
   });
