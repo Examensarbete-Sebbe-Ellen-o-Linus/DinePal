@@ -8,9 +8,8 @@ import { api } from '~/trpc/react';
 const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 
 export function FullMenu() {
-  // const { data: orders, refetch: refetchOrders } =
-  //   api.order.getOrders.useQuery();
-  // asd
+  const { data: orders, refetch: refetchOrders } =
+    api.order.getOrders.useQuery();
 
   const { data, refetch } = api.order.getFoods.useQuery();
 
@@ -29,7 +28,17 @@ export function FullMenu() {
   };
 
   useEffect(() => {
-    socket.on('message', arg => console.log(arg));
+    console.log('orders fetched:', orders);
+  }, [orders]);
+
+  useEffect(() => {
+    socket.on('orderCreated', arg => {
+      console.log('From the socket server:', arg);
+      return async () => {
+        socket.off('orderCreated');
+        await refetchOrders();
+      };
+    });
   });
 
   return (
