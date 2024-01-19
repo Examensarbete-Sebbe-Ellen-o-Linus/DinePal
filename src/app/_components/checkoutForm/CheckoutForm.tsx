@@ -1,13 +1,12 @@
 'use client';
 import { Box, Text, TextInput, Textarea } from '@mantine/core';
-import { useFormik } from 'formik';
-import { useState } from 'react';
-
 import type { Order } from '@prisma/client';
 import { useCart } from 'context/cartContext';
+import { useFormik } from 'formik';
 import { customAlphabet } from 'nanoid';
+import { useState } from 'react';
 import { io } from 'socket.io-client';
-import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
+import { checkoutFormValidation } from '~/app/_validation/checkoutFormValidation';
 import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
 import classes from './CheckoutForm.module.scss';
