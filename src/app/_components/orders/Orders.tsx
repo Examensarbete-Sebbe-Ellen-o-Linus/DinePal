@@ -70,7 +70,9 @@ export default function Orders() {
                 <Title order={4}>Mottagna</Title>
                 {fetchedOrders &&
                   fetchedOrders
-                    .filter(order => order.orderStatus === 'received')
+                    .filter(
+                      fetchedOrders => fetchedOrders.orderStatus === 'received'
+                    )
                     .map(order => (
                       <OrderCard
                         key={order.id}
@@ -88,7 +90,9 @@ export default function Orders() {
                 <Title order={4}>Pågående</Title>
                 {fetchedOrders &&
                   fetchedOrders
-                    .filter(order => order.orderStatus === 'ongoing')
+                    .filter(
+                      fetchedOrders => fetchedOrders.orderStatus === 'ongoing'
+                    )
                     .map(order => (
                       <OrderCard
                         key={order.id}
@@ -106,7 +110,9 @@ export default function Orders() {
                 <Title order={4}>Färdigställda</Title>
                 {fetchedOrders &&
                   fetchedOrders
-                    .filter(order => order.orderStatus === 'completed')
+                    .filter(
+                      fetchedOrders => fetchedOrders.orderStatus === 'completed'
+                    )
                     .map(order => (
                       <OrderCard
                         key={order.id}
@@ -125,50 +131,58 @@ export default function Orders() {
           <Box className={classes.topic}>
             <Title order={4}>Mottagna</Title>
             <Divider className={classes.divider} />
-            {orders
-              .filter(order => order.orderStatus === 'received')
-              .map(order => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                  updateStatus={newStatus =>
-                    updateOrderStatus(order.id, newStatus)
-                  }
-                />
-              ))}
+            {fetchedOrders &&
+              fetchedOrders
+                .filter(
+                  fetchedOrders => fetchedOrders.orderStatus === 'received'
+                )
+                .map(order => (
+                  <OrderCard
+                    key={order.id}
+                    order={order}
+                    updateStatus={newStatus =>
+                      updateOrderStatus(order.id, newStatus)
+                    }
+                  />
+                ))}
           </Box>
 
           <Box className={classes.topic}>
             <Title order={4}>Pågående</Title>
             <Divider className={classes.divider} />
-            {orders
-              .filter(order => order.orderStatus === 'ongoing')
-              .map(order => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                  updateStatus={newStatus =>
-                    updateOrderStatus(order.id, newStatus)
-                  }
-                />
-              ))}
+            {fetchedOrders &&
+              fetchedOrders
+                .filter(
+                  fetchedOrders => fetchedOrders.orderStatus === 'ongoing'
+                )
+                .map(order => (
+                  <OrderCard
+                    key={order.id}
+                    order={order}
+                    updateStatus={newStatus =>
+                      updateOrderStatus(order.id, newStatus)
+                    }
+                  />
+                ))}
           </Box>
 
           <Box className={classes.topic}>
             <Title order={4}>Färdigställda</Title>
             <Divider className={classes.divider} />
-            {/* {renderOrderCards('completed')} */}
-            {orders
-              .filter(order => order.orderStatus === 'completed')
-              .map(order => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                  updateStatus={newStatus =>
-                    updateOrderStatus(order.id, newStatus)
-                  }
-                />
-              ))}
+            {fetchedOrders &&
+              fetchedOrders
+                .filter(
+                  fetchedOrders => fetchedOrders.orderStatus === 'completed'
+                )
+                .map(order => (
+                  <OrderCard
+                    key={order.id}
+                    order={order}
+                    updateStatus={newStatus =>
+                      updateOrderStatus(order.id, newStatus)
+                    }
+                  />
+                ))}
           </Box>
         </Box>
       )}
