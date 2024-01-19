@@ -2,12 +2,11 @@ import { Box, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
+import { CartProvider } from 'context/cartContext';
 import { cookies } from 'next/headers';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
-import { TRPCReactProvider } from '~/trpc/react';
-
-import { CartProvider } from 'context/cartContext';
 import '~/styles/globals.css';
+import { TRPCReactProvider } from '~/trpc/react';
 import Footer from './_components/footer/Footer';
 import Header from './_components/header/Header';
 import AccentColor from './theme/AccentColor';
