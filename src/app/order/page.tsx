@@ -3,6 +3,7 @@ import { Box, Container, Divider, Tabs, Title } from '@mantine/core';
 
 import { useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
+// import { getServerAuthSession } from '~/server/auth';
 import OrderCard from '../_components/orderCard/OrderCard';
 import { theme } from '../theme/theme';
 import classes from './page.module.scss';
@@ -15,6 +16,7 @@ interface OrderType {
 }
 
 export default function Order() {
+  // const session = await getServerAuthSession();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.xs})`);
   const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints?.md})`);
 
@@ -112,6 +114,20 @@ export default function Order() {
           </Box>
         </Box>
       )}
+
+      {/* <div>
+        <p>
+          {!session && (
+            <span>You Need to login to view the content of this page.</span>
+          )}
+        </p>
+        <p>{session && <span>Logged in as {session.user?.name}</span>}</p>
+        <Button>
+          <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
+            {session ? 'Sign out' : 'Sign in'}
+          </Link>
+        </Button>
+      </div> */}
     </Container>
   );
 }

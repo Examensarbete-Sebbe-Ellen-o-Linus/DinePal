@@ -8,23 +8,40 @@ import {
   Tooltip,
   type AccordionControlProps,
 } from '@mantine/core';
+import type { Order, Orderstatus } from '@prisma/client';
 
 import { useState } from 'react';
+import { api } from '~/trpc/react';
 import classes from './OrderCard.module.scss';
 import Status from './components/Status';
 
 type StatusType = 'received' | 'ongoing' | 'completed';
 
 interface IOrderCard {
-  id: number;
-  status: StatusType;
-  updateStatus: (newStatus: StatusType) => void;
+  order: Order;
+  updateStatus: (newStatus: Orderstatus) => void;
 }
 
-export default function OrderCard({ id, status, updateStatus }: IOrderCard) {
-  const [currentStatus, setCurrentStatus] = useState<StatusType>(status);
+export default function OrderCard({ order, updateStatus }: IOrderCard) {
+  const quantity = order.cart.dish.reduce((acc, dish) => {
+    return acc + dish.quantity;
+  }, 0);
 
-  const handleStatusChange = (newStatus: StatusType) => {
+  const { refetch: refetchOrders } = api.order.getOrders.useQuery();
+
+  const updateOrderStatus = api.order.changeOrderStatus.useMutation({
+    onSuccess: async () => {
+      await refetchOrders();
+    },
+  });
+
+  const handleOrderStatusChange = (newStatus: Orderstatus) => {
+    updateOrderStatus.mutate({ id: order.id, orderStatus: newStatus });
+  };
+
+  const [currentStatus, setCurrentStatus] = useState(order.orderStatus);
+
+  const handleStatusChange = (newStatus: Orderstatus) => {
     setCurrentStatus(newStatus);
     updateStatus(newStatus);
   };
@@ -61,7 +78,7 @@ export default function OrderCard({ id, status, updateStatus }: IOrderCard) {
     </svg>
   );
 
-  const tooltipText = (status: StatusType): string => {
+  const tooltipText = (status: Orderstatus) => {
     switch (status) {
       case 'received':
         return 'Mottagen';
@@ -87,13 +104,13 @@ export default function OrderCard({ id, status, updateStatus }: IOrderCard) {
 
           <Menu.Dropdown>
             <Menu.Label>Välj status</Menu.Label>
-            <Menu.Item onClick={() => handleStatusChange('received')}>
+            <Menu.Item onClick={() => handleOrderStatusChange('received')}>
               Mottagen
             </Menu.Item>
-            <Menu.Item onClick={() => handleStatusChange('ongoing')}>
+            <Menu.Item onClick={() => handleOrderStatusChange('ongoing')}>
               Pågående
             </Menu.Item>
-            <Menu.Item onClick={() => handleStatusChange('completed')}>
+            <Menu.Item onClick={() => handleOrderStatusChange('completed')}>
               Färdigställd
             </Menu.Item>
           </Menu.Dropdown>
@@ -107,16 +124,16 @@ export default function OrderCard({ id, status, updateStatus }: IOrderCard) {
       <Accordion.Item value='item-1'>
         <AccordionControl>
           <Box className={classes.accordionContent}>
-            <Text>4 st</Text>
-            <Text>123 456</Text>
+            <Text>{quantity} st</Text>
+            <Text>{order.orderNumber}</Text>
             {commentIcon}
             <Tooltip
-              label={tooltipText(currentStatus)}
+              label={tooltipText(order.orderStatus)}
               position='top'
               withArrow
             >
               <div>
-                <Status status={currentStatus} />
+                <Status status={order.orderStatus} />
               </div>
             </Tooltip>
           </Box>
@@ -126,16 +143,19 @@ export default function OrderCard({ id, status, updateStatus }: IOrderCard) {
             <Text>
               <strong>Rätter:</strong>
             </Text>
-            <Text>x1 Avoavo</Text>
-            <Text>x2 Blueberry pancakes</Text>
-            <Text>x1 Toast Skagen</Text>
+
+            {order.cart.dish.map((d, i) => (
+              <Text key={i}>
+                x{d.quantity} {d.title}
+              </Text>
+            ))}
           </Box>
           <Box>
             <Text>
               <strong>Kommentar:</strong>
             </Text>
 
-            <Text>Hej! Jag har hört att ni har god mat. Är kocken singel?</Text>
+            <Text>{order.customer.comment}</Text>
           </Box>
         </Accordion.Panel>
       </Accordion.Item>

@@ -35,7 +35,7 @@ export const orderRouter = createTRPCRouter({
           phone: z.string().min(7),
           comment: z.string().optional(),
         }),
-        orderStatus: z.enum(['recieved', 'ongoing', 'completed']),
+        orderStatus: z.enum(['received', 'ongoing', 'completed']),
         totalPrice: z.number(),
         orderNumber: z.string(),
       })
@@ -67,7 +67,7 @@ export const orderRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        orderStatus: z.enum(['recieved', 'ongoing', 'completed']),
+        orderStatus: z.enum(['received', 'ongoing', 'completed']),
       })
     )
     .mutation(async ({ input: { id, orderStatus }, ctx }) => {
