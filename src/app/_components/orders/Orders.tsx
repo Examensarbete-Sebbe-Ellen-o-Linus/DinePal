@@ -8,16 +8,8 @@ import { api } from '~/trpc/react';
 import OrderCard from '../orderCard/OrderCard';
 import classes from './order.module.scss';
 
-// type StatusType = 'received' | 'ongoing' | 'completed';
-
-// interface OrderType {
-//   id: string;
-//   status: StatusType;
-// }
-
 export default function Orders() {
   const { data: fetchedOrders } = api.order.getOrders.useQuery();
-  // const session = await getServerAuthSession();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.xs})`);
   const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints?.md})`);
 

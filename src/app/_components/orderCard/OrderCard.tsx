@@ -51,6 +51,24 @@ export default function OrderCard({ order }: Props) {
       />
     </svg>
   );
+  const transparentIcon = (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='25'
+      viewBox='0 0 24 25'
+      fill='none'
+      style={{ opacity: '0' }}
+    >
+      <path
+        d='M12 21.5C13.78 21.5 15.5201 20.9722 17.0001 19.9832C18.4802 18.9943 19.6337 17.5887 20.3149 15.9442C20.9961 14.2996 21.1743 12.49 20.8271 10.7442C20.4798 8.99836 19.6226 7.39472 18.364 6.13604C17.1053 4.87737 15.5016 4.0202 13.7558 3.67294C12.01 3.32567 10.2004 3.5039 8.55585 4.18509C6.91131 4.86628 5.50571 6.01983 4.51677 7.49987C3.52784 8.97991 3 10.72 3 12.5C3 13.988 3.36 15.391 4 16.627L3 21.5L7.873 20.5C9.109 21.14 10.513 21.5 12 21.5Z'
+        stroke='black'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </svg>
+  );
   const dotsMenuIcon = (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -114,7 +132,7 @@ export default function OrderCard({ order }: Props) {
           <Box className={classes.accordionContent}>
             <Text>{quantity} st</Text>
             <Text>{order.orderNumber}</Text>
-            {commentIcon}
+            {order.customer.comment !== '' ? commentIcon : transparentIcon}
             <Tooltip
               label={tooltipText(order.orderStatus)}
               position='top'
@@ -139,11 +157,15 @@ export default function OrderCard({ order }: Props) {
             ))}
           </Box>
           <Box>
-            <Text>
-              <strong>Kommentar:</strong>
-            </Text>
+            {order.customer.comment !== '' && (
+              <>
+                <Text>
+                  <strong>Kommentar:</strong>
+                </Text>
 
-            <Text>{order.customer.comment}</Text>
+                <Text>{order.customer.comment}</Text>
+              </>
+            )}
           </Box>
         </Accordion.Panel>
       </Accordion.Item>

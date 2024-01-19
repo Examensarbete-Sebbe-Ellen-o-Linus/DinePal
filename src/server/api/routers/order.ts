@@ -99,38 +99,3 @@ export const orderRouter = createTRPCRouter({
     });
   }),
 });
-
-// createWithSocket: publicProcedure
-// .input(
-//   z.object({
-//     // order: z.object({
-//     cart: z.object({
-//       dish: z.array(
-//         z.object({
-//           description: z.string().optional(),
-//           price: z.number().optional(),
-//           title: z.string().optional(),
-//           image: z
-//             .object({
-//               alt: z.string().optional(),
-//               url: z.string().optional(),
-//             })
-//             .optional(),
-//           tags: z.object({ tag: z.array(z.string()) }).optional(),
-//         })
-//       ),
-//       // }),
-//     }),
-//     customer: z.object({
-//       firstName: z.string(),
-//       lastName: z.string(),
-//       email: z.string(),
-//       phone: z.number(),
-//       comment: z.string().optional(),
-//     }),
-//   })
-// )
-// .mutation(async ({ input: { cart, customer }, ctx }) => {
-//   const newOrder = await ctx.db.order.create({ data: { cart, customer } });
-//   return newOrder;
-// }),

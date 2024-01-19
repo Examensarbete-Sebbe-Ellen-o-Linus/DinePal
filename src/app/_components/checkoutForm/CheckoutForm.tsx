@@ -56,7 +56,7 @@ export default function CheckoutForm() {
     createOrder.mutate({
       cart: adaptedCart,
       customer: formik.values,
-      orderStatus: 'recieved',
+      orderStatus: 'received',
       totalPrice: cartPrice,
       orderNumber: createdOrderNumber,
     });
