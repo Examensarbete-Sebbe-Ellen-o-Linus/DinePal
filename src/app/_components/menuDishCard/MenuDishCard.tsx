@@ -6,12 +6,7 @@ import PlaceholderSmall from '../placeholderSmall/PlaceholderSmall';
 import Tags from '../tags/Tags';
 import classes from './MenuDishCard.module.scss';
 
-interface Props {
-  showDescription: boolean;
-  dish: IDish;
-}
-
-export default function MenuDishCard({ showDescription, dish }: Props) {
+export default function MenuDishCard({ dish }: { dish: IDish }) {
   const { handleAddToCart } = useCart();
 
   return (
