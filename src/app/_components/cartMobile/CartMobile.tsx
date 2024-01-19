@@ -43,7 +43,7 @@ export default function Cart() {
           title={<Text>Din beställning</Text>}
         >
           <Box className={classes.container2}>
-            <CheckoutTag />
+            <CheckoutTag onClick={toggle} />
             {cartState.map((item, index) => (
               <CartCard key={index} item={item} />
             ))}
