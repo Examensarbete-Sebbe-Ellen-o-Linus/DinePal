@@ -22,12 +22,8 @@ export default function PlaceholderSmall({ hover }: { hover?: boolean }) {
 
   return (
     <Box className={scss.placeholder}>
-      <Box className={scss.inner}>
-        <img
-          src={logo?.url}
-          alt={logo?.alt}
-          className={hover ? `${scss.image} ${scss.hover}` : scss.image}
-        ></img>
+      <Box className={hover ? `${scss.inner} ${scss.hover}` : scss.inner}>
+        <img src={logo?.url} alt={logo?.alt}></img>
         <Title order={6}>Bild kommer snart</Title>
       </Box>
     </Box>
