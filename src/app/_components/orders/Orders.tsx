@@ -2,10 +2,8 @@
 
 import { Box, Container, Divider, Tabs, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
 import { theme } from '~/app/theme/theme';
 
-import type { Orderstatus } from '@prisma/client';
 import { api } from '~/trpc/react';
 import OrderCard from '../orderCard/OrderCard';
 import classes from './order.module.scss';
@@ -22,26 +20,6 @@ export default function Orders() {
   // const session = await getServerAuthSession();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.xs})`);
   const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints?.md})`);
-
-  const reviecedOrders = fetchedOrders?.filter(
-    order => order.orderStatus === 'received'
-  );
-  console.log('reviecedOrders', reviecedOrders);
-
-  console.log('orders', fetchedOrders);
-
-  const [orders, setOrders] = useState(fetchedOrders || []);
-
-  function updateOrderStatus(orderId: string, newStatus: Orderstatus) {
-    setOrders(
-      orders.map(order => {
-        if (order.id === orderId) {
-          return { ...order, status: newStatus };
-        }
-        return order;
-      })
-    );
-  }
 
   return (
     <Container fluid className={classes.container}>
@@ -73,15 +51,7 @@ export default function Orders() {
                     .filter(
                       fetchedOrders => fetchedOrders.orderStatus === 'received'
                     )
-                    .map(order => (
-                      <OrderCard
-                        key={order.id}
-                        order={order}
-                        updateStatus={newStatus =>
-                          updateOrderStatus(order.id, newStatus)
-                        }
-                      />
-                    ))}
+                    .map(order => <OrderCard key={order.id} order={order} />)}
               </Box>
             </Tabs.Panel>
 
@@ -93,15 +63,7 @@ export default function Orders() {
                     .filter(
                       fetchedOrders => fetchedOrders.orderStatus === 'ongoing'
                     )
-                    .map(order => (
-                      <OrderCard
-                        key={order.id}
-                        order={order}
-                        updateStatus={newStatus =>
-                          updateOrderStatus(order.id, newStatus)
-                        }
-                      />
-                    ))}
+                    .map(order => <OrderCard key={order.id} order={order} />)}
               </Box>
             </Tabs.Panel>
 
@@ -113,15 +75,7 @@ export default function Orders() {
                     .filter(
                       fetchedOrders => fetchedOrders.orderStatus === 'completed'
                     )
-                    .map(order => (
-                      <OrderCard
-                        key={order.id}
-                        order={order}
-                        updateStatus={newStatus =>
-                          updateOrderStatus(order.id, newStatus)
-                        }
-                      />
-                    ))}
+                    .map(order => <OrderCard key={order.id} order={order} />)}
               </Box>
             </Tabs.Panel>
           </Tabs>
@@ -136,15 +90,7 @@ export default function Orders() {
                 .filter(
                   fetchedOrders => fetchedOrders.orderStatus === 'received'
                 )
-                .map(order => (
-                  <OrderCard
-                    key={order.id}
-                    order={order}
-                    updateStatus={newStatus =>
-                      updateOrderStatus(order.id, newStatus)
-                    }
-                  />
-                ))}
+                .map(order => <OrderCard key={order.id} order={order} />)}
           </Box>
 
           <Box className={classes.topic}>
@@ -155,15 +101,7 @@ export default function Orders() {
                 .filter(
                   fetchedOrders => fetchedOrders.orderStatus === 'ongoing'
                 )
-                .map(order => (
-                  <OrderCard
-                    key={order.id}
-                    order={order}
-                    updateStatus={newStatus =>
-                      updateOrderStatus(order.id, newStatus)
-                    }
-                  />
-                ))}
+                .map(order => <OrderCard key={order.id} order={order} />)}
           </Box>
 
           <Box className={classes.topic}>
@@ -174,15 +112,7 @@ export default function Orders() {
                 .filter(
                   fetchedOrders => fetchedOrders.orderStatus === 'completed'
                 )
-                .map(order => (
-                  <OrderCard
-                    key={order.id}
-                    order={order}
-                    updateStatus={newStatus =>
-                      updateOrderStatus(order.id, newStatus)
-                    }
-                  />
-                ))}
+                .map(order => <OrderCard key={order.id} order={order} />)}
           </Box>
         </Box>
       )}
