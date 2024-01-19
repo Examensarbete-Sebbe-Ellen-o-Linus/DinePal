@@ -4,8 +4,8 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 import Link from 'next/link';
 import React from 'react';
+import { theme } from '~/app/_theme/theme';
 import { type IHeader } from '~/app/interfaces';
-import { theme } from '~/app/theme/theme';
 import Cart from '../cart/Cart';
 import CartMobile from '../cartMobile/CartMobile';
 import classes from './Header.module.scss';
