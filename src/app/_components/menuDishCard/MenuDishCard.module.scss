@@ -1,0 +1,70 @@
+.card {
+  display: flex;
+  width: 328px;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  border-radius: var(--mantine-radius-primary);
+  background: var(--mantine-color-white-0);
+  box-shadow: var(--mantine-shadow-primary);
+}
+
+.card:active {
+  transform: translateY(1px);
+  box-shadow: var(--mantine-shadow-secondary);
+}
+
+.bottom {
+  justify-self: flex-end;
+}
+
+.image {
+  height: 326px;
+  width: 300px;
+  border-radius: var(--mantine-radius-primary);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  z-index: 10;
+  position: relative;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top {
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.textTop {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.headingPrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  align-self: stretch;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.line {
+  width: 296px;
+  height: 1px;
+}
