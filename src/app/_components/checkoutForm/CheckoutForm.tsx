@@ -1,8 +1,9 @@
 'use client';
-import { Box, TextInput, Textarea } from '@mantine/core';
+import { Box, Text, TextInput, Textarea } from '@mantine/core';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 
+import type { Order } from '@prisma/client';
 import { useCart } from 'context/cartContext';
 import { customAlphabet } from 'nanoid';
 import { io } from 'socket.io-client';
@@ -29,15 +30,19 @@ export interface FormikValues {
 const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function CheckoutForm() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { cartState, cartPrice } = useCart();
+  const { cartState, cartPrice, setCartState } = useCart();
+  const [order, setOrder] = useState<Order>();
+
   const nanoid = customAlphabet('abcdefghijklmnopqrstuvwqxzy1234567890', 4);
 
   const createOrder = api.order.createOrder.useMutation({
-    onSuccess: async () => {
+    onSuccess: async data => {
+      setOrder(data);
       console.log('Order created!');
       setModalOpen(false);
       formik.resetForm();
       socket.emit('orderCreated', 'order created');
+      setCartState([]);
     },
     onError: error => {
       console.log('Error creating order:', error);
@@ -236,6 +241,10 @@ export default function CheckoutForm() {
         cartItems={cartState}
         cartPrice={cartPrice}
       />
+
+      <Box>
+        <Text>{order && order.orderNumber}</Text>
+      </Box>
     </Box>
   );
 }
