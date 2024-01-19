@@ -108,8 +108,6 @@ export default function CheckoutForm() {
         setModalOpen(true);
       }
     });
-
-    handleCreateOrder();
   }
 
   return (
@@ -233,7 +231,7 @@ export default function CheckoutForm() {
         formikValues={formik.values}
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={handleSubmitForm}
+        onConfirm={() => handleCreateOrder()}
         onReset={resetForm}
         cartItems={cartState}
         cartPrice={cartPrice}
