@@ -5,12 +5,11 @@ import io from 'socket.io-client';
 
 import { api } from '~/trpc/react';
 
-const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com'); // Replace with my accual socket server!!
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 
 export function FullMenu() {
-  // const { data: orders, refetch: refetchOrders } =
-  //   api.order.getOrders.useQuery();
-  // asd
+  const { data: orders, refetch: refetchOrders } =
+    api.order.getOrders.useQuery();
 
   const { data, refetch } = api.order.getFoods.useQuery();
 
@@ -29,7 +28,23 @@ export function FullMenu() {
   };
 
   useEffect(() => {
-    socket.on('message', arg => console.log(arg));
+    console.log('food fetched:', data);
+  }, [data]);
+
+  useEffect(() => {
+    console.log('orders fetched:', orders);
+  }, [orders]);
+
+  useEffect(() => {
+    const fetchNewOrders = async () => {
+      console.log('useEffect triggered by socket!');
+      await refetchOrders();
+    };
+    socket.on('orderCreated', fetchNewOrders);
+
+    return () => {
+      socket.off('orderCreated', fetchNewOrders);
+    };
   });
 
   return (

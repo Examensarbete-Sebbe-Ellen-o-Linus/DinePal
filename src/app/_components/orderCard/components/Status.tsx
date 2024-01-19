@@ -1,5 +1,5 @@
 import { Box } from '@mantine/core';
-import { theme } from '~/app/theme/theme';
+import { theme } from '~/app/_theme/theme';
 import classes from './Status.module.scss';
 
 interface IStatus {

@@ -8,8 +8,8 @@ import 'dayjs/locale/sv';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
-import { theme } from '~/app/theme/theme';
-import { bookingFormValidation } from '~/app/validation/bookingFormValidation';
+import { theme } from '~/app/_theme/theme';
+import { bookingFormValidation } from '~/app/_validation/bookingFormValidation';
 import LongButton from '../longButton/LongButton';
 import classes from './BookingForm.module.scss';
 import BookingModal from './components/BookingModal';

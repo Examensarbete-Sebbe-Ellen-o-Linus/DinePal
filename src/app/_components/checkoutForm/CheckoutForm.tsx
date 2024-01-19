@@ -1,10 +1,12 @@
 'use client';
-import { Box, TextInput, Textarea } from '@mantine/core';
-import { useFormik } from 'formik';
-import { useState } from 'react';
-
+import { Box, Text, TextInput, Textarea } from '@mantine/core';
+import type { Order } from '@prisma/client';
 import { useCart } from 'context/cartContext';
-import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
+import { useFormik } from 'formik';
+import { customAlphabet } from 'nanoid';
+import { useState } from 'react';
+import { io } from 'socket.io-client';
+import { checkoutFormValidation } from '~/app/_validation/checkoutFormValidation';
 import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
 import classes from './CheckoutForm.module.scss';
@@ -24,14 +26,25 @@ export interface FormikValues {
   // paymentMethod: string;
 }
 
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function CheckoutForm() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { cartState, cartPrice } = useCart();
+  const { cartState, cartPrice, setCartState } = useCart();
+  const [order, setOrder] = useState<Order>();
+
+  const nanoid = customAlphabet('abcdefghijklmnopqrstuvwqxzy1234567890', 4);
 
   const createOrder = api.order.createOrder.useMutation({
-    onSuccess: async () => {
+    onSuccess: async data => {
+      setOrder(data);
       console.log('Order created!');
       setModalOpen(false);
+      formik.resetForm();
+      socket.emit('orderCreated', 'order created');
+      setCartState([]);
+    },
+    onError: error => {
+      console.log('Error creating order:', error);
     },
   });
 
@@ -42,15 +55,14 @@ export default function CheckoutForm() {
   }));
 
   const handleCreateOrder = () => {
-    // const costumerData = {
-    //   ...formik.values,
-    //   phone: parseInt(formik.values.phone),
-    // };
+    const createdOrderNumber = nanoid().toString();
+    console.log('order nummer:', createdOrderNumber);
     createOrder.mutate({
       cart: adaptedCart,
       customer: formik.values,
-      orderStatus: 'recieved',
+      orderStatus: 'received',
       totalPrice: cartPrice,
+      orderNumber: createdOrderNumber,
     });
   };
 
@@ -97,11 +109,9 @@ export default function CheckoutForm() {
 
     void formik.validateForm().then(errors => {
       if (Object.keys(errors).length === 0) {
-        // setModalOpen(true);
+        setModalOpen(true);
       }
     });
-
-    handleCreateOrder();
   }
 
   return (
@@ -216,7 +226,7 @@ export default function CheckoutForm() {
             <LongButton
               text={'Lägg order'}
               color={'black'}
-              onClick={() => setModalOpen(true)}
+              onClick={() => handleSubmitForm()}
             />
           </Box>
         </form>
@@ -225,11 +235,15 @@ export default function CheckoutForm() {
         formikValues={formik.values}
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={handleSubmitForm}
+        onConfirm={() => handleCreateOrder()}
         onReset={resetForm}
         cartItems={cartState}
         cartPrice={cartPrice}
       />
+
+      <Box>
+        <Text>{order && order.orderNumber}</Text>
+      </Box>
     </Box>
   );
 }

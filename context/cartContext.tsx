@@ -4,8 +4,8 @@
 import { showNotification } from '@mantine/notifications';
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { theme } from '~/app/_theme/theme';
 import { type IDish } from '~/app/interfaces';
-import { theme } from '~/app/theme/theme';
 import type { CartItem } from './initializers';
 import {
   getCartFromLS,
