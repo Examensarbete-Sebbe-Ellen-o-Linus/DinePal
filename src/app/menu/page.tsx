@@ -2,7 +2,7 @@
 import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { fetchDishes, fetchMenuPageData } from '~/server/sanity/sanity.utils';
-import DishCard from '../_components/dishCard/DishCard';
+import MenuDishCard from '../_components/menuDishCard/MenuDishCard';
 import Promo from '../_components/promo/Promo';
 import { tagDetails, type IconKey } from '../_components/tags/Tags';
 import { type IDish, type IMenuPage } from '../interfaces';
@@ -122,7 +122,7 @@ export default function Menu() {
           {!error ? (
             filteredDishes.length ? (
               filteredDishes.map((dish, i) => (
-                <DishCard key={i} showDescription={true} dish={dish} />
+                <MenuDishCard key={i} dish={dish} />
               ))
             ) : (
               <Text className={scss.error}>
