@@ -1,40 +1,42 @@
-@import "../../../styles/mantine";
+@import '../../../styles/mantine';
 
 .container {
-    display: flex;
-    padding: 8px 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    align-self: stretch;
-    border-radius: var(--mantine-radius-secondary);
-    cursor: pointer;
-    background: var(--button-background);
-    color: var(--button-text-color);
-  }
-  
-  .container:active {
-    transform: translateY(1px);
-    box-shadow: var(--mantine-shadow-secondary);
-    background: var(--mantine-color-white-8);
-  }
-  
-  .black {
-    --button-background: var(--mantine-color-black-3);
-    --button-text-color: var(--mantine-color-orange-3);
-    --button-border: 1px solid var(--mantine-color-orange-3);
-    border: var(--button-border);
-  }
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: var(--mantine-radius-secondary);
+  cursor: pointer;
+  background: var(--button-background);
+  color: var(--button-text-color);
+}
 
-  .black:hover {
-    background: var(--mantine-color-white-9);
-  }
-  
-  .orange {
-    --button-background: var(--mantine-color-orange-3);
-    --button-text-color: var(--mantine-color-black-3);
-  }
+.container:active {
+  transform: translateY(1px);
+  box-shadow: var(--mantine-shadow-secondary);
+  background: var(--mantine-color-white-8);
+}
 
-  .orange:hover {
-    background: var(--mantine-color-orange-1); 
-  }
+.black {
+  --button-background: var(--mantine-color-black-3);
+  --button-text-color: var(--mantine-color-orange-3);
+  --button-border: 1px solid var(--mantine-color-orange-3);
+  border: var(--button-border);
+}
+
+.black:hover {
+  background: var(--mantine-color-white-9);
+}
+
+.orange {
+  --button-background: var(--mantine-color-orange-3);
+  --button-text-color: var(--mantine-color-black-3);
+  --button-border: 1px solid var(--mantine-color-orange-3);
+  border: var(--button-border);
+}
+
+.orange:hover {
+  background: var(--mantine-color-orange-1);
+}

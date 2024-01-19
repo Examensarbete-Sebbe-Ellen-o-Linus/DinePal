@@ -2,7 +2,7 @@
 import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { fetchDishes, fetchMenuPageData } from '~/server/sanity/sanity.utils';
-import DishCard from '../_components/dishCard/DishCard';
+import MenuDishCard from '../_components/menuDishCard/MenuDishCard';
 import Promo from '../_components/promo/Promo';
 import { tagDetails, type IconKey } from '../_components/tags/Tags';
 import { type IDish, type IMenuPage } from '../interfaces';
@@ -36,7 +36,6 @@ export default function Menu() {
   }, [lastScrollUp]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     const fetchMenuData = async () => {
       const menu = await fetchMenuPageData();
       setmenuData(menu);
@@ -53,6 +52,24 @@ export default function Menu() {
     };
     void fetchDishesData();
     void fetchMenuData();
+  }, []);
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    } else {
+      const hash = window.location.hash.slice(1);
+
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          const offset = element.getBoundingClientRect().top - 20;
+          window.scrollTo({
+            top: offset,
+          });
+        }
+      }, 100);
+    }
   }, []);
 
   useEffect(() => {
@@ -108,7 +125,7 @@ export default function Menu() {
           {!error ? (
             filteredDishes.length ? (
               filteredDishes.map((dish, i) => (
-                <DishCard key={i} showDescription={true} dish={dish} />
+                <MenuDishCard key={i} dish={dish} />
               ))
             ) : (
               <Text className={scss.error}>

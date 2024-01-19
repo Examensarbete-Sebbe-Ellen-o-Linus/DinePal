@@ -29,20 +29,30 @@ export const orderRouter = createTRPCRouter({
           })
         ),
         customer: z.object({
-          firstName: z.string(),
-          lastName: z.string(),
-          email: z.string(),
-          phone: z.string(),
+          firstName: z.string().min(2),
+          lastName: z.string().min(2),
+          email: z.string().min(4),
+          phone: z.string().min(7),
           comment: z.string().optional(),
         }),
-        orderStatus: z.enum(['recieved', 'ongoing', 'completed']),
+        orderStatus: z.enum(['received', 'ongoing', 'completed']),
         totalPrice: z.number(),
+        orderNumber: z.string(),
       })
     )
     .mutation(
-      async ({ input: { cart, customer, orderStatus, totalPrice }, ctx }) => {
+      async ({
+        input: { cart, customer, orderStatus, totalPrice, orderNumber },
+        ctx,
+      }) => {
         const newOrder = await ctx.db.order.create({
-          data: { cart: { dish: cart }, customer, orderStatus, totalPrice },
+          data: {
+            cart: { dish: cart },
+            customer,
+            orderStatus,
+            totalPrice,
+            orderNumber,
+          },
         });
         return newOrder;
       }
@@ -52,6 +62,22 @@ export const orderRouter = createTRPCRouter({
     const orders = await ctx.db.order.findMany({});
     return orders;
   }),
+
+  changeOrderStatus: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        orderStatus: z.enum(['received', 'ongoing', 'completed']),
+      })
+    )
+    .mutation(async ({ input: { id, orderStatus }, ctx }) => {
+      const updatedOrder = await ctx.db.order.update({
+        where: { id },
+        data: { orderStatus },
+      });
+
+      return updatedOrder;
+    }),
 
   delete: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -73,38 +99,3 @@ export const orderRouter = createTRPCRouter({
     });
   }),
 });
-
-// createWithSocket: publicProcedure
-// .input(
-//   z.object({
-//     // order: z.object({
-//     cart: z.object({
-//       dish: z.array(
-//         z.object({
-//           description: z.string().optional(),
-//           price: z.number().optional(),
-//           title: z.string().optional(),
-//           image: z
-//             .object({
-//               alt: z.string().optional(),
-//               url: z.string().optional(),
-//             })
-//             .optional(),
-//           tags: z.object({ tag: z.array(z.string()) }).optional(),
-//         })
-//       ),
-//       // }),
-//     }),
-//     customer: z.object({
-//       firstName: z.string(),
-//       lastName: z.string(),
-//       email: z.string(),
-//       phone: z.number(),
-//       comment: z.string().optional(),
-//     }),
-//   })
-// )
-// .mutation(async ({ input: { cart, customer }, ctx }) => {
-//   const newOrder = await ctx.db.order.create({ data: { cart, customer } });
-//   return newOrder;
-// }),
