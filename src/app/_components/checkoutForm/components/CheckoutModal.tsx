@@ -29,7 +29,6 @@ export default function CheckoutModal({
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
   function handleConfirm() {
-    console.log('Booking data:', formikValues);
     onConfirm();
     onReset();
     onClose();
