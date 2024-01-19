@@ -36,7 +36,6 @@ export default function Menu() {
   }, [lastScrollUp]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     const fetchMenuData = async () => {
       const menu = await fetchMenuPageData();
       setmenuData(menu);
@@ -53,6 +52,21 @@ export default function Menu() {
     };
     void fetchDishesData();
     void fetchMenuData();
+  }, []);
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    } else {
+      const hash = window.location.hash.slice(1);
+
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
   }, []);
 
   useEffect(() => {
