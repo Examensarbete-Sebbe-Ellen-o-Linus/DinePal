@@ -14,12 +14,12 @@ interface Props {
 }
 
 export default function DishCard({ showDescription, dish, hover }: Props) {
-  const dishLink = `/product/${dish?.slug?.current ?? '404'}`;
   const { handleAddToCart } = useCart();
+  const menuLink = `/menu#${dish?.slug?.current ?? '/menu'}`;
 
   return (
-    <Box className={classes.card}>
-      <Link href={dishLink}>
+    <Box className={classes.card} id={dish.slug.current}>
+      <Link href={menuLink}>
         {dish.image.url ? (
           <img
             className={
@@ -32,13 +32,14 @@ export default function DishCard({ showDescription, dish, hover }: Props) {
           <PlaceholderSmall />
         )}
       </Link>
+
       <Box className={classes.top}>
         <Box className={classes.textTop}>
           <Box className={classes.headingPrice}>
-            <Link href={dishLink}>
+            <Link href={menuLink}>
               <Title order={6}>{dish.title}</Title>
             </Link>
-            <Text>{dish.price} :-</Text>
+            <Text>{dish.price}:-</Text>
           </Box>
           {showDescription && <Text>{dish.description}</Text>}
         </Box>
