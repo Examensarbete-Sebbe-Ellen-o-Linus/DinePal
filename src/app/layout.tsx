@@ -9,8 +9,8 @@ import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 import Footer from './_components/footer/Footer';
 import Header from './_components/header/Header';
-import AccentColor from './theme/AccentColor';
-import { theme } from './theme/theme';
+import AccentColor from './_theme/AccentColor';
+import { theme } from './_theme/theme';
 
 export const metadata = {
   title: 'Create T3 App',

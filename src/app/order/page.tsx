@@ -4,7 +4,7 @@ import { Box, Container, Divider, Tabs, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
 import OrderCard from '../_components/orderCard/OrderCard';
-import { theme } from '../theme/theme';
+import { theme } from '../_theme/theme';
 import classes from './page.module.scss';
 
 type StatusType = 'received' | 'ongoing' | 'completed';

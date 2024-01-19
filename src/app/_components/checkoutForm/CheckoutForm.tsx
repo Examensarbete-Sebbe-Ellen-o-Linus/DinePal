@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 
 import { useCart } from 'context/cartContext';
-import { checkoutFormValidation } from '~/app/validation/checkoutFormValidation';
+import { checkoutFormValidation } from '~/app/_validation/checkoutFormValidation';
 import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
 import classes from './CheckoutForm.module.scss';
