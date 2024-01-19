@@ -37,8 +37,8 @@ export default function CheckoutForm() {
 
   const createOrder = api.order.createOrder.useMutation({
     onSuccess: async data => {
-      setOrder(data);
-      console.log('Order created!');
+      setOrder(data); // När ordern har lyckats fås detta svar.
+      console.log('Order created! Order data:', data);
       setModalOpen(false);
       formik.resetForm();
       socket.emit('orderCreated', 'order created');
@@ -240,6 +240,7 @@ export default function CheckoutForm() {
         onReset={resetForm}
         cartItems={cartState}
         cartPrice={cartPrice}
+        order={order}
       />
 
       <Box>

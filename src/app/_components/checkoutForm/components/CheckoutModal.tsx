@@ -1,6 +1,7 @@
 import { Box, Modal, Text } from '@mantine/core';
 import { useState } from 'react';
 
+import { type Order } from '@prisma/client';
 import { type CartItem } from 'context/initializers';
 import { formatPrice } from '~/app/formatPrice';
 import LongButton from '../../longButton/LongButton';
@@ -15,6 +16,7 @@ interface ICheckoutModal {
   onReset: () => void;
   cartItems: CartItem[];
   cartPrice: number;
+  order: Order | undefined;
 }
 
 export default function CheckoutModal({
@@ -25,6 +27,7 @@ export default function CheckoutModal({
   onReset,
   cartItems,
   cartPrice,
+  order,
 }: ICheckoutModal) {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
@@ -115,8 +118,10 @@ export default function CheckoutModal({
       >
         <Box className={classes.containerCheckoutDoneModal}>
           <Text>
-            Beställning är mottagen och du får snart ta emot ytterligare
-            information om när din måltid är redo för upphämtning.
+            Beställning är mottagen. Din måltid är redo för upphämtning
+            {order && (
+              <Text>Din beställningsnummer är: {order.orderNumber}</Text>
+            )}
           </Text>
 
           <Box>
