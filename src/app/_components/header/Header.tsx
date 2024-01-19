@@ -63,12 +63,6 @@ export default function Header({ header }: { header: IHeader }) {
               ))}
             </Box>
           </Drawer>
-
-          {/* {!isDesktop ? (
-            <Box className={classes.bottomPosition}>
-              <Cart />
-            </Box>
-          ) : null} */}
         </Box>
       </Box>
     </Box>
