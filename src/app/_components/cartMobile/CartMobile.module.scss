@@ -10,10 +10,12 @@
 .container {
   display: flex;
   padding: 8px 16px;
-  gap: 24px;
+  gap: 8px;
   border-radius: var(--mantine-radius-secondary);
   background: var(--mantine-color-orange-3);
   cursor: pointer;
+
+ 
 
 }
 
@@ -39,3 +41,11 @@
 .noWrapContainer {
   white-space: nowrap;
 }
+
+.cart {
+    color: var(--mantine-color-black-3);
+  
+    path {
+      fill: currentColor; 
+    }
+  }

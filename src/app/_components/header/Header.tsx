@@ -7,11 +7,12 @@ import React from 'react';
 import { type IHeader } from '~/app/interfaces';
 import { theme } from '~/app/theme/theme';
 import Cart from '../cart/Cart';
+import CartMobile from '../cartMobile/CartMobile';
 import classes from './Header.module.scss';
 
 export default function Header({ header }: { header: IHeader }) {
   const [opened, { toggle }] = useDisclosure();
-  const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints?.sm})`);
+  const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints?.xs})`);
 
   const closeDrawer = () => {
     if (opened) {
@@ -26,7 +27,7 @@ export default function Header({ header }: { header: IHeader }) {
           <Image src={header.logotype.url} alt={header.logotype.alt} />
         </Link>
         <Box className={classes.content}>
-          {isDesktop ? <Cart /> : null}
+          {isDesktop ? <Cart /> : <CartMobile />}
           <Burger
             opened={opened}
             onClick={toggle}
@@ -63,11 +64,11 @@ export default function Header({ header }: { header: IHeader }) {
             </Box>
           </Drawer>
 
-          {!isDesktop ? (
+          {/* {!isDesktop ? (
             <Box className={classes.bottomPosition}>
               <Cart />
             </Box>
-          ) : null}
+          ) : null} */}
         </Box>
       </Box>
     </Box>
