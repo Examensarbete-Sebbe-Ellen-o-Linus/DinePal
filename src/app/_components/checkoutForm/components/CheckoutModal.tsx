@@ -41,6 +41,7 @@ export default function CheckoutModal({
   function closeConfirmationModal() {
     setConfirmationModalOpen(false);
     onClose();
+    window.location.href = '/';
   }
 
   function CheckoutInfo() {
