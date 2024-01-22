@@ -1,10 +1,10 @@
 @import '../../../styles/mantine';
 
 .container2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
 .container {
@@ -14,7 +14,6 @@
   border-radius: var(--mantine-radius-secondary);
   background: var(--mantine-color-orange-3);
   cursor: pointer;
-
 }
 
 .content {
