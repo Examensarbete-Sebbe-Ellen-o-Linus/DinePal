@@ -1,6 +1,7 @@
-import { Box, Modal, Text } from '@mantine/core';
+import { Box, Modal, Text, Title } from '@mantine/core';
 import { useState } from 'react';
 
+import { type Order } from '@prisma/client';
 import { type CartItem } from 'context/initializers';
 import { formatPrice } from '~/app/formatPrice';
 import LongButton from '../../longButton/LongButton';
@@ -15,6 +16,7 @@ interface ICheckoutModal {
   onReset: () => void;
   cartItems: CartItem[];
   cartPrice: number;
+  order: Order | undefined;
 }
 
 export default function CheckoutModal({
@@ -25,6 +27,7 @@ export default function CheckoutModal({
   onReset,
   cartItems,
   cartPrice,
+  order,
 }: ICheckoutModal) {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
@@ -38,6 +41,7 @@ export default function CheckoutModal({
   function closeConfirmationModal() {
     setConfirmationModalOpen(false);
     onClose();
+    window.location.href = '/';
   }
 
   function CheckoutInfo() {
@@ -110,14 +114,19 @@ export default function CheckoutModal({
         size='sm'
         opened={isConfirmationModalOpen}
         onClose={closeConfirmationModal}
+        closeOnClickOutside={false}
         title={<Text>Tack för din beställning!</Text>}
         centered
       >
         <Box className={classes.containerCheckoutDoneModal}>
-          <Text>
-            Beställning är mottagen och du får snart ta emot ytterligare
-            information om när din måltid är redo för upphämtning.
-          </Text>
+          {order && (
+            <Text>
+              Var god uppge detta ordernummer när du hämtar din beställning:
+              <Title order={4}>
+                <strong>{order.orderNumber}</strong>
+              </Title>
+            </Text>
+          )}
 
           <Box>
             <svg
