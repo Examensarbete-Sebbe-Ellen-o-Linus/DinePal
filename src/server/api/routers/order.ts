@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '~/server/api/trpc';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from '~/server/api/trpc';
 
 export const orderRouter = createTRPCRouter({
   create: publicProcedure
@@ -58,7 +62,7 @@ export const orderRouter = createTRPCRouter({
       }
     ),
 
-  getOrders: publicProcedure.query(async ({ ctx }) => {
+  getOrders: protectedProcedure.query(async ({ ctx }) => {
     const orders = await ctx.db.order.findMany({});
     return orders;
   }),
