@@ -1,5 +1,5 @@
 'use client';
-import { Box, Text, TextInput, Textarea } from '@mantine/core';
+import { Box, TextInput, Textarea } from '@mantine/core';
 import type { Order } from '@prisma/client';
 import { useCart } from 'context/cartContext';
 import { useFormik } from 'formik';
@@ -240,10 +240,6 @@ export default function CheckoutForm() {
         cartItems={cartState}
         cartPrice={cartPrice}
       />
-
-      <Box>
-        <Text>{order && order.orderNumber}</Text>
-      </Box>
     </Box>
   );
 }

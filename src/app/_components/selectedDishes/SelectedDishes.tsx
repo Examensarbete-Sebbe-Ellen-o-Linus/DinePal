@@ -21,9 +21,6 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
             din mat hos oss. <br />
             Snabbt, smidigt och gott!
           </Text>
-        </Box>
-        <Box className={scss.bottom}>
-          <Title order={5}>Ta del av hela vårt utbud</Title>
           <Link href='/menu'>
             <ShortButton text={'Meny'} color={'orange'} />
           </Link>
