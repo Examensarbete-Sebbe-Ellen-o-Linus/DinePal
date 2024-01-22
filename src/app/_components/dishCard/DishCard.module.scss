@@ -33,9 +33,12 @@
   align-items: center;
   justify-content: center;
 
-  &:hover {
-    transform: translateY(-24px);
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
+  @media(hover:hover) {
+    &:hover {
+      transform: translateY(-24px);
+      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
+    }
+
   }
 }
 

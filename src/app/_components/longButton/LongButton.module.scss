@@ -25,16 +25,20 @@
   --svg-fill-color: var(--mantine-color-white-3);
 }
 
-.black:hover {
-  background: var(--mantine-color-white-9);
-}
-
 .orange {
   --button-background: var(--mantine-color-orange-3);
   --button-text-color: var(--mantine-color-black-3);
   --svg-fill-color: var(--mantine-color-black-3);
 }
 
-.orange:hover {
-  background: var(--mantine-color-orange-1); 
+@media(hover:hover) {
+  .black:hover {
+    background: var(--mantine-color-white-9);
+  }
+
+  .orange:hover {
+    background: var(--mantine-color-orange-1); 
+  }
 }
+
+
