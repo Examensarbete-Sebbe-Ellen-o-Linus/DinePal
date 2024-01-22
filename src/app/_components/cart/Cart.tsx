@@ -23,7 +23,7 @@ export default function Cart() {
         </Box>
         <Box className={classes.noWrapContainer}>
           {' '}
-          {formatPrice(cartPrice)} :-
+          {formatPrice(cartPrice)}:-
         </Box>
       </Box>
       <Drawer
