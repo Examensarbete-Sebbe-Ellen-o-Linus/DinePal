@@ -1,5 +1,5 @@
 'use client';
-import { Box, Burger, Drawer, Image, Title } from '@mantine/core';
+import { Box, Burger, Drawer, Image } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 import Link from 'next/link';
@@ -17,6 +17,16 @@ export default function Header({ header }: { header: IHeader }) {
   const closeDrawer = () => {
     if (opened) {
       toggle();
+    }
+  };
+
+  const generateUrl = (pageType: string) => {
+    if (pageType.includes('home')) {
+      return `/`;
+    } else if (pageType.includes('about')) {
+      return `/#${pageType}`;
+    } else {
+      return `/${pageType}`;
     }
   };
 
@@ -46,19 +56,12 @@ export default function Header({ header }: { header: IHeader }) {
             <Box className={classes.drawerContainer}>
               {header.navLinks?.map(navLink => (
                 <React.Fragment key={navLink._key}>
-                  {navLink.pageType === 'about' ? (
-                    <Link href={`/#${navLink.pageType}`} onClick={closeDrawer}>
-                      <Title className={classes.link} order={6}>
-                        {navLink.text}
-                      </Title>
-                    </Link>
-                  ) : (
-                    <Link href={`/${navLink.pageType}`} onClick={closeDrawer}>
-                      <Title className={classes.link} order={6}>
-                        {navLink.text}
-                      </Title>
-                    </Link>
-                  )}
+                  <Link
+                    href={generateUrl(navLink.pageType)}
+                    onClick={closeDrawer}
+                  >
+                    {navLink.text}
+                  </Link>
                 </React.Fragment>
               ))}
             </Box>

@@ -3,7 +3,6 @@
 import { Box, Container, Divider, Tabs, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { theme } from '~/app/_theme/theme';
-
 import { api } from '~/trpc/react';
 import OrderCard from '../orderCard/OrderCard';
 import classes from './order.module.scss';
