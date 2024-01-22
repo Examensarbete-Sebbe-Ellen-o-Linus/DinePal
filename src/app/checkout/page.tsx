@@ -21,12 +21,10 @@ export default async function Checkout() {
             <Title mt={'48px'} order={2}>
               {title}
             </Title>
-            <Box className={classes.information}>
-              <Title order={6}>
-                Du tilldelas ett <strong>ordernummer</strong> när din
-                beställning är klar. Uppge detta vid upphämtning.
-              </Title>
-            </Box>
+            <Title order={6}>
+              Du tilldelas ett <strong>ordernummer</strong> när din beställning
+              är klar. Uppge detta vid upphämtning.
+            </Title>
             <CheckoutSummary />
           </Box>
           <CheckoutForm />
