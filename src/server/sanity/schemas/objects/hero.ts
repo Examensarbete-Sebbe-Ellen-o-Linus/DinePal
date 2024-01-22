@@ -13,13 +13,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'description',
-      title: 'Description',
-      description: 'Optional: A short text about the restaurant',
-      type: 'text',
-      rows: 2,
-    },
-    {
       name: 'image',
       title: 'Image',
       type: 'image',
