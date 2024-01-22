@@ -15,6 +15,13 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
         {dishes.map((dish, i) => (
           <DishCard key={i} showDescription={false} dish={dish} />
         ))}
+        <Box className={scss.information}>
+          <Title order={6}>
+            Upptäck vår take away-service! Beställ din måltid online och hämta
+            din mat hos oss. <br />
+            Snabbt, smidigt och gott!
+          </Title>
+        </Box>
         <Box className={scss.bottom}>
           <Title order={5}>Ta del av hela vårt utbud</Title>
           <Link href='/menu'>
