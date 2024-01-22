@@ -3,12 +3,16 @@ import {
   ActionIcon,
   Box,
   Center,
+  Divider,
   Menu,
   Text,
   Tooltip,
   type AccordionControlProps,
 } from '@mantine/core';
 import type { Order, Orderstatus } from '@prisma/client';
+import TimeAgo from 'javascript-time-ago';
+import sv from 'javascript-time-ago/locale/sv.json';
+import ReactTimeAgo from 'react-time-ago';
 import { api } from '~/trpc/react';
 import classes from './OrderCard.module.scss';
 import Status from './components/Status';
@@ -18,6 +22,7 @@ type Props = {
 };
 
 export default function OrderCard({ order }: Props) {
+  TimeAgo.addDefaultLocale(sv);
   const quantity = order.cart.dish.reduce((acc, dish) => {
     return acc + dish.quantity;
   }, 0);
@@ -145,7 +150,13 @@ export default function OrderCard({ order }: Props) {
           </Box>
         </AccordionControl>
         <Accordion.Panel>
+          <Divider />
           <Box>
+            {order && order.orderStatus !== 'completed' && (
+              <Text className={classes.timeAgo}>
+                Tillagd <ReactTimeAgo date={order.createdAt!} />
+              </Text>
+            )}
             <Text>
               <strong>Rätter:</strong>
             </Text>
