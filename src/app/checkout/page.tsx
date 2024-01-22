@@ -1,4 +1,4 @@
-import { Box, Container, Title } from '@mantine/core';
+import { Box, Container, Text, Title } from '@mantine/core';
 
 import { fetchCheckoutPageData } from '~/server/sanity/sanity.utils';
 import CheckoutForm from '../_components/checkoutForm/CheckoutForm';
@@ -21,6 +21,10 @@ export default async function Checkout() {
             <Title mt={'48px'} order={2}>
               {title}
             </Title>
+            <Text>
+              Du tilldelas ett <strong>ordernummer</strong> när din beställning
+              är klar. Uppge detta vid upphämtning.
+            </Text>
             <CheckoutSummary />
           </Box>
           <CheckoutForm />

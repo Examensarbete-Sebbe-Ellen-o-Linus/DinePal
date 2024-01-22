@@ -3,9 +3,11 @@ import { Badge, Box, Drawer, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 import { useCart } from 'context/cartContext';
+import Link from 'next/link';
 import { formatPrice } from '~/app/formatPrice';
 import CartCard from '../cartCard/CartCard';
 import CheckoutTag from '../checkoutTag/CheckoutTag';
+import ShortButton from '../shortButton/ShortButton';
 import classes from './Cart.module.scss';
 
 export default function Cart() {
@@ -21,7 +23,7 @@ export default function Cart() {
         </Box>
         <Box className={classes.noWrapContainer}>
           {' '}
-          {formatPrice(cartPrice)} :-
+          {formatPrice(cartPrice)}:-
         </Box>
       </Box>
       <Drawer
@@ -35,9 +37,19 @@ export default function Cart() {
       >
         <Box className={classes.container2}>
           <CheckoutTag onClick={toggle} />
-          {cartState.map((item, index) => (
-            <CartCard key={index} item={item} />
-          ))}
+          {cartState.length > 0 ? (
+            cartState.map((item, index) => <CartCard key={index} item={item} />)
+          ) : (
+            <>
+              <Text>
+                Din varukorg är tom. <br />
+                Ta del av vårt utbud.
+              </Text>
+              <Link href='/menu'>
+                <ShortButton text={'Meny'} color={'orange'} onClick={toggle} />
+              </Link>
+            </>
+          )}
         </Box>
       </Drawer>
     </Box>

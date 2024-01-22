@@ -52,7 +52,7 @@ export default function CheckoutCard({ item }: ICheckoutCard) {
         <Box className={classes.titlePrice}>
           <Text w={'100%'}>{item.dish.title}</Text>
           <Text style={{ whiteSpace: 'nowrap' }}>
-            {calculateTotalPrice(item.quantity, item.dish.price)} :-
+            {calculateTotalPrice(item.quantity, item.dish.price)}:-
           </Text>
         </Box>
         <Divider mt={0} mb={0} w={'100%'} my='md' />

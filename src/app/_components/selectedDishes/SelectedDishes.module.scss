@@ -24,12 +24,12 @@
     }
   }
 
-  .bottom {
+  .information {
     grid-column: 1 / -1;
     justify-self: flex-start;
-
-    h5 {
-      margin-bottom: 8px;
-    }
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 }

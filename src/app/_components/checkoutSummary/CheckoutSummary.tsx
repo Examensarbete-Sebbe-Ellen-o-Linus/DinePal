@@ -18,7 +18,7 @@ export default function CheckoutSummary() {
       <Box className={classes.totalPrice}>
         <Text>Totalt</Text>
         <Text>
-          <strong>{formatPrice(cartPrice)} :-</strong>
+          <strong>{formatPrice(cartPrice)}:-</strong>
         </Text>
       </Box>
     </Box>

@@ -31,7 +31,7 @@ export default function CheckoutTag({ className = '', onClick }: ICheckoutTag) {
           <Text className={classes.noWrapContainer}>Till kassa</Text>
         </Box>
         <Box className={classes.noWrapContainer}>
-          {formatPrice(cartPrice)} :-
+          {formatPrice(cartPrice)}:-
         </Box>
       </Box>
     </Link>

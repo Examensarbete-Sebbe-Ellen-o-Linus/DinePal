@@ -69,7 +69,7 @@ export default function CheckoutModal({
           ))}
         </Text>
         <Text>
-          <strong>Totalpris:</strong> {formatPrice(cartPrice)} :-
+          <strong>Totalpris:</strong> {formatPrice(cartPrice)}:-
         </Text>
         <br />
         <Text>

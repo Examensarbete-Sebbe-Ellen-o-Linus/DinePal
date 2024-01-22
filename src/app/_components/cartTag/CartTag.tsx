@@ -21,7 +21,7 @@ export default function CartTag({ className = '', itemCount }: ICartTag) {
           <Text className={classes.noWrapContainer}>Till varukorg</Text>
         </Box>
         <Box className={classes.noWrapContainer}>
-          {formatPrice(cartPrice)} :-
+          {formatPrice(cartPrice)}:-
         </Box>
       </Box>
     );
