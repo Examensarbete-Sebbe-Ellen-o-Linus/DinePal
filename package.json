@@ -11,8 +11,8 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "formatCheck": "prettier --check \"**/*.{ts,tsx,css}\"",
-    "formatWrite": "prettier --write \"**/*.{ts,tsx,css}\""
+    "formatCheck": "prettier --check \"**/*.{ts,tsx,css,scss}\"",
+    "formatWrite": "prettier --write \"**/*.{ts,tsx,css,scss}\""
   },
   "dependencies": {
     "@mantine/core": "^7.4.0",
