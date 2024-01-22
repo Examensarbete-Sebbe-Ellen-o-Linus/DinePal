@@ -33,14 +33,12 @@
   border: var(--button-border);
 }
 
-@media(hover:hover) {
+@media (hover: hover) {
   .black:hover {
     background: var(--mantine-color-white-9);
   }
-  
+
   .orange:hover {
     background: var(--mantine-color-orange-1);
   }
 }
-
-
