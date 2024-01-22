@@ -82,6 +82,7 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
 // Fetch galleryPage with common selections
 export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   const additionalSelections = `
+  ...,
   title,
   "galleryImgs": galleryImgs[]{
     "alt": coalesce(alt, "No alt text"),

@@ -1,9 +1,35 @@
 import { Container, Title } from '@mantine/core';
+import type { Metadata, ResolvingMetadata } from 'next';
 import { fetchGalleryPageData } from '../../server/sanity/sanity.utils';
 import scss from './page.module.scss';
 
+// export const metadata: Metadata = {
+//   title: 'Dinepal - Galleri',
+// };
+
+export async function generateMetadata(
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  try {
+    const galleryPageData = await fetchGalleryPageData();
+    console.log('in the metadata', galleryPageData);
+    return {
+      title: 'Dinepal - ' + galleryPageData.seo.metaTitle,
+      description: galleryPageData.seo.metaDescription,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      title: 'Dinepal',
+    };
+  }
+}
+
+// export default function Page({ params, searchParams }: Props) {}
+
 export default async function GalleryPage() {
   const galleryPageData = await fetchGalleryPageData();
+  console.log(' in the component', galleryPageData);
 
   const gridPattern = [
     { col: 3, row: 1 },
