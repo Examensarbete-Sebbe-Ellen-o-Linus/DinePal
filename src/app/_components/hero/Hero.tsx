@@ -7,7 +7,6 @@ import classes from './Hero.module.scss';
 export default async function Hero({ hero }: { hero: IHero }) {
   return (
     <Box className={classes.container}>
-      {hero.description && <p>{hero.description}</p>}
       <Box className={classes.overlay} />
       {hero.image && (
         <img
