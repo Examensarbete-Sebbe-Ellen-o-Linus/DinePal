@@ -36,8 +36,8 @@ export default function CheckoutForm() {
 
   const createOrder = api.order.createOrder.useMutation({
     onSuccess: async data => {
-      setOrder(data);
-      console.log('Order created!');
+      setOrder(data); // När ordern har lyckats fås detta svar.
+      console.log('Order created! Order data:', data);
       setModalOpen(false);
       formik.resetForm();
       socket.emit('orderCreated', 'order created');
@@ -51,7 +51,12 @@ export default function CheckoutForm() {
   const adaptedCart = cartState.map(item => ({
     ...item.dish,
     quantity: item.quantity,
-    tags: { tag: item.dish.tags },
+    image: {
+      url: item.dish.image?.url || 'default-image-url',
+    },
+    tags: {
+      tag: item.dish.tags || [],
+    },
   }));
 
   const handleCreateOrder = () => {
@@ -239,6 +244,7 @@ export default function CheckoutForm() {
         onReset={resetForm}
         cartItems={cartState}
         cartPrice={cartPrice}
+        order={order}
       />
     </Box>
   );

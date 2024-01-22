@@ -21,11 +21,13 @@
       transform 0.3s ease,
       box-shadow 0.3s ease,
       transform 0.3s ease;
+      @media(hover:hover) {
+        &.hover:hover {
+          transform: translateY(-24px);
+          box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+        }
+      }
 
-    &.hover:hover {
-      transform: translateY(-24px);
-      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
-    }
 
     h6 {
       color: var(--mantine-color-gray-6);

@@ -14,8 +14,10 @@
     width: 100%;
   }
   
-  .container:hover {
-    background: var(--mantine-color-white-9);
+  @media(hover:hover) {
+    .container:hover {
+      background: var(--mantine-color-white-9);
+    }
   }
   
   .container:active {

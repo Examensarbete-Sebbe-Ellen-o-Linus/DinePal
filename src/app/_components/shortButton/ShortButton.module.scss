@@ -26,10 +26,6 @@
   border: var(--button-border);
 }
 
-.black:hover {
-  background: var(--mantine-color-white-9);
-}
-
 .orange {
   --button-background: var(--mantine-color-orange-3);
   --button-text-color: var(--mantine-color-black-3);
@@ -37,6 +33,14 @@
   border: var(--button-border);
 }
 
-.orange:hover {
-  background: var(--mantine-color-orange-1);
+@media(hover:hover) {
+  .black:hover {
+    background: var(--mantine-color-white-9);
+  }
+  
+  .orange:hover {
+    background: var(--mantine-color-orange-1);
+  }
 }
+
+
