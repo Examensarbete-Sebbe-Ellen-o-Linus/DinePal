@@ -7,7 +7,7 @@ import CheckoutSummary from '../_components/checkoutSummary/CheckoutSummary';
 import classes from './page.module.scss';
 
 export const metadata: Metadata = {
-  title: 'Dinepal - Checkout',
+  title: 'Dinepal - Kassa',
 };
 
 export default async function Checkout() {

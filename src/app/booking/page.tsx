@@ -3,7 +3,7 @@ import { fetchBookingPageData } from '../../server/sanity/sanity.utils';
 import BookingContent from '../_components/bookingContent/BookingContent';
 
 export const metadata: Metadata = {
-  title: 'Dinepal - Booking',
+  title: 'Dinepal - Bordsbokning',
 };
 
 export default async function Booking() {

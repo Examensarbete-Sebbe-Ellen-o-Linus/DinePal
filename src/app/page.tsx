@@ -9,7 +9,7 @@ import News from './_components/news/News';
 import SelectedDishes from './_components/selectedDishes/SelectedDishes';
 
 export const metadata: Metadata = {
-  title: 'Dinepal - Home',
+  title: 'Dinepal - Hem',
 };
 
 export default async function Home() {
