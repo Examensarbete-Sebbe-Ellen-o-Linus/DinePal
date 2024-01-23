@@ -1,6 +1,7 @@
+@import '../../../styles/mantine';
+
 .card {
   display: flex;
-  width: 328px;
   padding: 16px;
   flex-direction: column;
   align-items: flex-start;
@@ -20,8 +21,8 @@
 }
 
 .image {
-  height: 326px;
-  width: 300px;
+  height: 240px;
+  width: 100%;
   border-radius: var(--mantine-radius-primary);
   transition:
     transform 0.3s ease,
@@ -32,6 +33,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    height: 360px;
+  }
+
+  @media (max-width: 400px) {
+    height: 240px;
+  }
 }
 
 .top {

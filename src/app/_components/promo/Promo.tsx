@@ -27,7 +27,7 @@ export default function Promo() {
 
   return (
     <Box className={scss.container}>
-      <Container size={1120}>
+      <Container p={0} maw={1120}>
         {!error ? (
           promo && (
             <>

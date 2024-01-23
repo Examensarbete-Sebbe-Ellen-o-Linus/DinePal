@@ -1,9 +1,9 @@
 @import '../../../styles/mantine';
 
 .container {
-  padding: 48px 0;
+  padding: 48px 32px;
   @media (max-width: $mantine-breakpoint-sm) {
-    padding: 0 0 48px 0;
+    padding: 0 16px 48px;
   }
 
   h2 {
@@ -58,17 +58,22 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 328px);
+  margin: 0 auto; 
+  grid-template-columns: repeat(4, minmax(0, 1fr)); 
   gap: 32px 24px;
-  justify-content: center;
+  // justify-content: center;
 
   @media (max-width: $mantine-breakpoint-lg) {
-    grid-template-columns: repeat(2, 328px);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   @media (max-width: $mantine-breakpoint-sm) {
-    grid-template-columns: repeat(1, 328px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 250px;
+  }
+
+  @media (max-width:  $mantine-breakpoint-xs) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 
