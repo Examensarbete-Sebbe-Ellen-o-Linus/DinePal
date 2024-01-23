@@ -38,6 +38,7 @@
       width: 352px;
       height: 480px;
       transition: transform 0.5s ease;
+      background-color: rgb(28, 26, 26);
 
       @media (max-width: $mantine-breakpoint-sm) {
         width: 100%;
