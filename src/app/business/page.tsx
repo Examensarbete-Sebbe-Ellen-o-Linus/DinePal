@@ -17,23 +17,22 @@ export default async function BusinessPage() {
   const session = await getServerAuthSession();
 
   return (
-    <div>
-      <p>
-        {!session && (
-          <Box className={classes.loginSection}>
-            <Text>Logga in för att att få tillgång till denna sidan.</Text>
-            <Button>
-              <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
-                {session ? 'Logga ut' : 'Logga in'}
-              </Link>
-            </Button>
-          </Box>
-        )}
-      </p>
+    <Box>
+      {!session && (
+        <Box className={classes.loginSection}>
+          <Text>Logga in för att att få tillgång till denna sidan.</Text>
+          <Button>
+            <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
+              {session ? 'Logga ut' : 'Logga in'}
+            </Link>
+          </Button>
+        </Box>
+      )}
+
       {/* <p>{session && <Text>Inloggad som {session.user?.name}</Text>}</p> */}
 
       {session && (
-        <Box>
+        <Box style={{ width: '100%' }}>
           {/* <Button>
             <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
               {session ? 'Logga ut' : 'Logga in'}
@@ -42,7 +41,7 @@ export default async function BusinessPage() {
           <AdminPanel />
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

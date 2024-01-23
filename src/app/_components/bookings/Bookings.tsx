@@ -1,20 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { Box } from '@mantine/core';
+import { Box, Divider, Text } from '@mantine/core';
 import { DatePicker, type DatePickerProps } from '@mantine/dates';
+import '@mantine/dates/styles.css';
 import { useMediaQuery } from '@mantine/hooks';
+import type { TableBooking } from '@prisma/client';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { theme } from '~/app/_theme/theme';
 import { api } from '~/trpc/react';
 import classes from './Bookings.module.scss';
 
 export default function Bookings() {
-  const bookings = api.booking.getTableBookings.useQuery();
+  const { data: bookings } = api.booking.getTableBookings.useQuery();
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [choosenDate, setChoosenDate] = useState<Date | null>(new Date());
-  console.log('bokningar:', bookings.data);
+  const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
+  console.log('bokningar:', bookings);
 
   const getDayProps: DatePickerProps['getDayProps'] = date => {
     const specialDates = ['2024-01-10', '2024-01-8', '2024-01-6'];
@@ -42,11 +45,21 @@ export default function Bookings() {
     }
     return {};
   };
+
+  useEffect(() => {
+    if (bookings && choosenDate) {
+      const bookingsOfChoosenDay = bookings.filter(booking =>
+        dayjs(booking.date).isSame(choosenDate, 'day')
+      );
+      setFilteredBookings(bookingsOfChoosenDay);
+      console.log('filteredBookings:', filteredBookings);
+    }
+  }, [choosenDate, bookings]);
   return (
     <>
       <h1>Bookings</h1>
       <Box className={classes.container}>
-        <Box className={classes.datePickerWrapper}>
+        <Box>
           <DatePicker
             size={isDesktop ? 'xl' : 'sm'}
             // minDate={minSelectableDate}
@@ -58,7 +71,21 @@ export default function Bookings() {
               setChoosenDate(date);
             }}
           />
-          <Box className={classes.datePickerOverlay} />
+        </Box>
+        <Box>
+          <h2>Bokningar för vald dag:</h2>
+
+          {filteredBookings.length > 0 ? (
+            filteredBookings.map(b => (
+              <Box key={b.id}>
+                <Text>{b.date.toDateString()}</Text>
+                <Text>{b.email}</Text>
+                <Divider />
+              </Box>
+            ))
+          ) : (
+            <Text>Inga Bokningar idag</Text>
+          )}
         </Box>
       </Box>
     </>
