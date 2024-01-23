@@ -17,7 +17,6 @@ interface Props {
 export default function DishCard({ dish }: Props) {
   const { handleAddToCart } = useCart();
   const menuLink = `/menu#${dish?.slug?.current ?? '/menu'}`;
-  console.log('dish image:', dish.image);
 
   return (
     <Box className={classes.card} id={dish.slug.current}>

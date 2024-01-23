@@ -1,9 +1,9 @@
 'use client';
 import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { IDish, IMenuPage } from '~/app/interfaces';
+import { type IDish, type IMenuPage } from '~/app/interfaces';
 import MenuDishCard from '../menuDishCard/MenuDishCard';
-import { IconKey, tagDetails } from '../tags/Tags';
+import { tagDetails, type IconKey } from '../tags/Tags';
 import scss from './menuContent.module.scss';
 
 interface Props {
