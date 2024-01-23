@@ -11,6 +11,7 @@ import {
 } from '@mantine/core';
 import type { Order, Orderstatus } from '@prisma/client';
 import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en.json';
 import sv from 'javascript-time-ago/locale/sv.json';
 import ReactTimeAgo from 'react-time-ago';
 import { api } from '~/trpc/react';
@@ -21,8 +22,10 @@ type Props = {
   order: Order;
 };
 
+TimeAgo.addDefaultLocale(sv);
+TimeAgo.addLocale(en);
+
 export default function OrderCard({ order }: Props) {
-  TimeAgo.addDefaultLocale(sv);
   const quantity = order.cart.dish.reduce((acc, dish) => {
     return acc + dish.quantity;
   }, 0);
@@ -154,7 +157,7 @@ export default function OrderCard({ order }: Props) {
           <Box>
             {order && order.orderStatus !== 'completed' && (
               <Text className={classes.timeAgo}>
-                Tillagd <ReactTimeAgo date={order.createdAt!} />
+                Tillagd <ReactTimeAgo locale='sv' date={order.createdAt!} />
               </Text>
             )}
             <Text>

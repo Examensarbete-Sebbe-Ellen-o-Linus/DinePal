@@ -1,7 +1,12 @@
 import { Container, Title } from '@mantine/core';
+import type { Metadata } from 'next';
 import { fetchGalleryPageData } from '../../server/sanity/sanity.utils';
 import CustomCropImage from '../_components/customCropImage/CustomCropImage';
 import scss from './page.module.scss';
+
+export const metadata: Metadata = {
+  title: 'Dinepal - Galleri',
+};
 
 export default async function GalleryPage() {
   const galleryPageData = await fetchGalleryPageData();
