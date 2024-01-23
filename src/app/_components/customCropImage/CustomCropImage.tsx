@@ -7,13 +7,15 @@ interface Props {
   hotspot?: boolean;
 }
 
-const CustomCropImage = ({ image, className, hotspot }: Props) => {
-  let src = image.url;
-  console.log('this is the image: ', image);
-  console.log('this is the image hotspot: ', image.hotspot);
-  console.log('this is the image crop: ', image.crop);
+export default function CustomCropImage({ image, className, hotspot }: Props) {
+  let src = '';
 
-  const customHotspot = (hotspot: IImage['hotspot']) => {
+  const customHotspot = (hotspot: {
+    x: number;
+    y: number;
+    width?: number;
+    height?: number;
+  }) => {
     if (!hotspot || !hotspot.x || !hotspot.y) {
       return { objectPosition: 'center' };
     }
@@ -24,32 +26,41 @@ const CustomCropImage = ({ image, className, hotspot }: Props) => {
 
   const hotspotStyle = hotspot ? customHotspot(image.hotspot) : {};
 
-  if (image.assetId) {
+  if (image && image.assetId) {
     try {
-      const hotspot = image.hotspot ?? { x: 0.5, y: 0.5 };
-      const crop = image.crop ?? { top: 0, bottom: 0, left: 0, right: 0 };
-      src = urlFor({ _id: image.assetId, crop, hotspot }).url();
-      // if (image.alt === 'Fork with pasta') {
-      //   console.log('This is the pasta image and url');
-      //   console.log(src);
-      // } else {
-      //   console.log('other images');
-      //   console.log(src);
-      // }
+      const imageObj = buildImageObj(image);
+      src = urlFor(imageObj).url();
+      console.log('this works, image: ', image);
     } catch (error) {
       console.error('Error building image URL:', error);
     }
+  } else if (image && image.url) {
+    src = image.url;
   } else {
-    console.log('No image assetId found for image:', image);
+    console.log('No assetId or url was found for image:', image);
   }
+
   return (
     <img
       className={className}
       src={src}
-      alt={image.alt ?? 'Default alt text'}
+      alt={image?.alt ?? 'Default alt text'}
       style={hotspotStyle}
     />
   );
-};
+}
 
-export default CustomCropImage;
+export function buildImageObj(source: IImage) {
+  const imageObj: {
+    asset: { _ref: string };
+    crop?: IImage['crop'];
+    hotspot?: IImage['hotspot'];
+  } = {
+    asset: { _ref: source.assetId },
+  };
+
+  if (source.crop) imageObj.crop = source.crop;
+  if (source.hotspot) imageObj.hotspot = source.hotspot;
+
+  return imageObj;
+}

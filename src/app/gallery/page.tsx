@@ -1,6 +1,6 @@
 import { Container, Title } from '@mantine/core';
 import { fetchGalleryPageData } from '../../server/sanity/sanity.utils';
-import CustomCrop from '../_components/customImage/CustomCrop';
+import CustomCropImage from '../_components/customCropImage/CustomCropImage';
 import scss from './page.module.scss';
 
 export default async function GalleryPage() {
@@ -35,7 +35,7 @@ export default async function GalleryPage() {
           return (
             <div key={index} className={scss.col} style={style}>
               {image.url && (
-                <CustomCrop image={image} className={scss.image} hotspot />
+                <CustomCropImage image={image} className={scss.image} hotspot />
               )}
             </div>
           );
