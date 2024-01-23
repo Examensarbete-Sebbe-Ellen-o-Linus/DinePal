@@ -4,6 +4,21 @@ export interface IImage {
   url: string;
   alt?: string;
   link?: IButton;
+  assetId: string;
+  hotspot: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+  crop: {
+    top: number;
+    left: number;
+    bottom: number;
+    right: number;
+    width: number;
+    height: number;
+  };
 }
 
 // Button interface
