@@ -81,7 +81,7 @@ export default function Bookings() {
               </Box>
             ))
           ) : (
-            <Text>Inga Bokningar idag</Text>
+            <Text>Inga Bokningar denna dag</Text>
           )}
         </Box>
       </Box>
