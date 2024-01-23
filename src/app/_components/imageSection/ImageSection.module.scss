@@ -6,7 +6,7 @@
   background: var(--mantine-color-black-3);
   display: flex;
   margin-bottom: calc(198px - 35px);
- 
+
   @media (max-width: $mantine-breakpoint-sm) {
     transform: none;
     margin-top: 273px;
@@ -25,7 +25,6 @@
     display: inline-flex;
     align-items: flex-start;
     gap: 34px;
-
 
     @media (max-width: $mantine-breakpoint-sm) {
       flex-wrap: wrap;
