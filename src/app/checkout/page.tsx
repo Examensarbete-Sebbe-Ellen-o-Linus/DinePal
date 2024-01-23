@@ -1,9 +1,14 @@
 import { Box, Container, Text, Title } from '@mantine/core';
 
+import type { Metadata } from 'next';
 import { fetchCheckoutPageData } from '~/server/sanity/sanity.utils';
 import CheckoutForm from '../_components/checkoutForm/CheckoutForm';
 import CheckoutSummary from '../_components/checkoutSummary/CheckoutSummary';
 import classes from './page.module.scss';
+
+export const metadata: Metadata = {
+  title: 'Dinepal - Kassa',
+};
 
 export default async function Checkout() {
   const checkoutPageData = await fetchCheckoutPageData();

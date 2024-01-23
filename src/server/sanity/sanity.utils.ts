@@ -82,6 +82,7 @@ export const fetchHomePageData = async (): Promise<IHomePage> => {
 // Fetch galleryPage with common selections
 export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   const additionalSelections = `
+  ...,
   title,
   "galleryImgs": galleryImgs[]{
     "alt": coalesce(alt, "No alt text"),
@@ -95,6 +96,7 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
 // Fetch checkoutPage with common selections
 export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
   const additionalSelections = `
+  ...,
   title,
   "checkoutImg": {
     "alt": coalesce(checkoutImg.alt, "No alt text"),
@@ -108,6 +110,7 @@ export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
 
 export const fetchBookingPageData = async (): Promise<IBookingPage> => {
   const additionalSelections = `
+  ...,
   title,
   text
   `
@@ -116,6 +119,7 @@ export const fetchBookingPageData = async (): Promise<IBookingPage> => {
 
 export const fetchMenuPageData = async (): Promise<IMenuPage> => {
   const additionalSelections = `
+  ...,
   title,
   promo {
     text, 

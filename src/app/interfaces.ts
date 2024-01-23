@@ -87,6 +87,7 @@ export interface IBookingPage {
   _type: 'bookingPage';
   title: string;
   text: string;
+  seo: ISEO;
 }
 
 // Image section
@@ -150,6 +151,7 @@ export interface INews {
 export interface IMenuPage {
   title: string;
   promo: IPromo;
+  seo: ISEO;
 }
 export interface IPromo {
   text: string;
