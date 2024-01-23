@@ -2,22 +2,21 @@ import { Box, Divider, Text, Title } from '@mantine/core';
 import { useCart } from 'context/cartContext';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
+import CustomCrop from '../customImage/CustomCrop';
 import PlaceholderSmall from '../placeholderSmall/PlaceholderSmall';
 import Tags from '../tags/Tags';
 import classes from './MenuDishCard.module.scss';
 
 export default function MenuDishCard({ dish }: { dish: IDish }) {
   const { handleAddToCart } = useCart();
+  console.log('dish object:', dish);
+  console.log('dish.image:', dish.image);
 
   return (
     <Box className={classes.card} id={dish.slug.current}>
-      {dish.image.url ? (
+      {dish.image?.url ? (
         <Box>
-          <img
-            className={classes.image}
-            src={dish.image.url}
-            alt={dish.image.alt}
-          />
+          <CustomCrop image={dish.image} className={classes.image} />
         </Box>
       ) : (
         <PlaceholderSmall />
