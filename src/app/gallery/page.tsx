@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 export default async function GalleryPage() {
   const galleryPageData = await fetchGalleryPageData();
-  console.log(' in the component', galleryPageData);
 
   const gridPattern = [
     { col: 3, row: 1 },
