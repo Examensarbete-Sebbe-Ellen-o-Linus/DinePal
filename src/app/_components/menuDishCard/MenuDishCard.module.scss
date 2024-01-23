@@ -9,6 +9,9 @@
   border-radius: var(--mantine-radius-primary);
   background: var(--mantine-color-white-0);
   box-shadow: var(--mantine-shadow-primary);
+  > div {
+    width: 100%;
+  }
 }
 
 .card:active {
@@ -34,13 +37,6 @@
   align-items: center;
   justify-content: center;
 
-  @media (max-width: $mantine-breakpoint-xs) {
-    height: 360px;
-  }
-
-  @media (max-width: 400px) {
-    height: 240px;
-  }
 }
 
 .top {

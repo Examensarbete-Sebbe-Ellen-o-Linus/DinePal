@@ -81,6 +81,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         }
         return newCart;
       }, [] as CartItem[]);
+      setCartState(updatedCart);
       notificationMessage = `${quantityToAdd}x ${newDish.title} är nu tillagd i din varukorg.`;
     }
 

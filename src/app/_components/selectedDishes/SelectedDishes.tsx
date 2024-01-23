@@ -1,5 +1,3 @@
-'use client';
-
 import { Box, Container, Text, Title } from '@mantine/core';
 import Link from 'next/link';
 import type { IDish } from '../../interfaces';
@@ -13,7 +11,7 @@ export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
       <Box className={scss.grid}>
         <Title order={2}>Favoriter</Title>
         {dishes.map((dish, i) => (
-          <DishCard key={i} showDescription={false} dish={dish} />
+          <DishCard key={i} dish={dish} />
         ))}
         <Box className={scss.information}>
           <Text>

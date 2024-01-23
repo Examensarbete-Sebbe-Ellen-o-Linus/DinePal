@@ -4,6 +4,7 @@ import { type CartItem } from 'context/initializers';
 import { useEffect, useState } from 'react';
 import { type IImage } from '~/app/interfaces';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
+import CustomCropImage from '../customCropImage/CustomCropImage';
 import Quantity from '../quantityButton/QuantityButton';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 import classes from './CartCard.module.scss';
@@ -32,7 +33,7 @@ export default function CartCard({ item }: ICartCard) {
   return (
     <Box className={classes.container}>
       {item.dish.image.url ? (
-        <img src={item.dish.image.url} alt={item.dish.image.alt} />
+        <CustomCropImage image={item.dish.image} />
       ) : (
         <img src={logo?.url} alt={logo?.alt} className={classes.error} />
       )}

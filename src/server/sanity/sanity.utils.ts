@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+import imageUrlBuilder from '@sanity/image-url'
+import {type SanityImageSource} from '@sanity/image-url/lib/types/types'
 import {createClient} from 'next-sanity'
 import type {
   IBookingPage,
@@ -40,12 +42,21 @@ const buttonSelection = `
   }
 `
 
+const builder = imageUrlBuilder(client)
+
+export function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+
 // Common selection for images nested in other documents
 const imageSelection = `
   "image": {
     "alt": coalesce(image.alt, "No alt text"),
     "url": image.asset->url,
-    "_key": string,
+    "assetId": image.asset._ref,
+    "_key": image._key,
+    "hotspot": image.hotspot,
+    "crop": image.crop,
   }
 `
 
@@ -55,7 +66,7 @@ const imageSelection = `
 export const fetchHomePageData = async (): Promise<IHomePage> => {
   const additionalSelections = `
       title,
-      hero { title, ${imageSelection}, ${buttonSelection}, description },
+      hero { title, ${imageSelection}, ${buttonSelection} },
       selectedDishes[]-> { title, description, price, slug, ${imageSelection}, tags[] },
       imageSection { 
         title, 
@@ -84,11 +95,14 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
   const additionalSelections = `
   ...,
   title,
-  "galleryImgs": galleryImgs[]{
+  galleryImgs[]{
     "alt": coalesce(alt, "No alt text"),
     "url": asset->url,
-    "key": _key
-  }  
+    "assetId": asset._ref,
+    "key": _key,
+    hotspot,
+    crop,
+  }
   `
   return fetchDocumentById('galleryPage', additionalSelections)
 }
@@ -100,10 +114,10 @@ export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
   title,
   "checkoutImg": {
     "alt": coalesce(checkoutImg.alt, "No alt text"),
-    "url": checkoutImg.asset->url
-  }
-
-  
+    "url": checkoutImg.asset->url,
+    crop,
+    hotspot
+  }  
   `
   return fetchDocumentById('checkoutPage', additionalSelections)
 }
@@ -124,6 +138,9 @@ export const fetchMenuPageData = async (): Promise<IMenuPage> => {
   promo {
     text, 
     button
+  },
+  seo {
+    metaTitle, ...
   }
   `
   return fetchDocumentById('menuPage', additionalSelections)
@@ -136,9 +153,12 @@ export const fetchDishes = async (): Promise<IDish[]> => {
       slug,
       description,
       "image": {
+        "assetId": image.asset._ref,
         "alt": coalesce(image.alt, "No alt text"),
         "url": image.asset->url,
-        "_key": image._key
+        "_key": image._key,
+        "hotspot": image.hotspot,
+        "crop": image.crop,
       },
       price,
       tags[]
@@ -158,6 +178,7 @@ export const fetchSingleDish = async (slug: string): Promise<IDish> => {
     "image": {
       "alt": coalesce(image.alt, "No alt text"),
       "url": image.asset->url,
+      "hotspot": {...}, 
     },    
     price,
     tags[]

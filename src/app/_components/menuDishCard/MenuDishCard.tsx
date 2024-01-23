@@ -2,6 +2,7 @@ import { Box, Divider, Text, Title } from '@mantine/core';
 import { useCart } from 'context/cartContext';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
+import CustomCropImage from '../customCropImage/CustomCropImage';
 import PlaceholderSmall from '../placeholderSmall/PlaceholderSmall';
 import Tags from '../tags/Tags';
 import classes from './MenuDishCard.module.scss';
@@ -11,13 +12,9 @@ export default function MenuDishCard({ dish }: { dish: IDish }) {
 
   return (
     <Box className={classes.card} id={dish.slug.current}>
-      {dish.image.url ? (
+      {dish.image?.url ? (
         <Box>
-          <img
-            className={classes.image}
-            src={dish.image.url}
-            alt={dish.image.alt}
-          />
+          <CustomCropImage image={dish.image} className={classes.image} />
         </Box>
       ) : (
         <PlaceholderSmall />

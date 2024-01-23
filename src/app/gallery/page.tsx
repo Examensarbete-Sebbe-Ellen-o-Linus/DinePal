@@ -1,6 +1,7 @@
 import { Container, Title } from '@mantine/core';
 import type { Metadata } from 'next';
 import { fetchGalleryPageData } from '../../server/sanity/sanity.utils';
+import CustomCropImage from '../_components/customCropImage/CustomCropImage';
 import scss from './page.module.scss';
 
 export const metadata: Metadata = {
@@ -38,7 +39,9 @@ export default async function GalleryPage() {
           };
           return (
             <div key={index} className={scss.col} style={style}>
-              <img src={image.url} alt={image.alt} className={scss.image} />
+              {image.url && (
+                <CustomCropImage image={image} className={scss.image} hotspot />
+              )}
             </div>
           );
         })}
