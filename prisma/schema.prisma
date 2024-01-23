@@ -118,3 +118,26 @@ model Order {
     totalPrice  Int
     orderNumber String
 }
+
+enum BookingStatus {
+    received
+    cancelled
+    booked
+    bookedAndConfirmed
+}
+
+model TableBooking {
+    id            String        @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt     DateTime?     @default(now())
+    updatedAt     DateTime?     @updatedAt
+    tableNumber   Int
+    date          DateTime
+    time          String
+    email         String
+    commentary    String?
+    firstName     String
+    lastName      String
+    phone         String
+    guests        Int
+    bookingStatus BookingStatus @default(received)
+}

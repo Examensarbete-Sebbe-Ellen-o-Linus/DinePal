@@ -148,6 +148,7 @@ export default function BookingForm() {
     void formik.validateForm().then(errors => {
       if (Object.keys(errors).length === 0) {
         setModalOpen(true);
+        console.log('values:', formik.values);
       }
     });
   }
