@@ -9,8 +9,6 @@ import classes from './MenuDishCard.module.scss';
 
 export default function MenuDishCard({ dish }: { dish: IDish }) {
   const { handleAddToCart } = useCart();
-  console.log('dish object:', dish);
-  console.log('dish.image:', dish.image);
 
   return (
     <Box className={classes.card} id={dish.slug.current}>
