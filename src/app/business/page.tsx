@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
-import Orders from '../_components/orders/Orders';
+import AdminPanel from '../_components/adminPanel/AdminPanel';
 import classes from './businessPage.module.scss';
 
 export const metadata: Metadata = {
@@ -30,17 +30,16 @@ export default async function BusinessPage() {
           </Box>
         )}
       </p>
-      <p>{session && <Text>Inloggad som {session.user?.name}</Text>}</p>
+      {/* <p>{session && <Text>Inloggad som {session.user?.name}</Text>}</p> */}
 
       {session && (
         <Box>
-          <Button>
+          {/* <Button>
             <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
               {session ? 'Logga ut' : 'Logga in'}
             </Link>
-          </Button>
-
-          <Orders />
+          </Button> */}
+          <AdminPanel />
         </Box>
       )}
     </div>

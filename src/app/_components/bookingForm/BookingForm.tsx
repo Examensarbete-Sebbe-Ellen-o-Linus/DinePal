@@ -9,15 +9,17 @@ import 'dayjs/locale/sv';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
+import { showNotification } from '@mantine/notifications';
 import { theme } from '~/app/_theme/theme';
 import { bookingFormValidation } from '~/app/_validation/bookingFormValidation';
+import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
 import classes from './BookingForm.module.scss';
 import BookingModal from './components/BookingModal';
 
 export interface FormikValues {
   guests: string;
-  date: Date | null;
+  date: Date;
   time: string;
   firstName: string;
   lastName: string;
@@ -32,6 +34,32 @@ export default function BookingForm() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectKey, setSelectKey] = useState('');
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
+
+  const bookTable = api.booking.createTableBooking.useMutation({
+    onSuccess: async data => {
+      showNotification({
+        title: 'Bokning skickad',
+        message:
+          'Tack för din bokning! Vi återkommer med en bekräftelse så snart som möjligt.',
+        color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
+      });
+      console.log('data bree', data);
+    },
+  });
+
+  const handleTableBooking = () => {
+    bookTable.mutate({
+      guests: formik.values.guests.toString(),
+      date: formik.values.date,
+      time: formik.values.time,
+      email: formik.values.email,
+      commentary: formik.values.commentary,
+      firstName: formik.values.firstName,
+      lastName: formik.values.lastName,
+      phone: formik.values.phone,
+      bookingStatus: 'received',
+    });
+  };
 
   // Supplies the user with available booking times. It will differ depending on which time and day the booking is made on
   // This is now hardcoded. Come back and make the time for booking dynamic.
@@ -110,7 +138,7 @@ export default function BookingForm() {
   const formik = useFormik({
     initialValues: {
       guests: '',
-      date: null,
+      date: new Date(),
       time: '',
       firstName: '',
       lastName: '',
@@ -312,7 +340,7 @@ export default function BookingForm() {
         formikValues={formik.values}
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={handleSubmitForm}
+        onConfirm={() => handleTableBooking()}
         onReset={resetForm}
       />
     </Box>

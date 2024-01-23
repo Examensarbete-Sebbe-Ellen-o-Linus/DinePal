@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '~/server/api/trpc';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from '~/server/api/trpc';
 
 export const bookingRouter = createTRPCRouter({
   create: publicProcedure
@@ -13,7 +17,7 @@ export const bookingRouter = createTRPCRouter({
   createTableBooking: publicProcedure
     .input(
       z.object({
-        tableNumber: z.number(),
+        tableNumber: z.number().optional(),
         date: z.date(),
         time: z.string(),
         email: z.string().min(4),
@@ -21,7 +25,7 @@ export const bookingRouter = createTRPCRouter({
         firstName: z.string().min(2),
         lastName: z.string().min(2),
         phone: z.string().min(7),
-        guests: z.number(),
+        guests: z.string(),
         bookingStatus: z.enum([
           'received',
           'booked',
@@ -37,5 +41,47 @@ export const bookingRouter = createTRPCRouter({
         },
       });
       return newTableBooking;
+    }),
+
+  changeTableBookingStatus: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        bookingStatus: z.enum([
+          'received',
+          'booked',
+          'cancelled',
+          'bookedAndConfirmed',
+        ]),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const updatedTableBooking = await ctx.db.tableBooking.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          bookingStatus: input.bookingStatus,
+        },
+      });
+      return updatedTableBooking;
+    }),
+
+  deleteTableBooking: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const deletedTableBooking = await ctx.db.tableBooking.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return deletedTableBooking;
+    }),
+
+  getTableBookings: protectedProcedure
+    // .input(z.object({}))
+    .query(async ({ ctx }) => {
+      const tableBookings = await ctx.db.tableBooking.findMany();
+      return tableBookings;
     }),
 });

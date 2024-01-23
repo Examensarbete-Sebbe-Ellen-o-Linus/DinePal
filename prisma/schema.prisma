@@ -130,7 +130,7 @@ model TableBooking {
     id            String        @id @default(auto()) @map("_id") @db.ObjectId
     createdAt     DateTime?     @default(now())
     updatedAt     DateTime?     @updatedAt
-    tableNumber   Int
+    tableNumber   Int?
     date          DateTime
     time          String
     email         String
@@ -138,6 +138,6 @@ model TableBooking {
     firstName     String
     lastName      String
     phone         String
-    guests        Int
+    guests        String?
     bookingStatus BookingStatus @default(received)
 }
