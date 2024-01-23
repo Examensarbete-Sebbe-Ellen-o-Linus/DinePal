@@ -31,16 +31,18 @@ export default function Promo() {
         {!error ? (
           promo && (
             <>
-              <Title order={6} className={scss.text}>
-                {promo.text}
-              </Title>
-              <LongButton
-                text={promo.button?.text ?? 'Default Text'}
-                color={'orange'}
-                onClick={() =>
-                  (window.location.href = `/${promo.button?.pageType}`)
-                }
-              />
+              <Box className={scss.innerContainer}>
+                <Title order={6} className={scss.text}>
+                  {promo.text}
+                </Title>
+                <LongButton
+                  text={promo.button?.text ?? 'Default Text'}
+                  color={'orange'}
+                  onClick={() =>
+                    (window.location.href = `/${promo.button?.pageType}`)
+                  }
+                />
+              </Box>
             </>
           )
         ) : (
