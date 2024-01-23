@@ -1,5 +1,5 @@
 'use client';
-import { Box, Burger, Drawer, Image } from '@mantine/core';
+import { Box, Burger, Drawer, Image, Title } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 import Link from 'next/link';
@@ -60,7 +60,9 @@ export default function Header({ header }: { header: IHeader }) {
                     href={generateUrl(navLink.pageType)}
                     onClick={closeDrawer}
                   >
-                    {navLink.text}
+                    <Title className={classes.link} order={6}>
+                      {navLink.text}
+                    </Title>
                   </Link>
                 </React.Fragment>
               ))}
