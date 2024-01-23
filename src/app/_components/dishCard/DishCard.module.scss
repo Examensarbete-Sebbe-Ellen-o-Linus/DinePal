@@ -1,9 +1,10 @@
 .card {
   display: flex;
-  width: 328px;
+  max-width:100%;
   padding: 16px;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   gap: 16px;
   border-radius: var(--mantine-radius-primary);
   background: var(--mantine-color-white-0);
@@ -20,8 +21,8 @@
 }
 
 .image {
-  height: 326px;
-  width: 300px;
+  height: 240px;
+  width: 100%;
   border-radius: var(--mantine-radius-primary);
   transition:
     transform 0.3s ease,
@@ -65,13 +66,5 @@
 
 .iconContainer {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   gap: 8px;
-  align-self: stretch;
-}
-
-.line {
-  width: 296px;
-  height: 1px;
 }

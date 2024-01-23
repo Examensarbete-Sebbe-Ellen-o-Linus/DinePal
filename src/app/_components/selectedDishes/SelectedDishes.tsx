@@ -9,7 +9,11 @@ import scss from './SelectedDishes.module.scss';
 
 export default function SelectedDishes({ dishes }: { dishes: IDish[] }) {
   return (
-    <Container size={1120} className={scss.container}>
+    <Container
+      style={{ border: '2px solid red' }}
+      size={1120}
+      className={scss.container}
+    >
       <Box className={scss.grid}>
         <Title order={2}>Favoriter</Title>
         {dishes.map((dish, i) => (
