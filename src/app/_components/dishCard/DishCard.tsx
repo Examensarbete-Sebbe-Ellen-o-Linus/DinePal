@@ -8,7 +8,6 @@ import Tags from '../tags/Tags';
 import classes from './DishCard.module.scss';
 
 interface Props {
-  showDescription: boolean;
   dish: IDish;
 }
 
@@ -38,7 +37,6 @@ export default function DishCard({ showDescription, dish }: Props) {
             </Link>
             <Text>{dish.price}:-</Text>
           </Box>
-          {showDescription && <Text>{dish.description}</Text>}
         </Box>
         <Box className={classes.bottom}>
           <Box className={classes.iconContainer}>
