@@ -30,7 +30,6 @@ export default function CustomCropImage({ image, className, hotspot }: Props) {
     try {
       const imageObj = buildImageObj(image);
       src = urlFor(imageObj).url();
-      console.log('this works, image: ', image);
     } catch (error) {
       console.error('Error building image URL:', error);
     }
