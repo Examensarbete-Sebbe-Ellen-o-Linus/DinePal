@@ -1,9 +1,15 @@
 import { Box, Button, Text } from '@mantine/core';
 import { PrismaClient } from '@prisma/client';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
 import Orders from '../_components/orders/Orders';
 import classes from './businessPage.module.scss';
+
+export const metadata: Metadata = {
+  title: 'Dinepal - Business',
+  description: 'Dinepal - Business',
+};
 
 export default async function BusinessPage() {
   const prisma = new PrismaClient();

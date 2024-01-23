@@ -109,6 +109,7 @@ export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
 
 export const fetchBookingPageData = async (): Promise<IBookingPage> => {
   const additionalSelections = `
+  ...,
   title,
   text
   `
@@ -117,6 +118,7 @@ export const fetchBookingPageData = async (): Promise<IBookingPage> => {
 
 export const fetchMenuPageData = async (): Promise<IMenuPage> => {
   const additionalSelections = `
+  ...,
   title,
   promo {
     text, 
