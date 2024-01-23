@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { Box, Divider, Text } from '@mantine/core';
+import { Box, Button, Divider, Text } from '@mantine/core';
 import { DatePicker, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import { useMediaQuery } from '@mantine/hooks';
@@ -14,6 +14,7 @@ import classes from './Bookings.module.scss';
 
 export default function Bookings() {
   const { data: bookings } = api.booking.getTableBookings.useQuery();
+  const bookedDates = bookings?.map(booking => dayjs(booking.date));
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [choosenDate, setChoosenDate] = useState<Date | null>(new Date());
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
@@ -26,14 +27,8 @@ export default function Bookings() {
       styles.backgroundColor = theme.colors?.black?.[3] ?? '#221F1F';
     }
 
-    if (date.getDate() === 29 && date.getMonth() === 0) {
-      styles.backgroundColor = theme.colors?.red?.[6] ?? '#FA5252';
-      styles.color = theme.colors?.white?.[1] ?? '#ffffff';
-      styles.borderRadius = '50%';
-    }
-
     if (
-      specialDates.some(specialDate => dayjs(date).isSame(specialDate, 'day'))
+      bookedDates?.some(bookedDates => dayjs(date).isSame(bookedDates, 'day'))
     ) {
       styles.backgroundColor = theme.colors?.red?.[6] ?? '#FA5252';
       styles.color = theme.colors?.white?.[1] ?? '#ffffff';
@@ -80,6 +75,8 @@ export default function Bookings() {
               <Box key={b.id}>
                 <Text>{b.date.toDateString()}</Text>
                 <Text>{b.email}</Text>
+                <Text>Status: {b.bookingStatus}</Text>
+                <Button>Ändra status på bokning</Button>
                 <Divider />
               </Box>
             ))
