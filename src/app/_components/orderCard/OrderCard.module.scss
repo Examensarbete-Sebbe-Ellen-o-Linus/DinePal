@@ -1,39 +1,37 @@
 @import '../../../styles/mantine';
 
 .accordion {
-    background: var(--mantine-color-white-0);
-    border-radius: var(--mantine-radius-primary);
-    box-shadow: var(--mantine-shadow-primary);
-    max-width: 352px;
-    align-self: stretch;
-    margin-bottom: 8px;
+  background: var(--mantine-color-white-0);
+  border-radius: var(--mantine-radius-primary);
+  box-shadow: var(--mantine-shadow-primary);
+  max-width: 352px;
+  align-self: stretch;
+  margin-bottom: 8px;
 
-    span {
-        font-size: 18px !important;
-    }
+  span {
+    font-size: 18px !important;
+  }
 
-    @media (max-width: $mantine-breakpoint-lg) {
-        max-width: 900px;
-    }
-    @media (max-width: $mantine-breakpoint-md) {
-        max-width: 680px;
-
-    }
-    @media (max-width: $mantine-breakpoint-xs) {
-        max-width: 328px;
-    }
-
+  @media (max-width: $mantine-breakpoint-lg) {
+    max-width: 900px;
+  }
+  @media (max-width: $mantine-breakpoint-md) {
+    max-width: 680px;
+  }
+  @media (max-width: $mantine-breakpoint-xs) {
+    max-width: 328px;
+  }
 }
 
 .accordionContent {
-    display: flex;
-    flex-direction: row;
-    align-items: center; 
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .timeAgo {
-    font-size: 12px !important;
-    margin-top: 5px;
-    color: var(--mantine-color-gray-6);
+  font-size: 12px !important;
+  margin-top: 5px;
+  color: var(--mantine-color-gray-6);
 }
