@@ -10,7 +10,7 @@ export default function ImageSection({
 }) {
   return (
     <div className={scss.container}>
-      <Container size={1120} fluid>
+      <Container className={scss.innerContainer} maw={1120} fluid>
         {imageSection.imageCards?.map((image, i) => (
           <Box className={scss.imageCard} key={i}>
             {image.link && (
