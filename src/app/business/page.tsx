@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@mantine/core';
 import { PrismaClient } from '@prisma/client';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
 import Orders from '../_components/orders/Orders';
