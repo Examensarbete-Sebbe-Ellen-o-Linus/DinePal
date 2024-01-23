@@ -5,7 +5,7 @@ import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
-import CustomCrop from '../customImage/CustomCrop';
+import CustomCropImage from '../customCropImage/CustomCropImage';
 import PlaceholderSmall from '../placeholderSmall/PlaceholderSmall';
 import Tags from '../tags/Tags';
 import classes from './DishCard.module.scss';
@@ -23,7 +23,7 @@ export default function DishCard({ dish }: Props) {
     <Box className={classes.card} id={dish.slug.current}>
       <Link href={menuLink}>
         {dish.image?.url ? (
-          <CustomCrop image={dish.image} className={classes.image} />
+          <CustomCropImage image={dish.image} className={classes.image} />
         ) : (
           <PlaceholderSmall hover={true} />
         )}

@@ -7,7 +7,7 @@ interface Props {
   hotspot?: boolean;
 }
 
-const CustomCrop = ({ image, className, hotspot }: Props) => {
+const CustomCropImage = ({ image, className, hotspot }: Props) => {
   let src = image.url;
   console.log('this is the image: ', image);
   console.log('this is the image hotspot: ', image.hotspot);
@@ -52,4 +52,4 @@ const CustomCrop = ({ image, className, hotspot }: Props) => {
   );
 };
 
-export default CustomCrop;
+export default CustomCropImage;
