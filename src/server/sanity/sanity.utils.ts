@@ -96,6 +96,7 @@ export const fetchGalleryPageData = async (): Promise<IGalleryPage> => {
 // Fetch checkoutPage with common selections
 export const fetchCheckoutPageData = async (): Promise<ICheckoutPage> => {
   const additionalSelections = `
+  ...,
   title,
   "checkoutImg": {
     "alt": coalesce(checkoutImg.alt, "No alt text"),

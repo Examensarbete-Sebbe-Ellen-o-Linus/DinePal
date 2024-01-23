@@ -8,7 +8,6 @@ import classes from './businessPage.module.scss';
 
 export const metadata: Metadata = {
   title: 'Dinepal - Business',
-  description: 'Dinepal - Business',
 };
 
 export default async function BusinessPage() {
