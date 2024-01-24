@@ -27,6 +27,8 @@
 .bookingsContainer {
   min-width: 20em;
   min-height: 10em;
+  max-height: 20em;
+  overflow-y: scroll;
   @media(max-width: $mantine-breakpoint-sm) {
     min-width: 0rem;
   }

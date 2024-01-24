@@ -16,6 +16,7 @@ import {
 import { DatePicker, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import { useMediaQuery } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
 import type { Table, TableBooking } from '@prisma/client';
 import dayjs from 'dayjs';
 import 'dayjs/locale/sv';
@@ -102,6 +103,13 @@ export default function Bookings() {
     api.booking.changeGuestSizeOfBooking.useMutation({
       onSuccess: async data => {
         console.log('Booking updated:', data);
+        setAmountOfGuests('');
+        showNotification({
+          title: 'Bokning uppdaterad',
+          message: `Din bokning har uppdaterats till ${data.guests} gäster`,
+          color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
+        });
+        setOpened(false);
         await refetchBookings();
       },
       onError: error => {
@@ -112,7 +120,7 @@ export default function Bookings() {
   const handleUpdateGuestAmountOnBooking = (booking: TableBooking) => {
     updateGuestAmountOnBooking.mutate({
       id: booking.id,
-      guests: '4',
+      guests: amountOfGuests.toString(),
     });
   };
 
@@ -146,6 +154,8 @@ export default function Bookings() {
   const [choosenDate, setChoosenDate] = useState<Date | null>(new Date());
   const [formattedChoosenDate, setFormattedChoosenDate] = useState<string>('');
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
+  const [amountOfGuests, setAmountOfGuests] = useState<any>();
+  const [opened, setOpened] = useState(false);
 
   const dotsMenuIcon = (
     <svg
@@ -271,7 +281,13 @@ export default function Bookings() {
                   <Box key={b.id}>
                     <Box className={classes.bookingContainerTop}>
                       <Text>{b.email}</Text>
-                      <Menu withinPortal position='bottom-end' withArrow>
+                      <Menu
+                        opened={opened}
+                        onChange={setOpened}
+                        withinPortal
+                        position='bottom-end'
+                        withArrow
+                      >
                         <Menu.Target>
                           <ActionIcon size='lg' variant='subtle' color='gray'>
                             {dotsMenuIcon}
@@ -304,7 +320,32 @@ export default function Bookings() {
                             </Menu.Item>
                           ))}
                           <Menu.Item onClick={() => handleDeleteBooking(b)}>
-                            <Text>Ta bort</Text>
+                            <Text>Ta bort bokning</Text>
+                          </Menu.Item>
+                          <Menu.Item closeMenuOnClick={false}>
+                            <Box
+                              style={{
+                                display: 'flex',
+                                width: '100%',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <NumberInput
+                                label='Ändra storlek på sällskap'
+                                name='amountOfGuests'
+                                value={amountOfGuests}
+                                min={1}
+                                onChange={value => setAmountOfGuests(value)}
+                              />
+                              <Button
+                                onClick={() =>
+                                  handleUpdateGuestAmountOnBooking(b)
+                                }
+                                style={{ marginTop: '21px' }}
+                              >
+                                Bekräfta
+                              </Button>
+                            </Box>
                           </Menu.Item>
                         </Menu.Dropdown>
                       </Menu>
@@ -312,7 +353,7 @@ export default function Bookings() {
                     <Text>
                       {b.firstName} {b.lastName}
                     </Text>
-                    <Text>{b.time}</Text>
+                    <Text>Önskad tid: {b.time}</Text>
                     <Text>Antal gäster: {b.guests}</Text>
                     {/* dayjs(choosenDate).format('DD MMM') */}
                     <Text>
@@ -324,9 +365,6 @@ export default function Bookings() {
                       <Text>Bord: Ej valt</Text>
                     )}
                     <Text>Status: {b.bookingStatus}</Text>
-                    <Button onClick={() => handleUpdateGuestAmountOnBooking(b)}>
-                      Ändra till 10
-                    </Button>
                     {index !== filteredBookings.length - 1 && (
                       <Divider style={{ marginTop: '0.5rem' }} />
                     )}
@@ -358,7 +396,7 @@ export default function Bookings() {
             <form action=''>
               <NumberInput
                 label='Storlek på bord'
-                name='lastName'
+                name='tableSize'
                 value={sizeOfTable}
                 min={2}
                 onChange={value => setSizeOfTable(value)}
