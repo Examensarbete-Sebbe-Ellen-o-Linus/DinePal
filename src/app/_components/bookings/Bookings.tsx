@@ -268,7 +268,7 @@ export default function Bookings() {
                       </Menu.Target>
 
                       <Menu.Dropdown>
-                        <Menu.Label>Välj bord</Menu.Label>
+                        <Menu.Label>Hantera bokning</Menu.Label>
                         {findAvailableTables(b).map(table => (
                           <Menu.Item
                             key={table.id}

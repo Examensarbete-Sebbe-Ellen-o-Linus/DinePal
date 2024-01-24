@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
 import { showNotification } from '@mantine/notifications';
+import { io } from 'socket.io-client';
 import { theme } from '~/app/_theme/theme';
 import { bookingFormValidation } from '~/app/_validation/bookingFormValidation';
 import { api } from '~/trpc/react';
@@ -27,7 +28,7 @@ export interface FormikValues {
   phone: string;
   commentary: string;
 }
-
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function BookingForm() {
   // Don't know why the theme is not applied here. Using the value for xs here instead.
   const isDesktop = useMediaQuery(`(min-width: 36em`);
@@ -36,14 +37,14 @@ export default function BookingForm() {
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
   const bookTable = api.booking.createTableBooking.useMutation({
-    onSuccess: async data => {
+    onSuccess: async () => {
       showNotification({
         title: 'Bokning skickad',
         message:
           'Tack för din bokning! Vi återkommer med en bekräftelse så snart som möjligt.',
         color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
       });
-      console.log('data bree', data);
+      socket.emit('bookingCreated', 'booking created');
     },
   });
 
