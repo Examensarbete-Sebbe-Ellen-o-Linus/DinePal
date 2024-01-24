@@ -62,8 +62,22 @@ export const orderRouter = createTRPCRouter({
       }
     ),
 
-  getOrders: protectedProcedure.query(async ({ ctx }) => {
+  getAllOrders: protectedProcedure.query(async ({ ctx }) => {
     const orders = await ctx.db.order.findMany({});
+    return orders;
+  }),
+
+  getTodaysOrders: protectedProcedure.query(async ({ ctx }) => {
+    const today = new Date(new Date().setHours(0, 0, 0, 0));
+
+    const orders = await ctx.db.order.findMany({
+      where: {
+        createdAt: {
+          gte: today,
+        },
+      },
+    });
+
     return orders;
   }),
 

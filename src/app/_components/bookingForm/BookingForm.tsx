@@ -110,26 +110,10 @@ export default function BookingForm() {
   // This is just to be able to change the color of the selected day in the calendar
   const getDayProps: DatePickerProps['getDayProps'] = date => {
     const selectedDate = formik.values.date;
-    const specialDates = ['2024-01-10', '2024-01-8', '2024-01-6'];
     const styles: any = {};
     if (selectedDate && dayjs(date).isSame(selectedDate, 'day')) {
       styles.backgroundColor = theme.colors?.black?.[3] ?? '#221F1F';
     }
-
-    if (date.getDate() === 29 && date.getMonth() === 0) {
-      styles.backgroundColor = theme.colors?.red?.[6] ?? '#FA5252';
-      styles.color = theme.colors?.white?.[1] ?? '#ffffff';
-      styles.borderRadius = '50%';
-    }
-
-    if (
-      specialDates.some(specialDate => dayjs(date).isSame(specialDate, 'day'))
-    ) {
-      styles.backgroundColor = theme.colors?.red?.[6] ?? '#FA5252';
-      styles.color = theme.colors?.white?.[1] ?? '#ffffff';
-      styles.borderRadius = '50%';
-    }
-
     if (Object.keys(styles).length > 0) {
       return { style: styles };
     }

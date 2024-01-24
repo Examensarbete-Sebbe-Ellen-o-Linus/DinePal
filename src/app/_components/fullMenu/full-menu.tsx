@@ -9,7 +9,7 @@ const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 
 export function FullMenu() {
   const { data: orders, refetch: refetchOrders } =
-    api.order.getOrders.useQuery();
+    api.order.getAllOrders.useQuery();
 
   const { data, refetch } = api.order.getFoods.useQuery();
 

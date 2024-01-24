@@ -29,15 +29,13 @@ export default async function BusinessPage() {
         </Box>
       )}
 
-      {/* <p>{session && <Text>Inloggad som {session.user?.name}</Text>}</p> */}
-
       {session && (
         <Box style={{ width: '100%' }}>
-          {/* <Button>
+          <Button>
             <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
               {session ? 'Logga ut' : 'Logga in'}
             </Link>
-          </Button> */}
+          </Button>
           <AdminPanel />
         </Box>
       )}

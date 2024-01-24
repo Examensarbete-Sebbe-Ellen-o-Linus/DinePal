@@ -8,7 +8,7 @@ import OrderCard from '../orderCard/OrderCard';
 import classes from './order.module.scss';
 
 export default function Orders() {
-  const { data: fetchedOrders } = api.order.getOrders.useQuery();
+  const { data: fetchedOrders } = api.order.getTodaysOrders.useQuery();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.xs})`);
   const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints?.md})`);
 
