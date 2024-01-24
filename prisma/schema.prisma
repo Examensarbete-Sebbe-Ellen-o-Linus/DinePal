@@ -141,3 +141,10 @@ model TableBooking {
     guests        String?
     bookingStatus BookingStatus @default(received)
 }
+
+model Table {
+    id          String    @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt   DateTime? @default(now())
+    tableNumber Int
+    size        Int
+}

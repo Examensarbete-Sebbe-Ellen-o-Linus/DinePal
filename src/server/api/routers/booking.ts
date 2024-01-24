@@ -78,10 +78,35 @@ export const bookingRouter = createTRPCRouter({
       return deletedTableBooking;
     }),
 
-  getTableBookings: protectedProcedure
-    // .input(z.object({}))
-    .query(async ({ ctx }) => {
-      const tableBookings = await ctx.db.tableBooking.findMany();
-      return tableBookings;
+  getTableBookings: protectedProcedure.query(async ({ ctx }) => {
+    const tableBookings = await ctx.db.tableBooking.findMany();
+    return tableBookings;
+  }),
+
+  addTable: protectedProcedure
+    .input(z.object({ tableNumber: z.number(), size: z.number() }))
+    .mutation(async ({ input, ctx }) => {
+      const newTable = await ctx.db.table.create({
+        data: {
+          ...input,
+        },
+      });
+
+      return newTable;
+    }),
+
+  setTableNumberToBooking: protectedProcedure
+    .input(z.object({ bookingId: z.string(), tableNumber: z.number() }))
+    .mutation(async ({ input, ctx }) => {
+      const updatedBooking = await ctx.db.tableBooking.update({
+        where: {
+          id: input.bookingId,
+        },
+        data: {
+          tableNumber: input.tableNumber,
+        },
+      });
+
+      return updatedBooking;
     }),
 });
