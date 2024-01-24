@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { Box, Button, Divider, Text, Title } from '@mantine/core';
+import { Box, Button, Divider, NumberInput, Text, Title } from '@mantine/core';
 import { DatePicker, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import { useMediaQuery } from '@mantine/hooks';
@@ -14,8 +14,26 @@ import classes from './Bookings.module.scss';
 
 export default function Bookings() {
   const { data: bookings } = api.booking.getTableBookings.useQuery();
+  // const { data: tables } = api.booking.getTables.useQuery();
+  // console.log('tables', tables);
+
+  const addTable = api.booking.addTable.useMutation({
+    onSuccess: data => {
+      console.log('Table added:', data);
+    },
+  });
+
+  // const handleAddTable = () => {
+  //   addTable.mutate({
+  //     data: {
+  //       tableNumber: tables?.length + 2,
+  //       seats:
+  //     }
+  //   })
+  // }
   const bookedDates = bookings?.map(booking => dayjs(booking.date));
   const isDesktop = useMediaQuery(`(min-width: 36em`);
+  const [sizeOfTable, setSizeOfTable] = useState<any>();
   const [choosenDate, setChoosenDate] = useState<Date | null>(new Date());
   const [formattedChoosenDate, setFormattedChoosenDate] = useState<string>('');
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
@@ -87,16 +105,25 @@ export default function Bookings() {
             />
           </Box>
           <Box className={classes.bookingsContainer}>
-            <Title order={6}>Bokningar {formattedChoosenDate}</Title>
+            ¨
+            <Box>
+              <Title order={6}>Bokningar {formattedChoosenDate}</Title>
+            </Box>
             <Divider style={{ margin: '0.4rem 0' }} />
-
             {filteredBookings.length > 0 ? (
               filteredBookings.map((b, index) => (
                 <Box key={b.id}>
-                  <Text>{b.date.toDateString()}</Text>
+                  {/* <Text>{b.date.toDateString()}</Text> */}
                   <Text>{b.email}</Text>
+                  {/* <Title order={5}>14:00</Title> */}
+                  <Text>
+                    {b.firstName} {b.lastName}
+                  </Text>
+                  {/* <Text>{b.time}</Text> */}
+                  <Text>Antal gäster: {b.guests}</Text>
+                  <Text>Bord: 5</Text>
                   <Text>Status: {b.bookingStatus}</Text>
-                  <Button>Ändra status på bokning</Button>
+                  {/* <Button>Ändra status på bokning</Button> */}
                   {index !== filteredBookings.length - 1 && (
                     <Divider style={{ marginTop: '0.5rem' }} />
                   )}
@@ -124,6 +151,19 @@ export default function Bookings() {
           <Box className={classes.tableRow}>
             <Text className={classes.tableText}>Bord 4: 2 platser</Text>
             <Text>Ledigt</Text>
+          </Box>
+
+          <Box>
+            <form action=''>
+              <NumberInput
+                label='Storlek på bord'
+                name='lastName'
+                value={sizeOfTable}
+                min={2}
+                onChange={value => setSizeOfTable(value)}
+              />
+            </form>
+            <Button>Lägg till Bord</Button>
           </Box>
         </Box>
       </Box>

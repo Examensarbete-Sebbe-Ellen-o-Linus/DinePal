@@ -83,18 +83,6 @@ export const bookingRouter = createTRPCRouter({
     return tableBookings;
   }),
 
-  addTable: protectedProcedure
-    .input(z.object({ tableNumber: z.number(), size: z.number() }))
-    .mutation(async ({ input, ctx }) => {
-      const newTable = await ctx.db.table.create({
-        data: {
-          ...input,
-        },
-      });
-
-      return newTable;
-    }),
-
   setTableNumberToBooking: protectedProcedure
     .input(z.object({ bookingId: z.string(), tableNumber: z.number() }))
     .mutation(async ({ input, ctx }) => {
@@ -109,4 +97,21 @@ export const bookingRouter = createTRPCRouter({
 
       return updatedBooking;
     }),
+
+  addTable: protectedProcedure
+    .input(z.object({ tableNumber: z.number(), size: z.number() }))
+    .mutation(async ({ input, ctx }) => {
+      const newTable = await ctx.db.table.create({
+        data: {
+          ...input,
+        },
+      });
+
+      return newTable;
+    }),
+
+  getTables: protectedProcedure.query(async ({ ctx }) => {
+    const tables = await ctx.db.table.findMany();
+    return tables;
+  }),
 });
