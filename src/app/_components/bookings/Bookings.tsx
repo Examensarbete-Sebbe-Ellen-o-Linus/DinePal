@@ -10,6 +10,7 @@ import {
   Divider,
   Menu,
   NumberInput,
+  Select,
   Text,
   Title,
 } from '@mantine/core';
@@ -155,6 +156,21 @@ export default function Bookings() {
   const [formattedChoosenDate, setFormattedChoosenDate] = useState<string>('');
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
   const [amountOfGuests, setAmountOfGuests] = useState<any>();
+  const [choosenTimeOfBooking, setChoosenTimeOfBooking] = useState<any>();
+  const BookableTimes = [
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+  ];
 
   const dotsMenuIcon = (
     <svg
@@ -338,6 +354,40 @@ export default function Bookings() {
                               </Button>
                             </Box>
                           </Menu.Item>
+                          <Menu.Item closeMenuOnClick={false}>
+                            <Box
+                              style={{
+                                display: 'flex',
+                                width: '100%',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <Select
+                                label='Ändra tid på bokning'
+                                name='choosenTimeOfBooking'
+                                value={choosenTimeOfBooking}
+                                data={BookableTimes}
+                                onChange={value =>
+                                  setChoosenTimeOfBooking(value)
+                                }
+                                styles={{
+                                  input: {
+                                    width: '199px',
+                                  },
+                                  label: {
+                                    fontSize: theme.other?.body2,
+                                  },
+                                }}
+                              />
+
+                              <Button
+                                onClick={() => handleUpdateCustomerOnBooking(b)}
+                                style={{ marginTop: '21px' }}
+                              >
+                                Bekräfta
+                              </Button>
+                            </Box>
+                          </Menu.Item>
                         </Menu.Dropdown>
                       </Menu>
                     </Box>
@@ -370,18 +420,20 @@ export default function Bookings() {
           <Title order={4}>Bord:</Title>
 
           {tables &&
-            tables.map(table => (
-              <Box className={classes.tableRow} key={table.id}>
-                <Text>
-                  {tableIcon} {table.tableNumber}
-                </Text>
-                <Text>
-                  {personIcon}
-                  {table.size}
-                </Text>
-                <Text onClick={() => handleDeleteTable(table.id)}>❌</Text>
-              </Box>
-            ))}
+            tables
+              .sort((a, b) => a.tableNumber - b.tableNumber)
+              .map(table => (
+                <Box className={classes.tableRow} key={table.id}>
+                  <Text>
+                    {tableIcon} {table.tableNumber}
+                  </Text>
+                  <Text>
+                    {personIcon}
+                    {table.size}
+                  </Text>
+                  <Text onClick={() => handleDeleteTable(table.id)}>❌</Text>
+                </Box>
+              ))}
 
           <Box>
             <form action=''>
