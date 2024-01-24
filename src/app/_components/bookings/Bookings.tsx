@@ -105,6 +105,7 @@ export default function Bookings() {
       onSuccess: async data => {
         console.log('Booking updated:', data);
         setAmountOfGuests('');
+        setChoosenTimeOfBooking('');
         showNotification({
           title: 'Bokning uppdaterad',
           message: `Din bokning har uppdaterats till ${data.guests} gäster`,
@@ -117,12 +118,22 @@ export default function Bookings() {
       },
     });
 
-  const handleUpdateCustomerOnBooking = (booking: TableBooking) => {
-    updateCustomerOnBooking.mutate({
-      id: booking.id,
-      guests: amountOfGuests.toString(),
-      // time: '12:00', // If you send a new time value it will also be changed
-    });
+  const handleUpdateCustomerOnBooking = (
+    booking: TableBooking,
+    method: string
+  ) => {
+    if (method === 'updateTime') {
+      updateCustomerOnBooking.mutate({
+        id: booking.id,
+        guests: amountOfGuests.toString(),
+      });
+    }
+    if (method === 'updateGuests') {
+      updateCustomerOnBooking.mutate({
+        id: booking.id,
+        time: choosenTimeOfBooking, // If you send a new time value it will also be changed
+      });
+    }
   };
 
   function findAvailableTables(booking: TableBooking): Table[] {
@@ -347,7 +358,12 @@ export default function Bookings() {
                                 onChange={value => setAmountOfGuests(value)}
                               />
                               <Button
-                                onClick={() => handleUpdateCustomerOnBooking(b)}
+                                onClick={() =>
+                                  handleUpdateCustomerOnBooking(
+                                    b,
+                                    'updateGuests'
+                                  )
+                                }
                                 style={{ marginTop: '21px' }}
                               >
                                 Bekräfta
@@ -381,7 +397,9 @@ export default function Bookings() {
                               />
 
                               <Button
-                                onClick={() => handleUpdateCustomerOnBooking(b)}
+                                onClick={() =>
+                                  handleUpdateCustomerOnBooking(b, 'updateTime')
+                                }
                                 style={{ marginTop: '21px' }}
                               >
                                 Bekräfta
@@ -396,7 +414,6 @@ export default function Bookings() {
                     </Text>
                     <Text>Önskad tid: {b.time}</Text>
                     <Text>Antal gäster: {b.guests}</Text>
-                    {/* dayjs(choosenDate).format('DD MMM') */}
                     <Text>
                       skapad: {b.createdAt.toLocaleTimeString().slice(0, -3)}
                     </Text>
