@@ -162,7 +162,7 @@ export default function OrderCard({ order }: Props) {
           <Box>
             {order && order.orderStatus !== 'completed' && (
               <Text className={classes.timeAgo}>
-                Tillagd <ReactTimeAgo locale='sv' date={order.createdAt!} />
+                Tillagd <ReactTimeAgo locale='sv' date={order.createdAt} />
               </Text>
             )}
             <Text>
