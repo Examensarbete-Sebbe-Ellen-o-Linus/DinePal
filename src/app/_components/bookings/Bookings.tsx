@@ -14,7 +14,7 @@ import {
 import { DatePicker, type DatePickerProps } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import { useMediaQuery } from '@mantine/hooks';
-import type { TableBooking } from '@prisma/client';
+import type { Table, TableBooking } from '@prisma/client';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { theme } from '~/app/_theme/theme';
@@ -23,6 +23,7 @@ import classes from './Bookings.module.scss';
 
 export default function Bookings() {
   const { data: bookings } = api.booking.getTableBookings.useQuery();
+
   const { data: tables, refetch: refetchTables } =
     api.booking.getTables.useQuery();
   console.log('tables', tables);
@@ -34,6 +35,7 @@ export default function Bookings() {
       await refetchTables();
     },
   });
+
   const handleAddTable = () => {
     if (!tables) return;
     addTable.mutate({
@@ -54,12 +56,71 @@ export default function Bookings() {
       id,
     });
   };
+
+  function findAvailableTables(booking: TableBooking): Table[] {
+    if (!tables) return [];
+    const startOfBooking = dayjs(`${booking.date}T${booking.time}`);
+    const endOfBooking = startOfBooking.add(2, 'hour');
+
+    // Filter out tables with conflicting bookings
+    const availableTables = tables.filter(table => {
+      const conflictingBooking = filteredBookings.find(b => {
+        const bookingStart = dayjs(b.date);
+        const bookingEnd = bookingStart.add(2, 'hour');
+        return (
+          (b.tableNumber === table.tableNumber &&
+            b.bookingStatus === 'booked') ||
+          ('bookedAndConfirmed' &&
+            bookingStart.isBefore(endOfBooking) &&
+            bookingEnd.isAfter(startOfBooking))
+        );
+      });
+
+      return !conflictingBooking;
+    });
+
+    return availableTables;
+  }
+
+  const getTimeOptions = (date: Date) => {
+    const currentDateTime = new Date();
+    const isToday = currentDateTime.toDateString() === date.toDateString();
+    const currentHour = currentDateTime.getHours();
+    const dayOfWeek = date.getDay();
+    const startHour = 10;
+    let endHour;
+
+    if ([1, 2, 3, 4].includes(dayOfWeek)) {
+      // Monday to Thursday
+      endHour = 15;
+    } else if (dayOfWeek === 5) {
+      // Friday
+      endHour = 21;
+    } else {
+      // Saturday and Sunday
+      endHour = 16;
+    }
+
+    const timeSlots = [];
+    for (let hour = startHour; hour <= endHour; hour++) {
+      const timeSlot = `${hour}:00`;
+      // If the date is today, only add time slots that are in the future not that have passed
+      if (!isToday || (isToday && hour > currentHour)) {
+        timeSlots.push(timeSlot);
+      }
+    }
+
+    return timeSlots;
+  };
+
   const bookedDates = bookings?.map(booking => dayjs(booking.date));
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [sizeOfTable, setSizeOfTable] = useState<any>();
   const [choosenDate, setChoosenDate] = useState<Date | null>(new Date());
   const [formattedChoosenDate, setFormattedChoosenDate] = useState<string>('');
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
+  const [freeTimes, setFreeTimes] = useState<any[]>(getTimeOptions(new Date()));
+
   const dotsMenuIcon = (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -131,6 +192,20 @@ export default function Bookings() {
       setFilteredBookings(bookingsOfChoosenDay);
       setFormattedChoosenDate(dayjs(choosenDate).format('DD MMM'));
       console.log('filteredBookings:', filteredBookings);
+
+      const allTimes = getTimeOptions(choosenDate);
+      const freeTimesOfChoosenDay = allTimes.filter(
+        time => !bookingsOfChoosenDay.some(booking => booking.time === time)
+      );
+      const freeTimesWhereStatusIsntBooked = freeTimesOfChoosenDay.filter(
+        time =>
+          !bookingsOfChoosenDay.some(
+            booking =>
+              booking.bookingStatus !== 'booked' || 'bookedAndConfirmed'
+          )
+      );
+      setFreeTimes(freeTimesWhereStatusIsntBooked);
+      console.log('freeTimes:', freeTimes);
     }
   }, [choosenDate, bookings]);
   return (
@@ -186,35 +261,30 @@ export default function Bookings() {
 
                       <Menu.Dropdown>
                         <Menu.Label>Välj bord</Menu.Label>
-                        <Menu.Item onClick={() => console.log('')}>
-                          <Box
-                            style={{
-                              display: 'flex',
-                              gap: '1rem',
-                              alignItems: 'center',
-                            }}
+                        {findAvailableTables(b).map(table => (
+                          <Menu.Item
+                            key={table.id}
+                            onClick={() => console.log('')}
                           >
-                            <Text>{tableIcon} 1</Text>
-                            <Text>{personIcon} 4</Text>
-                          </Box>
-                        </Menu.Item>
-                        <Menu.Item onClick={() => console.log('')}>
-                          Bord:2, Platser:4
-                        </Menu.Item>
-                        <Menu.Item onClick={() => console.log('')}>
-                          Bord:3, Platser:4
-                        </Menu.Item>
-                        <Menu.Item onClick={() => console.log('')}>
-                          Bord:4, Platser:2
-                        </Menu.Item>
-                        <Menu.Item onClick={() => console.log('')}>
-                          Bord:5, Platser:6
-                        </Menu.Item>
+                            <Box
+                              style={{
+                                display: 'flex',
+                                gap: '1rem',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <Text>
+                                {tableIcon} {table.tableNumber}
+                              </Text>
+                              <Text>
+                                {personIcon} {table.size}
+                              </Text>
+                            </Box>
+                          </Menu.Item>
+                        ))}
                       </Menu.Dropdown>
                     </Menu>
                   </Box>
-                  {/* <Text>{b.date.toDateString()}</Text> */}
-                  {/* <Title order={5}>14:00</Title> */}
                   <Text>
                     {b.firstName} {b.lastName}
                   </Text>
@@ -222,7 +292,6 @@ export default function Bookings() {
                   <Text>Antal gäster: {b.guests}</Text>
                   <Text>Bord: 5</Text>
                   <Text>Status: {b.bookingStatus}</Text>
-                  {/* <Button>Ändra status på bokning</Button> */}
                   {index !== filteredBookings.length - 1 && (
                     <Divider style={{ marginTop: '0.5rem' }} />
                   )}
