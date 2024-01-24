@@ -98,6 +98,24 @@ export default function Bookings() {
     });
   };
 
+  const updateGuestAmountOnBooking =
+    api.booking.changeGuestSizeOfBooking.useMutation({
+      onSuccess: async data => {
+        console.log('Booking updated:', data);
+        await refetchBookings();
+      },
+      onError: error => {
+        console.log('error updating the guest amount of the booking:', error);
+      },
+    });
+
+  const handleUpdateGuestAmountOnBooking = (booking: TableBooking) => {
+    updateGuestAmountOnBooking.mutate({
+      id: booking.id,
+      guests: '4',
+    });
+  };
+
   function findAvailableTables(booking: TableBooking): Table[] {
     if (!tables) return [];
     const startOfBooking = dayjs(`${booking.date}T${booking.time}`);
@@ -306,6 +324,9 @@ export default function Bookings() {
                       <Text>Bord: Ej valt</Text>
                     )}
                     <Text>Status: {b.bookingStatus}</Text>
+                    <Button onClick={() => handleUpdateGuestAmountOnBooking(b)}>
+                      Ändra till 10
+                    </Button>
                     {index !== filteredBookings.length - 1 && (
                       <Divider style={{ marginTop: '0.5rem' }} />
                     )}

@@ -83,6 +83,20 @@ export const bookingRouter = createTRPCRouter({
     return tableBookings;
   }),
 
+  changeGuestSizeOfBooking: protectedProcedure
+    .input(z.object({ id: z.string(), guests: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const updatedBooking = await ctx.db.tableBooking.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          guests: input.guests,
+        },
+      });
+      return updatedBooking;
+    }),
+
   setTableNumberToBooking: protectedProcedure
     .input(z.object({ bookingId: z.string(), tableNumber: z.number() }))
     .mutation(async ({ input, ctx }) => {
