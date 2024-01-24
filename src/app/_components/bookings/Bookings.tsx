@@ -23,23 +23,37 @@ import classes from './Bookings.module.scss';
 
 export default function Bookings() {
   const { data: bookings } = api.booking.getTableBookings.useQuery();
-  // const { data: tables } = api.booking.getTables.useQuery();
-  // console.log('tables', tables);
+  const { data: tables, refetch: refetchTables } =
+    api.booking.getTables.useQuery();
+  console.log('tables', tables);
 
   const addTable = api.booking.addTable.useMutation({
-    onSuccess: data => {
+    onSuccess: async data => {
       console.log('Table added:', data);
+      setSizeOfTable('');
+      await refetchTables();
+    },
+  });
+  const handleAddTable = () => {
+    if (!tables) return;
+    addTable.mutate({
+      tableNumber: tables.length + 1,
+      size: parseInt(sizeOfTable),
+    });
+  };
+
+  const deleteTable = api.booking.removeTable.useMutation({
+    onSuccess: async data => {
+      console.log('Table deleted:', data);
+      await refetchTables();
     },
   });
 
-  // const handleAddTable = () => {
-  //   addTable.mutate({
-  //     data: {
-  //       tableNumber: tables?.length + 2,
-  //       seats:
-  //     }
-  //   })
-  // }
+  const handleDeleteTable = (id: string) => {
+    deleteTable.mutate({
+      id,
+    });
+  };
   const bookedDates = bookings?.map(booking => dayjs(booking.date));
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [sizeOfTable, setSizeOfTable] = useState<any>();
@@ -221,22 +235,20 @@ export default function Bookings() {
         </Box>
         <Box className={classes.tableSection}>
           <Title order={4}>Bord:</Title>
-          <Box className={classes.tableRow}>
-            <Text className={classes.tableText}>Bord 1: 4 platser</Text>
-            <Text>Ledigt</Text>
-          </Box>
-          <Box className={classes.tableRow}>
-            <Text className={classes.tableText}>Bord 2: 4 platser</Text>
-            <Text>Ledigt</Text>
-          </Box>
-          <Box className={classes.tableRow}>
-            <Text className={classes.tableText}>Bord 3: 6 platser</Text>
-            <Text>Ledigt</Text>
-          </Box>
-          <Box className={classes.tableRow}>
-            <Text className={classes.tableText}>Bord 4: 2 platser</Text>
-            <Text>Ledigt</Text>
-          </Box>
+
+          {tables &&
+            tables.map(table => (
+              <Box className={classes.tableRow} key={table.id}>
+                <Text>
+                  {tableIcon} {table.tableNumber}
+                </Text>
+                <Text>
+                  {personIcon}
+                  {table.size}
+                </Text>
+                <Text onClick={() => handleDeleteTable(table.id)}>❌</Text>
+              </Box>
+            ))}
 
           <Box>
             <form action=''>
@@ -247,8 +259,8 @@ export default function Bookings() {
                 min={2}
                 onChange={value => setSizeOfTable(value)}
               />
+              <Button onClick={() => handleAddTable()}>Lägg till Bord</Button>
             </form>
-            <Button>Lägg till Bord</Button>
           </Box>
         </Box>
       </Box>

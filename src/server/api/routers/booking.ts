@@ -112,6 +112,19 @@ export const bookingRouter = createTRPCRouter({
 
   getTables: protectedProcedure.query(async ({ ctx }) => {
     const tables = await ctx.db.table.findMany();
+
     return tables;
   }),
+
+  removeTable: protectedProcedure
+    .input(z.object({ id: z.string().min(1) }))
+    .mutation(async ({ input, ctx }) => {
+      const removedTable = await ctx.db.table.delete({
+        where: {
+          id: input.id,
+        },
+      });
+
+      return removedTable;
+    }),
 });
