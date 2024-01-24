@@ -24,7 +24,6 @@ import { theme } from '~/app/_theme/theme';
 import { api } from '~/trpc/react';
 import classes from './Bookings.module.scss';
 
-// const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function Bookings() {
   const { data: bookings, refetch: refetchBookings } =
     api.booking.getTableBookings.useQuery();
@@ -204,18 +203,6 @@ export default function Bookings() {
     }
   }, [choosenDate, bookings]);
 
-  // useEffect(() => {
-  //   const fetchNewBookings = async () => {
-  //     await refetchBookings();
-  //     console.log('useEffect triggered by socket!');
-  //   };
-  //   socket.on('bookingCreated', fetchNewBookings);
-
-  //   return () => {
-  //     socket.off('bookingCreated', fetchNewBookings);
-  //   };
-  // });
-
   return (
     <Box className={classes.container}>
       <Title order={3}>Bokningar</Title>
@@ -256,64 +243,74 @@ export default function Bookings() {
             <Title order={6}>Bokningar {formattedChoosenDate}</Title>
             <Divider style={{ margin: '0.4rem 0' }} />
             {filteredBookings.length > 0 ? (
-              filteredBookings.map((b, index) => (
-                <Box key={b.id}>
-                  <Box className={classes.bookingContainerTop}>
-                    <Text>{b.email}</Text>
-                    <Menu withinPortal position='bottom-end' withArrow>
-                      <Menu.Target>
-                        <ActionIcon size='lg' variant='subtle' color='gray'>
-                          {dotsMenuIcon}
-                        </ActionIcon>
-                      </Menu.Target>
+              filteredBookings
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                )
+                .map((b, index) => (
+                  <Box key={b.id}>
+                    <Box className={classes.bookingContainerTop}>
+                      <Text>{b.email}</Text>
+                      <Menu withinPortal position='bottom-end' withArrow>
+                        <Menu.Target>
+                          <ActionIcon size='lg' variant='subtle' color='gray'>
+                            {dotsMenuIcon}
+                          </ActionIcon>
+                        </Menu.Target>
 
-                      <Menu.Dropdown>
-                        <Menu.Label>Hantera bokning</Menu.Label>
-                        {findAvailableTables(b).map(table => (
-                          <Menu.Item
-                            key={table.id}
-                            onClick={() =>
-                              handleUpdateBookingWithTableNumber(b, table)
-                            }
-                          >
-                            <Box
-                              style={{
-                                display: 'flex',
-                                gap: '1rem',
-                                alignItems: 'center',
-                              }}
+                        <Menu.Dropdown>
+                          <Menu.Label>Hantera bokning</Menu.Label>
+                          {findAvailableTables(b).map(table => (
+                            <Menu.Item
+                              key={table.id}
+                              onClick={() =>
+                                handleUpdateBookingWithTableNumber(b, table)
+                              }
                             >
-                              <Text>
-                                {tableIcon} {table.tableNumber}
-                              </Text>
-                              <Text>
-                                {personIcon} {table.size}
-                              </Text>
-                            </Box>
+                              <Box
+                                style={{
+                                  display: 'flex',
+                                  gap: '1rem',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <Text>
+                                  {tableIcon} {table.tableNumber}
+                                </Text>
+                                <Text>
+                                  {personIcon} {table.size}
+                                </Text>
+                              </Box>
+                            </Menu.Item>
+                          ))}
+                          <Menu.Item onClick={() => handleDeleteBooking(b)}>
+                            <Text>Ta bort</Text>
                           </Menu.Item>
-                        ))}
-                        <Menu.Item onClick={() => handleDeleteBooking(b)}>
-                          <Text>Ta bort</Text>
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
+                        </Menu.Dropdown>
+                      </Menu>
+                    </Box>
+                    <Text>
+                      {b.firstName} {b.lastName}
+                    </Text>
+                    <Text>{b.time}</Text>
+                    <Text>Antal gäster: {b.guests}</Text>
+                    {/* dayjs(choosenDate).format('DD MMM') */}
+                    <Text>
+                      skapad: {b.createdAt.toLocaleTimeString().slice(0, -3)}
+                    </Text>
+                    {b.tableNumber ? (
+                      <Text>Bord: {b.tableNumber}</Text>
+                    ) : (
+                      <Text>Bord: Ej valt</Text>
+                    )}
+                    <Text>Status: {b.bookingStatus}</Text>
+                    {index !== filteredBookings.length - 1 && (
+                      <Divider style={{ marginTop: '0.5rem' }} />
+                    )}
                   </Box>
-                  <Text>
-                    {b.firstName} {b.lastName}
-                  </Text>
-                  <Text>{b.time}</Text>
-                  <Text>Antal gäster: {b.guests}</Text>
-                  {b.tableNumber ? (
-                    <Text>Bord: {b.tableNumber}</Text>
-                  ) : (
-                    <Text>Bord: Ej valt</Text>
-                  )}
-                  <Text>Status: {b.bookingStatus}</Text>
-                  {index !== filteredBookings.length - 1 && (
-                    <Divider style={{ marginTop: '0.5rem' }} />
-                  )}
-                </Box>
-              ))
+                ))
             ) : (
               <Text>Inga Bokningar denna dag</Text>
             )}
