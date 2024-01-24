@@ -1,4 +1,4 @@
-# Restaurant website with editable content and table reservation
+# Restaurant website
 
 ### Link to project
 
@@ -20,16 +20,16 @@ We've developed a restaurant website designed for easy online ordering, table re
 
 ## Installation
 
-#### Install dependencies and run the client side
+### Install dependencies and run the client side:
 
-npm install
-npm run dev
+- npm install
+- npm run dev
 
-#### Set up the Sanity server:
+### Set up the Sanity server:
 
-cd src/server/sanity
-npm install
-npm run dev
+- cd src/server/sanity
+- npm install
+- npm run dev
 
 ## Created by
 
