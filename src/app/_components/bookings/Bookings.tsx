@@ -122,16 +122,16 @@ export default function Bookings() {
     booking: TableBooking,
     method: string
   ) => {
-    if (method === 'updateTime') {
+    if (method == 'updateTime') {
+      updateCustomerOnBooking.mutate({
+        id: booking.id,
+        time: choosenTimeOfBooking,
+      });
+    }
+    if (method == 'updateGuests') {
       updateCustomerOnBooking.mutate({
         id: booking.id,
         guests: amountOfGuests.toString(),
-      });
-    }
-    if (method === 'updateGuests') {
-      updateCustomerOnBooking.mutate({
-        id: booking.id,
-        time: choosenTimeOfBooking, // If you send a new time value it will also be changed
       });
     }
   };
@@ -167,7 +167,7 @@ export default function Bookings() {
   const [formattedChoosenDate, setFormattedChoosenDate] = useState<string>('');
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
   const [amountOfGuests, setAmountOfGuests] = useState<any>();
-  const [choosenTimeOfBooking, setChoosenTimeOfBooking] = useState<any>();
+  const [choosenTimeOfBooking, setChoosenTimeOfBooking] = useState<string>();
   const BookableTimes = [
     '10:00',
     '11:00',
@@ -370,7 +370,10 @@ export default function Bookings() {
                               </Button>
                             </Box>
                           </Menu.Item>
-                          <Menu.Item closeMenuOnClick={false}>
+                          <Menu.Item
+                            onClick={event => event.stopPropagation()}
+                            closeMenuOnClick={false}
+                          >
                             <Box
                               style={{
                                 display: 'flex',
@@ -384,8 +387,9 @@ export default function Bookings() {
                                 value={choosenTimeOfBooking}
                                 data={BookableTimes}
                                 onChange={value =>
-                                  setChoosenTimeOfBooking(value)
+                                  setChoosenTimeOfBooking(value?.toString())
                                 }
+                                // onClick={event => event.stopPropagation()}
                                 styles={{
                                   input: {
                                     width: '199px',
