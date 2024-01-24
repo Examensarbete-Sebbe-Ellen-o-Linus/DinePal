@@ -16,13 +16,16 @@ import '@mantine/dates/styles.css';
 import { useMediaQuery } from '@mantine/hooks';
 import type { Table, TableBooking } from '@prisma/client';
 import dayjs from 'dayjs';
+import 'dayjs/locale/sv';
 import { useEffect, useState } from 'react';
 import { theme } from '~/app/_theme/theme';
 import { api } from '~/trpc/react';
 import classes from './Bookings.module.scss';
 
+// const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function Bookings() {
-  const { data: bookings } = api.booking.getTableBookings.useQuery();
+  const { data: bookings, refetch: refetchBookings } =
+    api.booking.getTableBookings.useQuery();
 
   const { data: tables, refetch: refetchTables } =
     api.booking.getTables.useQuery();
@@ -57,6 +60,43 @@ export default function Bookings() {
     });
   };
 
+  const updateBookingWithTableNumber =
+    api.booking.setTableNumberToBooking.useMutation({
+      onSuccess: async data => {
+        console.log('Booking updated:', data);
+        await refetchBookings();
+      },
+      onError: error => {
+        console.log('error updating the table number:', error);
+      },
+    });
+
+  const handleUpdateBookingWithTableNumber = (
+    booking: TableBooking,
+    table: Table
+  ) => {
+    updateBookingWithTableNumber.mutate({
+      tableNumber: table.tableNumber,
+      bookingId: booking.id,
+    });
+  };
+
+  const deleteBooking = api.booking.deleteTableBooking.useMutation({
+    onSuccess: async data => {
+      console.log('Booking deleted:', data);
+      await refetchBookings();
+    },
+    onError: error => {
+      console.log('error deleting the booking:', error);
+    },
+  });
+
+  const handleDeleteBooking = (booking: TableBooking) => {
+    deleteBooking.mutate({
+      id: booking.id,
+    });
+  };
+
   function findAvailableTables(booking: TableBooking): Table[] {
     if (!tables) return [];
     const startOfBooking = dayjs(`${booking.date}T${booking.time}`);
@@ -75,43 +115,11 @@ export default function Bookings() {
             bookingEnd.isAfter(startOfBooking))
         );
       });
-
       return !conflictingBooking;
     });
 
     return availableTables;
   }
-
-  const getTimeOptions = (date: Date) => {
-    const currentDateTime = new Date();
-    const isToday = currentDateTime.toDateString() === date.toDateString();
-    const currentHour = currentDateTime.getHours();
-    const dayOfWeek = date.getDay();
-    const startHour = 10;
-    let endHour;
-
-    if ([1, 2, 3, 4].includes(dayOfWeek)) {
-      // Monday to Thursday
-      endHour = 15;
-    } else if (dayOfWeek === 5) {
-      // Friday
-      endHour = 21;
-    } else {
-      // Saturday and Sunday
-      endHour = 16;
-    }
-
-    const timeSlots = [];
-    for (let hour = startHour; hour <= endHour; hour++) {
-      const timeSlot = `${hour}:00`;
-      // If the date is today, only add time slots that are in the future not that have passed
-      if (!isToday || (isToday && hour > currentHour)) {
-        timeSlots.push(timeSlot);
-      }
-    }
-
-    return timeSlots;
-  };
 
   const bookedDates = bookings?.map(booking => dayjs(booking.date));
   const isDesktop = useMediaQuery(`(min-width: 36em`);
@@ -119,7 +127,6 @@ export default function Bookings() {
   const [choosenDate, setChoosenDate] = useState<Date | null>(new Date());
   const [formattedChoosenDate, setFormattedChoosenDate] = useState<string>('');
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
-  const [freeTimes, setFreeTimes] = useState<any[]>(getTimeOptions(new Date()));
 
   const dotsMenuIcon = (
     <svg
@@ -192,22 +199,21 @@ export default function Bookings() {
       setFilteredBookings(bookingsOfChoosenDay);
       setFormattedChoosenDate(dayjs(choosenDate).format('DD MMM'));
       console.log('filteredBookings:', filteredBookings);
-
-      const allTimes = getTimeOptions(choosenDate);
-      const freeTimesOfChoosenDay = allTimes.filter(
-        time => !bookingsOfChoosenDay.some(booking => booking.time === time)
-      );
-      const freeTimesWhereStatusIsntBooked = freeTimesOfChoosenDay.filter(
-        time =>
-          !bookingsOfChoosenDay.some(
-            booking =>
-              booking.bookingStatus !== 'booked' || 'bookedAndConfirmed'
-          )
-      );
-      setFreeTimes(freeTimesWhereStatusIsntBooked);
-      console.log('freeTimes:', freeTimes);
     }
   }, [choosenDate, bookings]);
+
+  // useEffect(() => {
+  //   const fetchNewBookings = async () => {
+  //     await refetchBookings();
+  //     console.log('useEffect triggered by socket!');
+  //   };
+  //   socket.on('bookingCreated', fetchNewBookings);
+
+  //   return () => {
+  //     socket.off('bookingCreated', fetchNewBookings);
+  //   };
+  // });
+
   return (
     <Box className={classes.container}>
       <Title order={3}>Bokningar</Title>
@@ -264,7 +270,9 @@ export default function Bookings() {
                         {findAvailableTables(b).map(table => (
                           <Menu.Item
                             key={table.id}
-                            onClick={() => console.log('')}
+                            onClick={() =>
+                              handleUpdateBookingWithTableNumber(b, table)
+                            }
                           >
                             <Box
                               style={{
@@ -282,6 +290,9 @@ export default function Bookings() {
                             </Box>
                           </Menu.Item>
                         ))}
+                        <Menu.Item onClick={() => handleDeleteBooking(b)}>
+                          <Text>Ta bort</Text>
+                        </Menu.Item>
                       </Menu.Dropdown>
                     </Menu>
                   </Box>
@@ -290,7 +301,11 @@ export default function Bookings() {
                   </Text>
                   <Text>{b.time}</Text>
                   <Text>Antal gäster: {b.guests}</Text>
-                  <Text>Bord: 5</Text>
+                  {b.tableNumber ? (
+                    <Text>Bord: {b.tableNumber}</Text>
+                  ) : (
+                    <Text>Bord: Ej valt</Text>
+                  )}
                   <Text>Status: {b.bookingStatus}</Text>
                   {index !== filteredBookings.length - 1 && (
                     <Divider style={{ marginTop: '0.5rem' }} />
