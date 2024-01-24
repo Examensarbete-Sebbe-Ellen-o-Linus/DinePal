@@ -99,8 +99,8 @@ export default function Bookings() {
     });
   };
 
-  const updateGuestAmountOnBooking =
-    api.booking.changeGuestSizeOfBooking.useMutation({
+  const updateCustomerOnBooking =
+    api.booking.updateCustomerOfBooking.useMutation({
       onSuccess: async data => {
         console.log('Booking updated:', data);
         setAmountOfGuests('');
@@ -109,7 +109,6 @@ export default function Bookings() {
           message: `Din bokning har uppdaterats till ${data.guests} gäster`,
           color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
         });
-        setOpened(false);
         await refetchBookings();
       },
       onError: error => {
@@ -117,10 +116,11 @@ export default function Bookings() {
       },
     });
 
-  const handleUpdateGuestAmountOnBooking = (booking: TableBooking) => {
-    updateGuestAmountOnBooking.mutate({
+  const handleUpdateCustomerOnBooking = (booking: TableBooking) => {
+    updateCustomerOnBooking.mutate({
       id: booking.id,
       guests: amountOfGuests.toString(),
+      // time: '12:00', // If you send a new time value it will also be changed
     });
   };
 
@@ -155,7 +155,6 @@ export default function Bookings() {
   const [formattedChoosenDate, setFormattedChoosenDate] = useState<string>('');
   const [filteredBookings, setFilteredBookings] = useState<TableBooking[]>([]);
   const [amountOfGuests, setAmountOfGuests] = useState<any>();
-  const [opened, setOpened] = useState(false);
 
   const dotsMenuIcon = (
     <svg
@@ -281,13 +280,7 @@ export default function Bookings() {
                   <Box key={b.id}>
                     <Box className={classes.bookingContainerTop}>
                       <Text>{b.email}</Text>
-                      <Menu
-                        opened={opened}
-                        onChange={setOpened}
-                        withinPortal
-                        position='bottom-end'
-                        withArrow
-                      >
+                      <Menu withinPortal position='bottom-end' withArrow>
                         <Menu.Target>
                           <ActionIcon size='lg' variant='subtle' color='gray'>
                             {dotsMenuIcon}
@@ -338,9 +331,7 @@ export default function Bookings() {
                                 onChange={value => setAmountOfGuests(value)}
                               />
                               <Button
-                                onClick={() =>
-                                  handleUpdateGuestAmountOnBooking(b)
-                                }
+                                onClick={() => handleUpdateCustomerOnBooking(b)}
                                 style={{ marginTop: '21px' }}
                               >
                                 Bekräfta
