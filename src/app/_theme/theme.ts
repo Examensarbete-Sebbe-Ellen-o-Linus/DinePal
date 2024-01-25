@@ -53,38 +53,38 @@ export const theme = createTheme({
       h1: {
         lineHeight: '1.3',
         fontWeight: '400',
-        fontSize: '69px',
+        fontSize: '61px',
       },
       h2: {
         lineHeight: '1.3',
         fontWeight: '400',
-        fontSize: '55px',
+        fontSize: '49px',
       },
       h3: {
         lineHeight: '1.3',
         fontWeight: '400',
-        fontSize: '44px',
+        fontSize: '39px',
       },
       h4: {
         lineHeight: '1.3',
         fontWeight: '400',
-        fontSize: '35px',
+        fontSize: '31px',
       },
       h5: {
         lineHeight: '1.3',
         fontWeight: '400',
-        fontSize: '28px',
+        fontSize: '25px',
       },
       h6: {
         lineHeight: '1.3',
         fontWeight: '400',
-        fontSize: '23px',
+        fontSize: '20px',
       },
     },
   },
   other: {
-    body1: '18px',
-    body2: '14px',
+    body1: '16px',
+    body2: '13px',
   },
   shadows: {
     primary: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
