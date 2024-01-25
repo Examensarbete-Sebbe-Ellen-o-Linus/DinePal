@@ -74,7 +74,7 @@ export default function MenuContent({ dishes, menu }: Props) {
 
   return (
     <>
-      <Container size={1120} className={scss.container}>
+      <Container maw={1120} className={scss.container}>
         <Box className={scss.grid}>
           <Box className={` ${!filterVisible ? scss.hideTop : scss.filterTop}`}>
             <Box>

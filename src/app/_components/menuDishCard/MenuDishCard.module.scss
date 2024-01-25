@@ -1,6 +1,7 @@
+@import '../../../styles/mantine';
+
 .card {
   display: flex;
-  width: 328px;
   padding: 16px;
   flex-direction: column;
   align-items: flex-start;
@@ -8,6 +9,9 @@
   border-radius: var(--mantine-radius-primary);
   background: var(--mantine-color-white-0);
   box-shadow: var(--mantine-shadow-primary);
+  > div {
+    width: 100%;
+  }
 }
 
 .card:active {
@@ -20,8 +24,8 @@
 }
 
 .image {
-  height: 326px;
-  width: 300px;
+  height: 240px;
+  width: 100%;
   border-radius: var(--mantine-radius-primary);
   transition:
     transform 0.3s ease,
@@ -52,7 +56,7 @@
 .headingPrice {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   align-self: stretch;
 }
 

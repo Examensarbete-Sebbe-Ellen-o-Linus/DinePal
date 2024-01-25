@@ -2,9 +2,16 @@
 
 .container {
   background-color: var(--mantine-color-black-3);
-  padding: 92px 32px;
+  padding: 92px 0px;
   @media (max-width: $mantine-breakpoint-sm) {
-    padding: 92px 16px;
+    padding: 92px 0px;
+  }
+
+  .innerContainer {
+    padding: 0 32px;
+    @media (max-width: $mantine-breakpoint-sm) {
+      padding: 0 16px;
+    }
   }
 
   .text {
