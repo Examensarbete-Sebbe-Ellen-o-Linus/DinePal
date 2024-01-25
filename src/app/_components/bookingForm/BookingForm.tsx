@@ -9,7 +9,6 @@ import 'dayjs/locale/sv';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
-import { showNotification } from '@mantine/notifications';
 import { io } from 'socket.io-client';
 import { theme } from '~/app/_theme/theme';
 import { bookingFormValidation } from '~/app/_validation/bookingFormValidation';
@@ -30,7 +29,6 @@ export interface FormikValues {
 }
 const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function BookingForm() {
-  // Don't know why the theme is not applied here. Using the value for xs here instead.
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectKey, setSelectKey] = useState('');
@@ -38,12 +36,6 @@ export default function BookingForm() {
 
   const bookTable = api.booking.createTableBooking.useMutation({
     onSuccess: async () => {
-      showNotification({
-        title: 'Bokning skickad',
-        message:
-          'Tack för din bokning! Vi återkommer med en bekräftelse så snart som möjligt.',
-        color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
-      });
       socket.emit('bookingCreated', 'booking created');
     },
   });
@@ -57,13 +49,11 @@ export default function BookingForm() {
       commentary: formik.values.commentary,
       firstName: formik.values.firstName,
       lastName: formik.values.lastName,
-      phone: formik.values.phone,
+      phone: formik.values.phone.toString(),
       bookingStatus: 'received',
     });
   };
 
-  // Supplies the user with available booking times. It will differ depending on which time and day the booking is made on
-  // This is now hardcoded. Come back and make the time for booking dynamic.
   const getTimeOptions = (date: Date) => {
     const currentDateTime = new Date();
     const isToday = currentDateTime.toDateString() === date.toDateString();
@@ -107,7 +97,6 @@ export default function BookingForm() {
   const maxSelectableDate = new Date(threeMonthBookingView);
   maxSelectableDate.setDate(maxSelectableDate.getDate() - 1);
 
-  // This is just to be able to change the color of the selected day in the calendar
   const getDayProps: DatePickerProps['getDayProps'] = date => {
     const selectedDate = formik.values.date;
     const styles: any = {};
@@ -296,6 +285,7 @@ export default function BookingForm() {
 
           <TextInput
             withAsterisk={true}
+            type='number'
             label='Telefon'
             name='phone'
             value={formik.values.phone}

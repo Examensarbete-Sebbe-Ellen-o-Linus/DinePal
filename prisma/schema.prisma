@@ -66,11 +66,11 @@ model VerificationToken {
 }
 
 model AllowedUsers {
-    id        String    @id @default(auto()) @map("_id") @db.ObjectId
-    username  String?   @unique
-    email     String?   @unique
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    username  String   @unique
+    email     String?  @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 type Image {

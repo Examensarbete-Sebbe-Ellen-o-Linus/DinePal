@@ -23,27 +23,28 @@ export default function AdminPanel() {
     const fetchNewBookings = async () => {
       await refetchBookings();
       console.log('useEffect triggered by socket!');
+      showNotification({
+        title: 'Ny bokning inkommen!',
+        message: 'Se den nya bokningen under boknings fliken.',
+        color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
+      });
     };
     const fetchNewOrders = async () => {
       await refetchOrders();
       console.log('useEffect triggered by socket!');
+      showNotification({
+        title: 'Ny order inkommen!',
+        message: 'Se den nya ordern under order fliken',
+        color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
+      });
     };
     socket.on('bookingCreated', fetchNewBookings);
-    showNotification({
-      title: 'Ny bokning inkommen!',
-      message: 'Se den nya bokningen under boknings fliken.',
-      color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
-    });
 
     socket.on('orderCreated', fetchNewOrders);
-    showNotification({
-      title: 'Ny order inkommen!',
-      message: 'Se den nya ordern under order fliken',
-      color: theme.colors?.orange ? theme.colors.orange[3] : '#FF5B00',
-    });
 
     return () => {
       socket.off('bookingCreated', fetchNewBookings);
+      socket.off('orderCreated', fetchNewOrders);
     };
   });
   return (

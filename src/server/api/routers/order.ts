@@ -6,14 +6,6 @@ import {
 } from '~/server/api/trpc';
 
 export const orderRouter = createTRPCRouter({
-  create: publicProcedure
-    .input(z.object({ name: z.string(), content: z.string() }))
-    .mutation(async ({ input: { name, content }, ctx }) => {
-      const food = await ctx.db.food.create({ data: { name, content } });
-
-      return food;
-    }),
-
   createOrder: publicProcedure
     .input(
       z.object({
