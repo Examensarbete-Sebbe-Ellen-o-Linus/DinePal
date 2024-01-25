@@ -160,6 +160,9 @@ export const fetchDishes = async (): Promise<IDish[]> => {
         "hotspot": image.hotspot,
         "crop": image.crop,
       },
+      "category": 
+      category->title,
+    
       price,
       tags[]
     }`
@@ -180,6 +183,7 @@ export const fetchSingleDish = async (slug: string): Promise<IDish> => {
       "url": image.asset->url,
       "hotspot": {...}, 
     },    
+    category,
     price,
     tags[]
   }`

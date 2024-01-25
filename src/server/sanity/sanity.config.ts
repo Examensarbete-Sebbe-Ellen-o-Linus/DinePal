@@ -72,6 +72,8 @@ export default defineConfig({
             // Regular document types
             S.documentTypeListItem('dish').title('Dish'),
             S.divider(),
+            S.documentTypeListItem('category').title('Category'),
+            S.divider(),
           ]),
     }),
     visionTool(),

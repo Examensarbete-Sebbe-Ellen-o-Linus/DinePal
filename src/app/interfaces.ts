@@ -57,6 +57,7 @@ export interface IDish {
   image: IImage;
   price: number;
   tags: string[];
+  category: string;
   slug: {
     current: string;
   };
