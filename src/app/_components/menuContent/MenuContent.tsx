@@ -55,7 +55,10 @@ export default function MenuContent({ dishes, menu }: Props) {
       setTimeout(() => {
         const element = document.getElementById(hash);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          const offset = element.getBoundingClientRect().top - 20;
+          window.scrollTo({
+            top: offset,
+          });
         }
       }, 100);
     }
