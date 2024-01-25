@@ -20,8 +20,8 @@ export default function MenuContent({ dishes, menu }: Props) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [categoryGroup, setCategoryGroup] = useState<ICategoryGroup>({});
   const menuSpacerRef = useRef<HTMLDivElement | null>(null);
-  type ICategoryGroup = Record<string, IDish[]>;
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.sm})`);
+  type ICategoryGroup = Record<string, IDish[]>;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,13 +80,9 @@ export default function MenuContent({ dishes, menu }: Props) {
           selectedTags.every(tag => dish.tags?.includes(tag))
       )
       .reduce<ICategoryGroup>((acc, dish: IDish) => {
-        const category = dish.category ?? 'Utan Kategori';
-
-        // Skapar en tillfällig variabel för att hantera arrayen
+        const category = dish.category ?? 'Övrigt';
         const categoryArray = acc[category] ?? [];
         categoryArray.push(dish);
-
-        // Tilldela den tillfälliga arrayen tillbaka till acc
         acc[category] = categoryArray;
         return acc;
       }, {});
