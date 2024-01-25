@@ -4,7 +4,7 @@
   padding: 48px 32px;
 
   @media (max-width: $mantine-breakpoint-sm) {
-    padding: 0 16px 48px;
+    padding: 32px 16px 48px;
   }
 
   h2 {
@@ -30,13 +30,14 @@
   }
 
   .filterTop,
-  .hideTop {
+  .filterHide {
     grid-column: 1 / -1;
+    justify-content: space-between;
+
     > div {
       display: flex;
       justify-content: space-between;
       gap: 24px;
-      flex-direction: column;
       @media (max-width: $mantine-breakpoint-sm) {
         flex-direction: column;
         gap: 8px;
@@ -100,8 +101,6 @@
 
 .input {
   border-radius: var(--mantine-radius-primary);
-  max-width: 400px;
-  width: 328px;
   &[data-expanded] {
     border-color: #4e4e4e6b;
     border-bottom-left-radius: 0;
