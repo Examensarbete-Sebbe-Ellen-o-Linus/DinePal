@@ -14,26 +14,18 @@
 
   .filterTop {
     @media (max-width: $mantine-breakpoint-sm) {
-      transition: top 0.3s ease-out;
+      transition: top 0.2s ease-out;
       align-items: unset;
-      justify-content: center;
-      position: fixed;
+      justify-content: flex-start;
+      position: sticky;
       display: flex;
       top: var(--header-height);
       z-index: 90;
+      padding: 16px;
       background-color: var(--mantine-color-white-3);
-      padding: 16px 0;
       left: 0;
+      top: var(--header-height);
       width: 100%;
-    }
-  }
-
-  .menuSpacer {
-    display: none;
-    height: 144px;
-    @media (max-width: $mantine-breakpoint-sm) {
-      display: grid;
-      grid-column: 1 / -1;
     }
   }
 
@@ -44,6 +36,7 @@
       display: flex;
       justify-content: space-between;
       gap: 24px;
+      flex-direction: column;
       @media (max-width: $mantine-breakpoint-sm) {
         flex-direction: column;
         gap: 8px;
@@ -62,9 +55,6 @@
   }
 }
 
-.hideTop {
-  top: -200%;
-}
 .categoryTitle {
   grid-column: 1/ -1;
 }
@@ -117,4 +107,13 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+  @media (max-width: $mantine-breakpoint-sm) {
+    width: 100%;
+    min-width: 300px;
+    max-width: none;
+  }
+}
+
+.filterHide {
+  top: -200%;
 }

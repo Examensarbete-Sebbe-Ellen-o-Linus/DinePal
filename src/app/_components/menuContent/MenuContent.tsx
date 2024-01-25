@@ -1,7 +1,7 @@
 'use client';
 import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { theme } from '~/app/_theme/theme';
 import { type IDish, type IMenuPage } from '~/app/interfaces';
 import MenuDishCard from '../menuDishCard/MenuDishCard';
@@ -15,36 +15,35 @@ interface Props {
 
 export default function MenuContent({ dishes, menu }: Props) {
   const [selectedTags, setSelectedTags] = useState<IconKey[]>([]);
-  const [lastScrollUp, setLastScrollUp] = useState(0);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [filterVisible, setFilterVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [categoryGroup, setCategoryGroup] = useState<ICategoryGroup>({});
-  const menuSpacerRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.sm})`);
   type ICategoryGroup = Record<string, IDish[]>;
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollUp = window.scrollY || document.documentElement.scrollTop;
-      if (scrollUp > lastScrollUp) {
-        setFilterVisible(false);
+      const currentScrollPos =
+        window.scrollY || document.documentElement.scrollTop;
+      const scrollDifference = prevScrollPos - currentScrollPos;
+
+      if (currentScrollPos > prevScrollPos) {
         setIsDropdownOpen(false);
-        if (menuSpacerRef.current && isMobile) {
-          menuSpacerRef.current.style.display = `grid`;
-          menuSpacerRef.current.style.height = `144px`;
-        } else if (menuSpacerRef.current && !isMobile) {
-          menuSpacerRef.current.style.display = `none`;
-        }
-      } else {
+      }
+      if (scrollDifference > 10) {
+        setFilterVisible(false);
+      } else if (scrollDifference < -10) {
         setFilterVisible(true);
       }
-      setLastScrollUp(scrollUp <= 0 ? 0 : scrollUp);
+
+      setPrevScrollPos(currentScrollPos);
     };
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [lastScrollUp, isMobile]);
+  }, [prevScrollPos, isMobile]);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -97,7 +96,9 @@ export default function MenuContent({ dishes, menu }: Props) {
     <>
       <Container maw={1120} className={scss.container}>
         <Box className={scss.grid}>
-          <Box className={` ${!filterVisible ? scss.hideTop : scss.filterTop}`}>
+          <Box
+            className={` ${!filterVisible ? scss.filterTop : scss.filterHide}`}
+          >
             <Box>
               <Title order={2}>{menu?.title}</Title>
               <Box>
@@ -121,7 +122,6 @@ export default function MenuContent({ dishes, menu }: Props) {
               </Box>
             </Box>
           </Box>
-          <Box className={scss.menuSpacer} ref={menuSpacerRef} />
           {dishes ? (
             Object.keys(categoryGroup).length > 0 ? (
               Object.entries(categoryGroup).map(
