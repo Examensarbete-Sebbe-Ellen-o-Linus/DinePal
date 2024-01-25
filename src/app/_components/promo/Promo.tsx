@@ -25,28 +25,26 @@ export default function Promo() {
     void fetchData();
   }, []);
 
+  if (!promo) {
+    return null;
+  }
+
   return (
     <Box className={scss.container}>
       <Container p={0} maw={1120}>
-        {!error ? (
-          promo && (
-            <>
-              <Box className={scss.innerContainer}>
-                <Title order={6} className={scss.text}>
-                  {promo.text}
-                </Title>
-                <LongButton
-                  text={promo.button?.text ?? 'Default Text'}
-                  color={'orange'}
-                  onClick={() =>
-                    (window.location.href = `/${promo.button?.pageType}`)
-                  }
-                />
-              </Box>
-            </>
-          )
-        ) : (
-          <Title order={6}>Kunde inte ladda datan</Title>
+        {promo && (
+          <Box className={scss.innerContainer}>
+            <Title order={6} className={scss.text}>
+              {promo.text}
+            </Title>
+            <LongButton
+              text={promo.button?.text ?? 'Default Text'}
+              color={'orange'}
+              onClick={() =>
+                (window.location.href = `/${promo.button?.pageType}`)
+              }
+            />
+          </Box>
         )}
       </Container>
     </Box>
