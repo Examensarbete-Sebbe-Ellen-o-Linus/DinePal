@@ -1,6 +1,8 @@
 'use client';
 import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
+import { useEffect, useRef, useState } from 'react';
+import { theme } from '~/app/_theme/theme';
 import { type IDish, type IMenuPage } from '~/app/interfaces';
 import MenuDishCard from '../menuDishCard/MenuDishCard';
 import { tagDetails, type IconKey } from '../tags/Tags';
@@ -17,7 +19,9 @@ export default function MenuContent({ dishes, menu }: Props) {
   const [filterVisible, setFilterVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [categoryGroup, setCategoryGroup] = useState<ICategoryGroup>({});
+  const menuSpacerRef = useRef<HTMLDivElement | null>(null);
   type ICategoryGroup = Record<string, IDish[]>;
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.sm})`);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +29,12 @@ export default function MenuContent({ dishes, menu }: Props) {
       if (scrollUp > lastScrollUp) {
         setFilterVisible(false);
         setIsDropdownOpen(false);
+        if (menuSpacerRef.current && isMobile) {
+          menuSpacerRef.current.style.display = `grid`;
+          menuSpacerRef.current.style.height = `144px`;
+        } else if (menuSpacerRef.current && !isMobile) {
+          menuSpacerRef.current.style.display = `none`;
+        }
       } else {
         setFilterVisible(true);
       }
@@ -34,7 +44,7 @@ export default function MenuContent({ dishes, menu }: Props) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [lastScrollUp]);
+  }, [lastScrollUp, isMobile]);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -112,6 +122,7 @@ export default function MenuContent({ dishes, menu }: Props) {
               </Box>
             </Box>
           </Box>
+          <Box className={scss.menuSpacer} ref={menuSpacerRef} />
           {dishes ? (
             Object.keys(categoryGroup).length > 0 ? (
               Object.entries(categoryGroup).map(
