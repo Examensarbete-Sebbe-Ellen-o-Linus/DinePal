@@ -113,6 +113,7 @@ export const bookingRouter = createTRPCRouter({
         },
         data: {
           tableNumber: input.tableNumber,
+          bookingStatus: 'booked',
         },
       });
 

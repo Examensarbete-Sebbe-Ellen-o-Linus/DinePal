@@ -138,8 +138,14 @@ export default function Bookings() {
 
   function findAvailableTables(booking: TableBooking): Table[] {
     if (!tables) return [];
-    const startOfBooking = dayjs(`${booking.date}T${booking.time}`);
+    const localDay = new Date(booking.date).toLocaleDateString('sv-SE');
+    const startOfBooking = dayjs(`${localDay}T${booking.time}`);
     const endOfBooking = startOfBooking.add(2, 'hour');
+    // console.log('startandendofbooking', startOfBooking, endOfBooking);
+
+    // const localDay = new Date(booking.date).toLocaleDateString('sv-SE');
+
+    // const startOfBooking = dayjs(`${localDay}T${booking.time}`);
 
     // Filter out tables with conflicting bookings
     const availableTables = tables.filter(table => {
@@ -249,7 +255,10 @@ export default function Bookings() {
   useEffect(() => {
     if (bookings && choosenDate) {
       const bookingsOfChoosenDay = bookings.filter(booking =>
-        dayjs(booking.date).isSame(choosenDate, 'day')
+        dayjs(booking.date.toLocaleDateString('SV-se')).isSame(
+          choosenDate,
+          'day'
+        )
       );
       setFilteredBookings(bookingsOfChoosenDay);
       setFormattedChoosenDate(dayjs(choosenDate).format('DD MMM'));
@@ -318,7 +327,7 @@ export default function Bookings() {
                           <Menu.Label>Hantera bokning</Menu.Label>
                           {findAvailableTables(b).map(table => (
                             <Menu.Item
-                              key={table.id}
+                              key={Math.random()}
                               onClick={() =>
                                 handleUpdateBookingWithTableNumber(b, table)
                               }
@@ -389,7 +398,6 @@ export default function Bookings() {
                                 onChange={value =>
                                   setChoosenTimeOfBooking(value?.toString())
                                 }
-                                // onClick={event => event.stopPropagation()}
                                 styles={{
                                   input: {
                                     width: '199px',
