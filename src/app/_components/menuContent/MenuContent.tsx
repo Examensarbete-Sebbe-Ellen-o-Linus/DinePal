@@ -27,16 +27,17 @@ export default function MenuContent({ dishes, menu }: Props) {
       const currentScrollPos =
         window.scrollY || document.documentElement.scrollTop;
       const scrollDifference = prevScrollPos - currentScrollPos;
-
-      if (currentScrollPos > prevScrollPos) {
-        setIsDropdownOpen(false);
+      if (isMobile) {
+        if (currentScrollPos > prevScrollPos) {
+          setIsDropdownOpen(false);
+        }
+        if (scrollDifference > 10) {
+          setFilterVisible(false);
+        } else if (scrollDifference < -10) {
+          setFilterVisible(true);
+          setIsDropdownOpen(false);
+        }
       }
-      if (scrollDifference > 10) {
-        setFilterVisible(false);
-      } else if (scrollDifference < -10) {
-        setFilterVisible(true);
-      }
-
       setPrevScrollPos(currentScrollPos);
     };
     window.addEventListener('scroll', handleScroll);
@@ -117,6 +118,7 @@ export default function MenuContent({ dishes, menu }: Props) {
                     position: 'bottom',
                     middlewares: { flip: false, shift: false },
                     offset: 0,
+                    zIndex: 99,
                   }}
                 />
               </Box>
