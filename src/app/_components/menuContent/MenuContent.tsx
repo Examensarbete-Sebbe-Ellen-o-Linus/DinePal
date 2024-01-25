@@ -12,11 +12,12 @@ interface Props {
 }
 
 export default function MenuContent({ dishes, menu }: Props) {
-  const [filteredDishes, setFilteredDishes] = useState<IDish[]>([]);
   const [selectedTags, setSelectedTags] = useState<IconKey[]>([]);
   const [lastScrollUp, setLastScrollUp] = useState(0);
   const [filterVisible, setFilterVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [categoryGroup, setCategoryGroup] = useState<ICategoryGroup>({});
+  type ICategoryGroup = Record<string, IDish[]>;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,17 +51,6 @@ export default function MenuContent({ dishes, menu }: Props) {
     }
   }, []);
 
-  useEffect(() => {
-    if (selectedTags.length === 0) {
-      setFilteredDishes(dishes);
-    } else {
-      const filtered = dishes.filter(dish =>
-        selectedTags.every(tag => dish.tags?.includes(tag))
-      );
-      setFilteredDishes(filtered);
-    }
-  }, [selectedTags, dishes]);
-
   const handleTagChange = (value: string[]) => {
     const tags = value.filter((tag): tag is IconKey => tag in tagDetails);
     setSelectedTags(tags);
@@ -71,6 +61,28 @@ export default function MenuContent({ dishes, menu }: Props) {
     label: detail.title,
     Icon: detail.Icon,
   }));
+
+  useEffect(() => {
+    const filteredAndGroupedDishes = dishes
+      .filter(
+        dish =>
+          selectedTags.length === 0 ||
+          selectedTags.every(tag => dish.tags?.includes(tag))
+      )
+      .reduce<ICategoryGroup>((acc, dish: IDish) => {
+        const category = dish.category ?? 'Utan Kategori';
+
+        // Skapar en tillfällig variabel för att hantera arrayen
+        const categoryArray = acc[category] ?? [];
+        categoryArray.push(dish);
+
+        // Tilldela den tillfälliga arrayen tillbaka till acc
+        acc[category] = categoryArray;
+        return acc;
+      }, {});
+
+    setCategoryGroup(filteredAndGroupedDishes);
+  }, [dishes, selectedTags]);
 
   return (
     <>
@@ -101,10 +113,21 @@ export default function MenuContent({ dishes, menu }: Props) {
             </Box>
           </Box>
           {dishes ? (
-            filteredDishes.length ? (
-              filteredDishes.map((dish, i) => (
-                <MenuDishCard key={i} dish={dish} />
-              ))
+            Object.keys(categoryGroup).length > 0 ? (
+              Object.entries(categoryGroup).map(
+                ([category, categoryDishes]) => (
+                  <Box key={category} className={scss.categoryTitle}>
+                    <Box className={scss.grid}>
+                      <Title order={5} className={scss.categoryTitle}>
+                        {category}
+                      </Title>
+                      {categoryDishes.map((dish, i) => (
+                        <MenuDishCard key={i} dish={dish} />
+                      ))}
+                    </Box>
+                  </Box>
+                )
+              )
             ) : (
               <Text className={scss.error}>
                 Det finns tyvärr inga rätter med valda filter. Testa något annat

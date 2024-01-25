@@ -56,6 +56,9 @@
 .hideTop {
   top: -100%;
 }
+.categoryTitle {
+  grid-column: 1/ -1;
+}
 
 .grid {
   display: grid;
