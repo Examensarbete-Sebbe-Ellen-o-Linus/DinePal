@@ -285,7 +285,8 @@ export default function BookingForm() {
 
           <TextInput
             withAsterisk={true}
-            type='number'
+            type='tel'
+            min={0}
             label='Telefon'
             name='phone'
             value={formik.values.phone}
