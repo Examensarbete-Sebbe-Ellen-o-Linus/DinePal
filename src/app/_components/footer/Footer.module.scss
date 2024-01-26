@@ -64,10 +64,14 @@
   white-space: nowrap;
 }
 
+.homeLink {
+  line-height: 0.1;
+}
+
 .logotype {
   order: 0;
   width: 168px;
-  height: 162px;
+  height: auto;
 
   @media (max-width: $mantine-breakpoint-sm) {
     order: -1;
