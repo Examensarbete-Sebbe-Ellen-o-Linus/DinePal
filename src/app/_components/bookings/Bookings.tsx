@@ -305,7 +305,7 @@ export default function Bookings() {
                     new Date(b.createdAt).getTime()
                 )
                 .map((b, index) => (
-                  <Box key={Math.random()}>
+                  <Box key={index}>
                     <Box className={classes.bookingContainerTop}>
                       <Text>{b.email}</Text>
                       <Menu withinPortal position='bottom-end' withArrow>
@@ -319,7 +319,7 @@ export default function Bookings() {
                           <Menu.Label>Hantera bokning</Menu.Label>
                           {findAvailableTables(b).map(table => (
                             <Menu.Item
-                              key={Math.random()}
+                              key={table.id}
                               onClick={() =>
                                 handleUpdateBookingWithTableNumber(b, table)
                               }
@@ -371,10 +371,7 @@ export default function Bookings() {
                               </Button>
                             </Box>
                           </Menu.Item>
-                          <Menu.Item
-                            onClick={event => event.stopPropagation()}
-                            closeMenuOnClick={false}
-                          >
+                          <Menu.Item closeMenuOnClick={false}>
                             <Box
                               style={{
                                 display: 'flex',
@@ -444,7 +441,7 @@ export default function Bookings() {
             tables
               .sort((a, b) => a.tableNumber - b.tableNumber)
               .map(table => (
-                <Box className={classes.tableRow} key={Math.random()}>
+                <Box className={classes.tableRow} key={table.id}>
                   <Text>
                     {tableIcon} {table.tableNumber}
                   </Text>
