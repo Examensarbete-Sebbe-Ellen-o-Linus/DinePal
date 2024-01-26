@@ -30,7 +30,12 @@ export default function OrderCard({ order }: Props) {
     return acc + dish.quantity;
   }, 0);
 
-  const { refetch: refetchOrders } = api.order.getOrders.useQuery();
+  const totalPrice = order.cart.dish.reduce((acc, dish) => {
+    if (!dish.price) return acc + 0;
+    return acc + dish.price * dish.quantity;
+  }, 0);
+
+  const { refetch: refetchOrders } = api.order.getTodaysOrders.useQuery();
 
   const updateOrderStatus = api.order.changeOrderStatus.useMutation({
     onSuccess: async () => {
@@ -138,7 +143,7 @@ export default function OrderCard({ order }: Props) {
       <Accordion.Item value='item-1'>
         <AccordionControl>
           <Box className={classes.accordionContent}>
-            <Text>{quantity} st</Text>
+            <Text>{quantity}st</Text>
             <Text>{order.orderNumber}</Text>
             {order.customer.comment !== '' ? commentIcon : transparentIcon}
             <Tooltip
@@ -157,7 +162,7 @@ export default function OrderCard({ order }: Props) {
           <Box>
             {order && order.orderStatus !== 'completed' && (
               <Text className={classes.timeAgo}>
-                Tillagd <ReactTimeAgo locale='sv' date={order.createdAt!} />
+                Tillagd <ReactTimeAgo locale='sv' date={order.createdAt} />
               </Text>
             )}
             <Text>
@@ -165,9 +170,14 @@ export default function OrderCard({ order }: Props) {
             </Text>
 
             {order.cart.dish.map((d, i) => (
-              <Text key={i}>
-                x{d.quantity} {d.title}
-              </Text>
+              <Box className={classes.dishRow} key={i}>
+                <Text>
+                  x{d.quantity} {d.title}
+                </Text>
+                <Box miw={d.price! > 99 ? '2.5rem' : '0'}>
+                  <Text>{d.price}:-</Text>
+                </Box>
+              </Box>
             ))}
           </Box>
           <Box>
@@ -180,6 +190,14 @@ export default function OrderCard({ order }: Props) {
                 <Text>{order.customer.comment}</Text>
               </>
             )}
+            <Box className={classes.totalPrice}>
+              <Text>
+                <strong>Totalt:</strong>
+              </Text>
+              <Text>
+                <strong>{totalPrice}:-</strong>
+              </Text>
+            </Box>
           </Box>
         </Accordion.Panel>
       </Accordion.Item>

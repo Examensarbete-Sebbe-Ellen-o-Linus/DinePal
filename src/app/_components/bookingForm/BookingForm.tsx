@@ -9,15 +9,17 @@ import 'dayjs/locale/sv';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
+import { io } from 'socket.io-client';
 import { theme } from '~/app/_theme/theme';
 import { bookingFormValidation } from '~/app/_validation/bookingFormValidation';
+import { api } from '~/trpc/react';
 import LongButton from '../longButton/LongButton';
 import classes from './BookingForm.module.scss';
 import BookingModal from './components/BookingModal';
 
 export interface FormikValues {
   guests: string;
-  date: Date | null;
+  date: Date;
   time: string;
   firstName: string;
   lastName: string;
@@ -25,16 +27,33 @@ export interface FormikValues {
   phone: string;
   commentary: string;
 }
-
+const socket = io('https://socket-server-dinepal-237ee597ef2d.herokuapp.com');
 export default function BookingForm() {
-  // Don't know why the theme is not applied here. Using the value for xs here instead.
   const isDesktop = useMediaQuery(`(min-width: 36em`);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectKey, setSelectKey] = useState('');
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
-  // Supplies the user with available booking times. It will differ depending on which time and day the booking is made on
-  // This is now hardcoded. Come back and make the time for booking dynamic.
+  const bookTable = api.booking.createTableBooking.useMutation({
+    onSuccess: async () => {
+      socket.emit('bookingCreated', 'booking created');
+    },
+  });
+
+  const handleTableBooking = () => {
+    bookTable.mutate({
+      guests: formik.values.guests.toString(),
+      date: formik.values.date,
+      time: formik.values.time,
+      email: formik.values.email,
+      commentary: formik.values.commentary,
+      firstName: formik.values.firstName,
+      lastName: formik.values.lastName,
+      phone: formik.values.phone.toString(),
+      bookingStatus: 'received',
+    });
+  };
+
   const getTimeOptions = (date: Date) => {
     const currentDateTime = new Date();
     const isToday = currentDateTime.toDateString() === date.toDateString();
@@ -78,29 +97,12 @@ export default function BookingForm() {
   const maxSelectableDate = new Date(threeMonthBookingView);
   maxSelectableDate.setDate(maxSelectableDate.getDate() - 1);
 
-  // This is just to be able to change the color of the selected day in the calendar
   const getDayProps: DatePickerProps['getDayProps'] = date => {
     const selectedDate = formik.values.date;
-    const specialDates = ['2024-01-10', '2024-01-8', '2024-01-6'];
     const styles: any = {};
     if (selectedDate && dayjs(date).isSame(selectedDate, 'day')) {
       styles.backgroundColor = theme.colors?.black?.[3] ?? '#221F1F';
     }
-
-    if (date.getDate() === 29 && date.getMonth() === 0) {
-      styles.backgroundColor = theme.colors?.red?.[6] ?? '#FA5252';
-      styles.color = theme.colors?.white?.[1] ?? '#ffffff';
-      styles.borderRadius = '50%';
-    }
-
-    if (
-      specialDates.some(specialDate => dayjs(date).isSame(specialDate, 'day'))
-    ) {
-      styles.backgroundColor = theme.colors?.red?.[6] ?? '#FA5252';
-      styles.color = theme.colors?.white?.[1] ?? '#ffffff';
-      styles.borderRadius = '50%';
-    }
-
     if (Object.keys(styles).length > 0) {
       return { style: styles };
     }
@@ -110,7 +112,7 @@ export default function BookingForm() {
   const formik = useFormik({
     initialValues: {
       guests: '',
-      date: null,
+      date: new Date(),
       time: '',
       firstName: '',
       lastName: '',
@@ -148,6 +150,7 @@ export default function BookingForm() {
     void formik.validateForm().then(errors => {
       if (Object.keys(errors).length === 0) {
         setModalOpen(true);
+        console.log('values:', formik.values);
       }
     });
   }
@@ -282,6 +285,8 @@ export default function BookingForm() {
 
           <TextInput
             withAsterisk={true}
+            type='tel'
+            min={0}
             label='Telefon'
             name='phone'
             value={formik.values.phone}
@@ -311,7 +316,7 @@ export default function BookingForm() {
         formikValues={formik.values}
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={handleSubmitForm}
+        onConfirm={() => handleTableBooking()}
         onReset={resetForm}
       />
     </Box>

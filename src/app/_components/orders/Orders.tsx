@@ -8,7 +8,7 @@ import OrderCard from '../orderCard/OrderCard';
 import classes from './order.module.scss';
 
 export default function Orders() {
-  const { data: fetchedOrders } = api.order.getOrders.useQuery();
+  const { data: fetchedOrders } = api.order.getTodaysOrders.useQuery();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.xs})`);
   const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints?.md})`);
 
@@ -42,6 +42,11 @@ export default function Orders() {
                     .filter(
                       fetchedOrders => fetchedOrders.orderStatus === 'received'
                     )
+                    .sort(
+                      (a, b) =>
+                        new Date(a.createdAt).getTime() -
+                        new Date(b.createdAt).getTime()
+                    )
                     .map(order => <OrderCard key={order.id} order={order} />)}
               </Box>
             </Tabs.Panel>
@@ -54,6 +59,11 @@ export default function Orders() {
                     .filter(
                       fetchedOrders => fetchedOrders.orderStatus === 'ongoing'
                     )
+                    .sort(
+                      (a, b) =>
+                        new Date(a.createdAt).getTime() -
+                        new Date(b.createdAt).getTime()
+                    )
                     .map(order => <OrderCard key={order.id} order={order} />)}
               </Box>
             </Tabs.Panel>
@@ -65,6 +75,11 @@ export default function Orders() {
                   fetchedOrders
                     .filter(
                       fetchedOrders => fetchedOrders.orderStatus === 'completed'
+                    )
+                    .sort(
+                      (a, b) =>
+                        new Date(a.createdAt).getTime() -
+                        new Date(b.createdAt).getTime()
                     )
                     .map(order => <OrderCard key={order.id} order={order} />)}
               </Box>
@@ -81,6 +96,11 @@ export default function Orders() {
                 .filter(
                   fetchedOrders => fetchedOrders.orderStatus === 'received'
                 )
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                )
                 .map(order => <OrderCard key={order.id} order={order} />)}
           </Box>
 
@@ -92,6 +112,11 @@ export default function Orders() {
                 .filter(
                   fetchedOrders => fetchedOrders.orderStatus === 'ongoing'
                 )
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                )
                 .map(order => <OrderCard key={order.id} order={order} />)}
           </Box>
 
@@ -102,6 +127,11 @@ export default function Orders() {
               fetchedOrders
                 .filter(
                   fetchedOrders => fetchedOrders.orderStatus === 'completed'
+                )
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
                 )
                 .map(order => <OrderCard key={order.id} order={order} />)}
           </Box>

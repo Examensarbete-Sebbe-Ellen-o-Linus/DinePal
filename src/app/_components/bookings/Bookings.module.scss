@@ -1,0 +1,48 @@
+@import '../../../styles/mantine';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.boxContainer {
+  display: flex;
+  padding: 16px;
+  gap: 16px;
+  border-radius: var(--mantine-radius-primary);
+  background: var(--mantine-color-white-0);
+  box-shadow: var(--mantine-shadow-primary);
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column;
+  }
+}
+
+.bookingsContainer {
+  min-width: 20em;
+  min-height: 10em;
+  max-height: 20em;
+  overflow-y: scroll;
+  @media (max-width: $mantine-breakpoint-sm) {
+    min-width: 0rem;
+  }
+}
+
+.tableSection {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+.tableRow {
+  display: flex;
+  gap: 1rem;
+}
+.tableText {
+  min-width: 13rem;
+}
+.bookingContainerTop {
+  display: flex;
+  justify-content: space-between;
+}
