@@ -66,11 +66,11 @@ model VerificationToken {
 }
 
 model AllowedUsers {
-    id        String    @id @default(auto()) @map("_id") @db.ObjectId
-    username  String?   @unique
-    email     String?   @unique
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    username  String   @unique
+    email     String?  @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 type Image {
@@ -111,10 +111,40 @@ enum Orderstatus {
 
 model Order {
     id          String      @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt   DateTime?   @default(now())
+    createdAt   DateTime    @default(now())
     cart        Cart
     customer    Customer
     orderStatus Orderstatus @default(received)
     totalPrice  Int
     orderNumber String
+}
+
+enum BookingStatus {
+    received
+    cancelled
+    booked
+    bookedAndConfirmed
+}
+
+model TableBooking {
+    id            String        @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt     DateTime      @default(now())
+    updatedAt     DateTime      @updatedAt
+    tableNumber   Int?
+    date          DateTime
+    time          String
+    email         String
+    commentary    String?
+    firstName     String
+    lastName      String
+    phone         String
+    guests        String
+    bookingStatus BookingStatus @default(received)
+}
+
+model Table {
+    id          String    @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt   DateTime? @default(now())
+    tableNumber Int
+    size        Int
 }

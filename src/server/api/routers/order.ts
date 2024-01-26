@@ -6,14 +6,6 @@ import {
 } from '~/server/api/trpc';
 
 export const orderRouter = createTRPCRouter({
-  create: publicProcedure
-    .input(z.object({ name: z.string(), content: z.string() }))
-    .mutation(async ({ input: { name, content }, ctx }) => {
-      const food = await ctx.db.food.create({ data: { name, content } });
-
-      return food;
-    }),
-
   createOrder: publicProcedure
     .input(
       z.object({
@@ -62,8 +54,22 @@ export const orderRouter = createTRPCRouter({
       }
     ),
 
-  getOrders: protectedProcedure.query(async ({ ctx }) => {
+  getAllOrders: protectedProcedure.query(async ({ ctx }) => {
     const orders = await ctx.db.order.findMany({});
+    return orders;
+  }),
+
+  getTodaysOrders: protectedProcedure.query(async ({ ctx }) => {
+    const today = new Date(new Date().setHours(0, 0, 0, 0));
+
+    const orders = await ctx.db.order.findMany({
+      where: {
+        createdAt: {
+          gte: today,
+        },
+      },
+    });
+
     return orders;
   }),
 

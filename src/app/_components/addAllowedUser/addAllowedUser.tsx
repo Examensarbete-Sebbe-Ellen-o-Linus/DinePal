@@ -1,5 +1,6 @@
 'use client';
-import { Button } from '@mantine/core';
+import { Box, Button, Text } from '@mantine/core';
+import type { User } from 'next-auth';
 import { useState } from 'react';
 import { api } from '~/trpc/react';
 
@@ -17,14 +18,30 @@ const AddAllowedUser = () => {
     addUser.mutate({ username: name });
   };
 
+  const deleteUser = api.allowedUsers.delete.useMutation({
+    onSuccess: async data => {
+      await refetch();
+      console.log('answer:', data);
+    },
+    onError: error => {
+      console.log('error:', error);
+    },
+  });
+
+  const handleDeleteUser = (u: User) => {
+    if (!u) return;
+    deleteUser.mutate({ id: u.id });
+  };
+
   return (
     <>
       <div>
         {data &&
           data.map((u, index: number) => (
-            <div key={index}>
-              <p>{u.username}</p>
-            </div>
+            <Box style={{ display: 'flex', gap: '1rem' }} key={index}>
+              <Text>{u.username}</Text>
+              <Button onClick={() => handleDeleteUser(u)}>Delete</Button>
+            </Box>
           ))}
         <form
           onSubmit={e => {

@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getServerAuthSession } from '~/server/auth';
-import Orders from '../_components/orders/Orders';
+import AdminPanel from '../_components/adminPanel/AdminPanel';
 import classes from './businessPage.module.scss';
 
 export const metadata: Metadata = {
@@ -17,33 +17,29 @@ export default async function BusinessPage() {
   const session = await getServerAuthSession();
 
   return (
-    <div>
-      <p>
-        {!session && (
-          <Box className={classes.loginSection}>
-            <Text>Logga in för att att få tillgång till denna sidan.</Text>
-            <Button>
-              <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
-                {session ? 'Logga ut' : 'Logga in'}
-              </Link>
-            </Button>
-          </Box>
-        )}
-      </p>
-      <p>{session && <Text>Inloggad som {session.user?.name}</Text>}</p>
-
-      {session && (
-        <Box>
+    <Box>
+      {!session && (
+        <Box className={classes.loginSection}>
+          <Text>Logga in för att att få tillgång till denna sidan.</Text>
           <Button>
             <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
               {session ? 'Logga ut' : 'Logga in'}
             </Link>
           </Button>
-
-          <Orders />
         </Box>
       )}
-    </div>
+
+      {session && (
+        <Box style={{ width: '100%' }}>
+          <Button>
+            <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
+              {session ? 'Logga ut' : 'Logga in'}
+            </Link>
+          </Button>
+          <AdminPanel />
+        </Box>
+      )}
+    </Box>
   );
 }
 
