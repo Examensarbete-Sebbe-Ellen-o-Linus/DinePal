@@ -141,23 +141,15 @@ export default function Bookings() {
     const localDay = new Date(booking.date).toLocaleDateString('sv-SE');
     const startOfBooking = dayjs(`${localDay}T${booking.time}`);
     const endOfBooking = startOfBooking.add(2, 'hour');
-    // console.log('startandendofbooking', startOfBooking, endOfBooking);
-
-    // const localDay = new Date(booking.date).toLocaleDateString('sv-SE');
-
-    // const startOfBooking = dayjs(`${localDay}T${booking.time}`);
-
-    // Filter out tables with conflicting bookings
     const availableTables = tables.filter(table => {
       const conflictingBooking = filteredBookings.find(b => {
-        const bookingStart = dayjs(b.date);
+        const bookingStart = dayjs(b.date.toLocaleDateString('sv-SE'));
         const bookingEnd = bookingStart.add(2, 'hour');
         return (
-          (b.tableNumber === table.tableNumber &&
-            b.bookingStatus === 'booked') ||
-          ('bookedAndConfirmed' &&
-            bookingStart.isBefore(endOfBooking) &&
-            bookingEnd.isAfter(startOfBooking))
+          b.tableNumber === table.tableNumber &&
+          b.bookingStatus === 'booked' &&
+          bookingStart.isBefore(endOfBooking) &&
+          bookingEnd.isAfter(startOfBooking)
         );
       });
       return !conflictingBooking;
@@ -313,7 +305,7 @@ export default function Bookings() {
                     new Date(b.createdAt).getTime()
                 )
                 .map((b, index) => (
-                  <Box key={b.id}>
+                  <Box key={Math.random()}>
                     <Box className={classes.bookingContainerTop}>
                       <Text>{b.email}</Text>
                       <Menu withinPortal position='bottom-end' withArrow>
@@ -452,7 +444,7 @@ export default function Bookings() {
             tables
               .sort((a, b) => a.tableNumber - b.tableNumber)
               .map(table => (
-                <Box className={classes.tableRow} key={table.id}>
+                <Box className={classes.tableRow} key={Math.random()}>
                   <Text>
                     {tableIcon} {table.tableNumber}
                   </Text>
