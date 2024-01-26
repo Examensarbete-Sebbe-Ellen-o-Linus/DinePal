@@ -4,7 +4,7 @@
   padding: 48px 32px;
 
   @media (max-width: $mantine-breakpoint-sm) {
-    padding: 0 16px 48px;
+    padding: 32px 16px 48px;
   }
 
   h2 {
@@ -14,23 +14,26 @@
 
   .filterTop {
     @media (max-width: $mantine-breakpoint-sm) {
-      transition: top 0.3s ease-out;
+      transition: top 0.2s ease-out;
       align-items: unset;
-      justify-content: center;
-      position: fixed;
+      justify-content: flex-start;
+      position: sticky;
       display: flex;
       top: var(--header-height);
       z-index: 90;
+      padding: 16px;
       background-color: var(--mantine-color-white-3);
-      padding: 16px 0;
       left: 0;
+      top: var(--header-height);
       width: 100%;
     }
   }
 
   .filterTop,
-  .hideTop {
+  .filterHide {
     grid-column: 1 / -1;
+    justify-content: space-between;
+
     > div {
       display: flex;
       justify-content: space-between;
@@ -53,8 +56,8 @@
   }
 }
 
-.hideTop {
-  top: -100%;
+.categoryTitle {
+  grid-column: 1/ -1;
 }
 
 .grid {
@@ -69,7 +72,6 @@
 
   @media (max-width: $mantine-breakpoint-sm) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 250px;
   }
 
   @media (max-width: $mantine-breakpoint-xs) {
@@ -81,11 +83,11 @@
   max-width: 600px;
   width: 100vw;
   padding: 48px 0;
+  grid-column: 1 / -1;
 
   @media (max-width: $mantine-breakpoint-sm) {
     padding: 24px 0;
     max-width: 100%;
-    grid-template-columns: 1fr;
   }
 }
 
@@ -99,11 +101,18 @@
 
 .input {
   border-radius: var(--mantine-radius-primary);
-  max-width: 400px;
-  width: 328px;
   &[data-expanded] {
     border-color: #4e4e4e6b;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+  @media (max-width: $mantine-breakpoint-sm) {
+    width: 100%;
+    min-width: 300px;
+    max-width: none;
+  }
+}
+
+.filterHide {
+  top: -200%;
 }

@@ -41,6 +41,13 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'reference',
+      to: {type: 'category'},
+      description: 'Select a category',
+    }),
+    defineField({
       name: 'price',
       title: 'Price',
       description:

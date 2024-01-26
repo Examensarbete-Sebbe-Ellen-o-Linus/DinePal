@@ -1,6 +1,8 @@
 'use client';
 import { Box, Container, MultiSelect, Text, Title } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
+import { theme } from '~/app/_theme/theme';
 import { type IDish, type IMenuPage } from '~/app/interfaces';
 import MenuDishCard from '../menuDishCard/MenuDishCard';
 import { tagDetails, type IconKey } from '../tags/Tags';
@@ -12,28 +14,37 @@ interface Props {
 }
 
 export default function MenuContent({ dishes, menu }: Props) {
-  const [filteredDishes, setFilteredDishes] = useState<IDish[]>([]);
   const [selectedTags, setSelectedTags] = useState<IconKey[]>([]);
-  const [lastScrollUp, setLastScrollUp] = useState(0);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [filterVisible, setFilterVisible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [categoryGroup, setCategoryGroup] = useState<ICategoryGroup>({});
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.sm})`);
+  type ICategoryGroup = Record<string, IDish[]>;
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollUp = window.scrollY || document.documentElement.scrollTop;
-      if (scrollUp > lastScrollUp) {
-        setFilterVisible(false);
-        setIsDropdownOpen(false);
-      } else {
-        setFilterVisible(true);
+      const currentScrollPos =
+        window.scrollY || document.documentElement.scrollTop;
+      const scrollDifference = prevScrollPos - currentScrollPos;
+      if (isMobile) {
+        if (currentScrollPos > prevScrollPos) {
+          setIsDropdownOpen(false);
+        }
+        if (scrollDifference > 10) {
+          setFilterVisible(false);
+        } else if (scrollDifference < -10) {
+          setFilterVisible(true);
+          setIsDropdownOpen(false);
+        }
       }
-      setLastScrollUp(scrollUp <= 0 ? 0 : scrollUp);
+      setPrevScrollPos(currentScrollPos);
     };
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [lastScrollUp]);
+  }, [prevScrollPos, isMobile]);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -44,22 +55,14 @@ export default function MenuContent({ dishes, menu }: Props) {
       setTimeout(() => {
         const element = document.getElementById(hash);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          const offset = element.getBoundingClientRect().top - 20;
+          window.scrollTo({
+            top: offset,
+          });
         }
       }, 100);
     }
   }, []);
-
-  useEffect(() => {
-    if (selectedTags.length === 0) {
-      setFilteredDishes(dishes);
-    } else {
-      const filtered = dishes.filter(dish =>
-        selectedTags.every(tag => dish.tags?.includes(tag))
-      );
-      setFilteredDishes(filtered);
-    }
-  }, [selectedTags, dishes]);
 
   const handleTagChange = (value: string[]) => {
     const tags = value.filter((tag): tag is IconKey => tag in tagDetails);
@@ -72,11 +75,31 @@ export default function MenuContent({ dishes, menu }: Props) {
     Icon: detail.Icon,
   }));
 
+  useEffect(() => {
+    const filteredAndGroupedDishes = dishes
+      .filter(
+        dish =>
+          selectedTags.length === 0 ||
+          selectedTags.every(tag => dish.tags?.includes(tag))
+      )
+      .reduce<ICategoryGroup>((acc, dish: IDish) => {
+        const category = dish.category ?? 'Övrigt';
+        const categoryArray = acc[category] ?? [];
+        categoryArray.push(dish);
+        acc[category] = categoryArray;
+        return acc;
+      }, {});
+
+    setCategoryGroup(filteredAndGroupedDishes);
+  }, [dishes, selectedTags]);
+
   return (
     <>
       <Container maw={1120} className={scss.container}>
         <Box className={scss.grid}>
-          <Box className={` ${!filterVisible ? scss.hideTop : scss.filterTop}`}>
+          <Box
+            className={` ${!filterVisible ? scss.filterTop : scss.filterHide}`}
+          >
             <Box>
               <Title order={2}>{menu?.title}</Title>
               <Box>
@@ -95,16 +118,28 @@ export default function MenuContent({ dishes, menu }: Props) {
                     position: 'bottom',
                     middlewares: { flip: false, shift: false },
                     offset: 0,
+                    zIndex: 99,
                   }}
                 />
               </Box>
             </Box>
           </Box>
           {dishes ? (
-            filteredDishes.length ? (
-              filteredDishes.map((dish, i) => (
-                <MenuDishCard key={i} dish={dish} />
-              ))
+            Object.keys(categoryGroup).length > 0 ? (
+              Object.entries(categoryGroup).map(
+                ([category, categoryDishes]) => (
+                  <Box key={category} className={scss.categoryTitle}>
+                    <Box className={scss.grid}>
+                      <Title order={5} className={scss.categoryTitle}>
+                        {category}
+                      </Title>
+                      {categoryDishes.map((dish, i) => (
+                        <MenuDishCard key={i} dish={dish} />
+                      ))}
+                    </Box>
+                  </Box>
+                )
+              )
             ) : (
               <Text className={scss.error}>
                 Det finns tyvärr inga rätter med valda filter. Testa något annat

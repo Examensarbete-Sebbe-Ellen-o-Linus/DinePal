@@ -1,3 +1,4 @@
+import category from './documents/category'
 import colorTheme from './documents/colorTheme'
 import dish from './documents/dish'
 import settings from './documents/settings'
@@ -34,4 +35,5 @@ export const schemaTypes = [
   seo,
   header,
   news,
+  category,
 ]

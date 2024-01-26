@@ -32,7 +32,7 @@ export default function Footer({ footer }: { footer: IFooter }) {
               ))}
             </Box>
 
-            <Link href={homePageLink ?? '/'}>
+            <Link className={classes.homeLink} href={homePageLink ?? '/'}>
               <img
                 className={classes.logotype}
                 src={logotype.url}
