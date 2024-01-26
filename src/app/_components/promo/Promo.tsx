@@ -27,20 +27,22 @@ export default function Promo() {
 
   return (
     <Box className={scss.container}>
-      <Container size={1120}>
+      <Container p={0} maw={1120}>
         {!error ? (
           promo && (
             <>
-              <Title order={6} className={scss.text}>
-                {promo.text}
-              </Title>
-              <LongButton
-                text={promo.button?.text ?? 'Default Text'}
-                color={'orange'}
-                onClick={() =>
-                  (window.location.href = `/${promo.button?.pageType}`)
-                }
-              />
+              <Box className={scss.innerContainer}>
+                <Title order={6} className={scss.text}>
+                  {promo.text}
+                </Title>
+                <LongButton
+                  text={promo.button?.text ?? 'Default Text'}
+                  color={'orange'}
+                  onClick={() =>
+                    (window.location.href = `/${promo.button?.pageType}`)
+                  }
+                />
+              </Box>
             </>
           )
         ) : (

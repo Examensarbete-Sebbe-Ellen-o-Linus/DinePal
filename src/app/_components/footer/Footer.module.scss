@@ -77,15 +77,14 @@
 .lowerContainer {
   display: flex;
   width: 100%;
-  padding-bottom: 16px;
   justify-content: space-between;
   align-items: flex-end;
 
   @media (max-width: $mantine-breakpoint-md) {
-    padding: 0 32px;
+    padding: 0 32px 32px;
   }
   @media (max-width: $mantine-breakpoint-sm) {
-    padding: 0 32px 60px;
+    padding: 0 32px;
     flex-direction: column;
     align-items: center;
     gap: 8px;
@@ -93,7 +92,7 @@
 }
 
 .copyRight {
-  font-size: 14px !important;
+  font-size: 13px !important;
 }
 
 .socialMedia {

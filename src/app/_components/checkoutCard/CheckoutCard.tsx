@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { formatPrice } from '~/app/formatPrice';
 import { type IImage } from '~/app/interfaces';
 import { fetchSettingsData } from '~/server/sanity/sanity.utils';
+import CustomCropImage from '../customCropImage/CustomCropImage';
 import Quantity from '../quantityButton/QuantityButton';
 import { RemoveFromCartButton } from '../removeFromCart/removeFromCart';
 import classes from './CheckoutCard.module.scss';
@@ -40,10 +41,9 @@ export default function CheckoutCard({ item }: ICheckoutCard) {
   return (
     <Box className={classes.container}>
       {item.dish.image.url ? (
-        <img
+        <CustomCropImage
+          image={item.dish.image}
           className={classes.imgContainer}
-          src={item.dish.image.url}
-          alt={item.dish.image.alt}
         />
       ) : (
         <img src={logo?.url} alt={logo?.alt} className={classes.error} />

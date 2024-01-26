@@ -1,35 +1,32 @@
+'use client';
+
 import { Box, Divider, Text, Title } from '@mantine/core';
 import { useCart } from 'context/cartContext';
 import Link from 'next/link';
 import type { IDish } from '~/app/interfaces';
 import AddButton from '../addButton/AddButton';
+import CustomCropImage from '../customCropImage/CustomCropImage';
 import PlaceholderSmall from '../placeholderSmall/PlaceholderSmall';
 import Tags from '../tags/Tags';
 import classes from './DishCard.module.scss';
 
 interface Props {
-  showDescription: boolean;
   dish: IDish;
 }
 
-export default function DishCard({ showDescription, dish }: Props) {
+export default function DishCard({ dish }: Props) {
   const { handleAddToCart } = useCart();
   const menuLink = `/menu#${dish?.slug?.current ?? '/menu'}`;
 
   return (
     <Box className={classes.card} id={dish.slug.current}>
       <Link href={menuLink}>
-        {dish.image.url ? (
-          <img
-            className={classes.image}
-            src={dish.image.url}
-            alt={dish.image.alt}
-          />
+        {dish.image?.url ? (
+          <CustomCropImage image={dish.image} className={classes.image} />
         ) : (
           <PlaceholderSmall hover={true} />
         )}
       </Link>
-
       <Box className={classes.top}>
         <Box className={classes.textTop}>
           <Box className={classes.headingPrice}>
@@ -38,7 +35,6 @@ export default function DishCard({ showDescription, dish }: Props) {
             </Link>
             <Text>{dish.price}:-</Text>
           </Box>
-          {showDescription && <Text>{dish.description}</Text>}
         </Box>
         <Box className={classes.bottom}>
           <Box className={classes.iconContainer}>
