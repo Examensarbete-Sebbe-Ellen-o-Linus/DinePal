@@ -17,7 +17,7 @@ import type {
 export const client = createClient({
   projectId: 'xjj2ak5d',
   dataset: 'production',
-  useCdn: true,
+  useCdn: false,
   apiVersion: '2023-12-20',
 })
 
