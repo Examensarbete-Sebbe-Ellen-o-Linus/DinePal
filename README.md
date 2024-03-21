@@ -2,7 +2,7 @@
 
 ### Link to project
 
-[Check out our project here](https://www.dine-pal.vercel.app)
+[Check out our project here](https://dine-pal.vercel.app/)
 
 ## Overview
 
